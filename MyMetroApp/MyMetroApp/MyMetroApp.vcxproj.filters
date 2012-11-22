@@ -23,10 +23,13 @@
   <ItemGroup>
     <ClCompile Include="MyMetroApp.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Framework.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyMetroApp.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ILogic.h" />
+    <ClInclude Include="Framework.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />

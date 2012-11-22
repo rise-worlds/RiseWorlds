@@ -120,10 +120,13 @@
     <Image Include="Assets\SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Framework.h" />
+    <ClInclude Include="ILogic.h" />
     <ClInclude Include="MyMetroApp.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework.cpp" />
     <ClCompile Include="MyMetroApp.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
