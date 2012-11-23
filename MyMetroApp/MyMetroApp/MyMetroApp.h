@@ -2,10 +2,10 @@
 
 #include "pch.h"
 
-ref class Direct3DApp1 sealed : public Windows::ApplicationModel::Core::IFrameworkView
+ref class MyMetroApp sealed : public Windows::ApplicationModel::Core::IFrameworkView
 {
 public:
-	Direct3DApp1();
+	MyMetroApp();
 	
 	// IFrameworkView 方法。
 	virtual void Initialize(Windows::ApplicationModel::Core::CoreApplicationView^ applicationView);

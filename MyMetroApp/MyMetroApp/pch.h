@@ -5,3 +5,6 @@
 #include <DirectXMath.h>
 #include <memory>
 #include <agile.h>
+
+#include <ppl.h>
+#include <ppltasks.h>
