@@ -8,8 +8,6 @@ package
 	import model.StatsModel;
 	import view.Ball;
 	import view.BallMediator;
-	import view.Readout;
-	import view.ReadoutMediator;
 	import org.robotlegs.mvcs.Context;
 	
 	public class MyContext extends Context
@@ -32,10 +30,9 @@ package
 			// Mediators will be created automatically when
 			// view instances arrive on stage (anywhere inside the context view)
 			mediatorMap.mapView(Ball, BallMediator);
-			mediatorMap.mapView(Readout, ReadoutMediator);
 			
-			// Manually add something to stage
-			contextView.addChild(new Readout());
+			//// Manually add something to stage
+			//contextView.addChild(new Readout());
 			
 			// And we're done
 			super.startup();
