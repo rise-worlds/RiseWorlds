@@ -1,7 +1,7 @@
-package controller 
+package game.controller 
 {
 	import org.robotlegs.mvcs.Command;
-	import view.Ball;
+	import game.view.Ball;
 	
 	public class CreateBallCommand extends Command
 	{

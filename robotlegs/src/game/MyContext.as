@@ -1,13 +1,13 @@
-package  
+package game 
 {
 	import flash.display.DisplayObjectContainer;
 	
 	import org.robotlegs.base.ContextEvent;
-	import controller.CreateBallCommand;
-	import controller.HelloFlashEvent;
-	import model.StatsModel;
-	import view.Ball;
-	import view.BallMediator;
+	import game.controller.CreateBallCommand;
+	import game.controller.HelloFlashEvent;
+	import game.model.StatsModel;
+	import game.view.Ball;
+	import game.view.BallMediator;
 	import org.robotlegs.mvcs.Context;
 	
 	public class MyContext extends Context
@@ -32,7 +32,7 @@ package
 			mediatorMap.mapView(Ball, BallMediator);
 			
 			//// Manually add something to stage
-			//contextView.addChild(new Readout());
+			//contextView.addChild(new Ball());
 			
 			// And we're done
 			super.startup();

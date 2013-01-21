@@ -1,8 +1,9 @@
-package view 
+package game.view 
 {
-	import controller.HelloFlashEvent;
 	import flash.events.MouseEvent;
-	import model.StatsModel;
+	import game.controller.CreateBallCommand;
+	import game.controller.HelloFlashEvent;
+	import game.model.StatsModel;
 	import org.robotlegs.mvcs.Mediator;
 	
 	public class BallMediator extends Mediator
@@ -23,12 +24,23 @@ package view
 		{
 			// Listen to the view
 			eventMap.mapListener(view, MouseEvent.CLICK, onClick);
+			eventMap.mapListener(eventDispatcher, HelloFlashEvent.BALL_CLICKED, onSomeBallClicked);
 		}
 		
 		protected function onClick(e:MouseEvent):void
 		{
 			// Manipulate the model
 			statsModel.recordBallClick();
+			
+			// 
+			dispatch(new HelloFlashEvent(HelloFlashEvent.BALL_CLICKED));
+			view.poke();
+		}
+		
+		protected function onSomeBallClicked(e:HelloFlashEvent):void
+		{
+			// Manipulate the view
+			view.poke();
 		}
 	}
 }

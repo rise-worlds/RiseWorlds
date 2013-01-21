@@ -1,4 +1,4 @@
-package model 
+package game.model 
 {
 	import org.robotlegs.mvcs.Actor;
 	

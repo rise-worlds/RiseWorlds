@@ -1,4 +1,4 @@
-package controller 
+package game.controller 
 {
 	import flash.events.Event;
 	

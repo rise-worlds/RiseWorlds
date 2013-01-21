@@ -1,4 +1,4 @@
-package view 
+package game.view 
 {
 	import flash.display.Sprite;
 	
@@ -27,6 +27,7 @@ package view
 			graphics.clear();
 			graphics.beginFill(color);
 			graphics.drawCircle(0, 0, radius);
+			graphics.endFill();
 		}
 	
 	}
