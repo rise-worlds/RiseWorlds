@@ -40,7 +40,7 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
-*.$tf
+$tf/
 
 # Build results
 [Dd]ebug/
@@ -63,6 +63,7 @@ local.properties
 *.vspscc
 .builds
 *.dotCover
+*.cachefile
 
 ## TODO: If you have NuGet Package Restore enabled, uncomment this
 #packages/
