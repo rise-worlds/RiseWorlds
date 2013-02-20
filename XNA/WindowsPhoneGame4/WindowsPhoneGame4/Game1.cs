@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Devices.Sensors;
 
 namespace WindowsPhoneGame4
 {
@@ -33,11 +34,18 @@ namespace WindowsPhoneGame4
         Point ringsSheetSize = new Point(6, 8);
         int ringsTimeSinceLastFrame = 0;
         const int ringsMillisecondsPerFrame = 50;
+        Vector2 ringsPosition = Vector2.Zero;
+
+        Accelerometer accelerometer;
+        Vector2 accelerometerData = new Vector2();
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = 480;
+            graphics.PreferredBackBufferHeight = 800;
 
             // Windows Phone 的默认帧速率为 30 fps。
             TargetElapsedTime = TimeSpan.FromTicks(333333);
@@ -55,8 +63,21 @@ namespace WindowsPhoneGame4
         protected override void Initialize()
         {
             // TODO: 在此处添加初始化逻辑
+            accelerometer = new Accelerometer();
+            accelerometer.CurrentValueChanged += accelerometer_CurrentValueChanged;
+            accelerometer.Start();
+
+            Viewport viewport = graphics.GraphicsDevice.Viewport;
+            ringsPosition = new Vector2((viewport.Width - ringsFrameSize.X) / 2, (viewport.Height - ringsFrameSize.Y) / 2);
 
             base.Initialize();
+        }
+
+        private void accelerometer_CurrentValueChanged(object sender, SensorReadingEventArgs<AccelerometerReading> e)
+        {
+            accelerometerData.X += (float)e.SensorReading.Acceleration.X;
+            accelerometerData.Y += -(float)e.SensorReading.Acceleration.Y;
+            ringsPosition += accelerometerData;
         }
 
         /// <summary>
@@ -82,6 +103,7 @@ namespace WindowsPhoneGame4
         protected override void UnloadContent()
         {
             // TODO: 在此处取消加载任何非 ContentManager 内容
+            accelerometer.Stop();
         }
 
         /// <summary>
@@ -96,6 +118,8 @@ namespace WindowsPhoneGame4
                 this.Exit();
 
             // TODO: 在此处添加更新逻辑
+            Viewport viewport = graphics.GraphicsDevice.Viewport;
+
             skullTimeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
             if (skullTimeSinceLastFrame > skullMillisecondsPerFrame)
             {
@@ -127,6 +151,26 @@ namespace WindowsPhoneGame4
                 }
                 ringsTimeSinceLastFrame = 0;
             }
+            if (ringsPosition.X < 0)
+            {
+                ringsPosition.X = 0;
+                accelerometerData.X = 0;
+            }
+            else if (ringsPosition.X > viewport.Width - ringsFrameSize.X)
+            {
+                ringsPosition.X = viewport.Width - ringsFrameSize.X;
+                accelerometerData.X = 0;
+            }
+            if (ringsPosition.Y < 0)
+            {
+                ringsPosition.Y = 0;
+                accelerometerData.Y = 0;
+            }
+            else if (ringsPosition.Y > viewport.Height - ringsFrameSize.Y)
+            {
+                ringsPosition.Y = viewport.Height - ringsFrameSize.Y;
+                accelerometerData.Y = 0;
+            }
 
             base.Update(gameTime);
         }
@@ -143,12 +187,12 @@ namespace WindowsPhoneGame4
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
             spriteBatch.Draw(skullTexture,
-                new Vector2(0, 100), //new Vector2((Window.ClientBounds.Height - skullFrameSize.X) / 2, (Window.ClientBounds.Width - skullFrameSize.Y) / 2), //Vector2.Zero,
+                new Vector2(0, 100),
                 new Rectangle(skullCurrentFrame.X * skullFrameSize.X, skullCurrentFrame.Y * skullFrameSize.Y, skullFrameSize.X, skullFrameSize.Y)
                 , Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             spriteBatch.Draw(ringsTexture,
-                new Vector2(100, 100), //new Vector2((Window.ClientBounds.Height - ringsFrameSize.X) / 2, (Window.ClientBounds.Width - ringsFrameSize.Y) / 2), //Vector2.Zero,
+                ringsPosition,
                 new Rectangle(ringsCurrentFrame.X * ringsFrameSize.X, ringsCurrentFrame.Y * ringsFrameSize.Y, ringsFrameSize.X, ringsFrameSize.Y)
                 , Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
