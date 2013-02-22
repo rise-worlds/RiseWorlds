@@ -15,11 +15,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsPhoneGame3Content", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsPhoneGame4", "WindowsPhoneGame4\WindowsPhoneGame4\WindowsPhoneGame4.csproj", "{C50C3911-3C08-4701-B52B-631DFD79601D}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "WindowsPhoneGame4Content", "WindowsPhoneGame4\WindowsPhoneGame4Content\WindowsPhoneGame4Content.contentproj", "{17E4C2B2-F34D-431E-9AC7-5E804432E2AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsPhoneGame4Content", "WindowsPhoneGame4\WindowsPhoneGame4Content\WindowsPhoneGame4Content.contentproj", "{17E4C2B2-F34D-431E-9AC7-5E804432E2AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UISampleContent", "UISample\UISampleContent\UISampleContent.contentproj", "{21FB26C2-8278-4E56-9281-3F2220AB7684}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UISample", "UISample\UISample\UISample.csproj", "{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 10
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs27
 		SccProjectUniqueName0 = WindowsPhoneGame1\\WindowsPhoneGame1Content\\WindowsPhoneGame1Content.contentproj
@@ -52,6 +56,26 @@ Global
 		SccAuxPath5 = https://tfs.codeplex.com/tfs/tfs27
 		SccLocalPath5 = WindowsPhoneGame3\\WindowsPhoneGame3
 		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName6 = UISample\\UISample\\UISample.csproj
+		SccProjectName6 = UISample/UISample
+		SccAuxPath6 = https://tfs.codeplex.com/tfs/tfs27
+		SccLocalPath6 = UISample\\UISample
+		SccProvider6 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName7 = UISample\\UISampleContent\\UISampleContent.contentproj
+		SccProjectName7 = UISample/UISampleContent
+		SccAuxPath7 = https://tfs.codeplex.com/tfs/tfs27
+		SccLocalPath7 = UISample\\UISampleContent
+		SccProvider7 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName8 = WindowsPhoneGame4\\WindowsPhoneGame4\\WindowsPhoneGame4.csproj
+		SccProjectName8 = WindowsPhoneGame4/WindowsPhoneGame4
+		SccAuxPath8 = https://tfs.codeplex.com/tfs/tfs27
+		SccLocalPath8 = WindowsPhoneGame4\\WindowsPhoneGame4
+		SccProvider8 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName9 = WindowsPhoneGame4\\WindowsPhoneGame4Content\\WindowsPhoneGame4Content.contentproj
+		SccProjectName9 = WindowsPhoneGame4/WindowsPhoneGame4Content
+		SccAuxPath9 = https://tfs.codeplex.com/tfs/tfs27
+		SccLocalPath9 = WindowsPhoneGame4\\WindowsPhoneGame4Content
+		SccProvider9 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -212,6 +236,42 @@ Global
 		{17E4C2B2-F34D-431E-9AC7-5E804432E2AB}.Release|Mixed Platforms.ActiveCfg = Release|Windows Phone
 		{17E4C2B2-F34D-431E-9AC7-5E804432E2AB}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
 		{17E4C2B2-F34D-431E-9AC7-5E804432E2AB}.Release|x86.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Debug|Any CPU.ActiveCfg = Debug|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Debug|Mixed Platforms.ActiveCfg = Debug|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Debug|x86.ActiveCfg = Debug|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Installer|Any CPU.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Installer|Mixed Platforms.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Installer|Windows Phone.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Installer|x86.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Release|Any CPU.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Release|Mixed Platforms.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{21FB26C2-8278-4E56-9281-3F2220AB7684}.Release|x86.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|Any CPU.ActiveCfg = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|Mixed Platforms.ActiveCfg = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|Mixed Platforms.Build.0 = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|Mixed Platforms.Deploy.0 = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|Windows Phone.Deploy.0 = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Debug|x86.ActiveCfg = Debug|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|Any CPU.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|Mixed Platforms.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|Mixed Platforms.Build.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|Mixed Platforms.Deploy.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|Windows Phone.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|Windows Phone.Build.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|Windows Phone.Deploy.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Installer|x86.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|Any CPU.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|Mixed Platforms.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|Mixed Platforms.Build.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|Mixed Platforms.Deploy.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|Windows Phone.Deploy.0 = Release|Windows Phone
+		{C9BACD92-D8AC-41E1-8CC8-6EBC207501FE}.Release|x86.ActiveCfg = Release|Windows Phone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
