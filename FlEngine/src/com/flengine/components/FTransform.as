@@ -41,7 +41,7 @@
             __mLocalTransformMatrix = new Matrix3D();
             super(param1);
             return;
-        }// end function
+        }
 
         public function get worldTransformMatrix() : Matrix3D
         {
@@ -58,7 +58,7 @@
                 __bWorldTransformMatrixDirty = false;
             }
             return __mWorldTransformMatrix;
-        }// end function
+        }
 
         public function get localTransformMatrix() : Matrix3D
         {
@@ -67,14 +67,14 @@
             __mLocalTransformMatrix.prependRotation(__nLocalRotation * 180 / 3.14159, Vector3D.Z_AXIS);
             __mLocalTransformMatrix.appendTranslation(nLocalX, nLocalY, 0);
             return __mLocalTransformMatrix;
-        }// end function
+        }
 
         override public function set active(param1:Boolean) : void
         {
             active = param1;
             bTransformDirty = _bActive;
             return;
-        }// end function
+        }
 
         public function getTransformedWorldTransformMatrix(param1:Number, param2:Number, param3:Number, param4:Boolean) : Matrix3D
         {
@@ -92,12 +92,12 @@
                 _loc_5.invert();
             }
             return _loc_5;
-        }// end function
+        }
 
         public function get x() : Number
         {
             return nLocalX;
-        }// end function
+        }
 
         public function set x(param1:Number) : void
         {
@@ -113,12 +113,12 @@
                 rAbsoluteMaskRect.x = rMaskRect.x + nWorldX;
             }
             return;
-        }// end function
+        }
 
         public function get y() : Number
         {
             return nLocalY;
-        }// end function
+        }
 
         public function set y(param1:Number) : void
         {
@@ -134,7 +134,7 @@
                 rAbsoluteMaskRect.y = rMaskRect.y + nWorldY;
             }
             return;
-        }// end function
+        }
 
         public function setPosition(param1:Number, param2:Number) : void
         {
@@ -154,7 +154,7 @@
                 rAbsoluteMaskRect.y = rMaskRect.y + nWorldY;
             }
             return;
-        }// end function
+        }
 
         public function setScale(param1:Number, param2:Number) : void
         {
@@ -169,12 +169,12 @@
                 cNode.cBody.scaleY = param2;
             }
             return;
-        }// end function
+        }
 
         public function get scaleX() : Number
         {
             return __nLocalScaleX;
-        }// end function
+        }
 
         public function set scaleX(param1:Number) : void
         {
@@ -186,12 +186,12 @@
                 cNode.cBody.scaleX = param1;
             }
             return;
-        }// end function
+        }
 
         public function get scaleY() : Number
         {
             return __nLocalScaleY;
-        }// end function
+        }
 
         public function set scaleY(param1:Number) : void
         {
@@ -203,12 +203,12 @@
                 cNode.cBody.scaleY = param1;
             }
             return;
-        }// end function
+        }
 
         public function get rotation() : Number
         {
             return __nLocalRotation;
-        }// end function
+        }
 
         public function set rotation(param1:Number) : void
         {
@@ -220,7 +220,7 @@
                 cNode.cBody.rotation = param1;
             }
             return;
-        }// end function
+        }
 
         public function set color(param1:int) : void
         {
@@ -228,12 +228,12 @@
             green = (param1 >> 8 & 255) / 255;
             blue = (param1 & 255) / 255;
             return;
-        }// end function
+        }
 
         public function get red() : Number
         {
             return _red;
-        }// end function
+        }
 
         public function set red(param1:Number) : void
         {
@@ -241,12 +241,12 @@
             nWorldRed = param1;
             bColorDirty = true;
             return;
-        }// end function
+        }
 
         public function get green() : Number
         {
             return _green;
-        }// end function
+        }
 
         public function set green(param1:Number) : void
         {
@@ -254,12 +254,12 @@
             nWorldGreen = param1;
             bColorDirty = true;
             return;
-        }// end function
+        }
 
         public function get blue() : Number
         {
             return _blue;
-        }// end function
+        }
 
         public function set blue(param1:Number) : void
         {
@@ -267,12 +267,12 @@
             nWorldBlue = param1;
             bColorDirty = true;
             return;
-        }// end function
+        }
 
         public function get alpha() : Number
         {
             return _alpha;
-        }// end function
+        }
 
         public function set alpha(param1:Number) : void
         {
@@ -280,12 +280,12 @@
             nWorldAlpha = param1;
             bColorDirty = true;
             return;
-        }// end function
+        }
 
         public function get mask() : FNode
         {
             return cMask;
-        }// end function
+        }
 
         public function set mask(param1:FNode) : void
         {
@@ -296,12 +296,12 @@
             cMask = param1;
             (cMask.iUsedAsMask + 1);
             return;
-        }// end function
+        }
 
         public function get maskRect() : Rectangle
         {
             return rMaskRect;
-        }// end function
+        }
 
         public function set maskRect(param1:Rectangle) : void
         {
@@ -310,7 +310,7 @@
             rAbsoluteMaskRect.x = rAbsoluteMaskRect.x + nWorldX;
             rAbsoluteMaskRect.y = rAbsoluteMaskRect.y + nWorldY;
             return;
-        }// end function
+        }
 
         function invalidate(param1:Boolean, param2:Boolean) : void
         {
@@ -376,7 +376,7 @@
                 bColorDirty = false;
             }
             return;
-        }// end function
+        }
 
         public function setColor(param1:Number = 1, param2:Number = 1, param3:Number = 1, param4:Number = 1) : void
         {
@@ -385,7 +385,7 @@
             blue = param3;
             alpha = param4;
             return;
-        }// end function
+        }
 
         public function worldToLocal(param1:Vector3D) : Vector3D
         {
@@ -395,7 +395,7 @@
             }
             var _loc_2:* = getTransformedWorldTransformMatrix(1, 1, 0, true);
             return _loc_2.transformVector(param1);
-        }// end function
+        }
 
         public function localToWorld(param1:Vector3D) : Vector3D
         {
@@ -405,12 +405,12 @@
             }
             param1 = localTransformMatrix.transformVector(param1);
             return cNode.cParent.cTransform.localToWorld(param1);
-        }// end function
+        }
 
         public function toString() : String
         {
             return "[" + x + "," + y + "," + scaleX + "," + scaleY + "]\n[" + nWorldX + "," + nWorldY + "]";
-        }// end function
+        }
 
     }
 }

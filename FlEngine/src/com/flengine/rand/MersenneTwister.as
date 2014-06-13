@@ -21,7 +21,7 @@
         {
             mt = new Vector.<Number>;
             return;
-        }// end function
+        }
 
         public function SetSeed(param1:Number) : void
         {
@@ -42,7 +42,7 @@
                 (z + 1);
             }
             return;
-        }// end function
+        }
 
         public function Next() : Number
         {
@@ -82,13 +82,13 @@
             y = y ^ y >> 18 & 16383;
             y = y & 2147483647;
             return y / 2147483647;
-        }// end function
+        }
 
         public function Reset() : void
         {
             SetSeed(mSeed);
             return;
-        }// end function
+        }
 
     }
 }

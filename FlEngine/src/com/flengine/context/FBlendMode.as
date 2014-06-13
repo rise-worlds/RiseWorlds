@@ -15,20 +15,20 @@
         public function FBlendMode()
         {
             return;
-        }// end function
+        }
 
         public static function addBlendMode(param1:Array, param2:Array) : int
         {
             blendFactors[0].push(param1);
             blendFactors[1].push(param2);
             return blendFactors[0].length;
-        }// end function
+        }
 
-        static function setBlendMode(param1:Context3D, param2:int, param3:Boolean) : void
+        public static function setBlendMode(param1:Context3D, param2:int, param3:Boolean) : void
         {
             param1.setBlendFactors(blendFactors[param3][param2][0], blendFactors[param3][param2][1]);
             return;
-        }// end function
+        }
 
     }
 }

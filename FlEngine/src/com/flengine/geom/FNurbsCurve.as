@@ -21,7 +21,7 @@
                 generateKnotVector();
             }
             return;
-        }// end function
+        }
 
         public function generateKnotVector() : void
         {
@@ -48,25 +48,25 @@
             }
             knot.push(2);
             return;
-        }// end function
+        }
 
         public function set d(param1:int) : void
         {
             _d = param1;
             return;
-        }// end function
+        }
 
         public function get d() : int
         {
             return _d;
-        }// end function
+        }
 
         override public function addPoint(param1:Number, param2:Number, param3:Number = -1) : void
         {
             super.addPoint(param1, param2, param3);
             generateKnotVector();
             return;
-        }// end function
+        }
 
         private function Nik(param1:int, param2:int, param3:Number) : Number
         {
@@ -88,7 +88,7 @@
                 _loc_4 = _loc_4 + (knot[param1 + param2 + 1] - param3) / (knot[param1 + param2 + 1] - knot[(param1 + 1)]) * Nik((param1 + 1), (param2 - 1), param3);
             }
             return _loc_4;
-        }// end function
+        }
 
         private function Nikd(param1:int, param2:int, param3:Number) : Number
         {
@@ -106,7 +106,7 @@
                 _loc_4 = _loc_4 + (-Nik((param1 + 1), (param2 - 1), param3) + (knot[param1 + param2 + 1] - param3) * Nikd((param1 + 1), (param2 - 1), param3)) / (knot[param1 + param2 + 1] - knot[(param1 + 1)]);
             }
             return _loc_4;
-        }// end function
+        }
 
         override public function getNormalAtDistance(param1:Number) : Point
         {
@@ -123,7 +123,7 @@
                 _loc_4 = _loc_4 + 2;
             }
             return _loc_2;
-        }// end function
+        }
 
         override public function interpolateByDistance(param1:Number) : Point
         {
@@ -140,7 +140,7 @@
                 _loc_4 = _loc_4 + 2;
             }
             return _loc_2;
-        }// end function
+        }
 
     }
 }

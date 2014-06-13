@@ -28,13 +28,13 @@
             }
             z = new Vector.<Number>(4, true);
             return;
-        }// end function
+        }
 
         public function rebuild() : void
         {
             mIsBuilt = false;
             return;
-        }// end function
+        }
 
         public function evaluate(param1:Number) : Number
         {
@@ -65,7 +65,7 @@
                 _loc_6++;
             }
             return points[(points.length - 1)].fx;
-        }// end function
+        }
 
         private function build() : Boolean
         {
@@ -85,7 +85,7 @@
                 _loc_3++;
             }
             return true;
-        }// end function
+        }
 
         private function createPiece(param1:int) : HermitePiece
         {
@@ -132,7 +132,7 @@
                 _loc_6++;
             }
             return _loc_4;
-        }// end function
+        }
 
         private function evaluatePiece(param1:Number, param2:Number, param3:Number, param4:HermitePiece) : Number
         {
@@ -150,7 +150,7 @@
                 _loc_7++;
             }
             return _loc_6;
-        }// end function
+        }
 
     }
 }

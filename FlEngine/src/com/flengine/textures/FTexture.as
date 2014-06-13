@@ -41,12 +41,12 @@
                 invalidate();
             }
             return;
-        }// end function
+        }
 
         public function get nativeObject() : DisplayObject
         {
             return doNativeObject;
-        }// end function
+        }
 
         public function set bitmapData(param1:BitmapData) : void
         {
@@ -60,77 +60,77 @@
             iHeight = rRegion.height;
             invalidateContextTexture(false);
             return;
-        }// end function
+        }
 
         public function get uvX() : Number
         {
             return nUvX;
-        }// end function
+        }
 
         public function get uvY() : Number
         {
             return nUvY;
-        }// end function
+        }
 
         public function set uvY(param1:Number) : void
         {
             nUvY = param1;
             return;
-        }// end function
+        }
 
         public function get uvScaleX() : Number
         {
             return nUvScaleX;
-        }// end function
+        }
 
         public function get uvScaleY() : Number
         {
             return nUvScaleY;
-        }// end function
+        }
 
         public function get frameWidth() : Number
         {
             return nFrameWidth;
-        }// end function
+        }
 
         public function set frameWidth(param1:Number) : void
         {
             nFrameWidth = param1;
             return;
-        }// end function
+        }
 
         public function get frameHeight() : Number
         {
             return nFrameHeight;
-        }// end function
+        }
 
         public function set frameHeight(param1:Number) : void
         {
             nFrameHeight = param1;
             return;
-        }// end function
+        }
 
         public function get pivotX() : Number
         {
             return nPivotX;
-        }// end function
+        }
 
         public function set pivotX(param1:Number) : void
         {
             nPivotX = param1;
             return;
-        }// end function
+        }
 
         public function get pivotY() : Number
         {
             return nPivotY;
-        }// end function
+        }
 
         public function set pivotY(param1:Number) : void
         {
             nPivotY = param1;
             return;
-        }// end function
+        }
 
         override public function get gpuWidth() : int
         {
@@ -139,7 +139,7 @@
                 return cParent.gpuWidth;
             }
             return FTextureUtils.getNextValidTextureSize(iWidth);
-        }// end function
+        }
 
         override public function get gpuHeight() : int
         {
@@ -148,12 +148,12 @@
                 return cParent.gpuHeight;
             }
             return FTextureUtils.getNextValidTextureSize(iHeight);
-        }// end function
+        }
 
         override public function hasParent() : Boolean
         {
             return cParent != null;
-        }// end function
+        }
 
         public function alignTexture(param1:int) : void
         {
@@ -164,7 +164,7 @@
             nPivotX = (-iWidth) / 2;
             nPivotY = (-iHeight) / 2;
             return;
-        }// end function
+        }
 
         override public function get resampleType() : int
         {
@@ -173,7 +173,7 @@
                 return cParent.resampleType;
             }
             return _iResampleType;
-        }// end function
+        }
 
         override public function set resampleType(param1:int) : void
         {
@@ -183,7 +183,7 @@
             }
             resampleType = param1;
             return;
-        }// end function
+        }
 
         override public function get resampleScale() : int
         {
@@ -192,7 +192,7 @@
                 return cParent.resampleScale;
             }
             return _iResampleScale;
-        }// end function
+        }
 
         override public function set resampleScale(param1:int) : void
         {
@@ -202,7 +202,7 @@
             }
             resampleScale = param1;
             return;
-        }// end function
+        }
 
         override public function set filteringType(param1:int) : void
         {
@@ -212,17 +212,17 @@
             }
             filteringType = param1;
             return;
-        }// end function
+        }
 
         public function get parent() : FTextureAtlas
         {
             return cParent;
-        }// end function
+        }
 
         public function get region() : Rectangle
         {
             return rRegion;
-        }// end function
+        }
 
         public function set region(param1:Rectangle) : void
         {
@@ -241,7 +241,7 @@
                 invalidateContextTexture(false);
             }
             return;
-        }// end function
+        }
 
         public function set width(param1:int) : void
         {
@@ -249,7 +249,7 @@
             rRegion.width = param1;
             nUvScaleX = iWidth / cParent.iWidth;
             return;
-        }// end function
+        }
 
         public function getAlphaAtUV(param1:Number, param2:Number) : uint
         {
@@ -258,7 +258,7 @@
                 return 255;
             }
             return bdBitmapData.getPixel32(rRegion.x + param1 * rRegion.width, rRegion.y + param2 * rRegion.height) >> 24 & 255;
-        }// end function
+        }
 
         protected function updateUVScale() : void
         {
@@ -266,18 +266,33 @@
             var _loc_3:* = 0;
             var _loc_1:* = NaN;
             var _loc_2:* = NaN;
-            switch((_iResampleType - 1)) branch count is:<1>[49, 11] default offset is:<125>;
-            nUvScaleX = rRegion.width / FTextureUtils.getNextValidTextureSize(iWidth);
-            nUvScaleY = rRegion.height / FTextureUtils.getNextValidTextureSize(iHeight);
-            ;
-            _loc_4 = FTextureUtils.getNearestValidTextureSize(iWidth);
-            _loc_3 = FTextureUtils.getNearestValidTextureSize(iHeight);
-            _loc_1 = _loc_4 / rRegion.width;
-            _loc_2 = _loc_3 / rRegion.height;
-            nUvScaleX = _loc_1 > _loc_2 ? (_loc_2 / _loc_1) : (1);
-            nUvScaleY = _loc_2 > _loc_1 ? (_loc_1 / _loc_2) : (1);
+            //switch((_iResampleType - 1)) branch count is:<1>[49, 11] default offset is:<125>;
+            //nUvScaleX = rRegion.width / FTextureUtils.getNextValidTextureSize(iWidth);
+            //nUvScaleY = rRegion.height / FTextureUtils.getNextValidTextureSize(iHeight);
+            //;
+            //_loc_4 = FTextureUtils.getNearestValidTextureSize(iWidth);
+            //_loc_3 = FTextureUtils.getNearestValidTextureSize(iHeight);
+            //_loc_1 = _loc_4 / rRegion.width;
+            //_loc_2 = _loc_3 / rRegion.height;
+            //nUvScaleX = _loc_1 > _loc_2 ? (_loc_2 / _loc_1) : (1);
+            //nUvScaleY = _loc_2 > _loc_1 ? (_loc_1 / _loc_2) : (1);
+			switch(_iResampleType) 
+			{
+				case 1:
+				nUvScaleX = rRegion.width / FTextureUtils.getNextValidTextureSize(iWidth);
+				nUvScaleY = rRegion.height / FTextureUtils.getNextValidTextureSize(iHeight);
+				break;
+				case 2:
+				_loc_4 = FTextureUtils.getNearestValidTextureSize(iWidth);
+				_loc_3 = FTextureUtils.getNearestValidTextureSize(iHeight);
+				_loc_1 = _loc_4 / rRegion.width;
+				_loc_2 = _loc_3 / rRegion.height;
+				nUvScaleX = _loc_1 > _loc_2 ? (_loc_2 / _loc_1) : (1);
+				nUvScaleY = _loc_2 > _loc_1 ? (_loc_1 / _loc_2) : (1);
+				break;
+			}
             return;
-        }// end function
+        }
 
         override protected function invalidateContextTexture(param1:Boolean) : void
         {
@@ -288,14 +303,14 @@
             updateUVScale();
             super.invalidateContextTexture(param1);
             return;
-        }// end function
+        }
 
         function setParent(param1:FTextureAtlas, param2:Rectangle) : void
         {
             cParent = param1;
             region = param2;
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -321,17 +336,17 @@
             cParent = null;
             super.dispose();
             return;
-        }// end function
+        }
 
         public function toString() : String
         {
             return "[FTexture id:" + _sId + ", width:" + width + ", height:" + height + "]";
-        }// end function
+        }
 
         public static function getTextureById(param1:String) : FTexture
         {
             return FTextureBase.getTextureBaseById(param1) as FTexture;
-        }// end function
+        }
 
     }
 }

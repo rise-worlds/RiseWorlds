@@ -20,7 +20,7 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         public function setTiles(param1:Vector.<FTile>, param2:int, param3:int, param4:int, param5:int, param6:Boolean = false) : void
         {
@@ -34,7 +34,7 @@
             _bIso = param6;
             setTileSize(param4, param5);
             return;
-        }// end function
+        }
 
         public function setTile(param1:int, param2:int) : void
         {
@@ -44,14 +44,14 @@
             }
             _aTiles[param1] = param2;
             return;
-        }// end function
+        }
 
         public function setTileSize(param1:int, param2:int) : void
         {
             _iTileWidth = param1;
             _iTileHeight = param2;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -110,7 +110,7 @@
                 _loc_14++;
             }
             return;
-        }// end function
+        }
 
         public function getTileAt(param1:Number, param2:Number, param3:FCamera = null) : FTile
         {
@@ -133,7 +133,7 @@
                 return null;
             }
             return _aTiles[_loc_11 * _iWidth + _loc_9];
-        }// end function
+        }
 
     }
 }

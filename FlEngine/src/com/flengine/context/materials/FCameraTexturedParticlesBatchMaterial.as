@@ -32,7 +32,7 @@
             VertexShaderEmbed = FCameraTexturedParticlesBatchMaterialVertex_ash;
             VertexShaderCode = new VertexShaderEmbed() as ByteArray;
             return;
-        }// end function
+        }
 
         public function bind(param1:Context3D, param2:Boolean, param3:FCamera, param4:Vector.<Number>) : void
         {
@@ -114,7 +114,7 @@
             __cContext.setVertexBufferAt(3, __vb3VertexBuffer, 8, "float4");
             __cContext.setVertexBufferAt(4, __vb3VertexBuffer, 12, "float2");
             return;
-        }// end function
+        }
 
         public function draw(param1:Vector.<Number>, param2:Texture, param3:int, param4:int) : void
         {
@@ -122,12 +122,12 @@
             __cContext.setProgramConstantsFromVector("vertex", 6, param1, 4);
             __cContext.drawTriangles(__ib3IndexBuffer, 0, param4 * 2);
             return;
-        }// end function
+        }
 
         public function push() : void
         {
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
@@ -140,7 +140,7 @@
             __cActiveTexture = null;
             __iActiveFiltering = 0;
             return;
-        }// end function
+        }
 
         public static function getByHash(param1:String) : FCameraTexturedParticlesBatchMaterial
         {
@@ -151,7 +151,7 @@
                 __aCached[param1] = _loc_2;
             }
             return _loc_2;
-        }// end function
+        }
 
     }
 }

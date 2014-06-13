@@ -74,7 +74,7 @@
             cTransform = new FTransform(this);
             __dComponentsLookupTable[FTransform] = cTransform;
             return;
-        }// end function
+        }
 
         public function getPrototype() : XML
         {
@@ -109,7 +109,7 @@
                 _loc_1 = _loc_1.cNext;
             }
             return _loc_3;
-        }// end function
+        }
 
         public function get onAddedToStage() : HelpSignal
         {
@@ -118,7 +118,7 @@
                 __eOnAddedToStage = new HelpSignal();
             }
             return __eOnAddedToStage;
-        }// end function
+        }
 
         public function get onRemovedFromStage() : HelpSignal
         {
@@ -127,7 +127,7 @@
                 __eOnRemovedFromStage = new HelpSignal();
             }
             return __eOnRemovedFromStage;
-        }// end function
+        }
 
         public function get onComponentAdded() : HelpSignal
         {
@@ -136,7 +136,7 @@
                 __eOnComponentAdded = new HelpSignal();
             }
             return __eOnComponentAdded;
-        }// end function
+        }
 
         public function get onComponentRemoved() : HelpSignal
         {
@@ -145,17 +145,17 @@
                 __eOnComponentRemoved = new HelpSignal();
             }
             return __eOnComponentRemoved;
-        }// end function
+        }
 
         public function get previous() : FNode
         {
             return cPrevious;
-        }// end function
+        }
 
         public function get next() : FNode
         {
             return cNext;
-        }// end function
+        }
 
         function set bParentActive(param1:Boolean) : void
         {
@@ -167,7 +167,7 @@
                 _loc_2 = _loc_2.cNext;
             }
             return;
-        }// end function
+        }
 
         public function set active(param1:Boolean) : void
         {
@@ -213,12 +213,12 @@
                 _loc_2 = _loc_2.cNext;
             }
             return;
-        }// end function
+        }
 
         public function get active() : Boolean
         {
             return __bActive;
-        }// end function
+        }
 
         public function hasTag(param1:String) : Boolean
         {
@@ -231,7 +231,7 @@
                 return true;
             }
             return false;
-        }// end function
+        }
 
         public function addTag(param1:String) : void
         {
@@ -245,7 +245,7 @@
             }
             __aTags.push(param1);
             return;
-        }// end function
+        }
 
         public function removeTag(param1:String) : void
         {
@@ -260,7 +260,7 @@
             }
             __aTags.splice(_loc_2, 1);
             return;
-        }// end function
+        }
 
         public function get userData() : Object
         {
@@ -269,23 +269,23 @@
                 __oUserData = {};
             }
             return __oUserData;
-        }// end function
+        }
 
         public function get core() : FlEngine
         {
             return cCore;
-        }// end function
+        }
 
         public function get name() : String
         {
             return _sName;
-        }// end function
+        }
 
         public function set name(param1:String) : void
         {
             _sName = param1;
             return;
-        }// end function
+        }
 
         public function get transform() : FTransform
         {
@@ -294,7 +294,7 @@
                 throw new FError("FError: Node is already disposed.");
             }
             return cTransform;
-        }// end function
+        }
 
         public function get parent() : FNode
         {
@@ -303,7 +303,7 @@
                 throw new FError("FError: Node is already disposed.");
             }
             return cParent;
-        }// end function
+        }
 
         function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -355,7 +355,7 @@
             }
             __bUpdating = false;
             return;
-        }// end function
+        }
 
         function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:Boolean) : void
         {
@@ -417,12 +417,12 @@
             }
             __bRendering = false;
             return;
-        }// end function
+        }
 
         public function toString() : String
         {
             return "[G2DNode]" + _sName;
-        }// end function
+        }
 
         public function disposeChildren() : void
         {
@@ -445,7 +445,7 @@
             _cFirstChild = null;
             _cLastChild = null;
             return;
-        }// end function
+        }
 
         public function dispose() : void
         {
@@ -536,7 +536,7 @@
             }
             __bDisposed = true;
             return;
-        }// end function
+        }
 
         public function get onMouseDown() : HelpSignal
         {
@@ -545,7 +545,7 @@
                 __eOnMouseDown = new HelpSignal();
             }
             return __eOnMouseDown;
-        }// end function
+        }
 
         public function get onMouseMove() : HelpSignal
         {
@@ -554,7 +554,7 @@
                 __eOnMouseMove = new HelpSignal();
             }
             return __eOnMouseMove;
-        }// end function
+        }
 
         public function get onMouseUp() : HelpSignal
         {
@@ -563,7 +563,7 @@
                 __eOnMouseUp = new HelpSignal();
             }
             return __eOnMouseUp;
-        }// end function
+        }
 
         public function get onMouseOver() : HelpSignal
         {
@@ -572,7 +572,7 @@
                 __eOnMouseOver = new HelpSignal();
             }
             return __eOnMouseOver;
-        }// end function
+        }
 
         public function get onMouseClick() : HelpSignal
         {
@@ -581,7 +581,7 @@
                 __eOnMouseClick = new HelpSignal();
             }
             return __eOnMouseClick;
-        }// end function
+        }
 
         public function get onMouseOut() : HelpSignal
         {
@@ -590,7 +590,7 @@
                 __eOnMouseOut = new HelpSignal();
             }
             return __eOnMouseOut;
-        }// end function
+        }
 
         function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D, param4:FCamera) : Boolean
         {
@@ -621,7 +621,7 @@
                 }
             }
             return param1;
-        }// end function
+        }
 
         function handleMouseEvent(param1:FNode, param2:String, param3:int, param4:int, param5:Boolean, param6:Boolean) : void
         {
@@ -680,12 +680,12 @@
                 cParent.handleMouseEvent(param1, param2, param3, param4, param5, param6);
             }
             return;
-        }// end function
+        }
 
         public function getComponents() : Dictionary
         {
             return __dComponentsLookupTable;
-        }// end function
+        }
 
         public function getComponent(param1:Class) : FComponent
         {
@@ -694,12 +694,12 @@
                 throw new FError("FError: Node is already disposed.");
             }
             return __dComponentsLookupTable[param1];
-        }// end function
+        }
 
         public function hasComponent(param1:Class) : Boolean
         {
             return __dComponentsLookupTable[param1] != null;
-        }// end function
+        }
 
         public function addExistComponent(param1:FComponent, param2:Class, param3:Object = null) : FComponent
         {
@@ -742,7 +742,7 @@
                 __eOnComponentAdded.dispatch(param3);
             }
             return param1;
-        }// end function
+        }
 
         public function addComponent(param1:Class, param2:Class = null) : FComponent
         {
@@ -790,7 +790,7 @@
                 __eOnComponentAdded.dispatch(param2);
             }
             return _loc_3;
-        }// end function
+        }
 
         public function addComponentFromPrototype(param1:XML) : FComponent
         {
@@ -799,7 +799,7 @@
             var _loc_3:* = addComponent(_loc_4 as Class, _loc_2 as Class);
             _loc_3.bindFromPrototype(param1);
             return _loc_3;
-        }// end function
+        }
 
         public function removeComponent(param1:Class) : void
         {
@@ -839,17 +839,17 @@
                 __eOnComponentAdded.dispatch(param1);
             }
             return;
-        }// end function
+        }
 
         public function get firstChild() : FNode
         {
             return _cFirstChild;
-        }// end function
+        }
 
         public function get lastChild() : FNode
         {
             return _cLastChild;
-        }// end function
+        }
 
         public function get numChildren() : int
         {
@@ -858,7 +858,7 @@
                 throw new FError("FError: Node is already disposed.");
             }
             return _iChildCount;
-        }// end function
+        }
 
         public function addChild(param1:FNode) : void
         {
@@ -893,7 +893,7 @@
                 param1.addedToStage();
             }
             return;
-        }// end function
+        }
 
         public function removeChild(param1:FNode) : void
         {
@@ -940,7 +940,7 @@
                 param1.removedFromStage();
             }
             return;
-        }// end function
+        }
 
         public function swapChildren(param1:FNode, param2:FNode) : void
         {
@@ -1015,7 +1015,7 @@
                 _cLastChild = param1;
             }
             return;
-        }// end function
+        }
 
         public function putChildToFront(param1:FNode) : void
         {
@@ -1043,7 +1043,7 @@
             param1.cNext = null;
             _cLastChild = param1;
             return;
-        }// end function
+        }
 
         public function putChildToBack(param1:FNode) : void
         {
@@ -1071,7 +1071,7 @@
             param1.cNext = _cFirstChild;
             _cFirstChild = param1;
             return;
-        }// end function
+        }
 
         private function addedToStage() : void
         {
@@ -1091,7 +1091,7 @@
                 _loc_1 = _loc_1.cNext;
             }
             return;
-        }// end function
+        }
 
         private function removedFromStage() : void
         {
@@ -1111,7 +1111,7 @@
                 _loc_1 = _loc_1.cNext;
             }
             return;
-        }// end function
+        }
 
         public function isOnStage() : Boolean
         {
@@ -1124,7 +1124,7 @@
                 return false;
             }
             return cParent.isOnStage();
-        }// end function
+        }
 
         public function sortChildrenOnY(param1:Boolean = true) : void
         {
@@ -1228,7 +1228,7 @@
                 _loc_3 = _loc_3 * 2;
             }
             return;
-        }// end function
+        }
 
         public function sortChildrenOnX(param1:Boolean = true) : void
         {
@@ -1332,7 +1332,7 @@
                 _loc_3 = _loc_3 * 2;
             }
             return;
-        }// end function
+        }
 
         public function sortChildrenOnUserData(param1:String, param2:Boolean = true) : void
         {
@@ -1436,7 +1436,7 @@
                 _loc_4 = _loc_4 * 2;
             }
             return;
-        }// end function
+        }
 
         public function getWorldBounds(param1:Rectangle = null) : Rectangle
         {
@@ -1478,7 +1478,7 @@
             }
             param1.setTo(_loc_8, _loc_9, _loc_7 - _loc_8, _loc_6 - _loc_9);
             return param1;
-        }// end function
+        }
 
     }
 }

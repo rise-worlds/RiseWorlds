@@ -58,7 +58,7 @@
             aFields = new Vector.<FField>;
             super(param1);
             return;
-        }// end function
+        }
 
         override public function getPrototype() : XML
         {
@@ -71,7 +71,7 @@
                 _xPrototype.particlePrototype.appendChild(_xParticlePrototype);
             }
             return _xPrototype;
-        }// end function
+        }
 
         override public function bindFromPrototype(param1:XML) : void
         {
@@ -81,7 +81,7 @@
                 setParticlePrototype(param1.particlePrototype.node[0]);
             }
             return;
-        }// end function
+        }
 
         public function set minScaleX(param1:Number) : void
         {
@@ -91,12 +91,12 @@
                 __nMaxScaleX = __nMinScaleX;
             }
             return;
-        }// end function
+        }
 
         public function get minScaleX() : Number
         {
             return __nMinScaleX;
-        }// end function
+        }
 
         public function set maxScaleX(param1:Number) : void
         {
@@ -106,12 +106,12 @@
                 __nMinScaleX = __nMaxScaleX;
             }
             return;
-        }// end function
+        }
 
         public function get maxScaleX() : Number
         {
             return __nMaxScaleX;
-        }// end function
+        }
 
         public function set minScaleY(param1:Number) : void
         {
@@ -121,12 +121,12 @@
                 __nMaxScaleY = __nMinScaleY;
             }
             return;
-        }// end function
+        }
 
         public function get minScaleY() : Number
         {
             return __nMinScaleY;
-        }// end function
+        }
 
         public function set maxScaleY(param1:Number) : void
         {
@@ -136,12 +136,12 @@
                 __nMinScaleY = __nMaxScaleY;
             }
             return;
-        }// end function
+        }
 
         public function get maxScaleY() : Number
         {
             return __nMaxScaleY;
-        }// end function
+        }
 
         public function set minEnergy(param1:Number) : void
         {
@@ -151,12 +151,12 @@
                 __nMaxEnergy = __nMinEnergy;
             }
             return;
-        }// end function
+        }
 
         public function get minEnergy() : Number
         {
             return __nMinEnergy;
-        }// end function
+        }
 
         public function set maxEnergy(param1:Number) : void
         {
@@ -166,12 +166,12 @@
                 __nMinEnergy = __nMaxEnergy;
             }
             return;
-        }// end function
+        }
 
         public function get maxEnergy() : Number
         {
             return __nMaxEnergy;
-        }// end function
+        }
 
         public function set minEmission(param1:int) : void
         {
@@ -181,12 +181,12 @@
                 __iMaxEmission = __iMinEmission;
             }
             return;
-        }// end function
+        }
 
         public function get minEmission() : int
         {
             return __iMinEmission;
-        }// end function
+        }
 
         public function set maxEmission(param1:int) : void
         {
@@ -196,12 +196,12 @@
                 __iMinEmission = __iMaxEmission;
             }
             return;
-        }// end function
+        }
 
         public function get maxEmission() : int
         {
             return __iMaxEmission;
-        }// end function
+        }
 
         public function set minWorldVelocityX(param1:Number) : void
         {
@@ -211,12 +211,12 @@
                 __nMaxWorldVelocityX = __nMinWorldVelocityX;
             }
             return;
-        }// end function
+        }
 
         public function get minWorldVelocityX() : Number
         {
             return __nMinWorldVelocityX;
-        }// end function
+        }
 
         public function set maxWorldVelocityX(param1:Number) : void
         {
@@ -226,12 +226,12 @@
                 __nMinWorldVelocityX = __nMaxWorldVelocityX;
             }
             return;
-        }// end function
+        }
 
         public function get maxWorldVelocityX() : Number
         {
             return __nMaxWorldVelocityX;
-        }// end function
+        }
 
         public function set minWorldVelocityY(param1:Number) : void
         {
@@ -241,12 +241,12 @@
                 __nMaxWorldVelocityY = __nMinWorldVelocityY;
             }
             return;
-        }// end function
+        }
 
         public function get minWorldVelocityY() : Number
         {
             return __nMinWorldVelocityY;
-        }// end function
+        }
 
         public function set maxWorldVelocityY(param1:Number) : void
         {
@@ -256,12 +256,12 @@
                 __nMinWorldVelocityY = __nMaxWorldVelocityY;
             }
             return;
-        }// end function
+        }
 
         public function get maxWorldVelocityY() : Number
         {
             return __nMaxWorldVelocityY;
-        }// end function
+        }
 
         public function set minLocalVelocityX(param1:Number) : void
         {
@@ -271,12 +271,12 @@
                 __nMaxLocalVelocityX = __nMinLocalVelocityX;
             }
             return;
-        }// end function
+        }
 
         public function get minLocalVelocityX() : Number
         {
             return __nMinLocalVelocityX;
-        }// end function
+        }
 
         public function set maxLocalVelocityX(param1:Number) : void
         {
@@ -286,12 +286,12 @@
                 __nMinLocalVelocityX = __nMaxLocalVelocityX;
             }
             return;
-        }// end function
+        }
 
         public function get maxLocalVelocityX() : Number
         {
             return __nMaxLocalVelocityX;
-        }// end function
+        }
 
         public function set minLocalVelocityY(param1:Number) : void
         {
@@ -301,12 +301,12 @@
                 __nMaxLocalVelocityY = __nMinLocalVelocityY;
             }
             return;
-        }// end function
+        }
 
         public function get minLocalVelocityY() : Number
         {
             return __nMinLocalVelocityY;
-        }// end function
+        }
 
         public function set maxLocalVelocityY(param1:Number) : void
         {
@@ -316,12 +316,12 @@
                 __nMinLocalVelocityY = __nMaxLocalVelocityY;
             }
             return;
-        }// end function
+        }
 
         public function get maxLocalVelocityY() : Number
         {
             return __nMaxLocalVelocityY;
-        }// end function
+        }
 
         public function set minAngularVelocity(param1:Number) : void
         {
@@ -331,12 +331,12 @@
                 __nMaxAngularVelocity = __nMinAngularVelocity;
             }
             return;
-        }// end function
+        }
 
         public function get minAngularVelocity() : Number
         {
             return __nMinAngularVelocity;
-        }// end function
+        }
 
         public function set maxAngularVelocity(param1:Number) : void
         {
@@ -346,23 +346,23 @@
                 __nMinAngularVelocity = __nMaxAngularVelocity;
             }
             return;
-        }// end function
+        }
 
         public function get maxAngularVelocity() : Number
         {
             return __nMaxAngularVelocity;
-        }// end function
+        }
 
         public function setParticlePrototype(param1:XML) : void
         {
             _xParticlePrototype = param1;
             return;
-        }// end function
+        }
 
         public function get particlesCachedCount() : int
         {
             return _cParticlePool.cachedCount;
-        }// end function
+        }
 
         override public function set active(param1:Boolean) : void
         {
@@ -372,7 +372,7 @@
                 _cParticlePool.deactivate();
             }
             return;
-        }// end function
+        }
 
         public function init(param1:int = 0, param2:int = 0, param3:Boolean = true) : void
         {
@@ -389,7 +389,7 @@
             }
             _cParticlePool = new FNodePool(_xParticlePrototype, param1, param2);
             return;
-        }// end function
+        }
 
         public function forceBurst() : void
         {
@@ -408,7 +408,7 @@
                 _loc_2++;
             }
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -442,7 +442,7 @@
                 }
             }
             return;
-        }// end function
+        }
 
         private function activateParticle() : void
         {
@@ -497,7 +497,7 @@
             _loc_11.init((__nMinEnergy + (__nMaxEnergy - __nMinEnergy) * Math.random()) * 1000, _loc_10 * 0.001, _loc_15 * 0.001, _loc_9, initialParticleRed, initialParticleGreen, initialParticleBlue, initialParticleAlpha, endParticleRed, endParticleGreen, endParticleBlue, endParticleAlpha);
             cNode.addChild(_loc_13);
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -508,7 +508,7 @@
             _cParticlePool = null;
             super.dispose();
             return;
-        }// end function
+        }
 
         public function clear(param1:Boolean = false) : void
         {
@@ -525,14 +525,14 @@
                 _cParticlePool.deactivate();
             }
             return;
-        }// end function
+        }
 
         public function addField(param1:FField) : void
         {
             (iFieldsCount + 1);
             aFields.push(param1);
             return;
-        }// end function
+        }
 
     }
 }

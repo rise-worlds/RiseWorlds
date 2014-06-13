@@ -47,13 +47,13 @@
             cNode.onAddedToStage.add(onAddedToStage);
             cNode.onRemovedFromStage.add(onRemovedFromStage);
             return;
-        }// end function
+        }
 
         override public function getPrototype() : XML
         {
             _xPrototype = super.getPrototype();
             return _xPrototype;
-        }// end function
+        }
 
         public function get backgroundColor() : uint
         {
@@ -62,24 +62,24 @@
             var _loc_3:* = backgroundGreen * 255 << 8;
             var _loc_2:* = backgroundBlue * 255;
             return _loc_4 + _loc_1 + _loc_3 + _loc_2;
-        }// end function
+        }
 
         public function get zoom() : Number
         {
             return nScaleX;
-        }// end function
+        }
 
         public function set zoom(param1:Number) : void
         {
             nScaleY = param1;
             nScaleX = param1;
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
             return;
-        }// end function
+        }
 
         function invalidate() : void
         {
@@ -97,7 +97,7 @@
             aCameraVector[6] = nScaleX;
             aCameraVector[7] = nScaleY;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -113,7 +113,7 @@
             param1.setCamera(this);
             cNode.cCore.root.render(param1, this, rViewRectangle, false);
             return;
-        }// end function
+        }
 
         function captureMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean
         {
@@ -137,7 +137,7 @@
             param3.x = _loc_5 + cNode.cTransform.nWorldX;
             param3.y = _loc_4 + cNode.cTransform.nWorldY;
             return cNode.cCore.root.processMouseEvent(param1, param2, param3, this);
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -146,19 +146,19 @@
             cNode.onRemovedFromStage.remove(onRemovedFromStage);
             super.dispose();
             return;
-        }// end function
+        }
 
         private function onAddedToStage(param1:Object) : void
         {
             cNode.cCore.addCamera(this);
             return;
-        }// end function
+        }
 
         private function onRemovedFromStage(param1:Object) : void
         {
             cNode.cCore.removeCamera(this);
             return;
-        }// end function
+        }
 
     }
 }

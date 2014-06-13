@@ -15,12 +15,12 @@
             cTexture = param1;
             mMatrix = param2;
             return;
-        }// end function
+        }
 
         public function toString() : String
         {
             return "[" + (cTexture ? (cTexture.id) : ("BackBuffer")) + " , " + mMatrix + " , " + iRenderedTo + "]";
-        }// end function
+        }
 
     }
 }

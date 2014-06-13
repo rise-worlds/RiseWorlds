@@ -31,7 +31,7 @@
             loadFlag = 0;
             onImgLoadCompleted = param1;
             return;
-        }// end function
+        }
 
         public function GetCelRect(param1:int, param2:Rectangle) : void
         {
@@ -40,17 +40,17 @@
             param2.x = param1 % numCols * param2.width;
             param2.y = param1 / numCols * param2.height;
             return;
-        }// end function
+        }
 
         public function GetCelHeight() : Number
         {
             return height / numRows;
-        }// end function
+        }
 
         public function GetCelWidth() : Number
         {
             return width / numCols;
-        }// end function
+        }
 
         public function OnLoadedCompleted(event:Event) : void
         {
@@ -65,7 +65,7 @@
                 onImgLoadCompleted = null;
             }
             return;
-        }// end function
+        }
 
         public function onBeChanged() : void
         {
@@ -76,7 +76,7 @@
                 loadFlag = 2;
             }
             return;
-        }// end function
+        }
 
         public function Dispose() : void
         {
@@ -90,7 +90,7 @@
                 bd.dispose();
             }
             return;
-        }// end function
+        }
 
     }
 }

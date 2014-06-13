@@ -9,7 +9,7 @@
         public function JAAnimRenderMode()
         {
             return;
-        }// end function
+        }
 
     }
 }

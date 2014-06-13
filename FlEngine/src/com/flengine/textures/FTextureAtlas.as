@@ -19,12 +19,12 @@
             iHeight = param4;
             __dTextures = new Dictionary();
             return;
-        }// end function
+        }
 
         public function get textures() : Dictionary
         {
             return __dTextures;
-        }// end function
+        }
 
         override public function set filteringType(param1:int) : void
         {
@@ -35,12 +35,12 @@
                 _loc_2.iFilteringType = param1;
             }
             return;
-        }// end function
+        }
 
         public function getTexture(param1:String) : FTexture
         {
             return __dTextures[param1];
-        }// end function
+        }
 
         override protected function invalidateContextTexture(param1:Boolean) : void
         {
@@ -52,7 +52,7 @@
                 _loc_2.iAtfType = iAtfType;
             }
             return;
-        }// end function
+        }
 
         public function addSubTexture(param1:String, param2:Rectangle, param3:Number, param4:Number, param5:Number = 0, param6:Number = 0, param7:Boolean = false) : FTexture
         {
@@ -66,13 +66,13 @@
                 invalidate();
             }
             return _loc_8;
-        }// end function
+        }
 
         public function removeSubTexture(param1:String) : void
         {
             __dTextures[param1] = null;
             return;
-        }// end function
+        }
 
         private function disposeSubTextures() : void
         {
@@ -86,7 +86,7 @@
             }
             __dTextures = new Dictionary();
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -106,12 +106,12 @@
             }
             super.dispose();
             return;
-        }// end function
+        }
 
         public static function getTextureAtlasById(param1:String) : FTextureAtlas
         {
             return FTextureBase.getTextureBaseById(param1) as FTextureAtlas;
-        }// end function
+        }
 
     }
 }

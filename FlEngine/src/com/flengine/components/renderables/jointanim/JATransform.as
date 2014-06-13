@@ -21,13 +21,13 @@
         {
             matrix = new JAMatrix3();
             return;
-        }// end function
+        }
 
         public function clone(param1:JATransform) : void
         {
             this.matrix.clone(param1.matrix);
             return;
-        }// end function
+        }
 
         public function TransformSrc(param1:JATransform, param2:JATransform) : JATransform
         {
@@ -50,7 +50,7 @@
             param2.matrix.m02 = _m02 + _m00 * __m02 + _m01 * __m12;
             param2.matrix.m12 = _m12 + _m10 * __m02 + _m11 * __m12;
             return param2;
-        }// end function
+        }
 
         public function InterpolateTo(param1:JATransform, param2:Number, param3:JATransform) : JATransform
         {
@@ -73,7 +73,7 @@
             param3.matrix.m02 = _m02 * (1 - param2) + __m02 * param2;
             param3.matrix.m12 = _m12 * (1 - param2) + __m12 * param2;
             return param3;
-        }// end function
+        }
 
     }
 }

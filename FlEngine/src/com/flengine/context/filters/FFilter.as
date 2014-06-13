@@ -16,18 +16,18 @@
             iId = 0;
             _aFragmentConstants = new Vector.<Number>;
             return;
-        }// end function
+        }
 
         public function bind(param1:Context3D, param2:FTexture) : void
         {
             param1.setProgramConstantsFromVector("fragment", 1, _aFragmentConstants, _aFragmentConstants.length / 4);
             return;
-        }// end function
+        }
 
         public function clear(param1:Context3D) : void
         {
             return;
-        }// end function
+        }
 
     }
 }

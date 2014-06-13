@@ -28,7 +28,7 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         override public function set active(param1:Boolean) : void
         {
@@ -36,7 +36,7 @@
             _nAccumulatedEnergy = 0;
             cNode.transform.alpha = 1;
             return;
-        }// end function
+        }
 
         function init(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number, param10:Number, param11:Number, param12:Number) : void
         {
@@ -55,7 +55,7 @@
             _nEndBlue = param11;
             _nEndAlpha = param12;
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -74,7 +74,7 @@
             cNode.cTransform.y = cNode.cTransform.y + nVelocityY * param1;
             cNode.cTransform.rotation = cNode.cTransform.rotation + _nInitialVelAngular * param1;
             return;
-        }// end function
+        }
 
     }
 }

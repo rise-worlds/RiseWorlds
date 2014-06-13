@@ -16,7 +16,7 @@
             __tfTextField = new TextField();
             _doNative = __tfTextField;
             return;
-        }// end function
+        }
 
         public function set textFormat(param1:TextFormat) : void
         {
@@ -27,93 +27,93 @@
             }
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set embedFonts(param1:Boolean) : void
         {
             __tfTextField.embedFonts = param1;
             return;
-        }// end function
+        }
 
         public function set background(param1:Boolean) : void
         {
             __tfTextField.background = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set wordWrap(param1:Boolean) : void
         {
             __tfTextField.wordWrap = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set backgroundColor(param1:int) : void
         {
             __tfTextField.backgroundColor = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set htmlText(param1:String) : void
         {
             __tfTextField.htmlText = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set text(param1:String) : void
         {
             __tfTextField.text = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set multiLine(param1:Boolean) : void
         {
             __tfTextField.multiline = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set textColor(param1:int) : void
         {
             __tfTextField.textColor = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function set autoSize(param1:String) : void
         {
             __tfTextField.autoSize = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get width() : Number
         {
             return __tfTextField.width;
-        }// end function
+        }
 
         public function set width(param1:Number) : void
         {
             __tfTextField.width = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get height() : Number
         {
             return __tfTextField.height;
-        }// end function
+        }
 
         public function set height(param1:Number) : void
         {
             __tfTextField.height = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
     }
 }

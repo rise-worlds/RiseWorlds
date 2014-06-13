@@ -34,7 +34,7 @@
             _tempPoint = new Point();
             __aNewTileIndices = new Vector.<int>;
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -64,13 +64,13 @@
             __aNewTileIndices = null;
             super.dispose();
             return;
-        }// end function
+        }
 
         public function setTileSet(param1:Vector.<FTile>) : void
         {
             __aTileset = param1;
             return;
-        }// end function
+        }
 
         public function setTiles(param1:Vector.<int>, param2:int, param3:int, param4:int, param5:int) : void
         {
@@ -83,7 +83,7 @@
             __iRows = param3;
             setTileSize(param4, param5);
             return;
-        }// end function
+        }
 
         public function setTileSize(param1:int, param2:int) : void
         {
@@ -94,14 +94,14 @@
             __iTileWidthHalf = __iTileWidth * 0.5;
             __iTileHeightHalf = __iTileHeight * 0.5;
             return;
-        }// end function
+        }
 
         public function pivotCentered() : void
         {
             pivotX = (-__iWidth) * 0.5;
             pivotY = (-__iHeight) * 0.5;
             return;
-        }// end function
+        }
 
         public function setTileAtIndex(param1:int, param2:int) : void
         {
@@ -111,7 +111,7 @@
             }
             __aTiles[param1] = param2;
             return;
-        }// end function
+        }
 
         public function getTileAtColRow(param1:int, param2:int) : FTile
         {
@@ -120,14 +120,14 @@
                 return null;
             }
             return inline_getTileAtColRow(param1, param2);
-        }// end function
+        }
 
         public function getTileAtXAndY(param1:Number, param2:Number) : FTile
         {
             var _loc_3:* = param1 / (__iTileWidth * node.transform.nWorldScaleX);
             var _loc_4:* = param2 / (__iTileHeight * node.transform.nWorldScaleY);
             return inline_getTileAtColRow(_loc_3, _loc_4);
-        }// end function
+        }
 
         public function getTileAtIndex(param1:int) : FTile
         {
@@ -142,7 +142,7 @@
                 return null;
             }
             return __aTileset[_loc_2];
-        }// end function
+        }
 
         public function setTileAtPosition(param1:Number, param2:Number, param3:int) : int
         {
@@ -150,7 +150,7 @@
             inline_getColRowAtPosition(param1, param2, _loc_5.nWorldX, _loc_5.nWorldY, _loc_5.nWorldScaleX, _loc_5.nWorldScaleY, _loc_5.nWorldRotation);
             var _loc_4:* = inline_setTileIndexAtColRow(_tempCol, _tempRow, param3);
             return inline_setTileIndexAtColRow(_tempCol, _tempRow, param3);
-        }// end function
+        }
 
         public function getColRowAtPosition(param1:Number, param2:Number) : Point
         {
@@ -158,7 +158,7 @@
             inline_getColRowAtPosition(param1, param2, _loc_3.nWorldX, _loc_3.nWorldY, _loc_3.nWorldScaleX, _loc_3.nWorldScaleY, _loc_3.nWorldRotation);
             _tempPoint.setTo(_tempCol, _tempRow);
             return _tempPoint;
-        }// end function
+        }
 
         final private function inline_getColRowAtPosition(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number) : void
         {
@@ -171,7 +171,7 @@
             _tempCol = (_loc_10 - pivotX * param5) / param5 / __iTileWidth;
             _tempRow = (_loc_9 - pivotY * param6) / param6 / __iTileHeight;
             return;
-        }// end function
+        }
 
         final private function inline_getTileAtColRow(param1:int, param2:int) : FTile
         {
@@ -181,7 +181,7 @@
                 return null;
             }
             return __aTileset[_loc_3];
-        }// end function
+        }
 
         final private function inline_setTileIndexAtColRow(param1:int, param2:int, param3:int) : int
         {
@@ -194,7 +194,7 @@
             __aNewTileIndices[__aNewTileIndices.length] = _loc_5;
             __aNewTileIndices[__aNewTileIndices.length] = param3;
             return _loc_4;
-        }// end function
+        }
 
         final private function inline_applyNewTileIndices() : void
         {
@@ -209,7 +209,7 @@
                 __aNewTileIndices.length = __aNewTileIndices.length - 2;
             }
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -277,37 +277,37 @@
                 _loc_26++;
             }
             return;
-        }// end function
+        }
 
         public function get mapCols() : int
         {
             return __iCols;
-        }// end function
+        }
 
         public function get mapRows() : int
         {
             return __iRows;
-        }// end function
+        }
 
         public function get mapWidth() : int
         {
             return __iWidth;
-        }// end function
+        }
 
         public function get mapHeight() : int
         {
             return __iHeight;
-        }// end function
+        }
 
         public function get tileWidth() : int
         {
             return __iTileWidth;
-        }// end function
+        }
 
         public function get tileHeight() : int
         {
             return __iTileHeight;
-        }// end function
+        }
 
     }
 }

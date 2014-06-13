@@ -31,12 +31,12 @@
         public function FStats()
         {
             return;
-        }// end function
+        }
 
         public static function get fps() : int
         {
             return __iLastFPS;
-        }// end function
+        }
 
         static function init() : void
         {
@@ -51,13 +51,13 @@
             __tfStatsField.background = true;
             __bInitialized = true;
             return;
-        }// end function
+        }
 
         private static function invalidateTextureSize() : void
         {
             __bdBitmapData = new BitmapData(256, __tfStatsField.height, false, 0);
             return;
-        }// end function
+        }
 
         static function update() : void
         {
@@ -74,7 +74,7 @@
             }
             (__iFPS + 1);
             return;
-        }// end function
+        }
 
         static function clear() : void
         {
@@ -84,7 +84,7 @@
             }
             iDrawCalls = 0;
             return;
-        }// end function
+        }
 
         static function draw() : void
         {
@@ -128,7 +128,7 @@
             __cTexture.invalidate();
             FlEngine.getInstance().context.blit(__cTexture, __cTexture.width * scaleX / 2 + x, __cTexture.height * scaleY / 2 + y, scaleX, scaleY, 0);
             return;
-        }// end function
+        }
 
     }
 }

@@ -69,12 +69,12 @@
             _aBlitTexturedTransform = new Vector.<Number>(8);
             __cCore = param1;
             return;
-        }// end function
+        }
 
         public function get context() : Context3D
         {
             return cContext;
-        }// end function
+        }
 
         public function setCamera(param1:FCamera) : void
         {
@@ -90,7 +90,7 @@
             }
             __cActiveCamera = param1;
             return;
-        }// end function
+        }
 
         function init(param1:Stage, param2:Stage3D = null) : void
         {
@@ -107,7 +107,7 @@
                 onContextInitialized(null);
             }
             return;
-        }// end function
+        }
 
         private function initStage3D() : void
         {
@@ -120,7 +120,7 @@
                 __st3Stage3D.requestContext3D(__cCore.cConfig.renderMode, __cCore.cConfig.profile);
             }
             return;
-        }// end function
+        }
 
         function dispose() : void
         {
@@ -132,13 +132,13 @@
             __stStage.stage3Ds[0].removeEventListener("error", onContextError);
             cContext.dispose();
             return;
-        }// end function
+        }
 
         private function onContextError(event:ErrorEvent) : void
         {
             eFailed.dispatch(event);
             return;
-        }// end function
+        }
 
         private function onContextInitialized(event:Event) : void
         {
@@ -170,7 +170,7 @@
             }
             bReinitialize = true;
             return;
-        }// end function
+        }
 
         private function getProjectionMatrix(param1:int, param2:int, param3:Matrix3D = null) : Matrix3D
         {
@@ -182,9 +182,9 @@
                 _loc_4.prepend(param3);
             }
             return _loc_4;
-        }// end function
+        }
 
-        function invalidate() : void
+        public function invalidate() : void
         {
             if (__cCore.cConfig.externalStage3D == null)
             {
@@ -207,12 +207,12 @@
             __cCore.cDefaultCamera.node.cTransform.y = __cCore.cConfig.viewRect.height / 2;
             __mProjectionMatrix = getProjectionMatrix(__cCore.cConfig.viewRect.width, __cCore.cConfig.viewRect.height);
             return;
-        }// end function
+        }
 
         function createTexture(param1:int, param2:int, param3:String, param4:Boolean) : FContextTexture
         {
             return new FContextTexture(cContext, param1, param2, param3, param4);
-        }// end function
+        }
 
         function begin(param1:Number, param2:Number, param3:Number) : void
         {
@@ -231,7 +231,7 @@
             FBlendMode.setBlendMode(cContext, 0, bActivePremultiplied);
             cContext.setProgramConstantsFromMatrix("vertex", 0, __mProjectionMatrix, true);
             return;
-        }// end function
+        }
 
         function end() : void
         {
@@ -250,7 +250,7 @@
             }
             bReinitialize = false;
             return;
-        }// end function
+        }
 
         public function blitColor(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:int, param10:Rectangle) : void
         {
@@ -290,7 +290,7 @@
             _aBlitColorTransform[7] = param8;
             _cBlitColorMaterial.draw(_aBlitColorTransform);
             return;
-        }// end function
+        }
 
         public function blit(param1:FTexture, param2:Number, param3:Number, param4:Number = 1, param5:Number = 1, param6:int = 1, param7:Rectangle = null) : void
         {
@@ -327,7 +327,7 @@
             }
             _cBlitMaterial.draw(param2, param3, param4, param5, param1);
             return;
-        }// end function
+        }
 
         public function drawShadow(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number = 1, param9:Rectangle = null) : void
         {
@@ -341,7 +341,7 @@
             }
             _cShadowMaterial.draw(param1, param2, param3, param4, param5, param6, param7, param8);
             return;
-        }// end function
+        }
 
         public function drawLine(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number = 1, param6:Number = 1, param7:Number = 1, param8:Number = 1, param9:Number = 1, param10:int = 1, param11:Rectangle = null) : void
         {
@@ -371,7 +371,7 @@
             }
             _cDrawColorShaderMaterial.draw(_loc_16, _loc_15, _loc_13, param5, _loc_12, param6, param7, param8, param9);
             return;
-        }// end function
+        }
 
         public function drawColorQuad(param1:Number, param2:Number, param3:Number = 1, param4:Number = 1, param5:Number = 0, param6:Number = 1, param7:Number = 1, param8:Number = 1, param9:Number = 1, param10:int = 1, param11:Rectangle = null) : void
         {
@@ -385,7 +385,7 @@
             }
             _cDrawColorShaderMaterial.draw(param1, param2, param3, param4, param5, param6, param7, param8, param9);
             return;
-        }// end function
+        }
 
         public function drawColorPoly(param1:Vector.<Number>, param2:Number, param3:Number, param4:Number = 1, param5:Number = 1, param6:Number = 0, param7:Number = 1, param8:Number = 1, param9:Number = 1, param10:Number = 1, param11:int = 1, param12:Rectangle = null) : void
         {
@@ -399,7 +399,7 @@
             }
             _cDrawColorBufferMaterial.drawPoly(param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
             return;
-        }// end function
+        }
 
         public function draw(param1:FTexture, param2:Number, param3:Number, param4:Number = 1, param5:Number = 1, param6:Number = 0, param7:Number = 1, param8:Number = 1, param9:Number = 1, param10:Number = 1, param11:int = 1, param12:Rectangle = null, param13:FFilter = null) : void
         {
@@ -417,7 +417,7 @@
             }
             _cDrawTextureShaderMaterial.draw(param2, param3, param4, param5, param6, param7, param8, param9, param10, param1, param13);
             return;
-        }// end function
+        }
 
         public function draw2(param1:FTexture, param2:Matrix, param3:Number = 1, param4:Number = 1, param5:Number = 1, param6:Number = 1, param7:int = 1, param8:Rectangle = null, param9:FFilter = null) : void
         {
@@ -435,7 +435,7 @@
             }
             _cDrawTextureBufferCPUMaterial.drawMatrix(param2, param3, param4, param5, param6, param1, param9);
             return;
-        }// end function
+        }
 
         public function draw3(param1:FTexture, param2:Matrix, param3:Number = 1, param4:Number = 1, param5:Number = 1, param6:Number = 1, param7:int = 1, param8:Rectangle = null, param9:FFilter = null) : void
         {
@@ -453,7 +453,7 @@
             }
             _cDrawTextureShaderMaterial2.draw(param2, param3, param4, param5, param6, param1, param9);
             return;
-        }// end function
+        }
 
         public function drawPoly(param1:FTexture, param2:Vector.<Number>, param3:Vector.<Number>, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number = 1, param10:Number = 1, param11:Number = 1, param12:Number = 1, param13:int = 1, param14:Rectangle = null, param15:FFilter = null) : void
         {
@@ -471,7 +471,7 @@
             }
             _cDrawTextureBufferCPUMaterial.drawPoly(param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param1, param15);
             return;
-        }// end function
+        }
 
         function checkAndSetupRender(param1:IGMaterial, param2:int, param3:Boolean, param4:Rectangle) : Boolean
         {
@@ -505,7 +505,7 @@
                 }
             }
             return _loc_7;
-        }// end function
+        }
 
         public function push() : void
         {
@@ -514,7 +514,7 @@
                 cActiveMaterial.push();
             }
             return;
-        }// end function
+        }
 
         function clearStencil() : void
         {
@@ -524,7 +524,7 @@
             }
             cContext.clear(0, 0, 0, 0, 0, 0, Context3DClearMask.STENCIL);
             return;
-        }// end function
+        }
 
         function renderAsStencilMask(param1:int) : void
         {
@@ -537,7 +537,7 @@
             cContext.setStencilActions("frontAndBack", "greaterEqual", "incrementSaturate");
             cContext.setColorMask(false, false, false, false);
             return;
-        }// end function
+        }
 
         function renderToColor(param1:int) : void
         {
@@ -550,7 +550,7 @@
             cContext.setStencilActions("frontAndBack", "lessEqual", "keep");
             cContext.setColorMask(true, true, true, true);
             return;
-        }// end function
+        }
 
         public function setRenderTarget(param1:FTexture = null, param2:Matrix3D = null, param3:Number = 0, param4:Number = 0, param5:Number = 0, param6:Number = 0) : void
         {
@@ -575,12 +575,12 @@
             }
             _cRenderTarget = param1;
             return;
-        }// end function
+        }
 
         public function getRenderTarget() : FTexture
         {
             return _cRenderTarget;
-        }// end function
+        }
 
         public function drawToBitmapData(param1:BitmapData) : void
         {
@@ -590,7 +590,7 @@
             }
             cContext.drawToBitmapData(param1);
             return;
-        }// end function
+        }
 
     }
 }

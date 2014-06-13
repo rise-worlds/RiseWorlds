@@ -32,14 +32,14 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         override public function set active(param1:Boolean) : void
         {
             _bActive = param1;
             _nAccumulatedEnergy = 0;
             return;
-        }// end function
+        }
 
         function init(param1:Boolean = true) : void
         {
@@ -151,7 +151,7 @@
                 _nEndAlpha = _nEndAlpha + cEmitter.endAlphaVariance * Math.random();
             }
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -183,7 +183,7 @@
             cNode.cTransform.scaleY = (_nEndScale - _nInitialScale) * _loc_4 + _nInitialScale;
             cNode.cTransform.scaleX = _loc_6;
             return;
-        }// end function
+        }
 
     }
 }

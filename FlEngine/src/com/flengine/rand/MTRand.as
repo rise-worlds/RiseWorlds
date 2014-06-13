@@ -22,7 +22,7 @@
             mt.fixed = true;
             SRand(4357);
             return;
-        }// end function
+        }
 
         public function SRand(param1:uint) : void
         {
@@ -42,7 +42,7 @@
                 (mti + 1);
             }
             return;
-        }// end function
+        }
 
         public function Next() : uint
         {
@@ -77,24 +77,24 @@
             _loc_2 = _loc_2 ^ _loc_2 >> 18 & 16383;
             _loc_2 = _loc_2 & 2147483647;
             return _loc_2;
-        }// end function
+        }
 
         public function NextRange(param1:uint) : uint
         {
             return Next() % param1;
-        }// end function
+        }
 
         public function NextFloat(param1:Number) : Number
         {
             return Next() / 2147483647 * param1;
-        }// end function
+        }
 
         public function Dispose() : void
         {
             mt.splice(0, mt.length);
             mt = null;
             return;
-        }// end function
+        }
 
     }
 }

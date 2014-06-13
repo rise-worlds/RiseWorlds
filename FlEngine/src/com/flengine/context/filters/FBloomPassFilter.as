@@ -23,7 +23,7 @@
             new Vector.<Number>(8)[7] = 1;
             _aFragmentConstants = new Vector.<Number>(8);
             return;
-        }// end function
+        }
 
         override public function bind(param1:Context3D, param2:FTexture) : void
         {
@@ -34,13 +34,13 @@
             }
             param1.setTextureAt(1, texture.cContextTexture.tTexture);
             return;
-        }// end function
+        }
 
         override public function clear(param1:Context3D) : void
         {
             param1.setTextureAt(1, null);
             return;
-        }// end function
+        }
 
     }
 }

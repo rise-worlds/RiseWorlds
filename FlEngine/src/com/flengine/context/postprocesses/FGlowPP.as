@@ -28,7 +28,7 @@
             _iTopMargin = _cBlur.blurY * _cBlur.passes * 0.5;
             _cEmpty.setMargins(_iLeftMargin, _iRightMargin, _iTopMargin, _iBottomMargin);
             return;
-        }// end function
+        }
 
         public function get color() : int
         {
@@ -36,7 +36,7 @@
             var _loc_3:* = _cBlur.green * 255 << 8;
             var _loc_2:* = _cBlur.blue * 255;
             return _loc_1 + _loc_3 + _loc_2;
-        }// end function
+        }
 
         public function set color(param1:int) : void
         {
@@ -44,23 +44,23 @@
             _cBlur.green = (param1 >> 8 & 255) / 255;
             _cBlur.blue = (param1 & 255) / 255;
             return;
-        }// end function
+        }
 
         public function get alpha() : Number
         {
             return _cBlur.alpha;
-        }// end function
+        }
 
         public function set alpha(param1:Number) : void
         {
             _cBlur.alpha = param1;
             return;
-        }// end function
+        }
 
         public function get blurX() : Number
         {
             return _cBlur.blurX;
-        }// end function
+        }
 
         public function set blurX(param1:Number) : void
         {
@@ -69,12 +69,12 @@
             _iLeftMargin = _cBlur.blurX * _cBlur.passes * 0.5;
             _cEmpty.setMargins(_iLeftMargin, _iRightMargin, _iTopMargin, _iBottomMargin);
             return;
-        }// end function
+        }
 
         public function get blurY() : int
         {
             return _cBlur.blurY;
-        }// end function
+        }
 
         public function set blurY(param1:int) : void
         {
@@ -83,7 +83,7 @@
             _iTopMargin = _cBlur.blurY * _cBlur.passes * 0.5;
             _cEmpty.setMargins(_iLeftMargin, _iRightMargin, _iTopMargin, _iBottomMargin);
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void
         {
@@ -100,7 +100,7 @@
             param1.draw(_aPassTextures[1], _loc_8.x - _iLeftMargin + _iOffsetX, _loc_8.y - _iTopMargin + _iOffsetY, 1, 1, 0, 1, 1, 1, 1, 1, param3);
             param1.draw(_aPassTextures[0], _loc_8.x - _iLeftMargin, _loc_8.y - _iTopMargin, 1, 1, 0, 1, 1, 1, 1, 1, param3);
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -108,7 +108,7 @@
             _cBlur.dispose();
             super.dispose();
             return;
-        }// end function
+        }
 
     }
 }

@@ -23,12 +23,12 @@
                 _loc_4++;
             }
             return;
-        }// end function
+        }
 
         public function get cachedCount() : int
         {
             return __iCachedCount;
-        }// end function
+        }
 
         public function getNext() : FNode
         {
@@ -43,9 +43,9 @@
                 _loc_1.active = true;
             }
             return _loc_1;
-        }// end function
+        }
 
-        function putToFront(param1:FNode) : void
+        public function putToFront(param1:FNode) : void
         {
             if (param1 == __cFirst)
             {
@@ -71,9 +71,9 @@
             param1.cPoolNext = __cFirst;
             __cFirst = param1;
             return;
-        }// end function
+        }
 
-        function putToBack(param1:FNode) : void
+        public function putToBack(param1:FNode) : void
         {
             if (param1 == __cLast)
             {
@@ -99,7 +99,7 @@
             param1.cPoolNext = null;
             __cLast = param1;
             return;
-        }// end function
+        }
 
         private function createNew(param1:Boolean = false) : FNode
         {
@@ -123,12 +123,12 @@
                 }
             }
             return _loc_2;
-        }// end function
+        }
 
         private function createNode() : FNode
         {
             return FNodeFactory.createFromPrototype(__xPrototype);
-        }// end function
+        }
 
         public function dispose() : void
         {
@@ -141,7 +141,7 @@
                 __cFirst = _loc_1;
             }
             return;
-        }// end function
+        }
 
         public function deactivate() : void
         {
@@ -155,7 +155,7 @@
                 __cLast.active = false;
             }
             return;
-        }// end function
+        }
 
     }
 }

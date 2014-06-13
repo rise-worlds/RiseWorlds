@@ -12,7 +12,7 @@
         {
             super(param1, param2, param3, param4);
             return;
-        }// end function
+        }
 
         override public function packRectangles(param1:Vector.<FPackerRectangle>, param2:int = 0, param3:int = 2) : Boolean
         {
@@ -79,7 +79,7 @@
                 _loc_10 = _iWidth <= _iMaxWidth && _iHeight <= _iMaxHeight;
             }
             return _loc_10;
-        }// end function
+        }
 
         private function addRectangles(param1:Vector.<FPackerRectangle>, param2:int = 0, param3:Boolean = true) : Boolean
         {
@@ -100,7 +100,7 @@
                 _loc_7++;
             }
             return _loc_6;
-        }// end function
+        }
 
         private function addRectangle(param1:int, param2:int, param3:int = 0) : Boolean
         {
@@ -128,7 +128,7 @@
             _aRectangles.push(FPackerRectangle.get(__iXOffset + param3, __iYOffset + param3, param1, param2));
             __iXOffset = __iXOffset + (param1 + _loc_4);
             return true;
-        }// end function
+        }
 
         override public function clear() : void
         {
@@ -137,7 +137,7 @@
             __iYOffset = 0;
             __iRowOffset = 0;
             return;
-        }// end function
+        }
 
     }
 }

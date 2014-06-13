@@ -14,7 +14,7 @@
         public function FTextureSourceType()
         {
             throw new FError("FError: Cannot instantiate abstract class.");
-        }// end function
+        }
 
         static function isValid(param1:int) : Boolean
         {
@@ -23,7 +23,7 @@
                 return true;
             }
             return false;
-        }// end function
+        }
 
     }
 }

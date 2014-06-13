@@ -20,12 +20,12 @@
             _transform = new JATransform();
             images = new Vector.<JAMemoryImage>;
             return;
-        }// end function
+        }
 
         public function get transform() : JATransform
         {
             return _transform;
-        }// end function
+        }
 
         public function OnMemoryImageLoadCompleted(param1:JAMemoryImage) : void
         {
@@ -38,7 +38,7 @@
                 }
             }
             return;
-        }// end function
+        }
 
     }
 }

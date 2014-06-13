@@ -24,7 +24,7 @@
         public function FPackerRectangle()
         {
             return;
-        }// end function
+        }
 
         public function set(param1:int, param2:int, param3:int, param4:int) : void
         {
@@ -35,7 +35,7 @@
             right = param1 + param3;
             bottom = param2 + param4;
             return;
-        }// end function
+        }
 
         public function dispose() : void
         {
@@ -45,7 +45,7 @@
             availableInstance = this;
             bitmapData = null;
             return;
-        }// end function
+        }
 
         public function setPadding(param1:int) : void
         {
@@ -57,17 +57,17 @@
             bottom = bottom + (param1 - padding);
             padding = param1;
             return;
-        }// end function
+        }
 
         public function get rect() : Rectangle
         {
             return new Rectangle(x, y, width, height);
-        }// end function
+        }
 
         public function toString() : String
         {
             return "[" + id + "] x: " + x + " y: " + y + " w: " + width + " h: " + height + " bd: " + bitmapData.rect + " p: " + padding;
-        }// end function
+        }
 
         public static function get(param1:int, param2:int, param3:int, param4:int, param5:String = null, param6:BitmapData = null, param7:Number = 0, param8:Number = 0) : FPackerRectangle
         {
@@ -92,7 +92,7 @@
             _loc_9.pivotX = param7;
             _loc_9.pivotY = param8;
             return _loc_9;
-        }// end function
+        }
 
     }
 }

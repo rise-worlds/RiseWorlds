@@ -21,7 +21,7 @@
         {
             transform = new JATransform();
             return;
-        }// end function
+        }
 
         public function clone(param1:JAObjectPos) : void
         {
@@ -52,7 +52,7 @@
             this.preloadFrames = param1.preloadFrames;
             transform.clone(param1.transform);
             return;
-        }// end function
+        }
 
     }
 }

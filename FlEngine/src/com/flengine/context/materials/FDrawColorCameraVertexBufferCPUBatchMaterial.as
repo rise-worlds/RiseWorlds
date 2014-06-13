@@ -28,7 +28,7 @@
         public function FDrawColorCameraVertexBufferCPUBatchMaterial()
         {
             return;
-        }// end function
+        }
 
         function initialize(param1:Context3D) : void
         {
@@ -62,7 +62,7 @@
             __ib3QuadIndexBuffer.uploadFromVector(_loc_2, 0, 3 * 1000);
             __iTriangleCount = 0;
             return;
-        }// end function
+        }
 
         function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
         {
@@ -76,7 +76,7 @@
             __cContext.setProgramConstantsFromVector("fragment", 0, this.Vector.<Number>([1, 0, 0, 0.5]), 1);
             __iTriangleCount = 0;
             return;
-        }// end function
+        }
 
         public function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number) : void
         {
@@ -120,7 +120,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function drawPoly(param1:Vector.<Number>, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number, param10:Number) : void
         {
@@ -155,7 +155,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function drawMatrix(param1:Matrix, param2:Number, param3:Number, param4:Number, param5:Number) : void
         {
@@ -193,7 +193,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function push() : void
         {
@@ -211,14 +211,14 @@
             }
             __iTriangleCount = 0;
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
             __cContext.setVertexBufferAt(0, null);
             __cContext.setVertexBufferAt(1, null);
             return;
-        }// end function
+        }
 
     }
 }

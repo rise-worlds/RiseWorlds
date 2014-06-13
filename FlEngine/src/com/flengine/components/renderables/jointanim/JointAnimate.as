@@ -43,42 +43,42 @@
             _mainAnimDef = new JAAnimDef();
             _remapList = [];
             return;
-        }// end function
+        }
 
         public function get drawScale() : Number
         {
             return _drawScale;
-        }// end function
+        }
 
         public function get imgScale() : Number
         {
             return _imgScale;
-        }// end function
+        }
 
         public function get loaded() : Boolean
         {
             return _loaded;
-        }// end function
+        }
 
         public function get particleAttachOffset() : Point
         {
             return _particleAttachOffset;
-        }// end function
+        }
 
         public function get mainAnimDef() : JAAnimDef
         {
             return _mainAnimDef;
-        }// end function
+        }
 
         public function get imageVector() : Vector.<JAImage>
         {
             return _imageVector;
-        }// end function
+        }
 
         public function get animRect() : Rectangle
         {
             return _animRect;
-        }// end function
+        }
 
         private function AddOnceImageToList(param1:String, param2:Array) : void
         {
@@ -97,7 +97,7 @@
             }
             param2.push({imageName:param1});
             return;
-        }// end function
+        }
 
         public function GetImageFileList(param1:ByteArray, param2:Array) : int
         {
@@ -173,7 +173,7 @@
                 _loc_10++;
             }
             return 0;
-        }// end function
+        }
 
         public function LoadPam(param1:ByteArray, param2:FTextureAtlas) : int
         {
@@ -334,7 +334,7 @@
             }
             _loaded = true;
             return 0;
-        }// end function
+        }
 
         private function Load_GetImageNoTexture(param1:JAImage) : void
         {
@@ -347,7 +347,7 @@
             _loc_2.imageExist = false;
             param1.images.push(_loc_2);
             return;
-        }// end function
+        }
 
         private function Load_GetImage(param1:JAImage, param2:FTextureAtlas) : Boolean
         {
@@ -364,13 +364,13 @@
             param1.OnMemoryImageLoadCompleted(_loc_3);
             param1.images.push(_loc_3);
             return true;
-        }// end function
+        }
 
         private function ReadString(param1:ByteArray) : String
         {
             var _loc_2:* = param1.readShort();
             return param1.readUTFBytes(_loc_2);
-        }// end function
+        }
 
         private function Remap(param1:String) : String
         {
@@ -392,7 +392,7 @@
             _loc_3.splice(0);
             _loc_3 = null;
             return _loc_4;
-        }// end function
+        }
 
         private function WildcardReplace(param1:String, param2:String, param3:String, param4:Array) : Boolean
         {
@@ -494,7 +494,7 @@
                 }
             }
             return false;
-        }// end function
+        }
 
         private function WildcardExpand(param1:String, param2:int, param3:int, param4:String) : String
         {
@@ -527,7 +527,7 @@
                 _loc_5 = param4;
             }
             return _loc_5;
-        }// end function
+        }
 
         private function LoadSpriteDef(param1:ByteArray, param2:JASpriteDef) : Boolean
         {
@@ -811,7 +811,7 @@
                 _loc_22++;
             }
             return true;
-        }// end function
+        }
 
     }
 }

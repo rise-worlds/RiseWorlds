@@ -13,7 +13,7 @@
             commandVector = new Vector.<JACommand>;
             frameObjectPosVector = new Vector.<JAObjectPos>;
             return;
-        }// end function
+        }
 
     }
 }

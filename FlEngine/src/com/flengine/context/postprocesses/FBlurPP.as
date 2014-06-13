@@ -38,96 +38,96 @@
                 _loc_5++;
             }
             return;
-        }// end function
+        }
 
         public function get colorize() : Boolean
         {
             return _bColorize;
-        }// end function
+        }
 
         public function set colorize(param1:Boolean) : void
         {
             _bColorize = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get red() : Number
         {
             return _nRed;
-        }// end function
+        }
 
         public function set red(param1:Number) : void
         {
             _nRed = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get green() : Number
         {
             return _nGreen;
-        }// end function
+        }
 
         public function set green(param1:Number) : void
         {
             _nGreen = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get blue() : Number
         {
             return _nBlue;
-        }// end function
+        }
 
         public function set blue(param1:Number) : void
         {
             _nBlue = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get alpha() : Number
         {
             return _nAlpha;
-        }// end function
+        }
 
         public function set alpha(param1:Number) : void
         {
             _nAlpha = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         override public function get passes() : int
         {
             return _iPasses / 2;
-        }// end function
+        }
 
         public function get blurX() : int
         {
             return _iPasses * _nBlurX / 2;
-        }// end function
+        }
 
         public function set blurX(param1:int) : void
         {
             _nBlurX = 2 * param1 / _iPasses;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get blurY() : int
         {
             return _iPasses * _nBlurY / 2;
-        }// end function
+        }
 
         public function set blurY(param1:int) : void
         {
             _nBlurY = 2 * param1 / _iPasses;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void
         {
@@ -137,7 +137,7 @@
             }
             super.render(param1, param2, param3, param4, param5, param6, param7);
             return;
-        }// end function
+        }
 
         private function invalidateBlurFilters() : void
         {
@@ -162,7 +162,7 @@
             _iTopMargin = _nBlurY * _iPasses * 0.5;
             _bInvalidate = false;
             return;
-        }// end function
+        }
 
     }
 }

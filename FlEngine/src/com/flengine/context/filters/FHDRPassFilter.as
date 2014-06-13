@@ -25,19 +25,19 @@
             _aFragmentConstants = new Vector.<Number>(8);
             _nSaturation = param1;
             return;
-        }// end function
+        }
 
         public function get saturation() : Number
         {
             return _nSaturation;
-        }// end function
+        }
 
         public function set saturation(param1:Number) : void
         {
             _nSaturation = param1;
             _aFragmentConstants[4] = _nSaturation;
             return;
-        }// end function
+        }
 
         override public function bind(param1:Context3D, param2:FTexture) : void
         {
@@ -48,13 +48,13 @@
             }
             param1.setTextureAt(1, texture.cContextTexture.tTexture);
             return;
-        }// end function
+        }
 
         override public function clear(param1:Context3D) : void
         {
             param1.setTextureAt(1, null);
             return;
-        }// end function
+        }
 
     }
 }

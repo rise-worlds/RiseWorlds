@@ -21,17 +21,17 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         public function get currentFrame() : int
         {
             return _iCurrentFrame;
-        }// end function
+        }
 
         public function get textureAtlasId() : String
         {
             return _cTextureAtlas ? (_cTextureAtlas.id) : ("");
-        }// end function
+        }
 
         public function set textureAtlasId(param1:String) : void
         {
@@ -41,12 +41,12 @@
                 cTexture = _cTextureAtlas.getTexture(_aFrameIds[0]);
             }
             return;
-        }// end function
+        }
 
         public function get frames() : Array
         {
             return _aFrameIds;
-        }// end function
+        }
 
         public function set frames(param1:Array) : void
         {
@@ -58,7 +58,7 @@
                 cTexture = _cTextureAtlas.getTexture(_aFrameIds[0]);
             }
             return;
-        }// end function
+        }
 
         public function setTextureAtlas(param1:FTextureAtlas) : void
         {
@@ -68,23 +68,23 @@
                 cTexture = _cTextureAtlas.getTexture(_aFrameIds[0]);
             }
             return;
-        }// end function
+        }
 
         public function get frameRate() : int
         {
             return 1000 / _nSpeed;
-        }// end function
+        }
 
         public function set frameRate(param1:int) : void
         {
             _nSpeed = 1000 / param1;
             return;
-        }// end function
+        }
 
         public function get numFrames() : int
         {
             return _iFrameIdsLength;
-        }// end function
+        }
 
         public function gotoFrame(param1:int) : void
         {
@@ -96,33 +96,33 @@
             _iCurrentFrame = _iCurrentFrame % _aFrameIds.length;
             cTexture = _cTextureAtlas.getTexture(_aFrameIds[_iCurrentFrame]);
             return;
-        }// end function
+        }
 
         public function gotoAndPlay(param1:int) : void
         {
             gotoFrame(param1);
             play();
             return;
-        }// end function
+        }
 
         public function gotoAndStop(param1:int) : void
         {
             gotoFrame(param1);
             stop();
             return;
-        }// end function
+        }
 
         public function stop() : void
         {
             _bPlaying = false;
             return;
-        }// end function
+        }
 
         public function play() : void
         {
             _bPlaying = true;
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -149,7 +149,7 @@
                 _nAccumulatedTime = _nAccumulatedTime % _nSpeed;
             }
             return;
-        }// end function
+        }
 
     }
 }

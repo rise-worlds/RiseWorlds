@@ -11,12 +11,12 @@
             x = param1;
             y = param2;
             return;
-        }// end function
+        }
 
         public function Magnitude() : Number
         {
             return Math.sqrt(x * x + y * y);
-        }// end function
+        }
 
         public function Normalize() : JAVec2
         {
@@ -27,7 +27,7 @@
                 y = y / _loc_1;
             }
             return this;
-        }// end function
+        }
 
         public function Perp() : void
         {
@@ -35,12 +35,12 @@
             this.x = -this.y;
             this.y = this.x;
             return;
-        }// end function
+        }
 
         public function Dot(param1:JAVec2) : Number
         {
             return x * param1.x + y * param1.y;
-        }// end function
+        }
 
     }
 }

@@ -32,32 +32,32 @@
             _bAutoExpand = param5;
             clear();
             return;
-        }// end function
+        }
 
         public function get width() : int
         {
             return _iWidth;
-        }// end function
+        }
 
         public function get height() : int
         {
             return _iHeight;
-        }// end function
+        }
 
         public function get rectangles() : Vector.<FPackerRectangle>
         {
             return _aRectangles.concat();
-        }// end function
+        }
 
         public function packRectangles(param1:Vector.<FPackerRectangle>, param2:int = 0, param3:int = 2) : Boolean
         {
             return false;
-        }// end function
+        }
 
         public function packRectangle(param1:FPackerRectangle, param2:int = 0, param3:Boolean = true) : Boolean
         {
             return false;
-        }// end function
+        }
 
         protected function getRectanglesArea(param1:Vector.<FPackerRectangle>) : int
         {
@@ -70,7 +70,7 @@
                 _loc_3--;
             }
             return _loc_2;
-        }// end function
+        }
 
         protected function sortOnAreaAscending(param1:FPackerRectangle, param2:FPackerRectangle) : Number
         {
@@ -85,7 +85,7 @@
                 return 1;
             }
             return 0;
-        }// end function
+        }
 
         protected function sortOnAreaDescending(param1:FPackerRectangle, param2:FPackerRectangle) : Number
         {
@@ -100,7 +100,7 @@
                 return 1;
             }
             return 0;
-        }// end function
+        }
 
         protected function sortOnHeightAscending(param1:FPackerRectangle, param2:FPackerRectangle) : Number
         {
@@ -113,7 +113,7 @@
                 return 1;
             }
             return 0;
-        }// end function
+        }
 
         protected function sortOnHeightDescending(param1:FPackerRectangle, param2:FPackerRectangle) : Number
         {
@@ -126,13 +126,13 @@
                 return 1;
             }
             return 0;
-        }// end function
+        }
 
         public function clear() : void
         {
             _aRectangles = new Vector.<FPackerRectangle>;
             return;
-        }// end function
+        }
 
         public function draw(param1:BitmapData) : void
         {
@@ -150,7 +150,7 @@
                 _loc_4++;
             }
             return;
-        }// end function
+        }
 
     }
 }

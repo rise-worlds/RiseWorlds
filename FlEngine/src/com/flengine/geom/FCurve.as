@@ -22,7 +22,7 @@
                 _aPoints = param1;
             }
             return;
-        }// end function
+        }
 
         public function get length() : Number
         {
@@ -49,19 +49,19 @@
                 _bLengthDirty = false;
             }
             return _nLength;
-        }// end function
+        }
 
         public function set points(param1:Vector.<Number>) : void
         {
             _aPoints = param1;
             _bLengthDirty = true;
             return;
-        }// end function
+        }
 
         public function get points() : Vector.<Number>
         {
             return _aPoints;
-        }// end function
+        }
 
         public function addPoint(param1:Number, param2:Number, param3:Number = -1) : void
         {
@@ -75,13 +75,13 @@
             }
             _bLengthDirty = true;
             return;
-        }// end function
+        }
 
         public function removePoint(param1:Number) : void
         {
             _aPoints.splice(param1, 1);
             return;
-        }// end function
+        }
 
         public function getNormalAtDistance(param1:Number) : Point
         {
@@ -90,12 +90,12 @@
             var _loc_5:* = _loc_2.x - _loc_3.x;
             var _loc_4:* = _loc_2.y - _loc_3.y;
             return new Point(_loc_4, -_loc_5);
-        }// end function
+        }
 
         public function interpolateByDistance(param1:Number) : Point
         {
             return new Point();
-        }// end function
+        }
 
         public function drawPath(param1:Graphics, param2:Number) : void
         {
@@ -119,7 +119,7 @@
                 _loc_5++;
             }
             return;
-        }// end function
+        }
 
     }
 }

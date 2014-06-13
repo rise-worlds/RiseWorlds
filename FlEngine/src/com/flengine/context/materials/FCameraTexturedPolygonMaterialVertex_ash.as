@@ -8,7 +8,7 @@
         public function FCameraTexturedPolygonMaterialVertex_ash()
         {
             return;
-        }// end function
+        }
 
     }
 }

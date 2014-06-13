@@ -75,7 +75,7 @@
             _blendTicksCur = 0;
             _blendTicksTotal = 0;
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -85,12 +85,12 @@
             _mainSpriteInst.Dispose();
             _JointAnimate = null;
             return;
-        }// end function
+        }
 
         override public function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean
         {
             return false;
-        }// end function
+        }
 
         override public function getWorldBounds(param1:Rectangle = null) : Rectangle
         {
@@ -128,7 +128,7 @@
                 _loc_4 = _loc_4 + 3;
             }
             return param1;
-        }// end function
+        }
 
         private function getTransformedVertices3D() : Vector.<Number>
         {
@@ -155,7 +155,7 @@
             NORMALIZED_VERTICES_3D[11] = 0;
             _helpGetTransformedVertices3DTransformMatrix.transformVectors(NORMALIZED_VERTICES_3D, _helpGetTransformedVertices3DVector);
             return _helpGetTransformedVertices3DVector;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -169,7 +169,7 @@
             }
             Draw(param1);
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -183,50 +183,50 @@
             }
             Update(param1 * 0.1);
             return;
-        }// end function
+        }
 
         public function get transform() : JATransform2D
         {
             return _transform;
-        }// end function
+        }
 
         public function get lastPlayedLabel() : String
         {
             return _lastPlayedFrameLabel;
-        }// end function
+        }
 
         public function get interpolate() : Boolean
         {
             return _interpolate;
-        }// end function
+        }
 
         public function set interpolate(param1:Boolean) : void
         {
             _interpolate = param1;
             return;
-        }// end function
+        }
 
         public function set mirror(param1:Boolean) : void
         {
             _mirror = param1;
             return;
-        }// end function
+        }
 
         public function get mirror() : Boolean
         {
             return _mirror;
-        }// end function
+        }
 
         public function set additive(param1:Boolean) : void
         {
             _additive = param1;
             return;
-        }// end function
+        }
 
         public function get additive() : Boolean
         {
             return _additive;
-        }// end function
+        }
 
         public function set color(param1:uint) : void
         {
@@ -235,17 +235,17 @@
             _color.green = param1 >> 8 & 255;
             _color.blue = param1 & 255;
             return;
-        }// end function
+        }
 
         public function get color() : uint
         {
             return _color.toInt();
-        }// end function
+        }
 
         public function get mainSpriteInst() : JASpriteInst
         {
             return _mainSpriteInst;
-        }// end function
+        }
 
         public function IsActive() : Boolean
         {
@@ -254,7 +254,7 @@
                 return true;
             }
             return false;
-        }// end function
+        }
 
         public function GetToFirstFrame() : void
         {
@@ -272,7 +272,7 @@
                 _paused = _loc_2;
             }
             return;
-        }// end function
+        }
 
         public function ResetAnim() : void
         {
@@ -283,7 +283,7 @@
             _blendTicksCur = 0;
             _blendDelay = 0;
             return;
-        }// end function
+        }
 
         public function SetupSpriteInst(param1:String = "") : Boolean
         {
@@ -338,7 +338,7 @@
                 _transDirty = true;
             }
             return true;
-        }// end function
+        }
 
         public function Play(param1:String, param2:Boolean = true) : Boolean
         {
@@ -361,7 +361,7 @@
             _lastPlayedFrameLabel = param1;
             SetupSpriteInst(param1);
             return PlayIndex(_mainSpriteInst.spriteDef.workAreaStart, param2);
-        }// end function
+        }
 
         public function PlayIndex(param1:int = 0, param2:Boolean = true) : Boolean
         {
@@ -389,7 +389,7 @@
                 DoFramesHit(_mainSpriteInst, null);
             }
             return true;
-        }// end function
+        }
 
         public function Update(param1:Number) : void
         {
@@ -399,7 +399,7 @@
             }
             UpdateF(param1);
             return;
-        }// end function
+        }
 
         private function UpdateF(param1:Number) : void
         {
@@ -409,7 +409,7 @@
             }
             AnimUpdate(param1);
             return;
-        }// end function
+        }
 
         public function Draw(param1:FContext) : void
         {
@@ -429,7 +429,7 @@
             }
             DrawSprite(param1, _mainSpriteInst, null, _color, _additive, false);
             return;
-        }// end function
+        }
 
         private function DrawSprite(param1:FContext, param2:JASpriteInst, param3:JATransform, param4:JAColor, param5:Boolean, param6:Boolean) : void
         {
@@ -595,7 +595,7 @@
                 _loc_16++;
             }
             return;
-        }// end function
+        }
 
         private function AnimUpdate(param1:Number) : void
         {
@@ -625,7 +625,7 @@
             IncSpriteInstFrame(_mainSpriteInst, null, param1);
             PrepSpriteInstFrame(_mainSpriteInst, null);
             return;
-        }// end function
+        }
 
         private function PrepSpriteInstFrame(param1:JASpriteInst, param2:JAObjectPos) : void
         {
@@ -693,7 +693,7 @@
                 _loc_11++;
             }
             return;
-        }// end function
+        }
 
         private function IncSpriteInstFrame(param1:JASpriteInst, param2:JAObjectPos, param3:Number) : void
         {
@@ -764,7 +764,7 @@
                 _loc_9++;
             }
             return;
-        }// end function
+        }
 
         private function DoFramesHit(param1:JASpriteInst, param2:JAObjectPos) : void
         {
@@ -789,7 +789,7 @@
                 _loc_6++;
             }
             return;
-        }// end function
+        }
 
         private function FrameHit(param1:JASpriteInst, param2:JAFrame, param3:JAObjectPos) : void
         {
@@ -917,7 +917,7 @@
                 _loc_11++;
             }
             return;
-        }// end function
+        }
 
         private function UpdateTransforms(param1:JASpriteInst, param2:JATransform, param3:JAColor, param4:Boolean) : void
         {
@@ -962,7 +962,7 @@
                 _loc_9++;
             }
             return;
-        }// end function
+        }
 
         private function CalcObjectPos(param1:JASpriteInst, param2:int, param3:Boolean) : void
         {
@@ -1064,7 +1064,7 @@
             _helpANextObjectPos[1] = null;
             _helpANextObjectPos[2] = null;
             return;
-        }// end function
+        }
 
         private function InitSpriteInst(param1:JASpriteInst, param2:JASpriteDef) : void
         {
@@ -1114,7 +1114,7 @@
                 GetToFirstFrame();
             }
             return;
-        }// end function
+        }
 
         private function ResetAnimHelper(param1:JASpriteInst) : void
         {
@@ -1139,7 +1139,7 @@
             }
             _transDirty = true;
             return;
-        }// end function
+        }
 
         public static function HelpCallInitialize() : void
         {
@@ -1159,7 +1159,7 @@
                 bInit = true;
             }
             return;
-        }// end function
+        }
 
     }
 }

@@ -29,7 +29,7 @@
             VertexShaderEmbed = FBlitColorVertexShaderBatchMaterialVertex_ash;
             VertexShaderCode = new VertexShaderEmbed() as ByteArray;
             return;
-        }// end function
+        }
 
         function initialize(param1:Context3D) : void
         {
@@ -72,7 +72,7 @@
             __ib3IndexBuffer = param1.createIndexBuffer(372);
             __ib3IndexBuffer.uploadFromVector(_loc_5, 0, 372);
             return;
-        }// end function
+        }
 
         public function bind(param1:Context3D, param2:Boolean = false, param3:FCamera = null) : void
         {
@@ -87,7 +87,7 @@
             __cContext.setVertexBufferAt(2, __vb3RegisterIndexBuffer, 0, "float2");
             __iQuadCount = 0;
             return;
-        }// end function
+        }
 
         public function draw(param1:Vector.<Number>) : void
         {
@@ -98,7 +98,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function push() : void
         {
@@ -106,7 +106,7 @@
             __cContext.drawTriangles(__ib3IndexBuffer, 0, __iQuadCount * 2);
             __iQuadCount = 0;
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
@@ -114,7 +114,7 @@
             __cContext.setVertexBufferAt(1, null);
             __cContext.setVertexBufferAt(2, null);
             return;
-        }// end function
+        }
 
     }
 }

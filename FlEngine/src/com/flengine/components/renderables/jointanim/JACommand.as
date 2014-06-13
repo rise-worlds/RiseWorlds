@@ -9,7 +9,7 @@
         public function JACommand()
         {
             return;
-        }// end function
+        }
 
     }
 }

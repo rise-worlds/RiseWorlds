@@ -57,62 +57,62 @@
             cDefaultCamera = FNodeFactory.createNodeWithComponent(FCamera) as FCamera;
             __nLastTime = this.getTimer();
             return;
-        }// end function
+        }
 
         public function get onInitialized() : HelpSignal
         {
             return __eOnInitialized;
-        }// end function
+        }
 
         public function get onFailed() : HelpSignal
         {
             return __eOnFailed;
-        }// end function
+        }
 
         public function get onPreUpdate() : HelpSignal
         {
             return __eOnPreUpdate;
-        }// end function
+        }
 
         public function get onPostUpdate() : HelpSignal
         {
             return __eOnPostUpdate;
-        }// end function
+        }
 
         public function get onCameraAdded() : HelpSignal
         {
             return __eOnCameraAdded;
-        }// end function
+        }
 
         public function get onPreRender() : HelpSignal
         {
             return __eOnPreRender;
-        }// end function
+        }
 
         public function get onPostRender() : HelpSignal
         {
             return __eOnPostRender;
-        }// end function
+        }
 
         public function isInitialized() : Boolean
         {
             return __bInitialized;
-        }// end function
+        }
 
         public function get defaultCamera() : FCamera
         {
             return cDefaultCamera;
-        }// end function
+        }
 
         public function get config() : FConfig
         {
             return cConfig;
-        }// end function
+        }
 
         public function get context() : FContext
         {
             return cContext;
-        }// end function
+        }
 
         public function get driverInfo() : String
         {
@@ -121,12 +121,12 @@
                 return "FlEngine not initialized yet.";
             }
             return cContext.cContext.driverInfo;
-        }// end function
+        }
 
         public function get stage() : Stage
         {
             return __stStage;
-        }// end function
+        }
 
         public function init(param1:Stage, param2:FConfig) : void
         {
@@ -141,13 +141,13 @@
             cContext.eFailed.add(onContextFailed);
             cContext.init(__stStage, cConfig.externalStage3D);
             return;
-        }// end function
+        }
 
         private function onContextFailed(param1:Object) : void
         {
             __eOnFailed.dispatch(null);
             return;
-        }// end function
+        }
 
         private function onContextInitialized(param1:Object) : void
         {
@@ -156,7 +156,7 @@
             __stStage.addEventListener("enterFrame", onEnterFrame);
             onInitialized.dispatch(null);
             return;
-        }// end function
+        }
 
         private function onEnterFrame(event:Event) : void
         {
@@ -176,19 +176,19 @@
                 endRender();
             }
             return;
-        }// end function
+        }
 
         public function beginRender() : void
         {
             cContext.begin(cConfig.backgroundRed, cConfig.backgroundGreen, cConfig.backgroundBlue);
             return;
-        }// end function
+        }
 
         public function endRender() : void
         {
             cContext.end();
             return;
-        }// end function
+        }
 
         public function update() : void
         {
@@ -208,7 +208,7 @@
             }
             __eOnPostUpdate.dispatch(nCurrentDeltaTime);
             return;
-        }// end function
+        }
 
         public function render() : void
         {
@@ -235,7 +235,7 @@
             }
             __eOnPostRender.dispatch(null);
             return;
-        }// end function
+        }
 
         private function onMouseEvent(event:MouseEvent) : void
         {
@@ -271,12 +271,12 @@
                 }
             }
             return;
-        }// end function
+        }
 
         private function onTouchEvent(event:TouchEvent) : void
         {
             return;
-        }// end function
+        }
 
         public function getCameraAt(param1:int) : FCamera
         {
@@ -285,7 +285,7 @@
                 return null;
             }
             return aCameras[param1];
-        }// end function
+        }
 
         public function setCameraIndex(param1:FCamera, param2:int) : void
         {
@@ -302,7 +302,7 @@
             aCameras[param2] = param1;
             aCameras[_loc_3] = _loc_4;
             return;
-        }// end function
+        }
 
         public function getCameraIndex(param1:FCamera) : int
         {
@@ -318,7 +318,7 @@
                 _loc_2++;
             }
             return -1;
-        }// end function
+        }
 
         function addCamera(param1:FCamera) : void
         {
@@ -329,7 +329,7 @@
             aCameras.push(param1);
             __eOnCameraAdded.dispatch(param1);
             return;
-        }// end function
+        }
 
         function removeCamera(param1:FCamera) : void
         {
@@ -339,7 +339,7 @@
                 aCameras.splice(_loc_2, 1);
             }
             return;
-        }// end function
+        }
 
         public static function getInstance() : FlEngine
         {
@@ -350,7 +350,7 @@
             }
             __bInstantiable = false;
             return __cInstance;
-        }// end function
+        }
 
         public static function get frameId() : int
         {
@@ -359,7 +359,7 @@
                 return 0;
             }
             return __cInstance.__iFrameId;
-        }// end function
+        }
 
     }
 }

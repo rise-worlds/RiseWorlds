@@ -8,9 +8,9 @@
     public class FContextTexture extends Object
     {
         private var __cContext:Context3D;
-        var iWidth:int;
-        var iHeight:int;
-        var tTexture:Texture;
+        public var iWidth:int;
+        public var iHeight:int;
+        public var tTexture:Texture;
 
         public function FContextTexture(param1:Context3D, param2:int, param3:int, param4:String, param5:Boolean)
         {
@@ -23,23 +23,23 @@
             iHeight = param3;
             tTexture = param1.createTexture(iWidth, iHeight, param4, param5);
             return;
-        }// end function
+        }
 
-        function getTexture() : Texture
+        public function getTexture() : Texture
         {
             return tTexture;
-        }// end function
+        }
 
-        function dispose() : void
+        public function dispose() : void
         {
             if (tTexture != null)
             {
                 tTexture.dispose();
             }
             return;
-        }// end function
+        }
 
-        function uploadFromBitmapData(param1:BitmapData) : void
+        public function uploadFromBitmapData(param1:BitmapData) : void
         {
             if (tTexture == null || __cContext.driverInfo == "Disposed")
             {
@@ -47,9 +47,9 @@
             }
             tTexture.uploadFromBitmapData(param1, 0);
             return;
-        }// end function
+        }
 
-        function uploadFromCompressedByteArray(param1:ByteArray, param2:uint, param3:Boolean) : void
+        public function uploadFromCompressedByteArray(param1:ByteArray, param2:uint, param3:Boolean) : void
         {
             if (tTexture == null || __cContext.driverInfo == "Disposed")
             {
@@ -57,9 +57,9 @@
             }
             tTexture.uploadCompressedTextureFromByteArray(param1, param2, param3);
             return;
-        }// end function
+        }
 
-        function uploadFromByteArray(param1:ByteArray, param2:uint) : void
+        public function uploadFromByteArray(param1:ByteArray, param2:uint) : void
         {
             if (tTexture == null || __cContext.driverInfo == "Disposed")
             {
@@ -67,7 +67,7 @@
             }
             tTexture.uploadFromByteArray(param1, param2, 0);
             return;
-        }// end function
+        }
 
     }
 }

@@ -22,7 +22,7 @@
         {
             LoadIdentity();
             return;
-        }// end function
+        }
 
         public function clone(param1:JAMatrix3) : void
         {
@@ -33,7 +33,7 @@
             this.m11 = param1.m11;
             this.m12 = param1.m12;
             return;
-        }// end function
+        }
 
         public function ZeroMatrix() : void
         {
@@ -44,7 +44,7 @@
             m11 = 0;
             m12 = 0;
             return;
-        }// end function
+        }
 
         public function LoadIdentity() : void
         {
@@ -55,7 +55,7 @@
             m11 = 1;
             m12 = 0;
             return;
-        }// end function
+        }
 
         public static function MulJAMatrix3(param1:JAMatrix3, param2:JAMatrix3, param3:JAMatrix3) : JAMatrix3
         {
@@ -78,7 +78,7 @@
             param3.m02 = _helpMatrixArg1.m00 * _helpMatrixArg2.m02 + _helpMatrixArg1.m01 * _helpMatrixArg2.m12 + _helpMatrixArg1.m02;
             param3.m12 = _helpMatrixArg1.m10 * _helpMatrixArg2.m02 + _helpMatrixArg1.m11 * _helpMatrixArg2.m12 + _helpMatrixArg1.m12;
             return param3;
-        }// end function
+        }
 
         public static function MulJAMatrix3_M3D(param1:Matrix3D, param2:JATransform2D, param3:JATransform2D) : JATransform2D
         {
@@ -98,7 +98,7 @@
             param3.m02 = _helpMatrix3DVector1[12];
             param3.m12 = _helpMatrix3DVector1[13];
             return param3;
-        }// end function
+        }
 
         public static function MulJAMatrix3_2D(param1:JAMatrix3, param2:JATransform2D, param3:JATransform2D) : JATransform2D
         {
@@ -121,17 +121,17 @@
             param3.m02 = _helpMatrixArg1.m00 * _helpMatrixArg2.m02 + _helpMatrixArg1.m01 * _helpMatrixArg2.m12 + _helpMatrixArg1.m02;
             param3.m12 = _helpMatrixArg1.m10 * _helpMatrixArg2.m02 + _helpMatrixArg1.m11 * _helpMatrixArg2.m12 + _helpMatrixArg1.m12;
             return param3;
-        }// end function
+        }
 
         public static function MulJAVec2X(param1:JAMatrix3, param2:Number, param3:Number) : Number
         {
             return param1.m00 * param2 + param1.m01 * param3 + param1.m02;
-        }// end function
+        }
 
         public static function MulJAVec2Y(param1:JAMatrix3, param2:Number, param3:Number) : Number
         {
             return param1.m10 * param2 + param1.m11 * param3 + param1.m12;
-        }// end function
+        }
 
         public static function cloneTo(param1:JAMatrix3, param2:JAMatrix3) : void
         {
@@ -142,7 +142,7 @@
             param1.m11 = param2.m11;
             param1.m12 = param2.m12;
             return;
-        }// end function
+        }
 
     }
 }

@@ -22,7 +22,7 @@
             curTransform = new JATransform();
             spriteDef = null;
             return;
-        }// end function
+        }
 
         public function Dispose() : void
         {
@@ -40,7 +40,7 @@
             spriteDef = null;
             curColor = null;
             return;
-        }// end function
+        }
 
         public function Reset() : void
         {
@@ -54,7 +54,7 @@
             }
             children.splice(0, children.length);
             return;
-        }// end function
+        }
 
     }
 }

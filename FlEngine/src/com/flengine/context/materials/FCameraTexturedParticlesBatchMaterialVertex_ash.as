@@ -8,7 +8,7 @@
         public function FCameraTexturedParticlesBatchMaterialVertex_ash()
         {
             return;
-        }// end function
+        }
 
     }
 }

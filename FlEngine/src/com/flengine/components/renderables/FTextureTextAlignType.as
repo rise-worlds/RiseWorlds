@@ -12,7 +12,7 @@
         public function FTextureTextAlignType()
         {
             return;
-        }// end function
+        }
 
     }
 }

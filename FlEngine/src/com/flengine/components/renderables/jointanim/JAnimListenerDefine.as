@@ -11,7 +11,7 @@
         public function JAnimListenerDefine()
         {
             return;
-        }// end function
+        }
 
     }
 }

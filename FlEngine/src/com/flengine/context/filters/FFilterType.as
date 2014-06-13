@@ -21,7 +21,7 @@
         public function FFilterType()
         {
             return;
-        }// end function
+        }
 
     }
 }

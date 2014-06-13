@@ -9,7 +9,7 @@
         public function FTextureAlignType()
         {
             return;
-        }// end function
+        }
 
     }
 }

@@ -10,7 +10,7 @@
         public function HermitePoint()
         {
             return;
-        }// end function
+        }
 
     }
 }

@@ -30,7 +30,7 @@
             _sProfile = param2;
             _st3ExternalStage3D = param3;
             return;
-        }// end function
+        }
 
         public function set backgroundColor(param1:int) : void
         {
@@ -38,17 +38,17 @@
             backgroundGreen = (param1 >> 8 & 255) / 255;
             backgroundBlue = (param1 & 255) / 255;
             return;
-        }// end function
+        }
 
         public function get profile() : String
         {
             return _sProfile;
-        }// end function
+        }
 
         public function get viewRect() : Rectangle
         {
             return _rViewRect;
-        }// end function
+        }
 
         public function set viewRect(param1:Rectangle) : void
         {
@@ -58,12 +58,12 @@
                 FlEngine.getInstance().cContext.invalidate();
             }
             return;
-        }// end function
+        }
 
         public function get antiAliasing() : int
         {
             return __iAntiAliasing;
-        }// end function
+        }
 
         public function set antiAliasing(param1:int) : void
         {
@@ -73,12 +73,12 @@
                 FlEngine.getInstance().cContext.invalidate();
             }
             return;
-        }// end function
+        }
 
         public function get enableDepthAndStencil() : Boolean
         {
             return __bEnableDepthAndStencil;
-        }// end function
+        }
 
         public function set enableDepthAndStencil(param1:Boolean) : void
         {
@@ -88,12 +88,12 @@
                 FlEngine.getInstance().cContext.invalidate();
             }
             return;
-        }// end function
+        }
 
         public function get externalStage3D() : Stage3D
         {
             return _st3ExternalStage3D;
-        }// end function
+        }
 
     }
 }

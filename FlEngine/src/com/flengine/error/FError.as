@@ -39,7 +39,7 @@
         {
             super(param1 + (param2 ? (" Param: " + param2) : ("")), 0);
             return;
-        }// end function
+        }
 
     }
 }

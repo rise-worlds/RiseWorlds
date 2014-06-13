@@ -16,30 +16,30 @@
             super(param1);
             radius = 100;
             return;
-        }// end function
+        }
 
         public function get radius() : int
         {
             return iRadius;
-        }// end function
+        }
 
         public function set radius(param1:int) : void
         {
             iRadius = param1;
             iRadiusSquared = iRadius * iRadius;
             return;
-        }// end function
+        }
 
         public function getTexture() : FTexture
         {
             return cTexture;
-        }// end function
+        }
 
         public function set textureId(param1:String) : void
         {
             cTexture = FTexture.getTextureById(param1);
             return;
-        }// end function
+        }
 
         public function get textureId() : String
         {
@@ -48,12 +48,12 @@
                 return cTexture.id;
             }
             return "";
-        }// end function
+        }
 
         public function toString() : String
         {
             return node.transform.x + ":" + node.transform.y;
-        }// end function
+        }
 
     }
 }

@@ -15,16 +15,16 @@
         public function FTextureResampleType()
         {
             throw new FError("FError: Cannot instantiate abstract class.");
-        }// end function
+        }
 
-        static function isValid(param1:int) : Boolean
+        static public function isValid(param1:int) : Boolean
         {
             if (param1 == 0 || param1 == 1 || param1 == 2 || param1 == 3 || param1 == 4)
             {
                 return true;
             }
             return false;
-        }// end function
+        }
 
     }
 }

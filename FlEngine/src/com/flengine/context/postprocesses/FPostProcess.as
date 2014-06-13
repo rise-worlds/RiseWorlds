@@ -39,18 +39,18 @@
             _aPassTextures = new Vector.<FTexture>(_iPasses);
             createPassTextures();
             return;
-        }// end function
+        }
 
         public function get passes() : int
         {
             return _iPasses;
-        }// end function
+        }
 
         public function setBounds(param1:Rectangle) : void
         {
             _rDefinedBounds = param1;
             return;
-        }// end function
+        }
 
         public function setMargins(param1:int = 0, param2:int = 0, param3:int = 0, param4:int = 0) : void
         {
@@ -59,7 +59,7 @@
             _iTopMargin = param3;
             _iBottomMargin = param4;
             return;
-        }// end function
+        }
 
         public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void
         {
@@ -107,17 +107,17 @@
             }
             _aPassTextures[0] = _loc_9;
             return;
-        }// end function
+        }
 
         public function getPassTexture(param1:int) : FTexture
         {
             return _aPassTextures[param1];
-        }// end function
+        }
 
         public function getPassFilter(param1:int) : FFilter
         {
             return _aPassFilters[param1];
-        }// end function
+        }
 
         protected function updatePassTextures(param1:Rectangle) : void
         {
@@ -139,7 +139,7 @@
                 }
             }
             return;
-        }// end function
+        }
 
         protected function createPassTextures() : void
         {
@@ -157,7 +157,7 @@
                 _loc_2++;
             }
             return;
-        }// end function
+        }
 
         public function dispose() : void
         {
@@ -170,7 +170,7 @@
                 _loc_1--;
             }
             return;
-        }// end function
+        }
 
     }
 }

@@ -9,7 +9,7 @@
         private var _error:String = "";
         private var debugEnabled:Boolean = false;
         public var verbose:Boolean = false;
-        static const REGEXP_OUTER_SPACES:RegExp = /^\s+|\s+$/g;
+        private static const REGEXP_OUTER_SPACES:RegExp = /^\s+|\s+$/g;
         private static var initialized:Boolean = false;
         private static const OPMAP:Dictionary = new Dictionary();
         private static const REGMAP:Dictionary = new Dictionary();
@@ -116,17 +116,17 @@
                 init();
             }
             return;
-        }// end function
+        }
 
         public function get error() : String
         {
             return _error;
-        }// end function
+        }
 
         public function get agalcode() : ByteArray
         {
             return _agalcode;
-        }// end function
+        }
 
         public function assemble2(param1:Context3D, param2:uint, param3:String, param4:String) : Program3D
         {
@@ -135,7 +135,7 @@
             var _loc_5:* = param1.createProgram();
             _loc_5.upload(_loc_6, _loc_7);
             return _loc_5;
-        }// end function
+        }
 
         public function assemble(param1:String, param2:String, param3:uint = 1, param4:Boolean = false) : ByteArray
         {
@@ -179,7 +179,7 @@
             var _loc_37:* = 0;
             var _loc_14:* = 0;
             var _loc_47:* = null;
-            var _loc_23:* = this.getTimer();
+            var _loc_23:* = getTimer();
             _agalcode = new ByteArray();
             _error = "";
             var _loc_46:* = false;
@@ -222,7 +222,7 @@
                 {
                     if (_loc_30.length >= 3)
                     {
-                        this.trace("warning: bad line " + _loc_42 + ": " + _loc_25[_loc_42]);
+                        trace("warning: bad line " + _loc_42 + ": " + _loc_25[_loc_42]);
                     }
                 }
                 else
@@ -230,13 +230,13 @@
                     _loc_10 = OPMAP[_loc_34[0]];
                     if (debugEnabled)
                     {
-                        this.trace(_loc_10);
+                        trace(_loc_10);
                     }
                     if (_loc_10 == null)
                     {
                         if (_loc_30.length >= 3)
                         {
-                            this.trace("warning: bad line " + _loc_42 + ": " + _loc_25[_loc_42]);
+                            trace("warning: bad line " + _loc_42 + ": " + _loc_25[_loc_42]);
                         }
                     }
                     else
@@ -259,7 +259,7 @@
                         }
                         if (verbose)
                         {
-                            this.trace("emit opcode=" + _loc_10);
+                            trace("emit opcode=" + _loc_10);
                         }
                         agalcode.writeUnsignedInt(_loc_10.emitCode);
                         _loc_21++;
@@ -288,7 +288,7 @@
                                 _loc_17[_loc_40] = _loc_17[_loc_40].replace(_loc_16[0], "0");
                                 if (verbose)
                                 {
-                                    this.trace("IS REL");
+                                    trace("IS REL");
                                 }
                                 _loc_35 = true;
                             }
@@ -302,7 +302,7 @@
                             _loc_9 = REGMAP[_loc_27[0]];
                             if (debugEnabled)
                             {
-                                this.trace(_loc_9);
+                                trace(_loc_9);
                             }
                             if (_loc_9 == null)
                             {
@@ -430,12 +430,12 @@
                                 }
                                 if (verbose)
                                 {
-                                    this.trace("RELATIVE: type=" + _loc_24 + "==" + _loc_11[0] + " sel=" + _loc_20 + "==" + _loc_6[0] + " idx=" + _loc_19 + " offset=" + _loc_8);
+                                    trace("RELATIVE: type=" + _loc_24 + "==" + _loc_11[0] + " sel=" + _loc_20 + "==" + _loc_6[0] + " idx=" + _loc_19 + " offset=" + _loc_8);
                                 }
                             }
                             if (verbose)
                             {
-                                this.trace("  emit argcode=" + _loc_9 + "[" + _loc_19 + "][" + _loc_48 + "]");
+                                trace("  emit argcode=" + _loc_9 + "[" + _loc_19 + "][" + _loc_48 + "]");
                             }
                             if (_loc_33)
                             {
@@ -448,7 +448,7 @@
                             {
                                 if (verbose)
                                 {
-                                    this.trace("  emit sampler");
+                                    trace("  emit sampler");
                                 }
                                 _loc_45 = 5;
                                 _loc_13 = _loc_5 == null ? (0) : (_loc_5.length);
@@ -459,7 +459,7 @@
                                     
                                     if (verbose)
                                     {
-                                        this.trace("    opt: " + _loc_5[_loc_41]);
+                                        trace("    opt: " + _loc_5[_loc_41]);
                                     }
                                     _loc_44 = SAMPLEMAP[_loc_5[_loc_41]];
                                     if (_loc_44 == null)
@@ -467,7 +467,7 @@
                                         _loc_12 = _loc_5[_loc_41];
                                         if (verbose)
                                         {
-                                            this.trace("    bias: " + _loc_12);
+                                            trace("    bias: " + _loc_12);
                                         }
                                     }
                                     else
@@ -486,7 +486,7 @@
                                 agalcode.writeUnsignedInt(_loc_45);
                                 if (verbose)
                                 {
-                                    this.trace("    bits: " + (_loc_45 - 5));
+                                    trace("    bits: " + (_loc_45 - 5));
                                 }
                                 _loc_39 = _loc_39 - 64;
                             }
@@ -522,7 +522,7 @@
             {
                 _error = _error + ("\n  at line " + _loc_42 + " " + _loc_25[_loc_42]);
                 agalcode.length = 0;
-                this.trace(_error);
+                trace(_error);
             }
             if (debugEnabled)
             {
@@ -548,14 +548,14 @@
                     _loc_36 = _loc_36 + _loc_47;
                     _loc_14 = _loc_14 + 1;
                 }
-                this.trace(_loc_36);
+                trace(_loc_36);
             }
             if (verbose)
             {
-                this.trace("AGALMiniAssembler.assemble time: " + (this.getTimer() - _loc_23) / 1000 + "s");
+                trace("AGALMiniAssembler.assemble time: " + (getTimer() - _loc_23) / 1000 + "s");
             }
             return agalcode;
-        }// end function
+        }
 
         private function initregmap(param1:uint, param2:Boolean) : void
         {
@@ -576,7 +576,7 @@
             REGMAP["od"] = REGMAP["fd"];
             REGMAP["fi"] = REGMAP["vi"];
             return;
-        }// end function
+        }
 
         private static function init() : void
         {
@@ -643,7 +643,7 @@
             SAMPLEMAP["wrap"] = new Sampler("wrap", 20, 1);
             SAMPLEMAP["clamp"] = new Sampler("clamp", 20, 0);
             return;
-        }// end function
+        }
 
     }
 }
@@ -666,32 +666,32 @@ class OpCode extends Object
         _emitCode = param3;
         _flags = param4;
         return;
-    }// end function
+    }
 
     public function get emitCode() : uint
     {
         return _emitCode;
-    }// end function
+    }
 
     public function get flags() : uint
     {
         return _flags;
-    }// end function
+    }
 
     public function get name() : String
     {
         return _name;
-    }// end function
+    }
 
     public function get numRegister() : uint
     {
         return _numRegister;
-    }// end function
+    }
 
     public function toString() : String
     {
         return "[OpCode name=\"" + _name + "\", numRegister=" + _numRegister + ", emitCode=" + _emitCode + ", flags=" + _flags + "]";
-    }// end function
+    }
 
 }
 
@@ -716,37 +716,37 @@ class Register extends Object
         _range = param4;
         _flags = param5;
         return;
-    }// end function
+    }
 
     public function get emitCode() : uint
     {
         return _emitCode;
-    }// end function
+    }
 
     public function get longName() : String
     {
         return _longName;
-    }// end function
+    }
 
     public function get name() : String
     {
         return _name;
-    }// end function
+    }
 
     public function get flags() : uint
     {
         return _flags;
-    }// end function
+    }
 
     public function get range() : uint
     {
         return _range;
-    }// end function
+    }
 
     public function toString() : String
     {
         return "[Register name=\"" + _name + "\", longName=\"" + _longName + "\", emitCode=" + _emitCode + ", range=" + _range + ", flags=" + _flags + "]";
-    }// end function
+    }
 
 }
 
@@ -767,27 +767,27 @@ class Sampler extends Object
         _flag = param2;
         _mask = param3;
         return;
-    }// end function
+    }
 
     public function get flag() : uint
     {
         return _flag;
-    }// end function
+    }
 
     public function get mask() : uint
     {
         return _mask;
-    }// end function
+    }
 
     public function get name() : String
     {
         return _name;
-    }// end function
+    }
 
     public function toString() : String
     {
         return "[Sampler name=\"" + _name + "\", flag=\"" + _flag + "\", mask=" + mask + "]";
-    }// end function
+    }
 
 }
 

@@ -23,43 +23,43 @@
             _iAlign = FTextureTextAlignType.TOP_LEFT;
             super(param1);
             return;
-        }// end function
+        }
 
         public function get tracking() : Number
         {
             return _nTracking;
-        }// end function
+        }
 
         public function set tracking(param1:Number) : void
         {
             _nTracking = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get lineSpace() : Number
         {
             return _nLineSpace;
-        }// end function
+        }
 
         public function set lineSpace(param1:Number) : void
         {
             _nLineSpace = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get align() : int
         {
             return _iAlign;
-        }// end function
+        }
 
         public function set align(param1:int) : void
         {
             _iAlign = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get textureAtlasId() : String
         {
@@ -68,32 +68,32 @@
                 return _cTextureAtlas.id;
             }
             return "";
-        }// end function
+        }
 
         public function set textureAtlasId(param1:String) : void
         {
             setTextureAtlas(FTextureAtlas.getTextureAtlasById(param1));
             return;
-        }// end function
+        }
 
         public function setTextureAtlas(param1:FTextureAtlas) : void
         {
             _cTextureAtlas = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get text() : String
         {
             return _sText;
-        }// end function
+        }
 
         public function set text(param1:String) : void
         {
             _sText = param1;
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         public function get width() : Number
         {
@@ -102,7 +102,7 @@
                 invalidateText();
             }
             return _nWidth * cNode.cTransform.nWorldScaleX;
-        }// end function
+        }
 
         public function get height() : Number
         {
@@ -111,7 +111,7 @@
                 invalidateText();
             }
             return _nHeight * cNode.cTransform.nWorldScaleY;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -121,7 +121,7 @@
             }
             invalidateText();
             return;
-        }// end function
+        }
 
         protected function invalidateText() : void
         {
@@ -192,7 +192,7 @@
             invalidateAlign();
             _bInvalidate = false;
             return;
-        }// end function
+        }
 
         private function invalidateAlign() : void
         {
@@ -250,7 +250,7 @@
                 }while (FTextureTextAlignType.MIDDLE_RIGHT === _loc_2)
             }while (FTextureTextAlignType.MIDDLE_LEFT === _loc_2)
             return;
-        }// end function
+        }
 
         override public function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean
         {
@@ -293,7 +293,7 @@
                 cNode.handleMouseEvent(cNode, "mouseOut", _loc_7.x * _nWidth, _loc_7.y * _nHeight, param2.buttonDown, param2.ctrlKey);
             }
             return false;
-        }// end function
+        }
 
     }
 }

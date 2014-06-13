@@ -8,7 +8,7 @@
         public function FCameraTexturedQuadVertexShaderBatchMaterialVertex2_ash()
         {
             return;
-        }// end function
+        }
 
     }
 }

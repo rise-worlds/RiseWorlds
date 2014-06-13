@@ -27,7 +27,7 @@
             new Vector.<Number>(16)[15] = 0;
             _aFragmentConstants = new Vector.<Number>(16);
             return;
-        }// end function
+        }
 
     }
 }

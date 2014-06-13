@@ -17,19 +17,19 @@
             _aFragmentConstants = new Vector.<Number>(4);
             treshold = param1;
             return;
-        }// end function
+        }
 
         public function get treshold() : Number
         {
             return _nTreshold;
-        }// end function
+        }
 
         public function set treshold(param1:Number) : void
         {
             _nTreshold = param1;
             _aFragmentConstants[0] = _nTreshold;
             return;
-        }// end function
+        }
 
     }
 }

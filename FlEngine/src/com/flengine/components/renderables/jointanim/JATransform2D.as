@@ -8,7 +8,7 @@
         public function JATransform2D()
         {
             return;
-        }// end function
+        }
 
         public function Scale(param1:Number, param2:Number) : void
         {
@@ -17,7 +17,7 @@
             _helpMatrix.m11 = param2;
             MulJAMatrix3(_helpMatrix, this, this);
             return;
-        }// end function
+        }
 
         public function Translate(param1:Number, param2:Number) : void
         {
@@ -26,13 +26,13 @@
             _helpMatrix.m12 = param2;
             MulJAMatrix3(_helpMatrix, this, this);
             return;
-        }// end function
+        }
 
         public function RotateDeg(param1:Number) : void
         {
             RotateRad(0.0174533 * param1);
             return;
-        }// end function
+        }
 
         public function RotateRad(param1:Number) : void
         {
@@ -45,7 +45,7 @@
             _helpMatrix.m11 = _loc_2;
             MulJAMatrix3(_helpMatrix, this, this);
             return;
-        }// end function
+        }
 
     }
 }

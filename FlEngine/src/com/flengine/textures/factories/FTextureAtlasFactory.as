@@ -15,7 +15,7 @@
         public function FTextureAtlasFactory()
         {
             return;
-        }// end function
+        }
 
         public static function createFromMovieClip(param1:String, param2:MovieClip, param3:Boolean = false) : FTextureAtlas
         {
@@ -44,7 +44,7 @@
                 _loc_11++;
             }
             return createFromBitmapDatas(param1, _loc_10, _loc_7);
-        }// end function
+        }
 
         public static function createFromFont(param1:String, param2:TextFormat, param3:String, param4:Boolean = false) : FTextureAtlas
         {
@@ -73,7 +73,7 @@
                 _loc_11++;
             }
             return createFromBitmapDatas(param1, _loc_10, _loc_8);
-        }// end function
+        }
 
         public static function createFromBitmapDatas(param1:String, param2:Vector.<BitmapData>, param3:Vector.<String>, param4:FPacker = null, param5:int = 2) : FTextureAtlas
         {
@@ -113,7 +113,7 @@
             }
             _loc_7.invalidate();
             return _loc_7;
-        }// end function
+        }
 
         public static function createFromBitmapDataAndXML(param1:String, param2:BitmapData, param3:XML) : FTextureAtlas
         {
@@ -140,14 +140,14 @@
             }
             _loc_8.invalidate();
             return _loc_8;
-        }// end function
+        }
 
         public static function createFromAssets(param1:String, param2:Class, param3:Class) : FTextureAtlas
         {
             var _loc_4:* = new param2;
             var _loc_5:* = FTextureAtlasFactory.XML(new param3);
             return createFromBitmapDataAndXML(param1, _loc_4.bitmapData, _loc_5);
-        }// end function
+        }
 
         public static function createFromBitmapDataAndFontXML(param1:String, param2:BitmapData, param3:XML) : FTextureAtlas
         {
@@ -170,7 +170,7 @@
             }
             _loc_8.invalidate();
             return _loc_8;
-        }// end function
+        }
 
         public static function createFromATFAndXML(param1:String, param2:ByteArray, param3:XML, param4:Function = null) : FTextureAtlas
         {
@@ -220,7 +220,7 @@
             }
             _loc_13.invalidate();
             return _loc_13;
-        }// end function
+        }
 
         public static function createFromBitmapDataAndRegions(param1:String, param2:BitmapData, param3:Vector.<Rectangle>, param4:Vector.<String> = null, param5:Vector.<Point> = null) : FTextureAtlas
         {
@@ -246,7 +246,7 @@
             }
             _loc_7.invalidate();
             return _loc_7;
-        }// end function
+        }
 
     }
 }

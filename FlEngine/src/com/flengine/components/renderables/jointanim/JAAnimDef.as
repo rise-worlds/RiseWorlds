@@ -14,7 +14,7 @@
             spriteDefVector = new Vector.<JASpriteDef>;
             objectNamePool = [];
             return;
-        }// end function
+        }
 
     }
 }

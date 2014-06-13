@@ -10,7 +10,7 @@
         {
             coeffs = new Vector.<Number>(4, true);
             return;
-        }// end function
+        }
 
     }
 }

@@ -10,12 +10,12 @@
         public function FTextureUtils()
         {
             return;
-        }// end function
+        }
 
         public static function isBitmapDataTransparent(param1:BitmapData) : Boolean
         {
             return param1.getColorBoundsRect(4278190080, 4278190080, false).width != 0;
-        }// end function
+        }
 
         public static function isValidTextureSize(param1:int) : Boolean
         {
@@ -26,7 +26,7 @@
                 _loc_2 = _loc_2 * 2;
             }
             return _loc_2 == param1;
-        }// end function
+        }
 
         public static function getNextValidTextureSize(param1:int) : int
         {
@@ -37,7 +37,7 @@
                 _loc_2 = _loc_2 * 2;
             }
             return _loc_2;
-        }// end function
+        }
 
         public static function getPreviousValidTextureSize(param1:int) : int
         {
@@ -49,14 +49,14 @@
             }
             _loc_2 = _loc_2 / 2;
             return _loc_2;
-        }// end function
+        }
 
         public static function getNearestValidTextureSize(param1:int) : int
         {
             var _loc_2:* = getPreviousValidTextureSize(param1);
             var _loc_3:* = getNextValidTextureSize(param1);
             return param1 - _loc_2 < _loc_3 - param1 ? (_loc_2) : (_loc_3);
-        }// end function
+        }
 
         public static function resampleBitmapData(param1:BitmapData, param2:int, param3:int) : BitmapData
         {
@@ -108,7 +108,7 @@
             _loc_7 = new BitmapData(_loc_11 / param3, _loc_10 / param3, true, 0);
             _loc_7.draw(param1, _loc_9);
             return _loc_7;
-        }// end function
+        }
 
     }
 }

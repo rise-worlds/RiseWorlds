@@ -27,12 +27,12 @@
             blendSrcColor = new JAColor();
             blendSrcTransform = new JATransform();
             return;
-        }// end function
+        }
 
         public function Dispose() : void
         {
             return;
-        }// end function
+        }
 
     }
 }

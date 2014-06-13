@@ -33,17 +33,17 @@
             __vNativeVideo.attachNetStream(__nsStream);
             _doNative = __vNativeVideo;
             return;
-        }// end function
+        }
 
         public function get netStream() : NetStream
         {
             return __nsStream;
-        }// end function
+        }
 
         public function get nativeVideo() : Video
         {
             return __vNativeVideo;
-        }// end function
+        }
 
         public function onMetaData(param1:Object, ... args) : void
         {
@@ -54,7 +54,7 @@
                 updateFrameRate = param1.framerate;
             }
             return;
-        }// end function
+        }
 
         public function onPlayStatus(param1:Object) : void
         {
@@ -63,23 +63,23 @@
                 __bPlaying = false;
             }
             return;
-        }// end function
+        }
 
         public function onTransition(... args) : void
         {
             return;
-        }// end function
+        }
 
         public function playVideo(param1:String) : void
         {
             __nsStream.play(param1);
             return;
-        }// end function
+        }
 
         private function onIOError(event:IOErrorEvent) : void
         {
             return;
-        }// end function
+        }
 
         private function onNetStatus(event:NetStatusEvent) : void
         {
@@ -91,7 +91,7 @@
                 break;
             }
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -101,7 +101,7 @@
             __ncConnection.close();
             __ncConnection = null;
             return;
-        }// end function
+        }
 
     }
 }

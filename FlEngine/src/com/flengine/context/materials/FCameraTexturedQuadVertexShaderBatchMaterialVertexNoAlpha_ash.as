@@ -8,7 +8,7 @@
         public function FCameraTexturedQuadVertexShaderBatchMaterialVertexNoAlpha_ash()
         {
             return;
-        }// end function
+        }
 
     }
 }

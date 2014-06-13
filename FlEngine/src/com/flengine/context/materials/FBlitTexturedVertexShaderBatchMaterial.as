@@ -40,7 +40,7 @@
             VertexShaderCode = new VertexShaderEmbed() as ByteArray;
             __aVertexConstants = new Vector.<Number>(496);
             return;
-        }// end function
+        }
 
         private function getCachedProgram(param1:Boolean, param2:int, param3:int) : Program3D
         {
@@ -53,7 +53,7 @@
             _loc_5.upload(VertexShaderCode, FFragmentShadersCommon.getTexturedShaderCode(param1, param2, false, param3));
             __aCachedPrograms[_loc_4] = _loc_5;
             return _loc_5;
-        }// end function
+        }
 
         function initialize(param1:Context3D) : void
         {
@@ -99,7 +99,7 @@
             __baVertexArray.endian = "littleEndian";
             __baVertexArray.length = 2048;
             return;
-        }// end function
+        }
 
         public function bind(param1:Context3D, param2:Boolean) : void
         {
@@ -120,7 +120,7 @@
                 ApplicationDomain.currentDomain.domainMemory = __baVertexArray;
             }
             return;
-        }// end function
+        }
 
         public function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:FTexture) : void
         {
@@ -159,7 +159,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function push() : void
         {
@@ -176,7 +176,7 @@
             __iQuadCount = 0;
             __iConstantsOffset = 0;
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
@@ -186,7 +186,7 @@
             __cContext.setVertexBufferAt(2, null);
             __cActiveContextTexture = null;
             return;
-        }// end function
+        }
 
     }
 }

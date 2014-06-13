@@ -27,12 +27,12 @@
             _iTopMargin = _cBlur.blurY * _cBlur.passes * 0.5;
             _cBright.setMargins(_iLeftMargin, _iRightMargin, _iTopMargin, _iBottomMargin);
             return;
-        }// end function
+        }
 
         public function get blurX() : int
         {
             return _cBlur.blurX;
-        }// end function
+        }
 
         public function set blurX(param1:int) : void
         {
@@ -41,12 +41,12 @@
             _iLeftMargin = _cBlur.blurX * _cBlur.passes * 0.5;
             _cBright.setMargins(_iLeftMargin, _iRightMargin, _iTopMargin, _iBottomMargin);
             return;
-        }// end function
+        }
 
         public function get blurY() : int
         {
             return _cBlur.blurY;
-        }// end function
+        }
 
         public function set blurY(param1:int) : void
         {
@@ -55,18 +55,18 @@
             _iTopMargin = _cBlur.blurY * _cBlur.passes * 0.5;
             _cBright.setMargins(_iLeftMargin, _iRightMargin, _iTopMargin, _iBottomMargin);
             return;
-        }// end function
+        }
 
         public function get brightTreshold() : Number
         {
             return (_cBright.getPassFilter(0) as FBrightPassFilter).treshold;
-        }// end function
+        }
 
         public function set brightTreshold(param1:Number) : void
         {
             (_cBright.getPassFilter(0) as FBrightPassFilter).treshold = param1;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void
         {
@@ -83,7 +83,7 @@
             param1.setCamera(param2);
             param1.draw(_aPassTextures[1], _loc_8.x - _iLeftMargin, _loc_8.y - _iTopMargin, 1, 1, 0, 1, 1, 1, 1, 1, param3, _cBloomFilter);
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -91,7 +91,7 @@
             _cBright.dispose();
             super.dispose();
             return;
-        }// end function
+        }
 
     }
 }

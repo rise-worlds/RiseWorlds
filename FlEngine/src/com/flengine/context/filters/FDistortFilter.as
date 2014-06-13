@@ -26,7 +26,7 @@
             new Vector.<Number>(8)[7] = 0;
             _aFragmentConstants = new Vector.<Number>(8);
             return;
-        }// end function
+        }
 
         override public function bind(param1:Context3D, param2:FTexture) : void
         {
@@ -42,7 +42,7 @@
             _aFragmentConstants = new Vector.<Number>(8);
             super.bind(param1, param2);
             return;
-        }// end function
+        }
 
     }
 }

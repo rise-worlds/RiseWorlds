@@ -21,43 +21,43 @@
             green = param2;
             blue = param3;
             return;
-        }// end function
+        }
 
         public function get red() : int
         {
             return _iRed;
-        }// end function
+        }
 
         public function set red(param1:int) : void
         {
             _iRed = param1;
             _aFragmentConstants[0] = _iRed;
             return;
-        }// end function
+        }
 
         public function get green() : int
         {
             return _iGreen;
-        }// end function
+        }
 
         public function set green(param1:int) : void
         {
             _iGreen = param1;
             _aFragmentConstants[1] = _iGreen;
             return;
-        }// end function
+        }
 
         public function get blue() : int
         {
             return _iBlue;
-        }// end function
+        }
 
         public function set blue(param1:int) : void
         {
             _iBlue = param1;
             _aFragmentConstants[2] = _iBlue;
             return;
-        }// end function
+        }
 
     }
 }

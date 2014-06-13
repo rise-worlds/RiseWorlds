@@ -18,7 +18,7 @@
             objectDefVector = new Vector.<JAObjectDef>;
             label = {};
             return;
-        }// end function
+        }
 
         public function GetLabelFrame(param1:String) : int
         {
@@ -28,7 +28,7 @@
                 return label[_loc_2];
             }
             return -1;
-        }// end function
+        }
 
     }
 }

@@ -15,7 +15,7 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         override public function updateParticle(param1:FParticle, param2:Number) : void
         {
@@ -33,7 +33,7 @@
             param1.nVelocityX = param1.nVelocityX + forceX * 0.001 * param2;
             param1.nVelocityY = param1.nVelocityY + forceY * 0.001 * param2;
             return;
-        }// end function
+        }
 
         override public function updateSimpleParticle(param1:FSimpleParticle, param2:Number) : void
         {
@@ -51,7 +51,7 @@
             param1.nVelocityX = param1.nVelocityX + forceX * 0.001 * param2;
             param1.nVelocityY = param1.nVelocityY + forceY * 0.001 * param2;
             return;
-        }// end function
+        }
 
     }
 }

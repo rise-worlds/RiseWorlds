@@ -8,7 +8,7 @@
         public function FBlitTexturedVertexShaderBatchMaterialVertex_ash()
         {
             return;
-        }// end function
+        }
 
     }
 }

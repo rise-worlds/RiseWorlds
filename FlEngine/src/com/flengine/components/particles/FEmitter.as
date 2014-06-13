@@ -69,7 +69,7 @@
             aFields = new Vector.<FField>;
             super(param1);
             return;
-        }// end function
+        }
 
         override public function getPrototype() : XML
         {
@@ -81,7 +81,7 @@
                 _xPrototype.particlePrototype.appendChild(_xParticlePrototype);
             }
             return _xPrototype;
-        }// end function
+        }
 
         override public function bindFromPrototype(param1:XML) : void
         {
@@ -91,12 +91,12 @@
                 setParticlePrototype(param1.particlePrototype.node[0]);
             }
             return;
-        }// end function
+        }
 
         public function get initialColor() : int
         {
             return initialRed * 16711680 + initialGreen * 65280 + initialBlue * 255;
-        }// end function
+        }
 
         public function set initialColor(param1:int) : void
         {
@@ -104,12 +104,12 @@
             initialGreen = (param1 >> 8 & 255) / 255;
             initialBlue = (param1 & 255) / 255;
             return;
-        }// end function
+        }
 
         public function get endColor() : int
         {
             return endRed * 16711680 + endGreen * 65280 + endBlue * 255;
-        }// end function
+        }
 
         public function set endColor(param1:int) : void
         {
@@ -117,7 +117,7 @@
             endGreen = (param1 >> 8 & 255) / 255;
             endBlue = (param1 & 255) / 255;
             return;
-        }// end function
+        }
 
         public function invalidateBitmapData() : void
         {
@@ -136,13 +136,13 @@
                 _loc_3++;
             }
             return;
-        }// end function
+        }
 
         public function setParticlePrototype(param1:XML) : void
         {
             _xParticlePrototype = param1;
             return;
-        }// end function
+        }
 
         public function get particlesCachedCount() : int
         {
@@ -151,7 +151,7 @@
                 return _cParticlePool.cachedCount;
             }
             return 0;
-        }// end function
+        }
 
         protected function setInitialParticlePosition(param1:FNode) : void
         {
@@ -166,12 +166,12 @@
                 param1.cTransform.y = Math.random() * dispersionYVariance - dispersionYVariance * 0.5;
             }
             return;
-        }// end function
+        }
 
         protected function get initialParticleY() : Number
         {
             return cNode.cTransform.nWorldY + Math.random() * dispersionYVariance - dispersionYVariance * 0.5;
-        }// end function
+        }
 
         override public function set active(param1:Boolean) : void
         {
@@ -181,7 +181,7 @@
                 _cParticlePool.deactivate();
             }
             return;
-        }// end function
+        }
 
         public function init(param1:int = 0, param2:int = 0, param3:Boolean = true) : void
         {
@@ -200,7 +200,7 @@
             }
             _cParticlePool = new FNodePool(_xParticlePrototype, param1, param2);
             return;
-        }// end function
+        }
 
         public function forceBurst() : void
         {
@@ -219,7 +219,7 @@
             }
             emit = false;
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -263,7 +263,7 @@
                 }
             }
             return;
-        }// end function
+        }
 
         private function activateParticle() : void
         {
@@ -304,7 +304,7 @@
             _loc_1.init();
             cNode.addChild(_loc_2);
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
@@ -315,7 +315,7 @@
             _cParticlePool = null;
             super.dispose();
             return;
-        }// end function
+        }
 
         public function clear(param1:Boolean = false) : void
         {
@@ -332,7 +332,7 @@
                 _cParticlePool.deactivate();
             }
             return;
-        }// end function
+        }
 
         public function addField(param1:FField) : void
         {
@@ -343,7 +343,7 @@
             (iFieldsCount + 1);
             aFields.push(param1);
             return;
-        }// end function
+        }
 
     }
 }

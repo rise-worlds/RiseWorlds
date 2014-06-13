@@ -12,18 +12,18 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         public function set blendMode(param1:int) : void
         {
             iBlendMode = param1;
             return;
-        }// end function
+        }
 
         public function get blendMode() : int
         {
             return iBlendMode;
-        }// end function
+        }
 
         public function getWorldBounds(param1:Rectangle = null) : Rectangle
         {
@@ -36,7 +36,7 @@
                 param1 = new Rectangle(cNode.cTransform.nWorldX, cNode.cTransform.nWorldY, 0, 0);
             }
             return param1;
-        }// end function
+        }
 
     }
 }

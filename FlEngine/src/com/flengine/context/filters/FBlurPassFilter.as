@@ -43,7 +43,7 @@
             blur = param1;
             direction = param2;
             return;
-        }// end function
+        }
 
         override public function bind(param1:Context3D, param2:FTexture) : void
         {
@@ -68,7 +68,7 @@
             _aFragmentConstants[11] = alpha;
             super.bind(param1, param2);
             return;
-        }// end function
+        }
 
     }
 }

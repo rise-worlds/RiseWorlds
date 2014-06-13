@@ -35,7 +35,7 @@
             VertexShaderCode = new VertexShaderEmbed() as ByteArray;
             __aPrograms = new Vector.<Program3D>;
             return;
-        }// end function
+        }
 
         function initialize(param1:Context3D, param2:int) : void
         {
@@ -65,7 +65,7 @@
             }
             __ib3IndexBuffer.uploadFromVector(_loc_3, 0, __iMaxVertices);
             return;
-        }// end function
+        }
 
         public function bind(param1:Context3D, param2:Boolean, param3:FCamera, param4:int) : void
         {
@@ -79,7 +79,7 @@
             __iActiveFiltering = FTextureBase.defaultFilteringType;
             __cContext.setProgram(__aPrograms[__iActiveFiltering]);
             return;
-        }// end function
+        }
 
         public function draw(param1:Vector.<Number>, param2:Texture, param3:int, param4:Vector.<Number>, param5:Vector.<Number>, param6:int, param7:Boolean) : void
         {
@@ -120,12 +120,12 @@
             (FStats.iDrawCalls + 1);
             __cContext.drawTriangles(__ib3IndexBuffer, 0, param6 / 3);
             return;
-        }// end function
+        }
 
         public function push() : void
         {
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
@@ -135,7 +135,7 @@
             __cActiveTexture = null;
             __iActiveFiltering = 0;
             return;
-        }// end function
+        }
 
     }
 }

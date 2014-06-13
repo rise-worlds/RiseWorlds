@@ -17,13 +17,13 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         public function setTexture(param1:FTexture) : void
         {
             cTexture = param1;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -34,14 +34,14 @@
             var _loc_4:* = cNode.cTransform;
             param1.drawPoly(cTexture, _aVertices, _aUvs, _loc_4.nWorldX, _loc_4.nWorldY, _loc_4.nWorldScaleX, _loc_4.nWorldScaleY, _loc_4.nWorldRotation, _loc_4.nWorldRed, _loc_4.nWorldGreen, _loc_4.nWorldBlue, _loc_4.nWorldAlpha, iBlendMode, param3);
             return;
-        }// end function
+        }
 
         public function init(param1:Vector.<Number>, param2:Vector.<Number>) : void
         {
             _aVertices = param1;
             _aUvs = param2;
             return;
-        }// end function
+        }
 
     }
 }

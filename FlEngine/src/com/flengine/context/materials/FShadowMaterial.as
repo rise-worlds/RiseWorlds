@@ -33,7 +33,7 @@
         {
             __aVertexConstants = new Vector.<Number>(484);
             return;
-        }// end function
+        }
 
         function initialize(param1:Context3D) : void
         {
@@ -87,7 +87,7 @@
             __ib3IndexBuffer = param1.createIndexBuffer(1440);
             __ib3IndexBuffer.uploadFromVector(_loc_6, 0, 1440);
             return;
-        }// end function
+        }
 
         function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
         {
@@ -105,7 +105,7 @@
             __iQuadCount = 0;
             __iConstantsOffset = 0;
             return;
-        }// end function
+        }
 
         function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number = 1) : void
         {
@@ -124,7 +124,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function push() : void
         {
@@ -133,7 +133,7 @@
             __cContext.drawTriangles(__ib3IndexBuffer, 0, __iQuadCount * 8);
             __iQuadCount = 0;
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
@@ -141,7 +141,7 @@
             __cContext.setVertexBufferAt(0, null);
             __cContext.setVertexBufferAt(1, null);
             return;
-        }// end function
+        }
 
     }
 }

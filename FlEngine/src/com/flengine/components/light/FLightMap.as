@@ -43,30 +43,30 @@
             _cBlurV = new FBlurPassFilter(4, 0);
             _cBlurH = new FBlurPassFilter(4, 1);
             return;
-        }// end function
+        }
 
         public function get lights() : Vector.<FLight>
         {
             return _aLights;
-        }// end function
+        }
 
         public function set casterContainer(param1:FNode) : void
         {
             _cCasterContainer = param1;
             return;
-        }// end function
+        }
 
         public function addLight(param1:FLight) : void
         {
             _aLights.push(param1);
             return;
-        }// end function
+        }
 
         public function removeLight(param1:FLight) : void
         {
             _aLights.splice(_aLights.indexOf(param1), 1);
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -111,7 +111,7 @@
                 param1.draw(_cLightMap, param2.cNode.cTransform.nWorldX, param2.cNode.cTransform.nWorldY, 1 / (param2.zoom * _nLightMapScale), 1 / (param2.zoom * _nLightMapScale), 0, 1, 1, 1, 1, 3);
             }
             return;
-        }// end function
+        }
 
         protected function drawOmniLight(param1:FContext, param2:FLight, param3:Number) : void
         {
@@ -187,7 +187,7 @@
                 _loc_8.clear(0, 0, 0, 1, 1, 0, Context3DClearMask.STENCIL);
             }
             return;
-        }// end function
+        }
 
         protected function drawSpotLight(param1:FContext, param2:FSpotLight) : void
         {
@@ -272,7 +272,7 @@
             _loc_6.setStencilReferenceValue(0);
             _loc_6.clear(0, 0, 0, 1, 1, 0, Context3DClearMask.STENCIL);
             return;
-        }// end function
+        }
 
     }
 }

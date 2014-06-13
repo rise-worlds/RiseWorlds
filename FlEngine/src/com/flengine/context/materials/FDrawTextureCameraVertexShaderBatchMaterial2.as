@@ -50,7 +50,7 @@
             VertexShaderNoAlphaEmbed = FCameraTexturedQuadVertexShaderBatchMaterialVertexNoAlpha2_ash;
             VertexShaderNoAlphaCode = new VertexShaderNoAlphaEmbed() as ByteArray;
             return;
-        }// end function
+        }
 
         private function getCachedProgram(param1:Boolean, param2:int, param3:Boolean, param4:int, param5:FFilter) : Program3D
         {
@@ -63,7 +63,7 @@
             _loc_7.upload(param3 ? (VertexShaderCode) : (VertexShaderNoAlphaCode), FFragmentShadersCommon.getTexturedShaderCode(true, param2, param3, param4, param5));
             __aCachedPrograms[_loc_6] = _loc_7;
             return _loc_7;
-        }// end function
+        }
 
         function initialize(param1:Context3D) : void
         {
@@ -112,7 +112,7 @@
             __baVertexArray.endian = "littleEndian";
             __baVertexArray.length = 2048;
             return;
-        }// end function
+        }
 
         function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
         {
@@ -132,7 +132,7 @@
             __iActiveFiltering = FTextureBase.defaultFilteringType;
             __cActiveFilter = null;
             return;
-        }// end function
+        }
 
         public function draw(param1:Matrix, param2:Number, param3:Number, param4:Number, param5:Number, param6:FTexture, param7:FFilter) : void
         {
@@ -200,7 +200,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function push() : void
         {
@@ -220,7 +220,7 @@
             __cContext.drawTriangles(__ib3Indexbuffer, 0, __iQuadCount * 2);
             __iQuadCount = 0;
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
@@ -235,7 +235,7 @@
             }
             __cActiveFilter = null;
             return;
-        }// end function
+        }
 
     }
 }

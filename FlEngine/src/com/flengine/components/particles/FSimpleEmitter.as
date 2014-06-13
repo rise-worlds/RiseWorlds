@@ -67,13 +67,13 @@
             aFields = new Vector.<FField>;
             super(param1);
             return;
-        }// end function
+        }
 
         override public function bindFromPrototype(param1:XML) : void
         {
             super.bindFromPrototype(param1);
             return;
-        }// end function
+        }
 
         public function get initialColor() : int
         {
@@ -81,7 +81,7 @@
             var _loc_3:* = initialGreen * 255 << 8;
             var _loc_2:* = initialBlue * 255;
             return _loc_1 + _loc_3 + _loc_2;
-        }// end function
+        }
 
         public function set initialColor(param1:int) : void
         {
@@ -89,7 +89,7 @@
             initialGreen = (param1 >> 8 & 255) / 255;
             initialBlue = (param1 & 255) / 255;
             return;
-        }// end function
+        }
 
         public function get endColor() : int
         {
@@ -97,7 +97,7 @@
             var _loc_3:* = endGreen * 255 << 8;
             var _loc_2:* = endBlue * 255;
             return _loc_1 + _loc_3 + _loc_2;
-        }// end function
+        }
 
         public function set endColor(param1:int) : void
         {
@@ -105,24 +105,24 @@
             endGreen = (param1 >> 8 & 255) / 255;
             endBlue = (param1 & 255) / 255;
             return;
-        }// end function
+        }
 
         public function get textureId() : String
         {
             return __cTexture ? (__cTexture.id) : ("");
-        }// end function
+        }
 
         public function set textureId(param1:String) : void
         {
             __cTexture = FTexture.getTextureById(param1);
             return;
-        }// end function
+        }
 
         public function setTexture(param1:FTexture) : void
         {
             __cTexture = param1;
             return;
-        }// end function
+        }
 
         protected function setInitialParticlePosition(param1:FSimpleParticle) : void
         {
@@ -152,14 +152,14 @@
                 param1.nScaleY = param1.nScaleY + _loc_2;
             }
             return;
-        }// end function
+        }
 
         public function init(param1:int = 0, param2:int = 0, param3:Boolean = true) : void
         {
             _nAccumulatedTime = 0;
             _nAccumulatedEmission = 0;
             return;
-        }// end function
+        }
 
         private function createParticle() : FSimpleParticle
         {
@@ -176,7 +176,7 @@
                 _cLastParticle = _loc_1;
             }
             return _loc_1;
-        }// end function
+        }
 
         public function forceBurst() : void
         {
@@ -191,7 +191,7 @@
             }
             emit = false;
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -236,7 +236,7 @@
                 _loc_4 = _loc_7;
             }
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -260,7 +260,7 @@
                 _loc_6 = _loc_7;
             }
             return;
-        }// end function
+        }
 
         private function activateParticle() : void
         {
@@ -268,7 +268,7 @@
             setInitialParticlePosition(_loc_1);
             _loc_1.init(this);
             return;
-        }// end function
+        }
 
         function deactivateParticle(param1:FSimpleParticle) : void
         {
@@ -282,18 +282,18 @@
             }
             param1.dispose();
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
             super.dispose();
             return;
-        }// end function
+        }
 
         public function clear(param1:Boolean = false) : void
         {
             return;
-        }// end function
+        }
 
         public function addField(param1:FField) : void
         {
@@ -304,7 +304,7 @@
             (iFieldsCount + 1);
             aFields.push(param1);
             return;
-        }// end function
+        }
 
     }
 }

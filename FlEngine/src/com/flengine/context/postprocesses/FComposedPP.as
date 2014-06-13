@@ -21,7 +21,7 @@
             _cEmptyPass = new FFilterPP(new Vector.<FFilter>(1));
             _aPostProcesses = param1;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void
         {
@@ -43,7 +43,7 @@
             }
             _aPostProcesses[(_loc_9 - 1)].render(param1, param2, param3, param4, _loc_8, _aPassTextures[(_loc_9 - 1)], null);
             return;
-        }// end function
+        }
 
     }
 }

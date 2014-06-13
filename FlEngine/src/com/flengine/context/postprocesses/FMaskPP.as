@@ -17,12 +17,12 @@
             super(2);
             _cMaskFilter = new FMaskPassFilter(_aPassTextures[1]);
             return;
-        }// end function
+        }
 
         public function get mask() : FNode
         {
             return _cMask;
-        }// end function
+        }
 
         public function set mask(param1:FNode) : void
         {
@@ -33,7 +33,7 @@
             _cMask = param1;
             (_cMask.iUsedAsPPMask + 1);
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void
         {
@@ -84,7 +84,7 @@
             }
             _aPassTextures[0] = _loc_9;
             return;
-        }// end function
+        }
 
     }
 }

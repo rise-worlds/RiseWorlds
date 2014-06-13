@@ -10,7 +10,7 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         public function get textureId() : String
         {
@@ -19,19 +19,19 @@
                 return cTexture.id;
             }
             return "";
-        }// end function
+        }
 
         public function set textureId(param1:String) : void
         {
             cTexture = FTextureBase.getTextureBaseById(param1) as FTexture;
             return;
-        }// end function
+        }
 
         public function setTexture(param1:FTexture) : void
         {
             cTexture = param1;
             return;
-        }// end function
+        }
 
     }
 }

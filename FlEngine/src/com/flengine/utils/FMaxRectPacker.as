@@ -22,7 +22,7 @@
             super(param1, param2, param3, param4, param5);
             __iHeuristics = param6;
             return;
-        }// end function
+        }
 
         override public function packRectangles(param1:Vector.<FPackerRectangle>, param2:int = 0, param3:int = 2) : Boolean
         {
@@ -88,7 +88,7 @@
                 _loc_10 = _iWidth <= _iMaxWidth && _iHeight <= _iMaxHeight;
             }
             return _loc_10;
-        }// end function
+        }
 
         override public function packRectangle(param1:FPackerRectangle, param2:int = 0, param3:Boolean = true) : Boolean
         {
@@ -103,7 +103,7 @@
                 _loc_5 = true;
             }
             return _loc_5;
-        }// end function
+        }
 
         private function addRectangles(param1:Vector.<FPackerRectangle>, param2:int = 0, param3:Boolean = true) : Boolean
         {
@@ -123,7 +123,7 @@
                 _loc_7++;
             }
             return _loc_6;
-        }// end function
+        }
 
         private function addRectangle(param1:FPackerRectangle, param2:int) : Boolean
         {
@@ -142,7 +142,7 @@
             }
             _aRectangles.push(param1);
             return true;
-        }// end function
+        }
 
         private function createNewArea(param1:int, param2:int, param3:int, param4:int) : FPackerRectangle
         {
@@ -214,7 +214,7 @@
                 __cFirstNewArea = _loc_6;
             }
             return _loc_6;
-        }// end function
+        }
 
         private function splitAvailableAreas(param1:FPackerRectangle) : void
         {
@@ -268,7 +268,7 @@
                 _loc_6 = _loc_7;
             }
             return;
-        }// end function
+        }
 
         private function pushNewAreas() : void
         {
@@ -301,7 +301,7 @@
             __cLastNewArea = null;
             __cNewBoundingArea.set(0, 0, 0, 0);
             return;
-        }// end function
+        }
 
         private function getAvailableArea(param1:int, param2:int) : FPackerRectangle
         {
@@ -388,7 +388,7 @@
                 _loc_5 = _loc_5.cNext;
             }
             return _loc_10 != __cNegativeArea ? (_loc_10) : (null);
-        }// end function
+        }
 
         override public function clear() : void
         {
@@ -405,7 +405,7 @@
             __cFirstAvailableArea = FPackerRectangle.get(0, 0, _iWidth, _iHeight);
             __cNegativeArea = FPackerRectangle.get((_iWidth + 1), (_iHeight + 1), (_iWidth + 1), (_iHeight + 1));
             return;
-        }// end function
+        }
 
     }
 }

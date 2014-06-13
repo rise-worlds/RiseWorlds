@@ -8,7 +8,7 @@
         public function FTile()
         {
             return;
-        }// end function
+        }
 
     }
 }

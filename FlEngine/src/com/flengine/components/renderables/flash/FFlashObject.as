@@ -41,30 +41,30 @@
             __sTextureId = "G2DFlashObject#" + __iCount;
             __mNativeMatrix = new Matrix();
             return;
-        }// end function
+        }
 
         public function get align() : int
         {
             return _iAlign;
-        }// end function
+        }
 
         public function set align(param1:int) : void
         {
             _iAlign = param1;
             invalidateTexture(true);
             return;
-        }// end function
+        }
 
         public function get native() : DisplayObject
         {
             return _doNative;
-        }// end function
+        }
 
         public function set native(param1:DisplayObject) : void
         {
             _doNative = param1;
             return;
-        }// end function
+        }
 
         public function invalidate(param1:Boolean = false) : void
         {
@@ -77,12 +77,12 @@
                 _bInvalidate = true;
             }
             return;
-        }// end function
+        }
 
         public function get resampleScale() : int
         {
             return _iResampleScale;
-        }// end function
+        }
 
         public function set resampleScale(param1:int) : void
         {
@@ -96,12 +96,12 @@
                 invalidateTexture(true);
             }
             return;
-        }// end function
+        }
 
         public function get filteringType() : int
         {
             return _iFilteringType;
-        }// end function
+        }
 
         public function set filteringType(param1:int) : void
         {
@@ -111,12 +111,12 @@
                 cTexture.filteringType = _iFilteringType;
             }
             return;
-        }// end function
+        }
 
         public function get resampleType() : int
         {
             return _iResampleType;
-        }// end function
+        }
 
         public function set resampleType(param1:int) : void
         {
@@ -130,7 +130,7 @@
                 invalidateTexture(true);
             }
             return;
-        }// end function
+        }
 
         public function set transparent(param1:Boolean) : void
         {
@@ -140,12 +140,12 @@
                 invalidateTexture(true);
             }
             return;
-        }// end function
+        }
 
         public function get transparent() : Boolean
         {
             return _bTransparent;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
@@ -165,7 +165,7 @@
             }
             _bInvalidate = false;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -175,7 +175,7 @@
             cNode.cTransform.nWorldScaleX = cNode.cTransform.nWorldScaleX / _iResampleScale;
             cNode.cTransform.nWorldScaleY = cNode.cTransform.nWorldScaleY / _iResampleScale;
             return;
-        }// end function
+        }
 
         protected function invalidateTexture(param1:Boolean) : void
         {
@@ -205,19 +205,19 @@
             cTexture.alignTexture(_iAlign);
             _bInvalidate = true;
             return;
-        }// end function
+        }
 
         override public function dispose() : void
         {
             cTexture.dispose();
             super.dispose();
             return;
-        }// end function
+        }
 
         public static function get defaultResampleType() : int
         {
             return __iDefaultResampleType;
-        }// end function
+        }
 
         public static function set defaultResampleType(param1:int) : void
         {
@@ -227,7 +227,7 @@
             }
             __iDefaultResampleType = param1;
             return;
-        }// end function
+        }
 
     }
 }

@@ -13,7 +13,7 @@
         public function FPrototypePropertyType()
         {
             return;
-        }// end function
+        }
 
         public static function getPrototypeType(param1) : String
         {
@@ -34,7 +34,7 @@
             if ("string" === _loc_3) goto 20;
             if ("object" === _loc_3) goto 24;
             return "unknown";
-        }// end function
+        }
 
     }
 }

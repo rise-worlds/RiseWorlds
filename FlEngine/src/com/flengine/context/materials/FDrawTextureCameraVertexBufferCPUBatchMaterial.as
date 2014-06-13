@@ -40,7 +40,7 @@
         public function FDrawTextureCameraVertexBufferCPUBatchMaterial()
         {
             return;
-        }// end function
+        }
 
         private function getCachedProgram(param1:Boolean, param2:int, param3:Boolean, param4:int, param5:FFilter) : Program3D
         {
@@ -53,7 +53,7 @@
             _loc_7.upload(param3 ? (vertexShaderAlpha.agalcode) : (vertexShader.agalcode), FFragmentShadersCommon.getTexturedShaderCode(param1, param2, param3, param4, param5));
             __aCachedPrograms[_loc_6] = _loc_7;
             return _loc_7;
-        }// end function
+        }
 
         function initialize(param1:Context3D) : void
         {
@@ -89,7 +89,7 @@
             __ib3QuadIndexBuffer.uploadFromVector(_loc_2, 0, 3000);
             __iTriangleCount = 0;
             return;
-        }// end function
+        }
 
         function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
         {
@@ -106,7 +106,7 @@
             __iActiveFiltering = FTextureBase.defaultFilteringType;
             __cActiveFilter = null;
             return;
-        }// end function
+        }
 
         public function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number, param10:FTexture, param11:FFilter) : void
         {
@@ -203,7 +203,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function drawPoly(param1:Vector.<Number>, param2:Vector.<Number>, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number, param10:Number, param11:Number, param12:FTexture, param13:FFilter) : void
         {
@@ -285,7 +285,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function drawMatrix(param1:Matrix, param2:Number, param3:Number, param4:Number, param5:Number, param6:FTexture, param7:FFilter) : void
         {
@@ -372,7 +372,7 @@
                 push();
             }
             return;
-        }// end function
+        }
 
         public function push() : void
         {
@@ -391,7 +391,7 @@
             }
             __iTriangleCount = 0;
             return;
-        }// end function
+        }
 
         public function clear() : void
         {
@@ -407,7 +407,7 @@
             __cActiveFilter = null;
             __iActiveFiltering = FTextureBase.defaultFilteringType;
             return;
-        }// end function
+        }
 
     }
 }

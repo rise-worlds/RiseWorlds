@@ -20,7 +20,7 @@
                 cMaterial = new FDrawColorCameraVertexShaderBatchMaterial();
             }
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -31,7 +31,7 @@
             var _loc_4:* = cNode.cTransform;
             cMaterial.draw(_loc_4.nWorldX, _loc_4.nWorldY, _loc_4.nWorldScaleX, _loc_4.nWorldScaleY, _loc_4.nWorldRotation, _loc_4.nWorldRed, _loc_4.nWorldGreen, _loc_4.nWorldBlue, _loc_4.nWorldAlpha);
             return;
-        }// end function
+        }
 
         new Vector.<Number>(12)[0] = 0;
         new Vector.<Number>(12)[1] = 0;

@@ -24,13 +24,13 @@
             super(param1);
             _cMaterial = new FCameraTexturedPolygonMaterial();
             return;
-        }// end function
+        }
 
         public function setTexture(param1:FTexture) : void
         {
             cTexture = param1;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -59,7 +59,7 @@
             _cMaterial.draw(cTransformVector, cTexture.cContextTexture.tTexture, cTexture.iFilteringType, _aVertices, _aUVs, _iCurrentVertices, _bDirty);
             _bDirty = false;
             return;
-        }// end function
+        }
 
         public function init(param1:Vector.<Number>, param2:Vector.<Number>) : void
         {
@@ -84,7 +84,7 @@
                 }
             }
             return;
-        }// end function
+        }
 
         new Vector.<Number>(16)[0] = 0;
         new Vector.<Number>(16)[1] = 0;

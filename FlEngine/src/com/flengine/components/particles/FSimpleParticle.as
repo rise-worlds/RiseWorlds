@@ -50,12 +50,12 @@
             (count + 1);
             __iId = count;
             return;
-        }// end function
+        }
 
         public function toString() : String
         {
             return "[" + __iId + "]";
-        }// end function
+        }
 
         function init(param1:FSimpleEmitter, param2:Boolean = true) : void
         {
@@ -187,7 +187,7 @@
             __nAlphaDif = nEndAlpha - nInitialAlpha;
             __nScaleDif = nEndScale - nInitialScale;
             return;
-        }// end function
+        }
 
         function update(param1:FSimpleEmitter, param2:Number) : void
         {
@@ -225,7 +225,7 @@
                 nRotation = -Math.atan2(nVelocityX, nVelocityY);
             }
             return;
-        }// end function
+        }
 
         function dispose() : void
         {
@@ -242,7 +242,7 @@
             __cNextInstance = availableInstance;
             availableInstance = this;
             return;
-        }// end function
+        }
 
         public static function precache(param1:int) : void
         {
@@ -268,7 +268,7 @@
                 _loc_2.dispose();
             }
             return;
-        }// end function
+        }
 
         static function get() : FSimpleParticle
         {
@@ -283,7 +283,7 @@
                 _loc_1 = new FSimpleParticle;
             }
             return _loc_1;
-        }// end function
+        }
 
     }
 }

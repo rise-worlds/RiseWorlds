@@ -21,7 +21,7 @@
         {
             cNode = param1;
             return;
-        }// end function
+        }
 
         public function getPrototype() : XML
         {
@@ -56,7 +56,7 @@
                 _loc_5++;
             }
             return _xPrototype;
-        }// end function
+        }
 
         protected function addPrototypeProperty(param1:String, param2, param3:String, param4:XML = null) : void
         {
@@ -89,7 +89,7 @@
                 param4.appendChild(_loc_5);
             }
             return;
-        }// end function
+        }
 
         public function bindFromPrototype(param1:XML) : void
         {
@@ -105,7 +105,7 @@
                 _loc_4++;
             }
             return;
-        }// end function
+        }
 
         public function bindPrototypeProperty(param1:XML, param2:Object) : void
         {
@@ -140,48 +140,48 @@
                 this.trace("bindPrototypeProperty", e, param2, param1.name(), _loc_4);
             }
             return;
-        }// end function
+        }
 
         public function set active(param1:Boolean) : void
         {
             _bActive = param1;
             return;
-        }// end function
+        }
 
         public function get active() : Boolean
         {
             return _bActive;
-        }// end function
+        }
 
         public function get id() : String
         {
             return _sId;
-        }// end function
+        }
 
         public function get node() : FNode
         {
             return cNode;
-        }// end function
+        }
 
         public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
             return;
-        }// end function
+        }
 
         public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
             return;
-        }// end function
+        }
 
         public function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean
         {
             return false;
-        }// end function
+        }
 
         public function processTouchEvent(param1:Boolean, param2:TouchEvent, param3:Vector3D) : Boolean
         {
             return false;
-        }// end function
+        }
 
         private function internaldispose() : void
         {
@@ -191,12 +191,12 @@
             cPrevious = null;
             dispose();
             return;
-        }// end function
+        }
 
         public function dispose() : void
         {
             return;
-        }// end function
+        }
 
     }
 }

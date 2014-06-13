@@ -12,17 +12,17 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         public function updateParticle(param1:FParticle, param2:Number) : void
         {
             return;
-        }// end function
+        }
 
         public function updateSimpleParticle(param1:FSimpleParticle, param2:Number) : void
         {
             return;
-        }// end function
+        }
 
     }
 }

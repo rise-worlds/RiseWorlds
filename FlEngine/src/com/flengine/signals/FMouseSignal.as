@@ -24,42 +24,42 @@
             __bCtrlDown = param6;
             __sType = param7;
             return;
-        }// end function
+        }
 
         override public function get target() : Object
         {
             return __cTarget;
-        }// end function
+        }
 
         public function get dispatcher() : FNode
         {
             return __cDispatcher;
-        }// end function
+        }
 
         public function get localX() : Number
         {
             return __nLocalX;
-        }// end function
+        }
 
         public function get localY() : Number
         {
             return __nLocalY;
-        }// end function
+        }
 
         public function get buttonDown() : Boolean
         {
             return __bButtonDown;
-        }// end function
+        }
 
         public function get ctrlDown() : Boolean
         {
             return __bCtrlDown;
-        }// end function
+        }
 
         override public function get type() : String
         {
             return __sType;
-        }// end function
+        }
 
     }
 }

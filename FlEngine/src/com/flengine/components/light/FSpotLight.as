@@ -10,7 +10,7 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
     }
 }

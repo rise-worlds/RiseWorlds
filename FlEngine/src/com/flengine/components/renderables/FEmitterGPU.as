@@ -25,24 +25,24 @@
         {
             super(param1);
             return;
-        }// end function
+        }
 
         public function get activeParticles() : int
         {
             return iActiveParticles;
-        }// end function
+        }
 
         public function set activeParticles(param1:int) : void
         {
             iActiveParticles = param1;
             return;
-        }// end function
+        }
 
         public function setTexture(param1:FTexture) : void
         {
             cTexture = param1;
             return;
-        }// end function
+        }
 
         public function get textureId() : String
         {
@@ -51,13 +51,13 @@
                 return cTexture.id;
             }
             return "";
-        }// end function
+        }
 
         public function set textureId(param1:String) : void
         {
             cTexture = FTexture.getTextureById(param1);
             return;
-        }// end function
+        }
 
         public function initialize(param1:Number, param2:Number, param3:Number, param4:Number, param5:int, param6:int, param7:Number, param8:Number, param9:Number, param10:Number, param11:Boolean, param12:Number, param13:Number, param14:int, param15:int, param16:int, param17:int = 0) : void
         {
@@ -103,13 +103,13 @@
             iActiveParticles = iMaxParticles;
             _cMaterial = FCameraTexturedParticlesBatchMaterial.getByHash(sHash);
             return;
-        }// end function
+        }
 
         override public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
             nCurrentTime = nCurrentTime + param1;
             return;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -140,7 +140,7 @@
             aTransformVector[15] = 0.1;
             _cMaterial.draw(aTransformVector, cTexture.cContextTexture.tTexture, cTexture.iFilteringType, iActiveParticles);
             return;
-        }// end function
+        }
 
         new Vector.<Number>(16)[0] = 0;
         new Vector.<Number>(16)[1] = 0;

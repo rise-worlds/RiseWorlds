@@ -22,12 +22,12 @@
             _aTransformedVertices = new Vector.<Number>;
             super(param1);
             return;
-        }// end function
+        }
 
         public function getTexture() : FTexture
         {
             return cTexture;
-        }// end function
+        }
 
         override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void
         {
@@ -38,7 +38,7 @@
             var _loc_4:* = cNode.cTransform;
             param1.draw(cTexture, _loc_4.nWorldX, _loc_4.nWorldY, _loc_4.nWorldScaleX, _loc_4.nWorldScaleY, _loc_4.nWorldRotation, _loc_4.nWorldRed, _loc_4.nWorldGreen, _loc_4.nWorldBlue, _loc_4.nWorldAlpha, iBlendMode, param3, filter);
             return;
-        }// end function
+        }
 
         override public function getWorldBounds(param1:Rectangle = null) : Rectangle
         {
@@ -80,7 +80,7 @@
                 _loc_4 = _loc_4 + 3;
             }
             return param1;
-        }// end function
+        }
 
         function getTransformedVertices3D() : Vector.<Number>
         {
@@ -96,7 +96,7 @@
             _loc_2.prependScale(1 / _loc_1.width, 1 / _loc_1.height, 1);
             _loc_2.prependTranslation(cTexture.nPivotX, cTexture.nPivotY, 0);
             return _aTransformedVertices;
-        }// end function
+        }
 
         public function hitTestObject(param1:FTexturedQuad) : Boolean
         {
@@ -139,7 +139,7 @@
                 return false;
             }
             return true;
-        }// end function
+        }
 
         private function isSeparating(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Vector.<Number>) : Boolean
         {
@@ -159,7 +159,7 @@
                 return true;
             }
             return false;
-        }// end function
+        }
 
         public function hitTestPoint(param1:Vector3D, param2:Boolean = false) : Boolean
         {
@@ -178,7 +178,7 @@
                 return true;
             }
             return false;
-        }// end function
+        }
 
         override public function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean
         {
@@ -222,14 +222,14 @@
                 cNode.handleMouseEvent(cNode, "mouseOut", _loc_6.x * _loc_4 + cTexture.nPivotX, _loc_6.y * _loc_7 + cTexture.nPivotY, param2.buttonDown, param2.ctrlKey);
             }
             return false;
-        }// end function
+        }
 
         override public function dispose() : void
         {
             super.dispose();
             cTexture = null;
             return;
-        }// end function
+        }
 
     }
 }
