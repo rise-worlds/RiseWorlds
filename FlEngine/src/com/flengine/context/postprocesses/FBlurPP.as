@@ -1,0 +1,168 @@
+﻿package com.flengine.context.postprocesses
+{
+    import com.flengine.components.*;
+    import com.flengine.context.*;
+    import com.flengine.context.filters.*;
+    import com.flengine.core.*;
+    import com.flengine.textures.*;
+    import flash.geom.*;
+
+    public class FBlurPP extends FPostProcess
+    {
+        protected var _bInvalidate:Boolean = false;
+        protected var _bColorize:Boolean = false;
+        protected var _nRed:Number = 0;
+        protected var _nGreen:Number = 0;
+        protected var _nBlue:Number = 0;
+        protected var _nAlpha:Number = 1;
+        protected var _nBlurX:Number = 0;
+        protected var _nBlurY:Number = 0;
+
+        public function FBlurPP(param1:int, param2:int, param3:int = 1)
+        {
+            var _loc_5:* = 0;
+            var _loc_4:* = null;
+            super(param3 * 2);
+            _nBlurX = 2 * param1 / _iPasses;
+            _nBlurY = 2 * param2 / _iPasses;
+            _iRightMargin = _nBlurX * _iPasses * 0.5;
+            _iLeftMargin = _nBlurX * _iPasses * 0.5;
+            _iBottomMargin = _nBlurY * _iPasses * 0.5;
+            _iTopMargin = _nBlurY * _iPasses * 0.5;
+            _loc_5 = 0;
+            while (_loc_5 < _iPasses)
+            {
+                
+                _loc_4 = new FBlurPassFilter(_loc_5 < _iPasses / 2 ? (_nBlurY) : (_nBlurX), _loc_5 < _iPasses / 2 ? (0) : (1));
+                _aPassFilters[_loc_5] = _loc_4;
+                _loc_5++;
+            }
+            return;
+        }// end function
+
+        public function get colorize() : Boolean
+        {
+            return _bColorize;
+        }// end function
+
+        public function set colorize(param1:Boolean) : void
+        {
+            _bColorize = param1;
+            _bInvalidate = true;
+            return;
+        }// end function
+
+        public function get red() : Number
+        {
+            return _nRed;
+        }// end function
+
+        public function set red(param1:Number) : void
+        {
+            _nRed = param1;
+            _bInvalidate = true;
+            return;
+        }// end function
+
+        public function get green() : Number
+        {
+            return _nGreen;
+        }// end function
+
+        public function set green(param1:Number) : void
+        {
+            _nGreen = param1;
+            _bInvalidate = true;
+            return;
+        }// end function
+
+        public function get blue() : Number
+        {
+            return _nBlue;
+        }// end function
+
+        public function set blue(param1:Number) : void
+        {
+            _nBlue = param1;
+            _bInvalidate = true;
+            return;
+        }// end function
+
+        public function get alpha() : Number
+        {
+            return _nAlpha;
+        }// end function
+
+        public function set alpha(param1:Number) : void
+        {
+            _nAlpha = param1;
+            _bInvalidate = true;
+            return;
+        }// end function
+
+        override public function get passes() : int
+        {
+            return _iPasses / 2;
+        }// end function
+
+        public function get blurX() : int
+        {
+            return _iPasses * _nBlurX / 2;
+        }// end function
+
+        public function set blurX(param1:int) : void
+        {
+            _nBlurX = 2 * param1 / _iPasses;
+            _bInvalidate = true;
+            return;
+        }// end function
+
+        public function get blurY() : int
+        {
+            return _iPasses * _nBlurY / 2;
+        }// end function
+
+        public function set blurY(param1:int) : void
+        {
+            _nBlurY = 2 * param1 / _iPasses;
+            _bInvalidate = true;
+            return;
+        }// end function
+
+        override public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void
+        {
+            if (_bInvalidate)
+            {
+                invalidateBlurFilters();
+            }
+            super.render(param1, param2, param3, param4, param5, param6, param7);
+            return;
+        }// end function
+
+        private function invalidateBlurFilters() : void
+        {
+            var _loc_2:* = 0;
+            var _loc_1:* = null;
+            _loc_2 = _aPassFilters.length - 1;
+            while (_loc_2 >= 0)
+            {
+                
+                _loc_1 = _aPassFilters[_loc_2] as FBlurPassFilter;
+                _loc_1.blur = _loc_2 < _iPasses / 2 ? (_nBlurY) : (_nBlurX);
+                _loc_1.colorize = _bColorize;
+                _loc_1.red = _nRed;
+                _loc_1.green = _nGreen;
+                _loc_1.blue = _nBlue;
+                _loc_1.alpha = _nAlpha;
+                _loc_2--;
+            }
+            _iRightMargin = _nBlurX * _iPasses * 0.5;
+            _iLeftMargin = _nBlurX * _iPasses * 0.5;
+            _iBottomMargin = _nBlurY * _iPasses * 0.5;
+            _iTopMargin = _nBlurY * _iPasses * 0.5;
+            _bInvalidate = false;
+            return;
+        }// end function
+
+    }
+}
