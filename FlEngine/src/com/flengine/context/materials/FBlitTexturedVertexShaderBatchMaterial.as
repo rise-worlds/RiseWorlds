@@ -14,7 +14,7 @@
         private const BATCH_CONSTANTS:int = 124;
         private const CONSTANTS_PER_BATCH:int = 2;
         private const BATCH_SIZE:int = 62;
-        private const VertexShaderEmbed:Class;
+        private const VertexShaderEmbed:Class = FBlitTexturedVertexShaderBatchMaterialVertex_ash;
         private const VertexShaderCode:ByteArray;
         private var __vb3VertexBuffer:VertexBuffer3D;
         private var __vb3UVBuffer:VertexBuffer3D;
@@ -36,8 +36,7 @@
 
         public function FBlitTexturedVertexShaderBatchMaterial()
         {
-            VertexShaderEmbed = FBlitTexturedVertexShaderBatchMaterialVertex_ash;
-            VertexShaderCode = new VertexShaderEmbed() as ByteArray;
+            VertexShaderCode = (new VertexShaderEmbed()) as ByteArray;
             __aVertexConstants = new Vector.<Number>(496);
             return;
         }

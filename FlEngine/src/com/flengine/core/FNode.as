@@ -18,24 +18,24 @@
         private var __eOnRemovedFromStage:HelpSignal;
         private var __eOnComponentAdded:HelpSignal;
         private var __eOnComponentRemoved:HelpSignal;
-        var cPool:FNodePool;
-        var cPoolPrevious:FNode;
-        var cPoolNext:FNode;
-        var cPrevious:FNode;
-        var cNext:FNode;
+        public var cPool:FNodePool;
+        public var cPoolPrevious:FNode;
+        public var cPoolNext:FNode;
+        public var cPrevious:FNode;
+        public var cNext:FNode;
         private var __bChangedParent:Boolean = false;
         public var cameraGroup:int = 0;
         private var __bParentActive:Boolean = true;
-        var iUsedAsMask:int = 0;
+        public var iUsedAsMask:int = 0;
         private var __bActive:Boolean = true;
         private var __aTags:Vector.<String>;
         private var __oUserData:Object;
-        var cCore:FlEngine;
+        public var cCore:FlEngine;
         protected var _iId:uint;
         protected var _sName:String;
-        var cTransform:FTransform;
-        var cBody:FBody;
-        var cParent:FNode;
+        public var cTransform:FTransform;
+        public var cBody:FBody;
+        public var cParent:FNode;
         private var __bUpdating:Boolean = false;
         private var __bDisposeAfterUpdate:Boolean = false;
         private var __bRemoveAfterUpdate:Boolean = false;
@@ -50,16 +50,16 @@
         private var __eOnMouseOut:HelpSignal;
         public var mouseEnabled:Boolean = false;
         public var mouseChildren:Boolean = true;
-        var cMouseOver:FNode;
-        var cMouseDown:FNode;
-        var cRightMouseDown:FNode;
+        public var cMouseOver:FNode;
+        public var cMouseDown:FNode;
+        public var cRightMouseDown:FNode;
         private var __dComponentsLookupTable:Dictionary;
         private var __cFirstComponent:FComponent;
         private var __cLastComponent:FComponent;
         private var _iChildCount:int = 0;
         private var _cFirstChild:FNode;
         private var _cLastChild:FNode;
-        var iUsedAsPPMask:int;
+        public var iUsedAsPPMask:int;
         private static var __iCount:int = 0;
         private static var __aActiveMasks:Vector.<FNode> = new Vector.<FNode>;
 
@@ -157,7 +157,7 @@
             return cNext;
         }
 
-        function set bParentActive(param1:Boolean) : void
+        public function set bParentActive(param1:Boolean) : void
         {
             var _loc_2:* = _cFirstChild;
             while (_loc_2)
@@ -305,7 +305,7 @@
             return cParent;
         }
 
-        function update(param1:Number, param2:Boolean, param3:Boolean) : void
+        public function update(param1:Number, param2:Boolean, param3:Boolean) : void
         {
             var _loc_5:* = null;
             if (!__bActive || !__bParentActive)
@@ -357,7 +357,7 @@
             return;
         }
 
-        function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:Boolean) : void
+        public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:Boolean) : void
         {
             if (!__bActive || __bChangedParent || !__bParentActive || !cTransform.visible || (cameraGroup & param2.mask) == 0 && cameraGroup != 0 || iUsedAsMask > 0 && !param4)
             {
@@ -465,11 +465,11 @@
             }
             __bActive = false;
             disposeChildren();
-            for (_loc_1 in __dComponentsLookupTable)
+            for (var _loc_1:* in __dComponentsLookupTable)
             {
                 
-                _loc_2 = _loc_3[_loc_1];
-                delete _loc_3[_loc_1];
+                _loc_2 = __dComponentsLookupTable[_loc_1];
+                delete __dComponentsLookupTable[_loc_1];
                 _loc_2.dispose();
             }
             cBody = null;
@@ -592,7 +592,7 @@
             return __eOnMouseOut;
         }
 
-        function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D, param4:FCamera) : Boolean
+        public function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D, param4:FCamera) : Boolean
         {
             var _loc_5:* = null;
             var _loc_6:* = null;
@@ -623,7 +623,7 @@
             return param1;
         }
 
-        function handleMouseEvent(param1:FNode, param2:String, param3:int, param4:int, param5:Boolean, param6:Boolean) : void
+        public function handleMouseEvent(param1:FNode, param2:String, param3:int, param4:int, param5:Boolean, param6:Boolean) : void
         {
             var _loc_7:* = null;
             var _loc_8:* = null;
@@ -794,8 +794,8 @@
 
         public function addComponentFromPrototype(param1:XML) : FComponent
         {
-            var _loc_4:* = this.getDefinitionByName(param1.@componentClass.split("-").join("::"));
-            var _loc_2:* = this.getDefinitionByName(param1.@componentLookupClass.split("-").join("::"));
+            var _loc_4:* = getDefinitionByName(param1.@componentClass.split("-").join("::"));
+            var _loc_2:* = getDefinitionByName(param1.@componentLookupClass.split("-").join("::"));
             var _loc_3:* = addComponent(_loc_4 as Class, _loc_2 as Class);
             _loc_3.bindFromPrototype(param1);
             return _loc_3;

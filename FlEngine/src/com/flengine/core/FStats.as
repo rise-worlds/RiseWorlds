@@ -26,7 +26,7 @@
         private static var __iMem:int;
         private static var __iMemMax:int;
         private static var __bdBitmapData:BitmapData;
-        static var iDrawCalls:int = 0;
+        public static var iDrawCalls:int = 0;
 
         public function FStats()
         {
@@ -38,7 +38,7 @@
             return __iLastFPS;
         }
 
-        static function init() : void
+        public static function init() : void
         {
             __bdBitmapData = new BitmapData(256, 16, false, 0);
             __cTexture = FTextureFactory.createFromBitmapData("stats_internal", __bdBitmapData);
@@ -59,9 +59,9 @@
             return;
         }
 
-        static function update() : void
+        public static function update() : void
         {
-            var _loc_1:* = FStats.getTimer();
+            var _loc_1:* = getTimer();
             if (_loc_1 - 1000 > __iPreviousTime)
             {
                 __iPreviousTime = _loc_1;
@@ -76,7 +76,7 @@
             return;
         }
 
-        static function clear() : void
+        public static function clear() : void
         {
             if (!__bInitialized)
             {
@@ -86,7 +86,7 @@
             return;
         }
 
-        static function draw() : void
+        public static function draw() : void
         {
             var _loc_2:* = 0;
             var _loc_1:* = 0;

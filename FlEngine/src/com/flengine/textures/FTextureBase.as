@@ -4,26 +4,27 @@
     import com.flengine.core.*;
     import com.flengine.error.*;
     import flash.display.*;
+	import flash.display3D.Context3DTextureFormat;
     import flash.events.*;
     import flash.utils.*;
 
     public class FTextureBase extends Object
     {
-        var bdBitmapData:BitmapData;
-        var baByteArray:ByteArray;
+        public var bdBitmapData:BitmapData;
+        public var baByteArray:ByteArray;
         protected var _iResampleType:int;
         protected var _iResampleScale:int;
-        var iFilteringType:int;
-        var nSourceWidth:int;
-        var nSourceHeight:int;
+        public var iFilteringType:int;
+        public var nSourceWidth:int;
+        public var nSourceHeight:int;
         public var premultiplied:Boolean = true;
-        var iWidth:int;
-        var iHeight:int;
+        public var iWidth:int;
+        public var iHeight:int;
         protected var _sId:String;
-        var cContextTexture:FContextTexture;
-        var iSourceType:int;
-        var iAtfType:int;
-        var bTransparent:Boolean;
+        public var cContextTexture:FContextTexture;
+        public var iSourceType:int;
+        public var iAtfType:int;
+        public var bTransparent:Boolean;
         protected var _fAsyncCallback:Function;
         public var resampled:BitmapData;
         public static var alwaysUseCompressed:Boolean = false;
@@ -32,22 +33,22 @@
         private static var __iDefaultFilteringType:int = 1;
         private static var __dReferences:Dictionary = new Dictionary();
 
-        public function FTextureBase(param1:String, param2:int, param3, param4:Boolean, param5:Function)
+        public function FTextureBase(param1:String, param2:int, param3:*, param4:Boolean, param5:Function)
         {
             _iResampleType = defaultResampleType;
             _iResampleScale = defaultResampleScale;
             iFilteringType = __iDefaultFilteringType;
             if (!FlEngine.getInstance().isInitialized())
             {
-                throw new FError("FError: FlEngine is not initialized.");
+                throw new FError(FError.GENOME2D_NOT_INITIALIZED);
             }
             if (param1 == null || param1.length == 0)
             {
-                throw new FError("FError: Texture ID cannot be null or empty.");
+                throw new FError(FError.INVALID_TEXTURE_ID);
             }
             if (__dReferences[param1] != null)
             {
-                throw new FError("FError: Texture with specified ID already exists.", param1);
+                throw new FError(FError.DUPLICATE_TEXTURE_ID, param1);
             }
             __dReferences[param1] = this;
             _sId = param1;
@@ -73,24 +74,25 @@
             //premultiplied = false;
 			switch(param2)
 			{
-				case 36:
+				case FTextureSourceType.BITMAPDATA:
 				bdBitmapData = param3 as BitmapData;
 				premultiplied = true;
 				break;
-				case 55:
+				case FTextureSourceType.ATF_BGRA:
 				baByteArray = param3 as ByteArray;
 				premultiplied = false;
 				break;
+				case FTextureSourceType.ATF_COMPRESSED:
 				baByteArray = param3 as ByteArray;
-				iAtfType = 1;
+				iAtfType = FTextureAtfType.ATF_Type_Dxt1;
 				premultiplied = false;
 				break;
-				case 81:
+				case FTextureSourceType.ATF_COMPRESSEDALPHA:
 				baByteArray = param3 as ByteArray;
-				iAtfType = 2;
+				iAtfType = FTextureAtfType.ATF_Type_Dxt5;
 				premultiplied = false;
 				break;
-				case 17:
+				case FTextureSourceType.BYTEARRAY:
 				baByteArray = param3 as ByteArray;
 				premultiplied = false;
 				break;
@@ -118,7 +120,7 @@
         {
             if (!FTextureResampleType.isValid(param1))
             {
-                throw new FError("FError: Invalid resample type.");
+                 throw new FError(FError.INVALID_RESAMPLE_TYPE);
             }
             _iResampleType = param1;
             return;
@@ -145,7 +147,7 @@
         {
             if (!FTextureFilteringType.isValid(param1))
             {
-                throw new FError("FError: Invalid filtering type.");
+               throw new FError(FError.INVALID_FILTERING_TYPE);
             }
             iFilteringType = param1;
             return;
@@ -181,7 +183,7 @@
             return _sId;
         }
 
-        public function getSource():ByteArray
+        public function getSource():*
         {
             //switch((iSourceType - 1)) branch count is:<2>[21, 28, 14] default offset is:<31>;
             //return bdBitmapData;
@@ -191,14 +193,14 @@
             //return baByteArray;
 			switch(iSourceType)
 			{
-				case 21:
+				case FTextureSourceType.BITMAPDATA:
 				return bdBitmapData;
-				case 28:
+				case FTextureSourceType.ATF_COMPRESSED:
 				return baByteArray;
-				case 14:
+				case FTextureSourceType.BYTEARRAY:
 				return baByteArray;
 			}
-            return;
+			return null;
         }
 
         protected function invalidateContextTexture(param1:Boolean) : void
@@ -304,7 +306,7 @@
             //}
 			switch(iSourceType)
 			{
-				case 189:
+				case FTextureSourceType.BITMAPDATA:
 				resampled = FTextureUtils.resampleBitmapData(bdBitmapData, _iResampleType, resampleScale);
 				if (cContextTexture == null || param1 || cContextTexture.iWidth != resampled.width || cContextTexture.iHeight != resampled.height)
 				{
@@ -312,21 +314,21 @@
 					{
 						cContextTexture.dispose();
 					}
-					_loc_4 = "bgra";
+					_loc_4 = Context3DTextureFormat.BGRA;
 					if (alwaysUseCompressed)
 					{
-						_loc_4 = bTransparent ? ("compressedAlpha") : ("compressed");
-						iAtfType = bTransparent ? (2) : (1);
+						_loc_4 = bTransparent ? (Context3DTextureFormat.COMPRESSED_ALPHA) : (Context3DTextureFormat.COMPRESSED);
+						iAtfType = bTransparent ? (FTextureAtfType.ATF_Type_Dxt5) : (FTextureAtfType.ATF_Type_Dxt1);
 					}
 					else
 					{
-						iAtfType = 0;
+						iAtfType = FTextureAtfType.ATF_Type_None;
 					}
 					cContextTexture = FlEngine.getInstance().cContext.createTexture(resampled.width, resampled.height, _loc_4, false);
 				}
 				cContextTexture.uploadFromBitmapData(resampled);
 				break;
-				case 301:
+				case FTextureSourceType.ATF_BGRA:
 				if (cContextTexture == null || param1 || cContextTexture.iWidth != iWidth || cContextTexture.iHeight != iHeight)
 				{
 					if (cContextTexture)
@@ -341,7 +343,7 @@
 				}
 				cContextTexture.uploadFromCompressedByteArray(baByteArray, 0, _fAsyncCallback != null);
 				break;
-				case 420:
+				case FTextureSourceType.ATF_COMPRESSED:
 				if (cContextTexture == null || param1 || cContextTexture.iWidth != iWidth || cContextTexture.iHeight != iHeight)
 				{
 					if (cContextTexture)
@@ -357,7 +359,7 @@
 				}
 				cContextTexture.uploadFromCompressedByteArray(baByteArray, 0, _fAsyncCallback != null);
 				break;
-				case 20:
+				case FTextureSourceType.ATF_COMPRESSEDALPHA:
 				if (cContextTexture == null || param1 || cContextTexture.iWidth != iWidth || cContextTexture.iHeight != iHeight)
 				{
 					if (cContextTexture)
@@ -369,41 +371,43 @@
 					{
 						cContextTexture.tTexture.addEventListener("textureReady", onATFUploaded);
 					}
-					iAtfType = 2;
+					iAtfType = FTextureAtfType.ATF_Type_Dxt5;
 				}
 				cContextTexture.uploadFromCompressedByteArray(baByteArray, 0, _fAsyncCallback != null);
 				break;
-				case 686:
+				case FTextureSourceType.BYTEARRAY:
 				if (cContextTexture == null || param1 || cContextTexture.iWidth != iWidth || cContextTexture.iHeight != iHeight)
 				{
 					if (cContextTexture)
 					{
 						cContextTexture.dispose();
 					}
-					_loc_4 = "bgra";
+					_loc_4 = Context3DTextureFormat.BGRA;
 					if (alwaysUseCompressed)
 					{
-						_loc_4 = bTransparent ? ("compressedAlpha") : ("compressed");
-						iAtfType = bTransparent ? (2) : (1);
+						_loc_4 = bTransparent ? (Context3DTextureFormat.COMPRESSED_ALPHA) : (Context3DTextureFormat.COMPRESSED);
+						iAtfType = bTransparent ? (FTextureAtfType.ATF_Type_Dxt5) : (FTextureAtfType.ATF_Type_Dxt1);
 					}
 					else
 					{
-						iAtfType = 0;
+						iAtfType = FTextureAtfType.ATF_Type_None;
 					}
 					cContextTexture = FlEngine.getInstance().cContext.createTexture(iWidth, iHeight, _loc_4, false);
 				}
 				cContextTexture.uploadFromByteArray(baByteArray, 0);
 				break;
-			}
-			_loc_3 = FTextureUtils.getNextValidTextureSize(iWidth);
-			_loc_2 = FTextureUtils.getNextValidTextureSize(iHeight);
-			if (cContextTexture == null || param1 || cContextTexture.iWidth != _loc_3 || cContextTexture.iHeight != _loc_2)
-			{
-				if (cContextTexture)
+			case FTextureSourceType.RENDER_TARGET:
+				_loc_3 = FTextureUtils.getNextValidTextureSize(iWidth);
+				_loc_2 = FTextureUtils.getNextValidTextureSize(iHeight);
+				if (cContextTexture == null || param1 || cContextTexture.iWidth != _loc_3 || cContextTexture.iHeight != _loc_2)
 				{
-					cContextTexture.dispose();
+					if (cContextTexture)
+					{
+						cContextTexture.dispose();
+					}
+					cContextTexture = FlEngine.getInstance().cContext.createTexture(_loc_3, _loc_2, "bgra", true);
 				}
-				cContextTexture = FlEngine.getInstance().cContext.createTexture(_loc_3, _loc_2, "bgra", true);
+			break;
 			}
             return;
         }
@@ -430,7 +434,7 @@
         {
             if (!FTextureResampleType.isValid(param1))
             {
-                throw new FError("FError: Invalid resample type.");
+                throw new FError(FError.INVALID_RESAMPLE_TYPE);
             }
             __iDefaultResampleType = param1;
             return;
@@ -445,7 +449,7 @@
         {
             if (!FTextureFilteringType.isValid(param1))
             {
-                throw new FError("FError: Invalid filtering type.");
+                throw new FError(FError.INVALID_FILTERING_TYPE);
             }
             __iDefaultFilteringType = param1;
             return;
@@ -459,9 +463,8 @@
         public static function getGPUTextureCount() : int
         {
             var _loc_2:* = 0;
-            for each (_loc_1 in __dReferences)
+            for each (var _loc_1:* in __dReferences)
             {
-                
                 if (_loc_1.cContextTexture && !_loc_1.hasParent())
                 {
                     _loc_2++;
@@ -473,7 +476,7 @@
         public static function getTextureCount() : int
         {
             var _loc_2:* = 0;
-            for each (_loc_1 in __dReferences)
+            for each (var _loc_1:* in __dReferences)
             {
                 
                 if (_loc_1 is FTexture)
@@ -484,12 +487,11 @@
             return _loc_2;
         }
 
-        static function invalidate() : void
+        public static function invalidate() : void
         {
-            for (_loc_1 in __dReferences)
+            for (var _loc_1:* in __dReferences)
             {
-                
-                (_loc_2[_loc_1] as FTextureBase).invalidateContextTexture(true);
+                (__dReferences[_loc_1] as FTextureBase).invalidateContextTexture(true);
             }
             return;
         }

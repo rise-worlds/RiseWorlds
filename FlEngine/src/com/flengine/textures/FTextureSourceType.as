@@ -13,12 +13,12 @@
 
         public function FTextureSourceType()
         {
-            throw new FError("FError: Cannot instantiate abstract class.");
+            throw new FError(FError.CANNOT_INSTANTATE_ABSTRACT);
         }
 
-        static function isValid(param1:int) : Boolean
+        public static function isValid(param1:int) : Boolean
         {
-            if (param1 == 1 || param1 == 2 || param1 == 2 || param1 == 3 || param1 == 4)
+            if (param1 == ATF_COMPRESSED || param1 == ATF_COMPRESSEDALPHA || param1 == BYTEARRAY || param1 == BITMAPDATA || param1 == RENDER_TARGET)
             {
                 return true;
             }

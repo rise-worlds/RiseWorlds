@@ -15,19 +15,19 @@
 
     public class FContext extends Object
     {
-        var eInitialized:HelpSignal;
-        var eFailed:HelpSignal;
+        public var eInitialized:HelpSignal;
+        public var eFailed:HelpSignal;
         private var __bInitialized:Boolean = false;
-        var bReinitialize:Boolean = false;
-        var cContext:Context3D;
+        public var bReinitialize:Boolean = false;
+        public var cContext:Context3D;
         private var __mProjectionMatrix:Matrix3D;
         private var __stStage:Stage;
         private var __st3Stage3D:Stage3D;
         private var __cCore:FlEngine;
-        var cActiveMaterial:IGMaterial;
-        var iActiveBlendMode:int;
-        var bActivePremultiplied:Boolean;
-        var rActiveMaskRect:Rectangle;
+        public var cActiveMaterial:IGMaterial;
+        public var iActiveBlendMode:int;
+        public var bActivePremultiplied:Boolean;
+        public var rActiveMaskRect:Rectangle;
         protected var _cRenderTarget:FTexture;
         protected var _cBlitColorMaterial:FBlitColorVertexShaderBatchMaterial;
         protected var _cBlitMaterial:FBlitTexturedVertexShaderBatchMaterial;
@@ -92,7 +92,7 @@
             return;
         }
 
-        function init(param1:Stage, param2:Stage3D = null) : void
+        public function init(param1:Stage, param2:Stage3D = null) : void
         {
             __stStage = param1;
             if (param2 == null)
@@ -122,7 +122,7 @@
             return;
         }
 
-        function dispose() : void
+        public function dispose() : void
         {
             eInitialized.dispose();
             eInitialized = null;
@@ -209,12 +209,12 @@
             return;
         }
 
-        function createTexture(param1:int, param2:int, param3:String, param4:Boolean) : FContextTexture
+        public function createTexture(param1:int, param2:int, param3:String, param4:Boolean) : FContextTexture
         {
             return new FContextTexture(cContext, param1, param2, param3, param4);
         }
 
-        function begin(param1:Number, param2:Number, param3:Number) : void
+        public function begin(param1:Number, param2:Number, param3:Number) : void
         {
             FStats.clear();
             _cRenderTarget = null;
@@ -233,7 +233,7 @@
             return;
         }
 
-        function end() : void
+        public function end() : void
         {
             if (__cCore.cConfig.enableStats)
             {
@@ -362,7 +362,7 @@
             {
                 if (param2 < param4)
                 {
-                    _loc_12 = Math.acos(_loc_14) + 3.14159;
+                    _loc_12 = Math.acos(_loc_14) + Math.PI;
                 }
                 else
                 {
@@ -473,7 +473,7 @@
             return;
         }
 
-        function checkAndSetupRender(param1:IGMaterial, param2:int, param3:Boolean, param4:Rectangle) : Boolean
+        public function checkAndSetupRender(param1:IGMaterial, param2:int, param3:Boolean, param4:Rectangle) : Boolean
         {
             var _loc_7:* = param1 != cActiveMaterial || cActiveMaterial == null;
             var _loc_5:* = param2 != iActiveBlendMode || param3 != bActivePremultiplied;
@@ -516,7 +516,7 @@
             return;
         }
 
-        function clearStencil() : void
+        public function clearStencil() : void
         {
             if (cActiveMaterial)
             {
@@ -526,7 +526,7 @@
             return;
         }
 
-        function renderAsStencilMask(param1:int) : void
+        public function renderAsStencilMask(param1:int) : void
         {
             if (cActiveMaterial)
             {
@@ -539,7 +539,7 @@
             return;
         }
 
-        function renderToColor(param1:int) : void
+        public function renderToColor(param1:int) : void
         {
             if (cActiveMaterial)
             {

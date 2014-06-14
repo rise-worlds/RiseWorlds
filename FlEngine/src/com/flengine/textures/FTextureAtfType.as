@@ -10,12 +10,12 @@
 
         public function FTextureAtfType()
         {
-            throw new FError("FError: Cannot instantiate abstract class.");
+            throw new FError(FError.CANNOT_INSTANTATE_ABSTRACT);
         }
 
-        static function isValid(param1:int) : Boolean
+        public static function isValid(param1:int) : Boolean
         {
-            if (param1 == 1 || param1 == 2)
+            if (param1 == ATF_Type_Dxt1 || param1 == ATF_Type_Dxt5)
             {
                 return true;
             }

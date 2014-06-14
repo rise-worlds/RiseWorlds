@@ -9,31 +9,31 @@
         private var __bWorldTransformMatrixDirty:Boolean = true;
         private var __mWorldTransformMatrix:Matrix3D;
         private var __mLocalTransformMatrix:Matrix3D;
-        var bTransformDirty:Boolean = true;
-        var nWorldX:Number = 0;
-        var nLocalX:Number = 0;
-        var nWorldY:Number = 0;
-        var nLocalY:Number = 0;
-        var nWorldScaleX:Number = 1;
+        public var bTransformDirty:Boolean = true;
+        public var nWorldX:Number = 0;
+        public var nLocalX:Number = 0;
+        public var nWorldY:Number = 0;
+        public var nLocalY:Number = 0;
+        public var nWorldScaleX:Number = 1;
+        public var nWorldScaleY:Number = 1;
+        public var nWorldRotation:Number = 0;
+        public var bColorDirty:Boolean = true;
+        public var nWorldRed:Number = 1;
+        public var nWorldGreen:Number = 1;
+        public var nWorldBlue:Number = 1;
+        public var nWorldAlpha:Number = 1;
         private var __nLocalScaleX:Number = 1;
-        var nWorldScaleY:Number = 1;
         private var __nLocalScaleY:Number = 1;
-        var nWorldRotation:Number = 0;
         private var __nLocalRotation:Number = 0;
-        var bColorDirty:Boolean = true;
-        var nWorldRed:Number = 1;
         private var _red:Number = 1;
-        var nWorldGreen:Number = 1;
         private var _green:Number = 1;
-        var nWorldBlue:Number = 1;
         private var _blue:Number = 1;
-        var nWorldAlpha:Number = 1;
         private var _alpha:Number = 1;
         public var useWorldSpace:Boolean = false;
         public var useWorldColor:Boolean = false;
-        var cMask:FNode;
-        var rMaskRect:Rectangle;
-        var rAbsoluteMaskRect:Rectangle;
+        public var cMask:FNode;
+        public var rMaskRect:Rectangle;
+        public var rAbsoluteMaskRect:Rectangle;
 
         public function FTransform(param1:FNode)
         {
@@ -53,7 +53,7 @@
                 _loc_1 = nWorldScaleY == 0 ? (1e-006) : (nWorldScaleY);
                 __mWorldTransformMatrix.identity();
                 __mWorldTransformMatrix.prependScale(_loc_2, _loc_1, 1);
-                __mWorldTransformMatrix.prependRotation(nWorldRotation * 180 / 3.14159, Vector3D.Z_AXIS);
+                __mWorldTransformMatrix.prependRotation(nWorldRotation * 180 / Math.PI, Vector3D.Z_AXIS);
                 __mWorldTransformMatrix.appendTranslation(nWorldX, nWorldY, 0);
                 __bWorldTransformMatrixDirty = false;
             }
@@ -64,7 +64,7 @@
         {
             __mLocalTransformMatrix.identity();
             __mLocalTransformMatrix.prependScale(__nLocalScaleX, __nLocalScaleY, 1);
-            __mLocalTransformMatrix.prependRotation(__nLocalRotation * 180 / 3.14159, Vector3D.Z_AXIS);
+            __mLocalTransformMatrix.prependRotation(__nLocalRotation * 180 / Math.PI, Vector3D.Z_AXIS);
             __mLocalTransformMatrix.appendTranslation(nLocalX, nLocalY, 0);
             return __mLocalTransformMatrix;
         }
@@ -312,7 +312,7 @@
             return;
         }
 
-        function invalidate(param1:Boolean, param2:Boolean) : void
+        public function invalidate(param1:Boolean, param2:Boolean) : void
         {
             var _loc_3:* = NaN;
             var _loc_5:* = NaN;

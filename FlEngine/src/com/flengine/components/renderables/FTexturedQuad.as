@@ -12,7 +12,7 @@
     public class FTexturedQuad extends FRenderable
     {
         public var filter:FFilter;
-        var cTexture:FTexture;
+        public var cTexture:FTexture;
         protected var _aTransformedVertices:Vector.<Number>;
         public var mousePixelEnabled:Boolean = false;
         private static const NORMALIZED_VERTICES_3D:Vector.<Number> = FTexturedQuad.Vector.<Number>([-0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0]);
@@ -82,7 +82,7 @@
             return param1;
         }
 
-        function getTransformedVertices3D() : Vector.<Number>
+        public function getTransformedVertices3D() : Vector.<Number>
         {
             if (cTexture == null)
             {

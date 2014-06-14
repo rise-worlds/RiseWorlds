@@ -8,12 +8,12 @@
     {
         private var __dTextures:Dictionary;
 
-        public function FTextureAtlas(param1:String, param2:int, param3:int, param4:int, param5, param6:Boolean, param7:Function)
+        public function FTextureAtlas(param1:String, param2:int, param3:int, param4:int, param5:*, param6:Boolean, param7:Function)
         {
             super(param1, param2, param5, param6, param7);
             if (!FTextureUtils.isValidTextureSize(param3) || !FTextureUtils.isValidTextureSize(param4))
             {
-                throw new FError("FError: Invalid atlas size, it needs to be power of 2.");
+                throw new FError(FError.INVALID_ATLAS_SIZE);
             }
             iWidth = param3;
             iHeight = param4;
@@ -29,9 +29,8 @@
         override public function set filteringType(param1:int) : void
         {
             filteringType = param1;
-            for each (_loc_2 in __dTextures)
+            for each (var _loc_2:FTexture in __dTextures)
             {
-                
                 _loc_2.iFilteringType = param1;
             }
             return;
@@ -45,9 +44,8 @@
         override protected function invalidateContextTexture(param1:Boolean) : void
         {
             super.invalidateContextTexture(param1);
-            for each (_loc_2 in __dTextures)
+            for each (var _loc_2:FTexture in __dTextures)
             {
-                
                 _loc_2.cContextTexture = cContextTexture;
                 _loc_2.iAtfType = iAtfType;
             }
@@ -76,13 +74,12 @@
 
         private function disposeSubTextures() : void
         {
-            var _loc_2:* = null;
-            for (_loc_1 in __dTextures)
+            var _loc_2:FTexture = null;
+            for (var _loc_1:String in __dTextures)
             {
-                
-                _loc_2 = _loc_3[_loc_1];
+                _loc_2 = __dTextures[_loc_1];
                 _loc_2.dispose();
-                delete _loc_3[_loc_1];
+                delete __dTextures[_loc_1];
             }
             __dTextures = new Dictionary();
             return;

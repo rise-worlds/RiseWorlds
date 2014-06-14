@@ -7,6 +7,7 @@ package
 	import com.flengine.core.FNode;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * ...
@@ -36,13 +37,13 @@ package
 			genome.init(config);
 		}
 		
-		 private function initialized():void {
+		private function initialized():void {
 			container = new FNode("container");
             container.transform.x = stage.stageWidth/2;
             container.transform.y = stage.stageHeight/2;
-            scene.root.addChild(container);
-            camera = FCamera(container.addComponent(GCamera));
-            var back:FNode = new GNode("back");
+            genome.root.addChild(container);
+            camera = FCamera(container.addComponent(FCamera));
+            var back:FNode = new FNode("back");
             back.transform.setScale(600 / 400, 400 / 300);
 			var sprite:FSprite = FSprite(back.addComponent(FSprite));
 			container.addChild(back);

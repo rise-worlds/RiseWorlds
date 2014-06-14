@@ -108,14 +108,14 @@
             var _loc_9:* = 0;
             var _loc_7:* = 0;
             var _loc_4:* = param1.readUnsignedInt();
-            if (param1.readUnsignedInt() != 3136297300)
+            if (param1.readUnsignedInt() != PAM_MAGIC)
             {
-                return -1;
+                return Load_MagicError;
             }
             var _loc_11:* = param1.readUnsignedInt();
-            if (param1.readUnsignedInt() > 5)
+            if (param1.readUnsignedInt() > PAM_VERSION)
             {
-                return -2;
+                return Load_VersionError;
             }
             param1.readUnsignedByte();
             param1.readShort();
@@ -172,7 +172,7 @@
                 }
                 _loc_10++;
             }
-            return 0;
+            return Load_Successed;
         }
 
         public function LoadPam(param1:ByteArray, param2:FTextureAtlas) : int
@@ -189,14 +189,14 @@
             var _loc_4:* = NaN;
             var _loc_15:* = NaN;
             var _loc_16:* = param1.readUnsignedInt();
-            if (param1.readUnsignedInt() != 3136297300)
+            if (param1.readUnsignedInt() != PAM_MAGIC)
             {
-                return -1;
+                return Load_MagicError;
             }
             _version = param1.readUnsignedInt();
-            if (_version > 5)
+            if (_version > PAM_VERSION)
             {
-                return -2;
+                return Load_VersionError;
             }
             _animRate = param1.readUnsignedByte();
             _animRect.x = param1.readShort() / 20;
@@ -217,7 +217,7 @@
             {
                 
                 _loc_6 = _imageVector[_loc_13];
-                _loc_6.drawMode = 0;
+                _loc_6.drawMode = JAAnimRenderMode.DRAWMODE_NORMAL;
                 _loc_11 = ReadString(param1);
                 _loc_8 = Remap(_loc_11);
                 _loc_17 = "";
@@ -254,7 +254,7 @@
                 }
                 if (_loc_17.indexOf("add") != -1)
                 {
-                    _loc_6.drawMode = 1;
+                    _loc_6.drawMode = JAAnimRenderMode.DRAWMODE_ADDITIVE;
                 }
                 if (_version >= 4)
                 {
@@ -280,10 +280,10 @@
                 }
                 else
                 {
-                    _loc_6.transform.matrix.m00 = param1.readInt() / 1310720;
-                    _loc_6.transform.matrix.m01 = param1.readInt() / 1310720;
-                    _loc_6.transform.matrix.m10 = param1.readInt() / 1310720;
-                    _loc_6.transform.matrix.m11 = param1.readInt() / 1310720;
+                    _loc_6.transform.matrix.m00 = param1.readInt() / (65536 * 20);
+                    _loc_6.transform.matrix.m01 = param1.readInt() / (65536 * 20);
+                    _loc_6.transform.matrix.m10 = param1.readInt() / (65536 * 20);
+                    _loc_6.transform.matrix.m11 = param1.readInt() / (65536 * 20);
                     _loc_6.transform.matrix.m02 = param1.readShort() / 20;
                     _loc_6.transform.matrix.m12 = param1.readShort() / 20;
                 }
@@ -319,7 +319,7 @@
                 
                 if (LoadSpriteDef(param1, _mainAnimDef.spriteDefVector[_loc_13]) == false)
                 {
-                    return -4;
+                    return Load_LoadSpriteError;
                 }
                 _loc_13++;
             }
@@ -329,11 +329,11 @@
                 _mainAnimDef.mainSpriteDef = new JASpriteDef();
                 if (LoadSpriteDef(param1, _mainAnimDef.mainSpriteDef) == false)
                 {
-                    return -5;
+                    return Load_LoadMainSpriteError;
                 }
             }
             _loaded = true;
-            return 0;
+            return Load_Successed;
         }
 
         private function Load_GetImageNoTexture(param1:JAImage) : void
@@ -359,7 +359,7 @@
             var _loc_3:* = new JAMemoryImage(null);
             _loc_3.width = _loc_4.frameWidth;
             _loc_3.height = _loc_4.frameHeight;
-            _loc_3.loadFlag = 2;
+            _loc_3.loadFlag = JAMemoryImage.Image_Loaded;
             _loc_3.texture = _loc_4;
             param1.OnMemoryImageLoadCompleted(_loc_3);
             param1.images.push(_loc_3);
@@ -591,7 +591,7 @@
                 
                 _loc_15 = param2.frames[_loc_22];
                 _loc_4 = param1.readUnsignedByte();
-                if (_loc_4 & 1)
+                if (_loc_4 & FRAMEFLAGS_HAS_REMOVES)
                 {
                     _loc_3 = param1.readByte();
                     if (_loc_3 == 255)
@@ -611,7 +611,7 @@
                         _loc_19++;
                     }
                 }
-                if (_loc_4 & 2)
+                if (_loc_4 & FRAMEFLAGS_HAS_ADDS)
                 {
                     _loc_12 = param1.readByte();
                     if (_loc_12 == 255)
@@ -675,7 +675,7 @@
                         _loc_19++;
                     }
                 }
-                if (_loc_4 & 4)
+                if (_loc_4 & FRAMEFLAGS_HAS_MOVES)
                 {
                     _loc_13 = param1.readByte();
                     if (_loc_13 == 255)
@@ -694,14 +694,14 @@
                         }
                         _loc_25 = _loc_6[_loc_11];
                         _loc_25.transform.matrix.LoadIdentity();
-                        if (_loc_7 & 4096)
+                        if (_loc_7 & MOVEFLAGS_HAS_MATRIX)
                         {
                             _loc_25.transform.matrix.m00 = param1.readInt() / 65536;
                             _loc_25.transform.matrix.m01 = param1.readInt() / 65536;
                             _loc_25.transform.matrix.m10 = param1.readInt() / 65536;
                             _loc_25.transform.matrix.m11 = param1.readInt() / 65536;
                         }
-                        else if (_loc_7 & 16384)
+                        else if (_loc_7 & MOVEFLAGS_HAS_ROTATE)
                         {
                             _loc_14 = param1.readShort() / 1000;
                             _loc_16 = Math.sin(_loc_14);
@@ -716,7 +716,7 @@
                             _loc_25.transform.matrix.m11 = _loc_23;
                         }
                         _loc_9 = new JAMatrix3();
-                        if (_loc_7 & 2048)
+                        if (_loc_7 & MOVEFLAGS_HAS_LONGCOORDS)
                         {
                             _loc_9.m02 = param1.readInt() / 20;
                             _loc_9.m12 = param1.readInt() / 20;
@@ -727,8 +727,8 @@
                             _loc_9.m12 = param1.readShort() / 20;
                         }
                         _loc_25.transform.matrix = JAMatrix3.MulJAMatrix3(_loc_9, _loc_25.transform.matrix, _loc_25.transform.matrix);
-                        _loc_25.hasSrcRect = (_loc_7 & 32768) != 0;
-                        if (_loc_7 & 32768)
+                        _loc_25.hasSrcRect = (_loc_7 & MOVEFLAGS_HAS_SRCRECT) != 0;
+                        if (_loc_7 & MOVEFLAGS_HAS_SRCRECT)
                         {
                             if (_loc_25.srcRect == null)
                             {
@@ -739,7 +739,7 @@
                             _loc_25.srcRect.width = param1.readShort() / 20;
                             _loc_25.srcRect.height = param1.readShort() / 20;
                         }
-                        if (_loc_7 & 8192)
+                        if (_loc_7 & MOVEFLAGS_HAS_COLOR)
                         {
                             if (_loc_25.color == JAColor.White)
                             {
@@ -750,24 +750,24 @@
                             _loc_25.color.blue = param1.readUnsignedByte();
                             _loc_25.color.alpha = param1.readUnsignedByte();
                         }
-                        if (_loc_7 & 1024)
+                        if (_loc_7 & MOVEFLAGS_HAS_ANIMFRAMENUM)
                         {
                             _loc_25.animFrameNum = param1.readShort();
                         }
                         _loc_19++;
                     }
                 }
-                if (_loc_4 & 8)
+                if (_loc_4 & FRAMEFLAGS_HAS_FRAME_NAME)
                 {
                     _loc_8 = ReadString(param1);
                     _loc_8 = Remap(_loc_8).toUpperCase();
                     param2.label[_loc_8] = _loc_22;
                 }
-                if (_loc_4 & 16)
+                if (_loc_4 & FRAMEFLAGS_HAS_STOP)
                 {
                     _loc_15.hasStop = true;
                 }
-                if (_loc_4 & 32)
+                if (_loc_4 & FRAMEFLAGS_HAS_COMMANDS)
                 {
                     _loc_10 = param1.readByte();
                     _loc_15.commandVector.length = _loc_10;

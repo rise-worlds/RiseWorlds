@@ -26,11 +26,11 @@
         public var paused:Boolean = false;
         private var __iRenderFrameCount:int = 0;
         private var __bInitialized:Boolean = false;
-        var nCurrentDeltaTime:Number = 0;
-        var aCameras:Vector.<FCamera>;
-        var cDefaultCamera:FCamera;
-        var cConfig:FConfig;
-        var cContext:FContext;
+        public var nCurrentDeltaTime:Number = 0;
+        public var aCameras:Vector.<FCamera>;
+        public var cDefaultCamera:FCamera;
+        public var cConfig:FConfig;
+        public var cContext:FContext;
         private var __stStage:Stage;
         private var __nLastTime:Number;
         private var __iFrameId:int = 0;
@@ -55,7 +55,7 @@
             aCameras = new Vector.<FCamera>;
             root = new FNode("root");
             cDefaultCamera = FNodeFactory.createNodeWithComponent(FCamera) as FCamera;
-            __nLastTime = this.getTimer();
+            __nLastTime = getTimer();
             return;
         }
 
@@ -192,7 +192,7 @@
 
         public function update() : void
         {
-            var _loc_1:* = this.getTimer();
+            var _loc_1:* = getTimer();
             nCurrentDeltaTime = paused ? (0) : (_loc_1 - __nLastTime);
             if (cConfig.enableFixedTimeStep && !paused)
             {
@@ -320,7 +320,7 @@
             return -1;
         }
 
-        function addCamera(param1:FCamera) : void
+        public function addCamera(param1:FCamera) : void
         {
             if (aCameras.indexOf(param1) != -1)
             {
@@ -331,7 +331,7 @@
             return;
         }
 
-        function removeCamera(param1:FCamera) : void
+        public function removeCamera(param1:FCamera) : void
         {
             var _loc_2:* = aCameras.indexOf(param1);
             if (_loc_2 != -1)

@@ -8,8 +8,8 @@
     {
         public var fragmentCode:String;
         protected var _aFragmentConstants:Vector.<Number>;
-        var iId:int;
-        var bOverrideFragmentShader:Boolean = false;
+        public var iId:int;
+        public var bOverrideFragmentShader:Boolean = false;
 
         public function FFilter()
         {

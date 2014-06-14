@@ -35,7 +35,7 @@
             return;
         }
 
-        function initialize(param1:Context3D) : void
+        public function initialize(param1:Context3D) : void
         {
             var _loc_8:* = 0;
             var _loc_4:* = 0;
@@ -89,7 +89,7 @@
             return;
         }
 
-        function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
+        public function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
         {
             if (__p3ShaderProgram == null || param2 && !__bInitializedThisFrame)
             {
@@ -107,7 +107,7 @@
             return;
         }
 
-        function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number = 1) : void
+        public function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number = 1) : void
         {
             __aVertexConstants[__iConstantsOffset] = param1;
             __aVertexConstants[(__iConstantsOffset + 1)] = param2;

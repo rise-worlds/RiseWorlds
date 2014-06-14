@@ -314,79 +314,167 @@
             var _loc_5:* = null;
             var _loc_10:* = __cNegativeArea;
             var _loc_4:* = -1;
-            switch(__iHeuristics) branch count is:<3>[17, 115, 253, 391] default offset is:<510>;
-            _loc_5 = __cFirstAvailableArea;
-            while (_loc_5)
-            {
+            //switch(__iHeuristics) branch count is:<3>[17, 115, 253, 391] default offset is:<510>;
+            //_loc_5 = __cFirstAvailableArea;
+            //while (_loc_5)
+            //{
                 
-                if (_loc_5.width >= param1 && _loc_5.height >= param2)
-                {
-                    if (_loc_5.y < _loc_10.y || _loc_5.y == _loc_10.y && _loc_5.x < _loc_10.x)
-                    {
-                        _loc_10 = _loc_5;
-                    }
-                }
-                _loc_5 = _loc_5.cNext;
-            }
+            //    if (_loc_5.width >= param1 && _loc_5.height >= param2)
+            //    {
+            //        if (_loc_5.y < _loc_10.y || _loc_5.y == _loc_10.y && _loc_5.x < _loc_10.x)
+            //        {
+            //            _loc_10 = _loc_5;
+            //        }
+            //    }
+            //    _loc_5 = _loc_5.cNext;
+            //}
             ;
-            _loc_10.width = _iWidth + 1;
-            _loc_5 = __cFirstAvailableArea;
-            while (_loc_5)
-            {
+            //_loc_10.width = _iWidth + 1;
+            //_loc_5 = __cFirstAvailableArea;
+            //while (_loc_5)
+            //{
                 
-                if (_loc_5.width >= param1 && _loc_5.height >= param2)
-                {
-                    _loc_3 = _loc_5.width - param1;
-                    _loc_11 = _loc_5.height - param2;
-                    _loc_7 = _loc_3 < _loc_11 ? (_loc_3) : (_loc_11);
-                    _loc_3 = _loc_10.width - param1;
-                    _loc_11 = _loc_10.height - param2;
-                    _loc_9 = _loc_3 < _loc_11 ? (_loc_3) : (_loc_11);
-                    if (_loc_7 < _loc_9)
-                    {
-                        _loc_10 = _loc_5;
-                    }
-                }
-                _loc_5 = _loc_5.cNext;
-            }
+            //    if (_loc_5.width >= param1 && _loc_5.height >= param2)
+            //    {
+            //        _loc_3 = _loc_5.width - param1;
+            //        _loc_11 = _loc_5.height - param2;
+            //        _loc_7 = _loc_3 < _loc_11 ? (_loc_3) : (_loc_11);
+            //        _loc_3 = _loc_10.width - param1;
+            //        _loc_11 = _loc_10.height - param2;
+            //        _loc_9 = _loc_3 < _loc_11 ? (_loc_3) : (_loc_11);
+            //        if (_loc_7 < _loc_9)
+            //        {
+            //            _loc_10 = _loc_5;
+            //        }
+            //    }
+            //    _loc_5 = _loc_5.cNext;
+            //}
             ;
-            _loc_10.width = _iWidth + 1;
-            _loc_5 = __cFirstAvailableArea;
-            while (_loc_5)
-            {
+            //_loc_10.width = _iWidth + 1;
+            //_loc_5 = __cFirstAvailableArea;
+            //while (_loc_5)
+            //{
                 
-                if (_loc_5.width >= param1 && _loc_5.height >= param2)
-                {
-                    _loc_3 = _loc_5.width - param1;
-                    _loc_11 = _loc_5.height - param2;
-                    _loc_7 = _loc_3 > _loc_11 ? (_loc_3) : (_loc_11);
-                    _loc_3 = _loc_10.width - param1;
-                    _loc_11 = _loc_10.height - param2;
-                    _loc_9 = _loc_3 > _loc_11 ? (_loc_3) : (_loc_11);
-                    if (_loc_7 < _loc_9)
-                    {
-                        _loc_10 = _loc_5;
-                    }
-                }
-                _loc_5 = _loc_5.cNext;
-            }
+            //    if (_loc_5.width >= param1 && _loc_5.height >= param2)
+            //    {
+            //        _loc_3 = _loc_5.width - param1;
+            //        _loc_11 = _loc_5.height - param2;
+            //        _loc_7 = _loc_3 > _loc_11 ? (_loc_3) : (_loc_11);
+            //        _loc_3 = _loc_10.width - param1;
+            //        _loc_11 = _loc_10.height - param2;
+            //        _loc_9 = _loc_3 > _loc_11 ? (_loc_3) : (_loc_11);
+            //        if (_loc_7 < _loc_9)
+            //        {
+            //            _loc_10 = _loc_5;
+            //        }
+            //    }
+            //    _loc_5 = _loc_5.cNext;
+            //}
             ;
-            _loc_10.width = _iWidth + 1;
-            _loc_5 = __cFirstAvailableArea;
-            while (_loc_5)
-            {
+            //_loc_10.width = _iWidth + 1;
+            //_loc_5 = __cFirstAvailableArea;
+            //while (_loc_5)
+            //{
                 
-                if (_loc_5.width >= param1 && _loc_5.height >= param2)
+            //    if (_loc_5.width >= param1 && _loc_5.height >= param2)
+            //    {
+            //        _loc_6 = _loc_5.width * _loc_5.height;
+            //        _loc_8 = _loc_10.width * _loc_10.height;
+            //        if (_loc_6 < _loc_8 || _loc_6 == _loc_8 && _loc_5.width < _loc_10.width)
+            //        {
+            //            _loc_10 = _loc_5;
+            //        }
+            //    }
+            //    _loc_5 = _loc_5.cNext;
+            //}
+	    switch(this.__iHeuristics)
+            {
+                case BOTTOM_LEFT:
                 {
-                    _loc_6 = _loc_5.width * _loc_5.height;
-                    _loc_8 = _loc_10.width * _loc_10.height;
-                    if (_loc_6 < _loc_8 || _loc_6 == _loc_8 && _loc_5.width < _loc_10.width)
-                    {
-                        _loc_10 = _loc_5;
-                    }
+                    _loc_5 = __cFirstAvailableArea;
+	            while (_loc_5)
+	            {
+                
+	                if (_loc_5.width >= param1 && _loc_5.height >= param2)
+	                {
+	                    if (_loc_5.y < _loc_10.y || _loc_5.y == _loc_10.y && _loc_5.x < _loc_10.x)
+	                    {
+	                        _loc_10 = _loc_5;
+	                    }
+	                }
+	                _loc_5 = _loc_5.cNext;
+	            }
+                    break;
                 }
-                _loc_5 = _loc_5.cNext;
-            }
+                case SHORT_SIDE_FIT:
+                {
+                    _loc_10.width = _iWidth + 1;
+	            _loc_5 = __cFirstAvailableArea;
+	            while (_loc_5)
+	            {
+                
+	                if (_loc_5.width >= param1 && _loc_5.height >= param2)
+	                {
+	                    _loc_3 = _loc_5.width - param1;
+	                    _loc_11 = _loc_5.height - param2;
+	                    _loc_7 = _loc_3 < _loc_11 ? (_loc_3) : (_loc_11);
+	                    _loc_3 = _loc_10.width - param1;
+	                    _loc_11 = _loc_10.height - param2;
+	                    _loc_9 = _loc_3 < _loc_11 ? (_loc_3) : (_loc_11);
+	                    if (_loc_7 < _loc_9)
+	                    {
+	                        _loc_10 = _loc_5;
+	                    }
+	                }
+	                _loc_5 = _loc_5.cNext;
+	            }
+                    break;
+                }
+                case LONG_SIDE_FIT:
+                {
+                    _loc_10.width = _iWidth + 1;
+	            _loc_5 = __cFirstAvailableArea;
+	            while (_loc_5)
+	            {
+                
+	                if (_loc_5.width >= param1 && _loc_5.height >= param2)
+	                {
+	                    _loc_3 = _loc_5.width - param1;
+	                    _loc_11 = _loc_5.height - param2;
+	                    _loc_7 = _loc_3 > _loc_11 ? (_loc_3) : (_loc_11);
+	                    _loc_3 = _loc_10.width - param1;
+	                    _loc_11 = _loc_10.height - param2;
+	                    _loc_9 = _loc_3 > _loc_11 ? (_loc_3) : (_loc_11);
+	                    if (_loc_7 < _loc_9)
+	                    {
+	                        _loc_10 = _loc_5;
+	                    }
+	                }
+	                _loc_5 = _loc_5.cNext;
+	            }
+                    break;
+                }
+                case AREA_FIT:
+                {
+                    _loc_10.width = _iWidth + 1;
+	            _loc_5 = __cFirstAvailableArea;
+	            while (_loc_5)
+	            {
+                
+	                if (_loc_5.width >= param1 && _loc_5.height >= param2)
+	                {
+	                    _loc_6 = _loc_5.width * _loc_5.height;
+	                    _loc_8 = _loc_10.width * _loc_10.height;
+	                    if (_loc_6 < _loc_8 || _loc_6 == _loc_8 && _loc_5.width < _loc_10.width)
+	                    {
+	                        _loc_10 = _loc_5;
+	                    }
+	                }
+	                _loc_5 = _loc_5.cNext;
+	            }
+                    break;
+                }
+	    }
             return _loc_10 != __cNegativeArea ? (_loc_10) : (null);
         }
 

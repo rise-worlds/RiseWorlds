@@ -1,12 +1,13 @@
 ﻿package com.flengine.components.renderables
 {
     import com.flengine.components.*;
+    import com.flengine.context.*;
     import com.flengine.core.*;
     import flash.geom.*;
 
     public class FRenderable extends FComponent
     {
-        var iBlendMode:int = 1;
+        public var iBlendMode:int = FBlendMode.NORMAL;
 
         public function FRenderable(param1:FNode)
         {

@@ -55,7 +55,7 @@
             return _loc_7;
         }
 
-        function initialize(param1:Context3D) : void
+        public function initialize(param1:Context3D) : void
         {
             var _loc_3:* = 0;
             __cContext = param1;
@@ -91,7 +91,7 @@
             return;
         }
 
-        function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
+        public function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
         {
             if (__aCachedPrograms == null || param2 && !__bInitializedThisFrame)
             {

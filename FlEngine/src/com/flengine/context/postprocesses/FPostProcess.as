@@ -28,11 +28,12 @@
         public function FPostProcess(param1:int = 1)
         {
             _cMatrix = new Matrix3D();
-            (__iCount + 1);
-            _sId = __iCount;
+            //(__iCount + 1);
+            //_sId = __iCount;
+	    _sId = String(__iCount++)
             if (param1 < 1)
             {
-                throw new FError("FError: Post process needs atleast one pass.");
+                throw new FError(FError.ATLEAST_ONE_PASS_REQUIRED);
             }
             _iPasses = param1;
             _aPassFilters = new Vector.<FFilter>(_iPasses);
@@ -69,7 +70,7 @@
             {
                 _loc_8 = _rDefinedBounds ? (_rDefinedBounds) : (param4.getWorldBounds(_rActiveBounds));
             }
-            if (_loc_8.x == 17976931348623161000000000000)
+            if (_loc_8.x == Number.MAX_VALUE)
             {
                 return;
             }
@@ -150,7 +151,7 @@
             {
                 
                 _loc_1 = FTextureFactory.createRenderTexture("g2d_pp_" + _sId + "_" + _loc_2, 2, 2, true);
-                _loc_1.filteringType = 0;
+                _loc_1.filteringType = FTextureFilteringType.NEAREST;
                 _loc_1.pivotX = (-_loc_1.iWidth) / 2;
                 _loc_1.pivotY = (-_loc_1.iHeight) / 2;
                 _aPassTextures[_loc_2] = _loc_1;

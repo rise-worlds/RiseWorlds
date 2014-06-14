@@ -13,7 +13,7 @@
         private const CONSTANTS_PER_BATCH:int = 3;
         private const BATCH_CONSTANTS:int = 122;
         private const BATCH_SIZE:int = 40;
-        private const VertexShaderEmbed:Class;
+        private const VertexShaderEmbed:Class = FCameraColorQuadVertexShaderBatchMaterialVertex_ash;
         private const VertexShaderCode:ByteArray;
         private var __p3ShaderProgram:Program3D;
         private var __vb3VertexBuffer:VertexBuffer3D;
@@ -28,8 +28,7 @@
 
         public function FDrawColorCameraVertexShaderBatchMaterial()
         {
-            VertexShaderEmbed = FCameraColorQuadVertexShaderBatchMaterialVertex_ash;
-            VertexShaderCode = new VertexShaderEmbed() as ByteArray;
+            VertexShaderCode = (new VertexShaderEmbed()) as ByteArray;
             __aVertexConstants = new Vector.<Number>(122 * 4);
             return;
         }

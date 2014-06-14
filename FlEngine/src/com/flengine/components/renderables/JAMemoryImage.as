@@ -28,7 +28,7 @@
             numRows = 1;
             numCols = 1;
             imageExist = true;
-            loadFlag = 0;
+            loadFlag = Image_Uninitialized;
             onImgLoadCompleted = param1;
             return;
         }
@@ -54,11 +54,11 @@
 
         public function OnLoadedCompleted(event:Event) : void
         {
-            event.target.removeEventListener("complete", OnLoadedCompleted);
+            event.target.removeEventListener(Event.COMPLETE, OnLoadedCompleted);
             bd = this.BitmapData(event.target.content.bitmapData);
             width = bd.width;
             height = bd.height;
-            loadFlag = 2;
+            loadFlag = Image_Loaded;
             if (onImgLoadCompleted != null)
             {
                 this.onImgLoadCompleted(this);
@@ -73,7 +73,7 @@
             {
                 width = bd.width;
                 height = bd.height;
-                loadFlag = 2;
+                loadFlag = Image_Loaded;
             }
             return;
         }

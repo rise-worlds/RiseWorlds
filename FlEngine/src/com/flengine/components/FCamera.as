@@ -17,15 +17,15 @@
         public var backgroundGreen:Number = 0;
         public var backgroundBlue:Number = 0;
         public var backgroundAlpha:Number = 0;
-        var rViewRectangle:Rectangle;
-        var rendererData:Object;
-        var bCapturedThisFrame:Boolean = false;
-        var nViewX:Number = 0;
-        var nViewY:Number = 0;
-        var nScaleX:Number = 1;
-        var nScaleY:Number = 1;
-        var aCameraVector:Vector.<Number>;
-        var iRenderedNodesCount:int;
+        public var rViewRectangle:Rectangle;
+        public var rendererData:Object;
+        public var bCapturedThisFrame:Boolean = false;
+        public var nViewX:Number = 0;
+        public var nViewY:Number = 0;
+        public var nScaleX:Number = 1;
+        public var nScaleY:Number = 1;
+        public var aCameraVector:Vector.<Number>;
+        public var iRenderedNodesCount:int;
 
         public function FCamera(param1:FNode)
         {
@@ -57,11 +57,11 @@
 
         public function get backgroundColor() : uint
         {
-            var _loc_4:* = backgroundAlpha * 255 << 24;
-            var _loc_1:* = backgroundRed * 255 << 16;
-            var _loc_3:* = backgroundGreen * 255 << 8;
-            var _loc_2:* = backgroundBlue * 255;
-            return _loc_4 + _loc_1 + _loc_3 + _loc_2;
+            var _loc_1:* = uint(this.backgroundAlpha * 255) << 24;
+            var _loc_2:* = uint(this.backgroundRed * 255) << 16;
+            var _loc_3:* = uint(this.backgroundGreen * 255) << 8;
+            var _loc_4:* = uint(this.backgroundBlue * 255);
+            return _loc_1 + _loc_2 + _loc_3 + _loc_4;
         }
 
         public function get zoom() : Number
@@ -81,7 +81,7 @@
             return;
         }
 
-        function invalidate() : void
+        public function invalidate() : void
         {
             rViewRectangle.x = normalizedViewX * cNode.cCore.cConfig.viewRect.width;
             rViewRectangle.y = normalizedViewY * cNode.cCore.cConfig.viewRect.height;
@@ -115,7 +115,7 @@
             return;
         }
 
-        function captureMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean
+        public function captureMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean
         {
             if (bCapturedThisFrame || !cNode.active)
             {

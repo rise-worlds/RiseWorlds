@@ -11,11 +11,11 @@
         protected var _xPrototype:XML;
         protected var _bActive:Boolean = true;
         protected var _sId:String = "";
-        var cLookupClass:Object;
-        var cPrevious:FComponent;
-        var cNext:FComponent;
-        var cNode:FNode;
-        var cRenderData:Object;
+        public var cLookupClass:Object;
+        public var cPrevious:FComponent;
+        public var cNext:FComponent;
+        public var cNode:FNode;
+        public var cRenderData:Object;
 
         public function FComponent(param1:FNode)
         {
@@ -30,10 +30,10 @@
             var _loc_1:* = null;
             _xPrototype = <component/>;
             _xPrototype.@id = _sId;
-            _xPrototype.@componentClass = this.getQualifiedClassName(this).split("::").join("-");
-            _xPrototype.@componentLookupClass = this.getQualifiedClassName(this.cLookupClass).split("::").join("-");
+            _xPrototype.@componentClass = getQualifiedClassName(this).split("::").join("-");
+            _xPrototype.@componentLookupClass = getQualifiedClassName(this.cLookupClass).split("::").join("-");
             _xPrototype.properties = <properties/>;
-            var _loc_2:* = this.describeType(this);
+            var _loc_2:* = describeType(this);
             var _loc_6:* = _loc_2.variable;
             _loc_5 = 0;
             while (_loc_5 < _loc_6.length())
@@ -58,9 +58,11 @@
             return _xPrototype;
         }
 
-        protected function addPrototypeProperty(param1:String, param2, param3:String, param4:XML = null) : void
+        protected function addPrototypeProperty(param1:String, param2:Object, param3:String, param4:XML = null) : void
         {
             var _loc_5:* = null;
+			var _loc_6:* = null;
+			var _loc_8:* = null;
             param3 = param3.toLowerCase();
             var _loc_7:* = typeof(param2);
             if (typeof(param2) == "object" && (param3 != "array" && param3 != "object"))
@@ -109,35 +111,38 @@
 
         public function bindPrototypeProperty(param1:XML, param2:Object) : void
         {
-            var _loc_3:* = 0;
-            var _loc_5:* = 0;
-            var _loc_4:* = null;
-            if (param1.@type == "object")
+            var value:*;
+            var count:int;
+            var i:int;
+            var p_property:* = param1;
+            var p_object:* = param2;
+            value;
+            if (p_property.@type == "object")
             {
             }
-            if (param1.@type == "array")
+            if (p_property.@type == "array")
             {
-                _loc_4 = [];
-                _loc_3 = param1.children().length();
-                _loc_5 = 0;
-                while (_loc_5 < _loc_3)
+                value = new Array();
+                count = p_property.children().length();
+                i;
+                while (i < count)
                 {
                     
-                    bindPrototypeProperty(param1.children()[_loc_5], _loc_4);
-                    _loc_5++;
+                    this.bindPrototypeProperty(p_property.children()[i], value);
+                    i = (i + 1);
                 }
             }
-            if (param1.@type == "boolean")
+            if (p_property.@type == "boolean")
             {
-                _loc_4 = param1.@value == "false" ? (false) : (true);
+                value = p_property.@value == "false" ? (false) : (true);
             }
             try
             {
-                param2[param1.name()] = _loc_4 == null ? (param1.@value) : (_loc_4);
+                p_object[p_property.name()] = value == null ? (p_property.@value) : (value);
             }
             catch (e:Error)
             {
-                this.trace("bindPrototypeProperty", e, param2, param1.name(), _loc_4);
+                trace("bindPrototypeProperty", e, p_object, p_property.name(), value);
             }
             return;
         }

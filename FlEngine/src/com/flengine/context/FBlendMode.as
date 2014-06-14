@@ -4,7 +4,7 @@
 
     public class FBlendMode extends Object
     {
-        private static var blendFactors:Array = [[["one", "zero"], ["sourceAlpha", "oneMinusSourceAlpha"], ["sourceAlpha", "destinationAlpha"], ["destinationColor", "oneMinusSourceAlpha"], ["sourceAlpha", "one"], ["zero", "oneMinusSourceAlpha"]], [["one", "zero"], ["one", "oneMinusSourceAlpha"], ["one", "one"], ["destinationColor", "oneMinusSourceAlpha"], ["one", "oneMinusSourceColor"], ["zero", "oneMinusSourceAlpha"]]];
+        private static var blendFactors:Array = [[[Context3DBlendFactor.ONE, Context3DBlendFactor.ZERO], [Context3DBlendFactor.SOURCE_ALPHA, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA], [Context3DBlendFactor.SOURCE_ALPHA, Context3DBlendFactor.DESTINATION_ALPHA], [Context3DBlendFactor.DESTINATION_COLOR, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA], [Context3DBlendFactor.SOURCE_ALPHA, Context3DBlendFactor.ONE], [Context3DBlendFactor.ZERO, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA]], [[Context3DBlendFactor.ONE, Context3DBlendFactor.ZERO], [Context3DBlendFactor.ONE, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA], [Context3DBlendFactor.ONE, Context3DBlendFactor.ONE], [Context3DBlendFactor.DESTINATION_COLOR, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA], [Context3DBlendFactor.ONE, Context3DBlendFactor.ONE_MINUS_SOURCE_COLOR], [Context3DBlendFactor.ZERO, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA]]];
         public static const NONE:int = 0;
         public static const NORMAL:int = 1;
         public static const ADD:int = 2;

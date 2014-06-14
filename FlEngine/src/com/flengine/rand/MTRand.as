@@ -32,14 +32,17 @@
             }
             mt[0] = param1 & 4294967295;
             mti = 1;
-            while (mti < 624)
+            while (mti < MTRAND_N)
             {
                 
-                mt[mti] = 1812433253 * (mt[(mti - 1)] ^ mt[(mti - 1)] >> 30 & 3) + mti;
-                var _loc_2:* = mti;
-                var _loc_3:* = mt[_loc_2] & 4294967295;
-                mt[_loc_2] = _loc_3;
-                (mti + 1);
+                //mt[mti] = 1812433253 * (mt[(mti - 1)] ^ mt[(mti - 1)] >> 30 & 3) + mti;
+                //var _loc_2:* = mti;
+                //var _loc_3:* = mt[_loc_2] & 4294967295;
+                //mt[_loc_2] = _loc_3;
+                //(mti + 1);
+		mt[mti] = uint(1812433253 * uint(mt[(mti - 1)] ^ uint(mt[(mti - 1)] >> 30 & 3))) + mti;
+                mt[mti] = mt[mti] & 4294967295;
+                _loc_2.mti++;
             }
             return;
         }
@@ -48,32 +51,34 @@
         {
             var _loc_2:* = 0;
             var _loc_1:* = 0;
-            if (mti >= 624)
+            if (mti >= MTRAND_N)
             {
                 _loc_1 = 0;
-                while (_loc_1 < 624 - 397)
+                while (_loc_1 < MTRAND_N - MTRAND_M)
                 {
                     
-                    _loc_2 = mt[_loc_1] & 2147483648 | mt[(_loc_1 + 1)] & 2147483647;
-                    mt[_loc_1] = mt[_loc_1 + 397] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
+                    _loc_2 = mt[_loc_1] & UPPER_MASK | mt[(_loc_1 + 1)] & LOWER_MASK;
+                    mt[_loc_1] = mt[_loc_1 + MTRAND_M] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
                     _loc_1++;
                 }
-                while (_loc_1 < (624 - 1))
+                while (_loc_1 < (MTRAND_N - 1))
                 {
                     
-                    _loc_2 = mt[_loc_1] & 2147483648 | mt[(_loc_1 + 1)] & 2147483647;
-                    mt[_loc_1] = mt[_loc_1 + (397 - 624)] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
+                    _loc_2 = mt[_loc_1] & UPPER_MASK | mt[(_loc_1 + 1)] & LOWER_MASK;
+                    mt[_loc_1] = mt[_loc_1 + (MTRAND_M - MTRAND_N)] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
                     _loc_1++;
                 }
-                _loc_2 = mt[(624 - 1)] & 2147483648 | mt[0] & 2147483647;
-                mt[(624 - 1)] = mt[(397 - 1)] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
+                _loc_2 = mt[(MTRAND_N - 1)] & UPPER_MASK | mt[0] & LOWER_MASK;
+                mt[(MTRAND_N - 1)] = mt[(MTRAND_M - 1)] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
                 mti = 0;
             }
-            (mti + 1);
-            _loc_2 = mt[mti];
+            //(mti + 1);
+            //_loc_2 = mt[mti];
+	    mti++;
+	    _loc_2 = mt[mti++];
             _loc_2 = _loc_2 ^ _loc_2 >> 11 & 2097151;
-            _loc_2 = _loc_2 ^ _loc_2 << 7 & 2636928640;
-            _loc_2 = _loc_2 ^ _loc_2 << 15 & 4022730752;
+            _loc_2 = _loc_2 ^ _loc_2 << 7 & TEMPERING_MASK_B;
+            _loc_2 = _loc_2 ^ _loc_2 << 15 & TEMPERING_MASK_C;
             _loc_2 = _loc_2 ^ _loc_2 >> 18 & 16383;
             _loc_2 = _loc_2 & 2147483647;
             return _loc_2;

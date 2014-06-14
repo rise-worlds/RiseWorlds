@@ -17,9 +17,9 @@
         private const BATCH_CONSTANTS:int = 122;
         private const CONSTANTS_PER_BATCH:int = 4;
         private const BATCH_SIZE:int = 30;
-        private const VertexShaderEmbed:Class;
+        private const VertexShaderEmbed:Class = FCameraTexturedQuadVertexShaderBatchMaterialVertex2_ash;
         private const VertexShaderCode:ByteArray;
-        private const VertexShaderNoAlphaEmbed:Class;
+        private const VertexShaderNoAlphaEmbed:Class = FCameraTexturedQuadVertexShaderBatchMaterialVertexNoAlpha2_ash;
         private const VertexShaderNoAlphaCode:ByteArray;
         private var __vb3VertexBuffer:VertexBuffer3D;
         private var __vb3UVBuffer:VertexBuffer3D;
@@ -45,10 +45,10 @@
 
         public function FDrawTextureCameraVertexShaderBatchMaterial2()
         {
-            VertexShaderEmbed = FCameraTexturedQuadVertexShaderBatchMaterialVertex2_ash;
-            VertexShaderCode = new VertexShaderEmbed() as ByteArray;
-            VertexShaderNoAlphaEmbed = FCameraTexturedQuadVertexShaderBatchMaterialVertexNoAlpha2_ash;
-            VertexShaderNoAlphaCode = new VertexShaderNoAlphaEmbed() as ByteArray;
+            //VertexShaderCode = new VertexShaderEmbed() as ByteArray;
+            //VertexShaderNoAlphaCode = new VertexShaderNoAlphaEmbed() as ByteArray;
+            VertexShaderCode = new FCameraTexturedQuadVertexShaderBatchMaterialVertex2_ash() as ByteArray;
+            VertexShaderNoAlphaCode = new FCameraTexturedQuadVertexShaderBatchMaterialVertexNoAlpha2_ash() as ByteArray;
             return;
         }
 
@@ -65,7 +65,7 @@
             return _loc_7;
         }
 
-        function initialize(param1:Context3D) : void
+        public function initialize(param1:Context3D) : void
         {
             var _loc_7:* = 0;
             var _loc_3:* = 0;
@@ -114,7 +114,7 @@
             return;
         }
 
-        function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
+        public function bind(param1:Context3D, param2:Boolean, param3:FCamera) : void
         {
             if (__aCachedPrograms == null || param2 && !__bInitializedThisFrame)
             {

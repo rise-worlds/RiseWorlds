@@ -14,12 +14,12 @@
 
         public function FTextureResampleType()
         {
-            throw new FError("FError: Cannot instantiate abstract class.");
+            throw new FError(FError.CANNOT_INSTANTATE_ABSTRACT);
         }
 
         static public function isValid(param1:int) : Boolean
         {
-            if (param1 == 0 || param1 == 1 || param1 == 2 || param1 == 3 || param1 == 4)
+            if (param1 == NEAREST_RESAMPLE || param1 == NEAREST_DOWN_RESAMPLE_UP_CROP || param1 == UP_CROP || param1 == UP_RESAMPLE || param1 == DOWN_RESAMPLE)
             {
                 return true;
             }

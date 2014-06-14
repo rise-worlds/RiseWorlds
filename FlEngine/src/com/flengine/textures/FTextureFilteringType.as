@@ -9,12 +9,12 @@
 
         public function FTextureFilteringType()
         {
-            throw new FError("FError: Cannot instantiate abstract class.");
+            throw new FError(FError.CANNOT_INSTANTATE_ABSTRACT);
         }
 
         static public function isValid(param1:int) : Boolean
         {
-            if (param1 == 0 || param1 == 1)
+            if (param1 == NEAREST || param1 == LINEAR)
             {
                 return true;
             }

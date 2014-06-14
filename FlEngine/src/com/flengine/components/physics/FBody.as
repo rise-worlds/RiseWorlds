@@ -72,17 +72,17 @@
             return false;
         }
 
-        function addToSpace() : void
+        public function addToSpace() : void
         {
             return;
         }
 
-        function removeFromSpace() : void
+        public function removeFromSpace() : void
         {
             return;
         }
 
-        function invalidateKinematic(param1:FTransform) : void
+        public function invalidateKinematic(param1:FTransform) : void
         {
             return;
         }

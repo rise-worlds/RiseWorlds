@@ -11,7 +11,7 @@
     {
         private const CONSTANTS_PER_BATCH:int = 2;
         private const BATCH_SIZE:int = 62;
-        private const VertexShaderEmbed:Class;
+        private const VertexShaderEmbed:Class = FBlitColorVertexShaderBatchMaterialVertex_ash;
         private const VertexShaderCode:ByteArray;
         private var _p3ShaderProgram:Program3D;
         private var __vb3VertexBuffer:VertexBuffer3D;
@@ -26,8 +26,7 @@
 
         public function FBlitColorVertexShaderBatchMaterial()
         {
-            VertexShaderEmbed = FBlitColorVertexShaderBatchMaterialVertex_ash;
-            VertexShaderCode = new VertexShaderEmbed() as ByteArray;
+            VertexShaderCode = (new VertexShaderEmbed()) as ByteArray;
             return;
         }
 

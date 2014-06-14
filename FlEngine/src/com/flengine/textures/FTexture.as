@@ -5,20 +5,20 @@
 
     public class FTexture extends FTextureBase
     {
-        var doNativeObject:DisplayObject;
-        var nUvX:Number = 0;
-        var nUvY:Number = 0;
-        var nUvScaleX:Number = 1;
-        var nUvScaleY:Number = 1;
-        var nFrameWidth:Number = 0;
-        var nFrameHeight:Number = 0;
-        var nPivotX:Number = 0;
-        var nPivotY:Number = 0;
-        var cParent:FTextureAtlas;
-        var sSubId:String = "";
-        var rRegion:Rectangle;
+        public var doNativeObject:DisplayObject;
+        public var nUvX:Number = 0;
+        public var nUvY:Number = 0;
+        public var nUvScaleX:Number = 1;
+        public var nUvScaleY:Number = 1;
+        public var nFrameWidth:Number = 0;
+        public var nFrameHeight:Number = 0;
+        public var nPivotX:Number = 0;
+        public var nPivotY:Number = 0;
+        public var cParent:FTextureAtlas;
+        public var sSubId:String = "";
+        public var rRegion:Rectangle;
 
-        public function FTexture(param1:String, param2:int, param3, param4:Rectangle, param5:Boolean, param6:Number, param7:Number, param8:Number = 0, param9:Number = 0, param10:Function = null, param11:FTextureAtlas = null)
+        public function FTexture(param1:String, param2:int, param3:*, param4:Rectangle, param5:Boolean, param6:Number, param7:Number, param8:Number = 0, param9:Number = 0, param10:Function = null, param11:FTextureAtlas = null)
         {
             super(param1, param2, param3, param5, param10);
             rRegion = param4;
@@ -157,12 +157,31 @@
 
         public function alignTexture(param1:int) : void
         {
-            switch((param1 - 1)) branch count is:<1>[11, 29] default offset is:<51>;
-            nPivotX = 0;
-            nPivotY = 0;
-            ;
-            nPivotX = (-iWidth) / 2;
-            nPivotY = (-iHeight) / 2;
+            //switch((param1 - 1)) branch count is:<1>[11, 29] default offset is:<51>;
+            //nPivotX = 0;
+            //nPivotY = 0;
+            //;
+            //nPivotX = (-iWidth) / 2;
+            //nPivotY = (-iHeight) / 2;
+	    switch(param1)
+            {
+                case FTextureAlignType.CENTER:
+                {
+                    this.nPivotX = 0;
+                    this.nPivotY = 0;
+                    break;
+                }
+                case FTextureAlignType.TOP_LEFT:
+                {
+                    this.nPivotX = (-iWidth) / 2;
+                    this.nPivotY = (-iHeight) / 2;
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
             return;
         }
 
@@ -278,11 +297,11 @@
             //nUvScaleY = _loc_2 > _loc_1 ? (_loc_1 / _loc_2) : (1);
 			switch(_iResampleType) 
 			{
-				case 1:
+				case FTextureResampleType.UP_CROP:
 				nUvScaleX = rRegion.width / FTextureUtils.getNextValidTextureSize(iWidth);
 				nUvScaleY = rRegion.height / FTextureUtils.getNextValidTextureSize(iHeight);
 				break;
-				case 2:
+				case FTextureResampleType.NEAREST_DOWN_RESAMPLE_UP_CROP:
 				_loc_4 = FTextureUtils.getNearestValidTextureSize(iWidth);
 				_loc_3 = FTextureUtils.getNearestValidTextureSize(iHeight);
 				_loc_1 = _loc_4 / rRegion.width;
@@ -305,7 +324,7 @@
             return;
         }
 
-        function setParent(param1:FTextureAtlas, param2:Rectangle) : void
+        public function setParent(param1:FTextureAtlas, param2:Rectangle) : void
         {
             cParent = param1;
             region = param2;
