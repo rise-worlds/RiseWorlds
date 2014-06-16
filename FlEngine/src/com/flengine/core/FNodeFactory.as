@@ -1,84 +1,79 @@
-﻿package com.flengine.core
+package com.flengine.core
 {
-    import com.flengine.components.*;
-    import com.flengine.error.*;
-    import flash.utils.*;
-
-    public class FNodeFactory extends Object
-    {
-
-        public function FNodeFactory()
-        {
-            return;
-        }
-
-        public static function createNode(param1:String = "") : FNode
-        {
-            return new FNode(param1);
-        }
-
-        public static function createNodeWithComponent(param1:Class, param2:String = "", param3:Class = null) : FComponent
-        {
-            var _loc_4:* = new FNode(param2);
-            return _loc_4.addComponent(param1, param3);
-        }
-
-        public static function createNodeWithComponentPrototype(param1:XML, param2:String = "") : FComponent
-        {
-            var _loc_3:* = new FNode(param2);
-            return _loc_3.addComponentFromPrototype(param1);
-        }
-
-        public static function createFromPrototype(param1:XML, param2:String = "") : FNode
-        {
-            var _loc_8:Class = undefined;
-            var _loc_6:Class = undefined;
-            var _loc_9:int = 0;
-            var _loc_4:* = null;
-            var _loc_7:* = null;
-            if (param1 == null)
+   import com.flengine.components.FComponent;
+   import com.flengine.error.FError;
+   import flash.utils.getDefinitionByName;
+   import com.flengine.components.FTransform;
+   
+   public class FNodeFactory extends Object
+   {
+      
+      public function FNodeFactory() {
+         super();
+      }
+      
+      public static function createNode(param1:String = "") : FNode {
+         return new FNode(param1);
+      }
+      
+      public static function createNodeWithComponent(param1:Class, param2:String = "", param3:Class = null) : FComponent {
+         var _loc4_:FNode = new FNode(param2);
+         return _loc4_.addComponent(param1,param3);
+      }
+      
+      public static function createNodeWithComponentPrototype(param1:XML, param2:String = "") : FComponent {
+         var _loc3_:FNode = new FNode(param2);
+         return _loc3_.addComponentFromPrototype(param1);
+      }
+      
+      public static function createFromPrototype(param1:XML, param2:String = "") : FNode {
+         var _loc8_:* = undefined;
+         var _loc6_:* = undefined;
+         var _loc9_:* = 0;
+         var _loc4_:* = null;
+         var _loc7_:* = null;
+         if(param1 == null)
+         {
+            throw new FError("FError: Prototype cannot be null.");
+         }
+         else
+         {
+            _loc5_ = new FNode(param2);
+            _loc5_.mouseEnabled = param1.@mouseEnabled == "true"?true:false;
+            _loc5_.mouseChildren = param1.@mouseChildren == "true"?true:false;
+            _loc3_ = param1.@tags.split(",");
+            _loc9_ = 0;
+            while(_loc9_ < _loc3_.length)
             {
-                throw new FError("FError: Prototype cannot be null.");
+               _loc5_.addTag(_loc3_[_loc9_]);
+               _loc9_++;
             }
-            var _loc_5:FNode = new FNode(param2);
-            _loc_5.mouseEnabled = param1.@mouseEnabled == "true" ? (true) : (false);
-            _loc_5.mouseChildren = param1.@mouseChildren == "true" ? (true) : (false);
-            var _loc_3:Array = param1.@tags.split(",");
-            _loc_9 = 0;
-            while (_loc_9 < _loc_3.length)
+            _loc9_ = 0;
+            while(_loc9_ < param1.components.children().length())
             {
-                
-                _loc_5.addTag(_loc_3[_loc_9]);
-                _loc_9++;
+               _loc4_ = param1.components.children()[_loc9_];
+               _loc8_ = getDefinitionByName(_loc4_.@componentClass.split("-").join("::"));
+               if(_loc8_ == FTransform)
+               {
+                  _loc5_.transform.bindFromPrototype(_loc4_);
+               }
+               else
+               {
+                  _loc6_ = getDefinitionByName(_loc4_.@componentLookupClass.split("-").join("::"));
+                  _loc7_ = _loc5_.addComponent(_loc8_,_loc6_);
+                  _loc7_.bindFromPrototype(_loc4_);
+               }
+               _loc9_++;
             }
-            _loc_9 = 0;
-            while (_loc_9 < param1.components.children().length())
+            _loc9_ = 0;
+            while(_loc9_ < param1.children.children().length())
             {
-                
-                _loc_4 = param1.components.children()[_loc_9];
-                _loc_8 = getDefinitionByName(_loc_4.@componentClass.split("-").join("::")) as Class;
-                if (_loc_8 == FTransform)
-                {
-                    _loc_5.transform.bindFromPrototype(_loc_4);
-                }
-                else
-                {
-                    _loc_6 = getDefinitionByName(_loc_4.@componentLookupClass.split("-").join("::")) as Class;
-                    _loc_7 = _loc_5.addComponent(_loc_8, _loc_6);
-                    _loc_7.bindFromPrototype(_loc_4);
-                }
-                _loc_9++;
+               _loc4_ = param1.children.children()[_loc9_];
+               _loc5_.addChild(FNodeFactory.createFromPrototype(_loc4_));
+               _loc9_++;
             }
-            _loc_9 = 0;
-            while (_loc_9 < param1.children.children().length())
-            {
-                
-                _loc_4 = param1.children.children()[_loc_9];
-                _loc_5.addChild(FNodeFactory.createFromPrototype(_loc_4));
-                _loc_9++;
-            }
-            return _loc_5;
-        }
-
-    }
+            return _loc5_;
+         }
+      }
+   }
 }

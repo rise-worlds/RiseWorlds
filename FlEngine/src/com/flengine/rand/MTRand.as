@@ -1,105 +1,95 @@
-﻿package com.flengine.rand
+package com.flengine.rand
 {
-    import __AS3__.vec.*;
-
-    public class MTRand extends Object
-    {
-        protected var mt:Vector.<uint>;
-        protected var mti:int;
-        private static const MTRAND_N:int = 624;
-        private static const mag01:Array = [0, 2567483615];
-        private static const UPPER_MASK:uint = 2147483648;
-        private static const LOWER_MASK:uint = 2147483647;
-        private static const MTRAND_M:uint = 397;
-        private static const TEMPERING_MASK_B:uint = 2636928640;
-        private static const TEMPERING_MASK_C:uint = 4022730752;
-
-        public function MTRand()
-        {
-            mt = new Vector.<uint>;
-            mt.fixed = false;
-            mt.length = 624;
-            mt.fixed = true;
-            SRand(4357);
-            return;
-        }
-
-        public function SRand(param1:uint) : void
-        {
-            if (param1 == 0)
+   public class MTRand extends Object
+   {
+      
+      public function MTRand() {
+         super();
+         mt = new Vector.<uint>();
+         mt.fixed = false;
+         mt.length = 624;
+         mt.fixed = true;
+         SRand(4357);
+      }
+      
+      private static const MTRAND_N:int = 624;
+      
+      private static const mag01:Array;
+      
+      private static const UPPER_MASK:uint = 2147483648;
+      
+      private static const LOWER_MASK:uint = 2147483647;
+      
+      private static const MTRAND_M:uint = 397;
+      
+      private static const TEMPERING_MASK_B:uint = 2636928640;
+      
+      private static const TEMPERING_MASK_C:uint = 4022730752;
+      
+      protected var mt:Vector.<uint>;
+      
+      protected var mti:int;
+      
+      public function SRand(param1:uint) : void {
+         if(param1 == 0)
+         {
+            param1 = 4357;
+         }
+         mt[0] = param1 & 4.294967295E9;
+         mti = 1;
+         while(mti < 624)
+         {
+            mt[mti] = (1812433253 * (mt[mti - 1] ^ (mt[mti - 1] >> 30 & 3))) + mti;
+            _loc2_ = mti;
+            _loc3_ = mt[_loc2_] & 4.294967295E9;
+            mt[_loc2_] = _loc3_;
+            mti = mti + 1;
+         }
+      }
+      
+      public function Next() : uint {
+         var _loc2_:* = 0;
+         var _loc1_:* = 0;
+         if(mti >= 624)
+         {
+            _loc1_ = 0;
+            while(_loc1_ < 624 - 397)
             {
-                param1 = 4357;
+               _loc2_ = mt[_loc1_] & 2147483648 | mt[_loc1_ + 1] & 2147483647;
+               mt[_loc1_] = mt[_loc1_ + 397] ^ _loc2_ >> 1 & 2147483647 ^ mag01[_loc2_ & 1];
+               _loc1_++;
             }
-            mt[0] = param1 & 4294967295;
-            mti = 1;
-            while (mti < MTRAND_N)
+            while(_loc1_ < 624 - 1)
             {
-                
-                //mt[mti] = 1812433253 * (mt[(mti - 1)] ^ mt[(mti - 1)] >> 30 & 3) + mti;
-                //var _loc_2:* = mti;
-                //var _loc_3:* = mt[_loc_2] & 4294967295;
-                //mt[_loc_2] = _loc_3;
-                //(mti + 1);
-		mt[mti] = uint(1812433253 * uint(mt[(mti - 1)] ^ uint(mt[(mti - 1)] >> 30 & 3))) + mti;
-                mt[mti] = mt[mti] & 4294967295;
-                _loc_2.mti++;
+               _loc2_ = mt[_loc1_] & 2147483648 | mt[_loc1_ + 1] & 2147483647;
+               mt[_loc1_] = mt[_loc1_ + (397 - 624)] ^ _loc2_ >> 1 & 2147483647 ^ mag01[_loc2_ & 1];
+               _loc1_++;
             }
-            return;
-        }
-
-        public function Next() : uint
-        {
-            var _loc_2:* = 0;
-            var _loc_1:* = 0;
-            if (mti >= MTRAND_N)
-            {
-                _loc_1 = 0;
-                while (_loc_1 < MTRAND_N - MTRAND_M)
-                {
-                    
-                    _loc_2 = mt[_loc_1] & UPPER_MASK | mt[(_loc_1 + 1)] & LOWER_MASK;
-                    mt[_loc_1] = mt[_loc_1 + MTRAND_M] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
-                    _loc_1++;
-                }
-                while (_loc_1 < (MTRAND_N - 1))
-                {
-                    
-                    _loc_2 = mt[_loc_1] & UPPER_MASK | mt[(_loc_1 + 1)] & LOWER_MASK;
-                    mt[_loc_1] = mt[_loc_1 + (MTRAND_M - MTRAND_N)] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
-                    _loc_1++;
-                }
-                _loc_2 = mt[(MTRAND_N - 1)] & UPPER_MASK | mt[0] & LOWER_MASK;
-                mt[(MTRAND_N - 1)] = mt[(MTRAND_M - 1)] ^ _loc_2 >> 1 & 2147483647 ^ mag01[_loc_2 & 1];
-                mti = 0;
-            }
-            //(mti + 1);
-            //_loc_2 = mt[mti];
-	    mti++;
-	    _loc_2 = mt[mti++];
-            _loc_2 = _loc_2 ^ _loc_2 >> 11 & 2097151;
-            _loc_2 = _loc_2 ^ _loc_2 << 7 & TEMPERING_MASK_B;
-            _loc_2 = _loc_2 ^ _loc_2 << 15 & TEMPERING_MASK_C;
-            _loc_2 = _loc_2 ^ _loc_2 >> 18 & 16383;
-            _loc_2 = _loc_2 & 2147483647;
-            return _loc_2;
-        }
-
-        public function NextRange(param1:uint) : uint
-        {
-            return Next() % param1;
-        }
-
-        public function NextFloat(param1:Number) : Number
-        {
-            return Next() / 2147483647 * param1;
-        }
-
-        public function Dispose() : void
-        {
-            mt.splice(0, mt.length);
-            mt = null;
-            return;
-        }
-
-    }
+            _loc2_ = mt[624 - 1] & 2147483648 | mt[0] & 2147483647;
+            mt[624 - 1] = mt[397 - 1] ^ _loc2_ >> 1 & 2147483647 ^ mag01[_loc2_ & 1];
+            mti = 0;
+         }
+         mti = mti + 1;
+         _loc2_ = mt[mti];
+         _loc2_ = _loc2_ ^ _loc2_ >> 11 & 2097151;
+         _loc2_ = _loc2_ ^ _loc2_ << 7 & 2636928640;
+         _loc2_ = _loc2_ ^ _loc2_ << 15 & 4022730752;
+         _loc2_ = _loc2_ ^ _loc2_ >> 18 & 16383;
+         _loc2_ = _loc2_ & 2147483647;
+         return _loc2_;
+      }
+      
+      public function NextRange(param1:uint) : uint {
+         return Next() % param1;
+      }
+      
+      public function NextFloat(param1:Number) : Number {
+         return (Next()) / 2147483647 * param1;
+      }
+      
+      public function Dispose() : void {
+         mt.splice(0,mt.length);
+         mt = null;
+      }
+   }
 }

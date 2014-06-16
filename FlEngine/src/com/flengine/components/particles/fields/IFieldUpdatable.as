@@ -1,10 +1,6 @@
-﻿package com.flengine.components.particles.fields
+package com.flengine.components.particles.fields
 {
-
-    public interface IFieldUpdatable
-    {
-
-        public function IFieldUpdatable();
-
-    }
+   public interface IFieldUpdatable
+   {
+   }
 }

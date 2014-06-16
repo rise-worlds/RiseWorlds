@@ -1,15 +1,14 @@
-﻿package com.flengine.components.renderables.jointanim
+package com.flengine.components.renderables.jointanim
 {
-
-    public class JAObjectDef extends Object
-    {
-        public var name:String;
-        public var spriteDef:JASpriteDef;
-
-        public function JAObjectDef()
-        {
-            return;
-        }
-
-    }
+   public class JAObjectDef extends Object
+   {
+      
+      public function JAObjectDef() {
+         super();
+      }
+      
+      public var name:String;
+      
+      public var spriteDef:JASpriteDef;
+   }
 }

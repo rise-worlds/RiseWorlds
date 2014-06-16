@@ -1,14 +1,12 @@
-﻿package com.flengine.components.renderables
+package com.flengine.components.renderables
 {
-
-    public class FTile extends Object
-    {
-        public var textureId:String;
-
-        public function FTile()
-        {
-            return;
-        }
-
-    }
+   public class FTile extends Object
+   {
+      
+      public function FTile() {
+         super();
+      }
+      
+      public var textureId:String;
+   }
 }

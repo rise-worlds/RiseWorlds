@@ -1,16 +1,13 @@
-﻿package com.flengine.context.postprocesses
+package com.flengine.context.postprocesses
 {
-    import __AS3__.vec.*;
-
-    public class FFilterPP extends FPostProcess
-    {
-
-        public function FFilterPP(param1:Vector.<FFilter>)
-        {
-            super(param1.length);
-            _aPassFilters = param1;
-            return;
-        }
-
-    }
+   import com.flengine.context.filters.FFilter;
+   
+   public class FFilterPP extends FPostProcess
+   {
+      
+      public function FFilterPP(param1:Vector.<FFilter>) {
+         super(param1.length);
+         _aPassFilters = param1;
+      }
+   }
 }

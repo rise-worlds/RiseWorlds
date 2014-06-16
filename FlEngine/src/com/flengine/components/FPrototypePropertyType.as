@@ -1,40 +1,44 @@
-﻿package com.flengine.components
+package com.flengine.components
 {
-
-    public class FPrototypePropertyType extends Object
-    {
-        public static const UNKNOWN:String = "unknown";
-        public static const NUMBER:String = "number";
-        public static const INT:String = "int";
-        public static const BOOLEAN:String = "boolean";
-        public static const OBJECT:String = "object";
-        public static const STRING:String = "string";
-
-        public function FPrototypePropertyType()
-        {
-            return;
-        }
-
-        public static function getPrototypeType(param1) : String
-        {
-            var _loc_2:* = typeof(param1);
-            var _loc_3:* = _loc_2;
-            while (_loc_3 === "number")
+   public class FPrototypePropertyType extends Object
+   {
+      
+      public function FPrototypePropertyType() {
+         super();
+      }
+      
+      public static const UNKNOWN:String = "unknown";
+      
+      public static const NUMBER:String = "number";
+      
+      public static const INT:String = "int";
+      
+      public static const BOOLEAN:String = "boolean";
+      
+      public static const OBJECT:String = "object";
+      
+      public static const STRING:String = "string";
+      
+      public static function getPrototypeType(param1:*) : String {
+         var _loc2_:String = typeof param1;
+         var _loc3_:* = _loc2_;
+         if("number" !== _loc3_)
+         {
+            if("boolean" !== _loc3_)
             {
-                
-                return "number";
-                
-                return "boolean";
-                
-                return "string";
-                
-                return "object";
+               if("string" !== _loc3_)
+               {
+                  if("object" !== _loc3_)
+                  {
+                     return "unknown";
+                  }
+                  return "object";
+               }
+               return "string";
             }
-            if ("boolean" === _loc_3) goto 16;
-            if ("string" === _loc_3) goto 20;
-            if ("object" === _loc_3) goto 24;
-            return "unknown";
-        }
-
-    }
+            return "boolean";
+         }
+         return "number";
+      }
+   }
 }

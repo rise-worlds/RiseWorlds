@@ -1,14 +1,12 @@
-﻿package com.flengine.context.materials
+package com.flengine.context.materials
 {
-    import flash.utils.*;
-
-    public class FCameraColorQuadVertexShaderBatchMaterialVertex_ash extends ByteArray
-    {
-
-        public function FCameraColorQuadVertexShaderBatchMaterialVertex_ash()
-        {
-            return;
-        }
-
-    }
+   import flash.utils.ByteArray;
+   
+   public class FCameraColorQuadVertexShaderBatchMaterialVertex_ash extends ByteArray
+   {
+      
+      public function FCameraColorQuadVertexShaderBatchMaterialVertex_ash() {
+         super();
+      }
+   }
 }

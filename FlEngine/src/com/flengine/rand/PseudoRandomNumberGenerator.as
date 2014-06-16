@@ -1,16 +1,12 @@
-﻿package com.flengine.rand
+package com.flengine.rand
 {
-
-    public interface PseudoRandomNumberGenerator
-    {
-
-        public function PseudoRandomNumberGenerator();
-
-        function SetSeed(param1:Number) : void;
-
-        function Next() : Number;
-
-        function Reset() : void;
-
-    }
+   public interface PseudoRandomNumberGenerator
+   {
+      
+      function SetSeed(param1:Number) : void;
+      
+      function Next() : Number;
+      
+      function Reset() : void;
+   }
 }
