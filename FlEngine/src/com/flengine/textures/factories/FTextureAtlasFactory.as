@@ -180,8 +180,8 @@ package com.flengine.textures.factories
          }
          else
          {
-            _loc15_ = true;
-            _loc16_ = param2[6];
+            var _loc15_:Boolean = true;
+			var _loc16_:int = param2[6];
             if(1 !== _loc16_)
             {
                if(3 !== _loc16_)
@@ -201,9 +201,9 @@ package com.flengine.textures.factories
             {
                _loc9_ = 0;
             }
-            _loc8_ = Math.pow(2,param2[7]);
-            _loc12_ = Math.pow(2,param2[8]);
-            _loc13_ = new FTextureAtlas(param1,_loc9_,_loc8_,_loc12_,param2,_loc15_,param4);
+            var _loc8_:Number = Math.pow(2,param2[7]);
+            var _loc12_:Number = Math.pow(2,param2[8]);
+            var _loc13_:FTextureAtlas = new FTextureAtlas(param1,_loc9_,_loc8_,_loc12_,param2,_loc15_,param4);
             _loc10_ = 0;
             while(_loc10_ < param3.children().length())
             {
