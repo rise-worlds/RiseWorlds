@@ -1,6 +1,8 @@
 package com.flengine.textures
 {
    import com.flengine.error.FError;
+   import com.flengine.fl2d;
+   use namespace fl2d;
    
    public class FTextureFilteringType extends Object
    {

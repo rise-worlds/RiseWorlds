@@ -1,10 +1,12 @@
 package com.flengine.components
 {
+	import com.flengine.fl2d;
    import flash.geom.Matrix3D;
    import flash.geom.Vector3D;
    import com.flengine.core.FNode;
    import flash.geom.Rectangle;
    
+   use namespace fl2d;
    public class FTransform extends FComponent
    {
       
@@ -47,7 +49,7 @@ package com.flengine.components
       }
       
       override public function set active(param1:Boolean) : void {
-         .super.active = param1;
+         super.active = param1;
          bTransformDirty = _bActive;
       }
       
@@ -383,7 +385,7 @@ package com.flengine.components
          {
             return param1;
          }
-         var param1:Vector3D = localTransformMatrix.transformVector(param1);
+		 param1 = localTransformMatrix.transformVector(param1);
          return cNode.cParent.cTransform.localToWorld(param1);
       }
       

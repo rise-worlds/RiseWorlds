@@ -3,7 +3,8 @@ package com.flengine.components.renderables
    import com.flengine.components.FComponent;
    import flash.geom.Rectangle;
    import com.flengine.core.FNode;
-   
+   import com.flengine.fl2d;
+	use namespace fl2d;
    public class FRenderable extends FComponent
    {
       

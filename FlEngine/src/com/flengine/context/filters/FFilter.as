@@ -2,7 +2,8 @@ package com.flengine.context.filters
 {
    import flash.display3D.Context3D;
    import com.flengine.textures.FTexture;
-   
+   import com.flengine.fl2d;
+	use namespace fl2d;
    public class FFilter extends Object
    {
       

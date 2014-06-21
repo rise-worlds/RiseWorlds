@@ -13,9 +13,7 @@ package com.flengine.signals
       private var funcList:Dictionary;
       
       public function dispose() : void {
-         var _loc3_:* = 0;
-         var _loc2_:* = funcList;
-         for(_loc1_ in funcList)
+         for(var _loc1_:Object in funcList)
          {
             delete funcList[_loc1_];
             _loc1_ = null;
@@ -24,9 +22,7 @@ package com.flengine.signals
       }
       
       public function dispatch(param1:Object) : void {
-         var _loc4_:* = 0;
-         var _loc3_:* = funcList;
-         for(_loc2_ in funcList)
+         for(var _loc2_:Object in funcList)
          {
             _loc2_(param1);
             if(funcList[_loc2_])

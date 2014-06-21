@@ -50,81 +50,43 @@ package com.flengine.components.particles
       }
       
       fl2d var cNext:FSimpleParticle;
-      
       fl2d var cPrevious:FSimpleParticle;
-      
       fl2d var nX:Number;
-      
       fl2d var nY:Number;
-      
       fl2d var nRotation:Number;
-      
       fl2d var nScaleX:Number;
-      
       fl2d var nScaleY:Number;
-      
       fl2d var nRed:Number;
-      
       fl2d var nGreen:Number;
-      
       fl2d var nBlue:Number;
-      
       fl2d var nAlpha:Number;
-      
       fl2d var nVelocityX:Number = 0;
-      
       fl2d var nVelocityY:Number = 0;
-      
       fl2d var nAccelerationX:Number;
-      
       fl2d var nAccelerationY:Number;
-      
       fl2d var nEnergy:Number = 0;
-      
       fl2d var nInitialScale:Number = 1;
-      
       fl2d var nEndScale:Number = 1;
-      
       fl2d var nInitialVelocityX:Number;
-      
       fl2d var nInitialVelocityY:Number;
-      
       fl2d var nInitialVelocityAngular:Number;
-      
       fl2d var nInitialAccelerationX:Number;
-      
       fl2d var nInitialAccelerationY:Number;
-      
       fl2d var nInitialRed:Number;
-      
       fl2d var nInitialGreen:Number;
-      
       fl2d var nInitialBlue:Number;
-      
       fl2d var nInitialAlpha:Number;
-      
       fl2d var nEndRed:Number;
-      
       fl2d var nEndGreen:Number;
-      
       fl2d var nEndBlue:Number;
-      
       fl2d var nEndAlpha:Number;
-      
       private var __nRedDif:Number;
-      
       private var __nGreenDif:Number;
-      
       private var __nBlueDif:Number;
-      
       private var __nAlphaDif:Number;
-      
       private var __nScaleDif:Number;
-      
       fl2d var nAccumulatedEnergy:Number = 0;
-      
       private var __cNextInstance:FSimpleParticle;
-      
       private var __iId:int = 0;
       
       public function toString() : String {

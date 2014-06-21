@@ -4,6 +4,8 @@ package com.flengine.context
    import flash.display3D.textures.Texture;
    import flash.display.BitmapData;
    import flash.utils.ByteArray;
+   import com.flengine.fl2d;
+	use namespace fl2d;
    
    public class FContextTexture extends Object
    {

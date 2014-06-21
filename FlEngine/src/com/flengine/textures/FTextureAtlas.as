@@ -3,7 +3,8 @@ package com.flengine.textures
    import flash.utils.Dictionary;
    import flash.geom.Rectangle;
    import com.flengine.error.FError;
-   
+   import com.flengine.fl2d;
+   use namespace fl2d;
    public class FTextureAtlas extends FTextureBase
    {
       
@@ -33,9 +34,8 @@ package com.flengine.textures
       }
       
       override public function set filteringType(param1:int) : void {
-         .super.filteringType = param1;
-         var _loc4_:* = 0;
-         var _loc3_:* = __dTextures;
+         super.filteringType = param1;
+         var _loc2_:FTexture;
          for each(_loc2_ in __dTextures)
          {
             _loc2_.iFilteringType = param1;
@@ -48,8 +48,7 @@ package com.flengine.textures
       
       override protected function invalidateContextTexture(param1:Boolean) : void {
          super.invalidateContextTexture(param1);
-         var _loc4_:* = 0;
-         var _loc3_:* = __dTextures;
+         var _loc2_:FTexture;
          for each(_loc2_ in __dTextures)
          {
             _loc2_.cContextTexture = cContextTexture;
@@ -75,9 +74,8 @@ package com.flengine.textures
       }
       
       private function disposeSubTextures() : void {
-         var _loc2_:* = null;
-         var _loc4_:* = 0;
-         var _loc3_:* = __dTextures;
+         var _loc2_:FTexture = null;
+         var _loc1_:String;
          for(_loc1_ in __dTextures)
          {
             _loc2_ = __dTextures[_loc1_];

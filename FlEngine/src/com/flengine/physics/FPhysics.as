@@ -1,5 +1,8 @@
 package com.flengine.physics
 {
+	import com.flengine.fl2d;
+	use namespace fl2d;
+	
    public class FPhysics extends Object
    {
       

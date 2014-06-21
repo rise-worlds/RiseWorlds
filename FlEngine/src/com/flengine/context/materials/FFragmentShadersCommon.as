@@ -4,7 +4,8 @@ package com.flengine.context.materials
    import flash.utils.ByteArray;
    import com.adobe.utils.AGALMiniAssembler;
    import com.flengine.context.filters.FFilter;
-   
+   import com.flengine.fl2d;
+   use namespace fl2d;
    public class FFragmentShadersCommon extends Object
    {
       
@@ -13,12 +14,9 @@ package com.flengine.context.materials
       }
       
       private static const COLOR_FRAGMENT_CODE:String = "mov oc, v1";
-      
       private static const ALPHA_FRAGMENT_CODE:String = "mul ft0, ft0, v1";
-      
       private static const FINAL_FRAGMENT_CODE:String = "mov oc, ft0";
-      
-      private static var CACHED_CODE:Dictionary;
+      private static var CACHED_CODE:Dictionary = new Dictionary();
       
       private static function getSamplerFragmentCode(param1:Boolean, param2:int, param3:int) : String {
          return "tex ft0, v0, fs0 <2d," + (param1?"repeat":"clamp") + (param3 != 0?"," + (param3 == 1?"dxt1":"dxt5") + ",":",") + (param2 == 0?"nearest":"linear") + ",mipnone>";
@@ -37,13 +35,13 @@ package com.flengine.context.materials
             _loc6_ = getSamplerFragmentCode(param1,param2,param4);
             if(param5)
             {
-               _loc6_ = _loc6_ + ("\n" + param5.fragmentCode);
+               _loc6_ += ("\n" + param5.fragmentCode);
             }
             if(param3)
             {
-               _loc6_ = _loc6_ + "\nmul ft0, ft0, v1";
+               _loc6_ += "\nmul ft0, ft0, v1";
             }
-            _loc6_ = _loc6_ + "\nmov oc, ft0";
+            _loc6_ += "\nmov oc, ft0";
          }
          else
          {

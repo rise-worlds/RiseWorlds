@@ -1,5 +1,7 @@
 package com.flengine.core
 {
+	import com.flengine.fl2d;
+	use namespace fl2d;
    public class FNodePool extends Object
    {
       

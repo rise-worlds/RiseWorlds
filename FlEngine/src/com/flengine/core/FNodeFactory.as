@@ -38,10 +38,10 @@ package com.flengine.core
          }
          else
          {
-            _loc5_ = new FNode(param2);
+            var _loc5_:FNode = new FNode(param2);
             _loc5_.mouseEnabled = param1.@mouseEnabled == "true"?true:false;
             _loc5_.mouseChildren = param1.@mouseChildren == "true"?true:false;
-            _loc3_ = param1.@tags.split(",");
+            var _loc3_:Array = param1.@tags.split(",");
             _loc9_ = 0;
             while(_loc9_ < _loc3_.length)
             {

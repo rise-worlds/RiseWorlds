@@ -14,15 +14,15 @@ package com.flengine.context.materials
    {
       
       public function FCameraTexturedPolygonMaterial() {
-         VertexShaderEmbed = FCameraTexturedPolygonMaterialVertex_ash;
-         VertexShaderCode = new VertexShaderEmbed() as ByteArray;
+//         VertexShaderEmbed = FCameraTexturedPolygonMaterialVertex_ash;
+//         VertexShaderCode = new VertexShaderEmbed() as ByteArray;
          __aPrograms = new Vector.<Program3D>();
          super();
       }
       
-      private const VertexShaderEmbed:Class;
+      private const VertexShaderEmbed:Class = FCameraTexturedPolygonMaterialVertex_ash;
       
-      private const VertexShaderCode:ByteArray;
+      private const VertexShaderCode:ByteArray = new VertexShaderEmbed() as ByteArray;
       
       private var _p3ShaderProgramLinear:Program3D;
       

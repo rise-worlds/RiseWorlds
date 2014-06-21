@@ -1,5 +1,6 @@
 package com.flengine.components
 {
+   import com.flengine.fl2d;
    import flash.utils.getQualifiedClassName;
    import flash.utils.describeType;
    import com.flengine.core.FNode;
@@ -9,6 +10,7 @@ package com.flengine.components
    import flash.geom.Vector3D;
    import flash.events.TouchEvent;
    
+   use namespace fl2d;
    public class FComponent extends Object
    {
       
@@ -53,7 +55,7 @@ package com.flengine.components
       
       protected function addPrototypeProperty(param1:String, param2:*, param3:String, param4:XML = null) : void {
          var _loc5_:* = null;
-         var param3:String = param3.toLowerCase();
+		 param3 = param3.toLowerCase();
          var _loc7_:String = typeof param2;
          if(_loc7_ == "object" && !(param3 == "array") && !(param3 == "object"))
          {
@@ -61,13 +63,12 @@ package com.flengine.components
          }
          if(_loc7_ != "object")
          {
-            _loc5_ = new XML("<" + (param1 + " ") + " value=" + ("\"" + ({param2}) + "\"") + " type=" + ("\"" + ({param3}) + "\"") + "/>");
+            _loc5_ = new XML("<" + param1 + " " + " value=" + "\"" + param2 + "\"" + " type=" + "\"" + param3 + "\"" + "/>");
          }
          else
          {
-            _loc5_ = new XML("<" + (param1 + " ") + " type=" + ("\"" + ({param3}) + "\"") + "/>");
-            _loc9_ = 0;
-            _loc8_ = param2;
+            _loc5_ = new XML("<" + param1 + " " + " type=" + "\"" + param3 + "\"" + "/>");
+            var _loc6_:String;
             for(_loc6_ in param2)
             {
                addPrototypeProperty(_loc6_,param2[_loc6_],typeof param2[_loc6_],_loc5_);

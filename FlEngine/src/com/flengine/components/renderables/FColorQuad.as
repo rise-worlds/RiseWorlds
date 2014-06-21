@@ -20,7 +20,7 @@ package com.flengine.components.renderables
       
       private static var cMaterial:FDrawColorCameraVertexShaderBatchMaterial;
       
-      private static var cTransformVector:Vector.<Number>;
+      private static var cTransformVector:Vector.<Number> = new Vector.<Number>(12);
       
       override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void {
          if(param1.checkAndSetupRender(cMaterial,iBlendMode,true,param3))

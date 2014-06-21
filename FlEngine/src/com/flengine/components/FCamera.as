@@ -6,6 +6,8 @@ package com.flengine.components
    import flash.geom.Vector3D;
    import com.flengine.core.FNode;
    
+   import com.flengine.fl2d;
+	use namespace fl2d;
    public class FCamera extends FComponent
    {
       

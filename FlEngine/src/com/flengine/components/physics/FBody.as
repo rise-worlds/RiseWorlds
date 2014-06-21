@@ -3,7 +3,8 @@ package com.flengine.components.physics
    import com.flengine.components.FComponent;
    import com.flengine.components.FTransform;
    import com.flengine.core.FNode;
-   
+   import com.flengine.fl2d;
+	use namespace fl2d;
    public class FBody extends FComponent
    {
       
