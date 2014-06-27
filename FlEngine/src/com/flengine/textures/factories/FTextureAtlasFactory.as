@@ -1,246 +1,249 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.textures.factories.FTextureAtlasFactory
+
 package com.flengine.textures.factories
 {
-   import com.flengine.textures.FTextureAtlas;
-   import flash.display.MovieClip;
-   import flash.display.BitmapData;
-   import flash.geom.Matrix;
-   import flash.geom.Rectangle;
-   import flash.text.TextFormat;
-   import flash.text.TextField;
-   import com.flengine.utils.FPacker;
-   import com.flengine.utils.FPackerRectangle;
-   import com.flengine.utils.FMaxRectPacker;
-   import com.flengine.textures.FTextureUtils;
-   import flash.display.Bitmap;
-   import flash.utils.ByteArray;
-   import com.flengine.error.FError;
-   import flash.geom.Point;
-   
-   public class FTextureAtlasFactory extends Object
-   {
-      
-      public function FTextureAtlasFactory() {
-         super();
-      }
-      
-      public static function createFromMovieClip(param1:String, param2:MovieClip, param3:Boolean = false) : FTextureAtlas {
-         var _loc11_:* = 0;
-         var _loc8_:* = 0;
-         var _loc6_:* = 0;
-         var _loc5_:* = null;
-         var _loc4_:* = null;
-         var _loc10_:Vector.<BitmapData> = new Vector.<BitmapData>();
-         var _loc7_:Vector.<String> = new Vector.<String>();
-         var _loc9_:Matrix = new Matrix();
-         _loc11_ = 1;
-         while(_loc11_ < param2.totalFrames)
-         {
-            param2.gotoAndStop(_loc11_);
-            _loc8_ = !(param2.width % 2 == 0) && param3?param2.width + 1:param2.width;
-            _loc6_ = !(param2.height % 2 == 0) && param3?param2.height + 1:param2.height;
-            _loc5_ = new BitmapData(param2.width,param2.height,true,0);
-            _loc4_ = param2.getBounds(param2);
-            _loc9_.identity();
-            _loc9_.translate(-_loc4_.x,-_loc4_.y);
-            _loc5_.draw(param2,_loc9_);
-            _loc10_.push(_loc5_);
-            _loc7_.push(_loc11_);
-            _loc11_++;
-         }
-         return createFromBitmapDatas(param1,_loc10_,_loc7_);
-      }
-      
-      public static function createFromFont(param1:String, param2:TextFormat, param3:String, param4:Boolean = false) : FTextureAtlas {
-         var _loc11_:* = 0;
-         var _loc9_:* = 0;
-         var _loc7_:* = 0;
-         var _loc6_:* = null;
-         var _loc5_:TextField = new TextField();
-         _loc5_.embedFonts = true;
-         _loc5_.defaultTextFormat = param2;
-         _loc5_.multiline = false;
-         _loc5_.autoSize = "left";
-         var _loc10_:Vector.<BitmapData> = new Vector.<BitmapData>();
-         var _loc8_:Vector.<String> = new Vector.<String>();
-         _loc11_ = 0;
-         while(_loc11_ < param3.length)
-         {
-            _loc5_.text = param3.charAt(_loc11_);
-            _loc9_ = !(_loc5_.width % 2 == 0) && param4?_loc5_.width + 1:_loc5_.width;
-            _loc7_ = !(_loc5_.height % 2 == 0) && param4?_loc5_.height + 1:_loc5_.height;
-            _loc6_ = new BitmapData(_loc9_,_loc7_,true,0);
-            _loc6_.draw(_loc5_);
-            _loc10_.push(_loc6_);
-            _loc8_.push(param3.charCodeAt(_loc11_));
-            _loc11_++;
-         }
-         return createFromBitmapDatas(param1,_loc10_,_loc8_);
-      }
-      
-      public static function createFromBitmapDatas(param1:String, param2:Vector.<BitmapData>, param3:Vector.<String>, param4:FPacker = null, param5:int = 2) : FTextureAtlas {
-         var _loc12_:* = 0;
-         var _loc10_:* = null;
-         var _loc8_:* = null;
-         var _loc11_:Vector.<FPackerRectangle> = new Vector.<FPackerRectangle>();
-         _loc12_ = 0;
-         while(_loc12_ < param2.length)
-         {
-            _loc8_ = param2[_loc12_];
-            _loc10_ = FPackerRectangle.get(0,0,_loc8_.width,_loc8_.height,param3[_loc12_],_loc8_);
-            _loc11_.push(_loc10_);
-            _loc12_++;
-         }
-         if(param4 == null)
-         {
-            param4 = new FMaxRectPacker(1,1,2048,2048,true);
-         }
-         param4.packRectangles(_loc11_,param5);
-         if(param4.rectangles.length != param2.length)
-         {
-            return null;
-         }
-         var _loc9_:BitmapData = new BitmapData(param4.width,param4.height,true,0);
-         param4.draw(_loc9_);
-         var _loc7_:FTextureAtlas = new FTextureAtlas(param1,3,_loc9_.width,_loc9_.height,_loc9_,FTextureUtils.isBitmapDataTransparent(_loc9_),null);
-         var _loc6_:int = param4.rectangles.length;
-         _loc12_ = 0;
-         while(_loc12_ < _loc6_)
-         {
-            _loc10_ = param4.rectangles[_loc12_];
-            _loc7_.addSubTexture(_loc10_.id,_loc10_.rect,_loc10_.rect.width,_loc10_.rect.height,_loc10_.pivotX,_loc10_.pivotY);
-            _loc12_++;
-         }
-         _loc7_.invalidate();
-         return _loc7_;
-      }
-      
-      public static function createFromBitmapDataAndXML(param1:String, param2:BitmapData, param3:XML) : FTextureAtlas {
-         var _loc11_:* = 0;
-         var _loc6_:* = null;
-         var _loc4_:* = null;
-         var _loc5_:* = NaN;
-         var _loc7_:* = NaN;
-         var _loc9_:* = NaN;
-         var _loc10_:* = NaN;
-         var _loc8_:FTextureAtlas = new FTextureAtlas(param1,3,param2.width,param2.height,param2,FTextureUtils.isBitmapDataTransparent(param2),null);
-         _loc11_ = 0;
-         while(_loc11_ < param3.children().length())
-         {
-            _loc6_ = param3.children()[_loc11_];
-            _loc4_ = new Rectangle(_loc6_.@x,_loc6_.@y,_loc6_.@width,_loc6_.@height);
-            _loc5_ = _loc6_.@frameX == undefined && _loc6_.@frameWidth == undefined?0:(_loc6_.@frameWidth - _loc4_.width) / 2 + (_loc6_.@frameX);
-            _loc7_ = _loc6_.@frameY == undefined && _loc6_.@frameHeight == undefined?0:(_loc6_.@frameHeight - _loc4_.height) / 2 + (_loc6_.@frameY);
-            _loc9_ = _loc6_.@frameWidth == undefined?_loc6_.@width:_loc6_.@frameWidth;
-            _loc10_ = _loc6_.@frameHeight == undefined?_loc6_.@height:_loc6_.@frameHeight;
-            _loc8_.addSubTexture(_loc6_.@name,_loc4_,_loc9_,_loc10_,_loc5_,_loc7_,false);
-            _loc11_++;
-         }
-         _loc8_.invalidate();
-         return _loc8_;
-      }
-      
-      public static function createFromAssets(param1:String, param2:Class, param3:Class) : FTextureAtlas {
-         var _loc4_:Bitmap = new param2();
-         var _loc5_:XML = XML(new param3());
-         return createFromBitmapDataAndXML(param1,_loc4_.bitmapData,_loc5_);
-      }
-      
-      public static function createFromBitmapDataAndFontXML(param1:String, param2:BitmapData, param3:XML) : FTextureAtlas {
-         var _loc9_:* = 0;
-         var _loc6_:* = null;
-         var _loc4_:* = null;
-         var _loc5_:* = 0;
-         var _loc7_:* = 0;
-         var _loc8_:FTextureAtlas = new FTextureAtlas(param1,3,param2.width,param2.height,param2,FTextureUtils.isBitmapDataTransparent(param2),null);
-         _loc9_ = 0;
-         while(_loc9_ < param3.chars.children().length())
-         {
-            _loc6_ = param3.chars.children()[_loc9_];
-            _loc4_ = new Rectangle(_loc6_.@x,_loc6_.@y,_loc6_.@width,_loc6_.@height);
-            _loc5_ = -(_loc6_.@xoffset);
-            _loc7_ = -(_loc6_.@yoffset);
-            _loc8_.addSubTexture(_loc6_.@id,_loc4_,_loc4_.width,_loc4_.height,_loc5_,_loc7_);
-            _loc9_++;
-         }
-         _loc8_.invalidate();
-         return _loc8_;
-      }
-      
-      public static function createFromATFAndXML(param1:String, param2:ByteArray, param3:XML, param4:Function = null) : FTextureAtlas {
-         var _loc9_:* = 0;
-         var _loc10_:* = 0;
-         var _loc11_:* = null;
-         var _loc5_:* = null;
-         var _loc6_:* = NaN;
-         var _loc7_:* = NaN;
-         var _loc14_:String = String.fromCharCode(param2[0],param2[1],param2[2]);
-         if(_loc14_ != "ATF")
-         {
-            throw new FError("FError: Invalid ATF data.");
-         }
-         else
-         {
-            var _loc15_:Boolean = true;
-			var _loc16_:int = param2[6];
-            if(1 !== _loc16_)
+    import __AS3__.vec.Vector;
+    import flash.display.BitmapData;
+    import flash.geom.Matrix;
+    import flash.display.MovieClip;
+    import com.flengine.textures.FTextureAtlas;
+    import flash.text.TextField;
+    import flash.text.TextFormat;
+    import com.flengine.utils.FPackerRectangle;
+    import com.flengine.utils.FMaxRectPacker;
+    import com.flengine.textures.FTextureUtils;
+    import com.flengine.utils.FPacker;
+    import flash.geom.Rectangle;
+    import flash.display.Bitmap;
+    import com.flengine.error.FError;
+    import flash.utils.ByteArray;
+    import flash.geom.Point;
+
+    public class FTextureAtlasFactory 
+    {
+
+
+        public static function createFromMovieClip(p_id:String, p_movieClip:MovieClip, p_forceMod2:Boolean=false):FTextureAtlas
+        {
+            var _local11:int;
+            var _local8:int;
+            var _local6:int;
+            var _local5 = null;
+            var _local4 = null;
+            var _local10:Vector.<BitmapData> = new Vector.<BitmapData>();
+            var _local7:Vector.<String> = new Vector.<String>();
+            var _local9:Matrix = new Matrix();
+            _local11 = 1;
+            while (_local11 < p_movieClip.totalFrames)
             {
-               if(3 !== _loc16_)
-               {
-                  if(5 === _loc16_)
-                  {
-                     _loc9_ = 2;
-                  }
-               }
-               else
-               {
-                  _loc9_ = 1;
-                  _loc15_ = false;
-               }
-            }
-            else
+                p_movieClip.gotoAndStop(_local11);
+                _local8 = ((((!(((p_movieClip.width % 2) == 0))) && (p_forceMod2))) ? (p_movieClip.width + 1) : p_movieClip.width);
+                _local6 = ((((!(((p_movieClip.height % 2) == 0))) && (p_forceMod2))) ? (p_movieClip.height + 1) : p_movieClip.height);
+                _local5 = new BitmapData(p_movieClip.width, p_movieClip.height, true, 0);
+                _local4 = p_movieClip.getBounds(p_movieClip);
+                _local9.identity();
+                _local9.translate(-(_local4.x), -(_local4.y));
+                _local5.draw(p_movieClip, _local9);
+                _local10.push(_local5);
+                _local7.push(_local11);
+                _local11++;
+            };
+            return (createFromBitmapDatas(p_id, _local10, _local7));
+        }
+
+        public static function createFromFont(p_id:String, p_format:TextFormat, p_chars:String, p_forceMod2:Boolean=false):FTextureAtlas
+        {
+            var _local11:int;
+            var _local9:int;
+            var _local7:int;
+            var _local6 = null;
+            var _local5:TextField = new TextField();
+            _local5.embedFonts = true;
+            _local5.defaultTextFormat = p_format;
+            _local5.multiline = false;
+            _local5.autoSize = "left";
+            var _local10:Vector.<BitmapData> = new Vector.<BitmapData>();
+            var _local8:Vector.<String> = new Vector.<String>();
+            _local11 = 0;
+            while (_local11 < p_chars.length)
             {
-               _loc9_ = 0;
-            }
-            var _loc8_:Number = Math.pow(2,param2[7]);
-            var _loc12_:Number = Math.pow(2,param2[8]);
-            var _loc13_:FTextureAtlas = new FTextureAtlas(param1,_loc9_,_loc8_,_loc12_,param2,_loc15_,param4);
-            _loc10_ = 0;
-            while(_loc10_ < param3.children().length())
+                _local5.text = p_chars.charAt(_local11);
+                _local9 = ((((!(((_local5.width % 2) == 0))) && (p_forceMod2))) ? (_local5.width + 1) : _local5.width);
+                _local7 = ((((!(((_local5.height % 2) == 0))) && (p_forceMod2))) ? (_local5.height + 1) : _local5.height);
+                _local6 = new BitmapData(_local9, _local7, true, 0);
+                _local6.draw(_local5);
+                _local10.push(_local6);
+                _local8.push(p_chars.charCodeAt(_local11));
+                _local11++;
+            };
+            return (createFromBitmapDatas(p_id, _local10, _local8));
+        }
+
+        public static function createFromBitmapDatas(p_id:String, p_bitmaps:Vector.<BitmapData>, p_ids:Vector.<String>, p_packer:FPacker=null, p_padding:int=2):FTextureAtlas
+        {
+            var _local12:int;
+            var _local10 = null;
+            var _local8 = null;
+            var _local11:Vector.<FPackerRectangle> = new Vector.<FPackerRectangle>();
+            _local12 = 0;
+            while (_local12 < p_bitmaps.length)
             {
-               _loc11_ = param3.children()[_loc10_];
-               _loc5_ = new Rectangle(_loc11_.@x,_loc11_.@y,_loc11_.@width,_loc11_.@height);
-               _loc6_ = _loc11_.@frameX == undefined && _loc11_.@frameWidth == undefined?0:(_loc11_.@frameWidth - _loc5_.width) / 2 + (_loc11_.@frameX);
-               _loc7_ = _loc11_.@frameY == undefined && _loc11_.@frameHeight == undefined?0:(_loc11_.@frameHeight - _loc5_.height) / 2 + (_loc11_.@frameY);
-               _loc13_.addSubTexture(_loc11_.@name,_loc5_,_loc5_.width,_loc5_.height,_loc6_,_loc7_);
-               _loc10_++;
-            }
-            _loc13_.invalidate();
-            return _loc13_;
-         }
-      }
-      
-      public static function createFromBitmapDataAndRegions(param1:String, param2:BitmapData, param3:Vector.<Rectangle>, param4:Vector.<String> = null, param5:Vector.<Point> = null) : FTextureAtlas {
-         var _loc9_:* = 0;
-         var _loc6_:* = null;
-         var _loc8_:* = false;
-         var _loc7_:FTextureAtlas = new FTextureAtlas(param1,3,param2.width,param2.height,param2,FTextureUtils.isBitmapDataTransparent(param2),null);
-         _loc9_ = 0;
-         while(_loc9_ < param3.length)
-         {
-            _loc6_ = param4 == null?_loc9_:param4[_loc9_];
-            _loc8_ = !(param2.histogram(param3[_loc9_])[3][255] == param3[_loc9_].width * param3[_loc9_].height);
-            if(param5)
+                _local8 = p_bitmaps[_local12];
+                _local10 = FPackerRectangle.get(0, 0, _local8.width, _local8.height, p_ids[_local12], _local8);
+                _local11.push(_local10);
+                _local12++;
+            };
+            if (p_packer == null)
             {
-               _loc7_.addSubTexture(_loc6_,param3[_loc9_],param3[_loc9_].width,param3[_loc9_].height,param5[_loc9_].x,param5[_loc9_].y);
-            }
-            else
+                p_packer = new FMaxRectPacker(1, 1, 0x0800, 0x0800, true);
+            };
+            p_packer.packRectangles(_local11, p_padding);
+            if (p_packer.rectangles.length != p_bitmaps.length)
             {
-               _loc7_.addSubTexture(_loc6_,param3[_loc9_],param3[_loc9_].width,param3[_loc9_].height);
-            }
-            _loc9_++;
-         }
-         _loc7_.invalidate();
-         return _loc7_;
-      }
-   }
-}
+                return (null);
+            };
+            var _local9:BitmapData = new BitmapData(p_packer.width, p_packer.height, true, 0);
+            p_packer.draw(_local9);
+            var _local7:FTextureAtlas = new FTextureAtlas(p_id, 3, _local9.width, _local9.height, _local9, FTextureUtils.isBitmapDataTransparent(_local9), null);
+            var _local6:int = p_packer.rectangles.length;
+            _local12 = 0;
+            while (_local12 < _local6)
+            {
+                _local10 = p_packer.rectangles[_local12];
+                _local7.addSubTexture(_local10.id, _local10.rect, _local10.rect.width, _local10.rect.height, _local10.pivotX, _local10.pivotY);
+                _local12++;
+            };
+            _local7.invalidate();
+            return (_local7);
+        }
+
+        public static function createFromBitmapDataAndXML(p_id:String, p_bitmapData:BitmapData, p_xml:XML):FTextureAtlas
+        {
+            var _local11:int;
+            var _local6 = null;
+            var _local4 = null;
+            var _local5:Number;
+            var _local7:Number;
+            var _local9:Number;
+            var _local10:Number;
+            var _local8:FTextureAtlas = new FTextureAtlas(p_id, 3, p_bitmapData.width, p_bitmapData.height, p_bitmapData, FTextureUtils.isBitmapDataTransparent(p_bitmapData), null);
+            _local11 = 0;
+            while (_local11 < p_xml.children().length())
+            {
+                _local6 = p_xml.children()[_local11];
+                _local4 = new Rectangle(_local6.@x, _local6.@y, _local6.@width, _local6.@height);
+                _local5 = (((((_local6.@frameX == undefined)) && ((_local6.@frameWidth == undefined)))) ? 0 : (((_local6.@frameWidth - _local4.width) / 2) + _local6.@frameX));
+                _local7 = (((((_local6.@frameY == undefined)) && ((_local6.@frameHeight == undefined)))) ? 0 : (((_local6.@frameHeight - _local4.height) / 2) + _local6.@frameY));
+                _local9 = (((_local6.@frameWidth)==undefined) ? _local6.@width : _local6.@frameWidth);
+                _local10 = (((_local6.@frameHeight)==undefined) ? _local6.@height : _local6.@frameHeight);
+                _local8.addSubTexture(_local6.@name, _local4, _local9, _local10, _local5, _local7, false);
+                _local11++;
+            };
+            _local8.invalidate();
+            return (_local8);
+        }
+
+        public static function createFromAssets(p_id:String, p_bitmapAsset:Class, p_xmlAsset:Class):FTextureAtlas
+        {
+            var _local4:Bitmap = new (p_bitmapAsset)();
+            var _local5:XML = XML(new (p_xmlAsset)());
+            return (createFromBitmapDataAndXML(p_id, _local4.bitmapData, _local5));
+        }
+
+        public static function createFromBitmapDataAndFontXML(p_id:String, p_bitmapData:BitmapData, p_fontXml:XML):FTextureAtlas
+        {
+            var _local9:int;
+            var _local6 = null;
+            var _local4 = null;
+            var _local5:int;
+            var _local7:int;
+            var _local8:FTextureAtlas = new FTextureAtlas(p_id, 3, p_bitmapData.width, p_bitmapData.height, p_bitmapData, FTextureUtils.isBitmapDataTransparent(p_bitmapData), null);
+            _local9 = 0;
+            while (_local9 < p_fontXml.chars.children().length())
+            {
+                _local6 = p_fontXml.chars.children()[_local9];
+                _local4 = new Rectangle(_local6.@x, _local6.@y, _local6.@width, _local6.@height);
+                _local5 = -(_local6.@xoffset);
+                _local7 = -(_local6.@yoffset);
+                _local8.addSubTexture(_local6.@id, _local4, _local4.width, _local4.height, _local5, _local7);
+                _local9++;
+            };
+            _local8.invalidate();
+            return (_local8);
+        }
+
+        public static function createFromATFAndXML(p_id:String, p_atfData:ByteArray, p_xml:XML, p_uploadCallback:Function=null):FTextureAtlas
+        {
+            var _local9:int;
+            var _local10:int;
+            var _local11 = null;
+            var _local5 = null;
+            var _local6:Number;
+            var _local7:Number;
+            var _local14:String = String.fromCharCode(p_atfData[0], p_atfData[1], p_atfData[2]);
+            if (_local14 != "ATF")
+            {
+                throw (new FError("FError: Invalid ATF data."));
+            };
+            var _local15:Boolean = true;
+            switch (p_atfData[6])
+            {
+                case 1:
+                    _local9 = 0;
+                    break;
+                case 3:
+                    _local9 = 1;
+                    _local15 = false;
+                    break;
+                case 5:
+                    _local9 = 2;
+            };
+            var _local8:int = Math.pow(2, p_atfData[7]);
+            var _local12:int = Math.pow(2, p_atfData[8]);
+            var _local13:FTextureAtlas = new FTextureAtlas(p_id, _local9, _local8, _local12, p_atfData, _local15, p_uploadCallback);
+            _local10 = 0;
+            while (_local10 < p_xml.children().length())
+            {
+                _local11 = p_xml.children()[_local10];
+                _local5 = new Rectangle(_local11.@x, _local11.@y, _local11.@width, _local11.@height);
+                _local6 = (((((_local11.@frameX == undefined)) && ((_local11.@frameWidth == undefined)))) ? 0 : (((_local11.@frameWidth - _local5.width) / 2) + _local11.@frameX));
+                _local7 = (((((_local11.@frameY == undefined)) && ((_local11.@frameHeight == undefined)))) ? 0 : (((_local11.@frameHeight - _local5.height) / 2) + _local11.@frameY));
+                _local13.addSubTexture(_local11.@name, _local5, _local5.width, _local5.height, _local6, _local7);
+                _local10++;
+            };
+            _local13.invalidate();
+            return (_local13);
+        }
+
+        public static function createFromBitmapDataAndRegions(p_id:String, p_bitmapData:BitmapData, p_regions:Vector.<Rectangle>, p_ids:Vector.<String>=null, p_pivots:Vector.<Point>=null):FTextureAtlas
+        {
+            var _local9:int;
+            var _local6 = null;
+            var _local8:Boolean;
+            var _local7:FTextureAtlas = new FTextureAtlas(p_id, 3, p_bitmapData.width, p_bitmapData.height, p_bitmapData, FTextureUtils.isBitmapDataTransparent(p_bitmapData), null);
+            _local9 = 0;
+            while (_local9 < p_regions.length)
+            {
+                _local6 = (((p_ids)==null) ? _local9 : p_ids[_local9]);
+                _local8 = !((p_bitmapData.histogram(p_regions[_local9])[3][0xFF] == (p_regions[_local9].width * p_regions[_local9].height)));
+                if (p_pivots)
+                {
+                    _local7.addSubTexture(_local6, p_regions[_local9], p_regions[_local9].width, p_regions[_local9].height, p_pivots[_local9].x, p_pivots[_local9].y);
+                }
+                else
+                {
+                    _local7.addSubTexture(_local6, p_regions[_local9], p_regions[_local9].width, p_regions[_local9].height);
+                };
+                _local9++;
+            };
+            _local7.invalidate();
+            return (_local7);
+        }
+
+
+    }
+}//package com.flengine.textures.factories
+

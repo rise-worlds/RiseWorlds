@@ -1,276 +1,284 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.particles.FSimpleParticle
+
 package com.flengine.components.particles
 {
-   public class FSimpleParticle extends Object
-   {
-      
-      public function FSimpleParticle() {
-         super();
-         count = count + 1;
-         __iId = count;
-      }
-      
-      private static var availableInstance:FSimpleParticle;
-      
-      private static var count:int = 0;
-      
-      public static function precache(param1:int) : void {
-         var _loc4_:* = null;
-         var _loc2_:* = null;
-         if(param1 < count)
-         {
-            return;
-         }
-         var _loc3_:FSimpleParticle = get();
-         while(count < param1)
-         {
-            _loc4_ = get();
-            _loc4_.cPrevious = _loc3_;
-            _loc3_ = _loc4_;
-         }
-         while(_loc3_)
-         {
-            _loc2_ = _loc3_;
-            _loc3_ = _loc2_.cPrevious;
-            _loc2_.dispose();
-         }
-      }
-      
-      fl2d  static function get() : FSimpleParticle {
-         var _loc1_:FSimpleParticle = availableInstance;
-         if(_loc1_)
-         {
-            availableInstance = _loc1_.__cNextInstance;
-            _loc1_.__cNextInstance = null;
-         }
-         else
-         {
-            _loc1_ = new FSimpleParticle();
-         }
-         return _loc1_;
-      }
-      
-      fl2d var cNext:FSimpleParticle;
-      fl2d var cPrevious:FSimpleParticle;
-      fl2d var nX:Number;
-      fl2d var nY:Number;
-      fl2d var nRotation:Number;
-      fl2d var nScaleX:Number;
-      fl2d var nScaleY:Number;
-      fl2d var nRed:Number;
-      fl2d var nGreen:Number;
-      fl2d var nBlue:Number;
-      fl2d var nAlpha:Number;
-      fl2d var nVelocityX:Number = 0;
-      fl2d var nVelocityY:Number = 0;
-      fl2d var nAccelerationX:Number;
-      fl2d var nAccelerationY:Number;
-      fl2d var nEnergy:Number = 0;
-      fl2d var nInitialScale:Number = 1;
-      fl2d var nEndScale:Number = 1;
-      fl2d var nInitialVelocityX:Number;
-      fl2d var nInitialVelocityY:Number;
-      fl2d var nInitialVelocityAngular:Number;
-      fl2d var nInitialAccelerationX:Number;
-      fl2d var nInitialAccelerationY:Number;
-      fl2d var nInitialRed:Number;
-      fl2d var nInitialGreen:Number;
-      fl2d var nInitialBlue:Number;
-      fl2d var nInitialAlpha:Number;
-      fl2d var nEndRed:Number;
-      fl2d var nEndGreen:Number;
-      fl2d var nEndBlue:Number;
-      fl2d var nEndAlpha:Number;
-      private var __nRedDif:Number;
-      private var __nGreenDif:Number;
-      private var __nBlueDif:Number;
-      private var __nAlphaDif:Number;
-      private var __nScaleDif:Number;
-      fl2d var nAccumulatedEnergy:Number = 0;
-      private var __cNextInstance:FSimpleParticle;
-      private var __iId:int = 0;
-      
-      public function toString() : String {
-         return "[" + __iId + "]";
-      }
-      
-      fl2d function init(param1:FSimpleEmitter, param2:Boolean = true) : void {
-         var _loc5_:* = NaN;
-         var _loc3_:* = NaN;
-         var _loc8_:* = NaN;
-         var _loc9_:* = NaN;
-         var _loc16_:* = NaN;
-         var _loc7_:* = NaN;
-         var _loc11_:* = NaN;
-         nAccumulatedEnergy = 0;
-         nEnergy = param1.energy * 1000;
-         if(param1.energyVariance > 0)
-         {
-            nEnergy = nEnergy + param1.energyVariance * 1000 * Math.random();
-         }
-         nInitialScale = param1.initialScale;
-         if(param1.initialScaleVariance > 0)
-         {
-            nInitialScale = nInitialScale + param1.initialScaleVariance * Math.random();
-         }
-         nEndScale = param1.endScale;
-         if(param1.endScaleVariance > 0)
-         {
-            nEndScale = nEndScale + param1.endScaleVariance * Math.random();
-         }
-         var _loc13_:Number = param1.initialVelocity;
-         if(param1.initialVelocityVariance > 0)
-         {
-            _loc13_ = _loc13_ + param1.initialVelocityVariance * Math.random();
-         }
-         var _loc10_:Number = param1.initialAcceleration;
-         if(param1.initialAccelerationVariance > 0)
-         {
-            _loc10_ = _loc10_ + param1.initialAccelerationVariance * Math.random();
-         }
-         _loc5_ = _loc13_;
-         var _loc15_:Number = _loc5_;
-         _loc3_ = 0;
-         var _loc14_:Number = 0;
-         _loc8_ = _loc10_;
-         var _loc12_:Number = _loc8_;
-         _loc9_ = 0;
-         var _loc4_:Number = 0;
-         var _loc6_:Number = param1.cNode.transform.nWorldRotation;
-         if(_loc6_ != 0)
-         {
-            _loc16_ = Math.sin(_loc6_);
-            _loc7_ = Math.cos(_loc6_);
-            _loc5_ = _loc13_ * _loc7_;
-            _loc15_ = _loc13_ * _loc7_;
-            _loc3_ = _loc13_ * _loc16_;
-            _loc14_ = _loc13_ * _loc16_;
-            _loc8_ = _loc10_ * _loc7_;
-            _loc12_ = _loc10_ * _loc7_;
-            _loc9_ = _loc10_ * _loc16_;
-            _loc4_ = _loc10_ * _loc16_;
-         }
-         if(!(param1.dispersionAngle == 0) || !(param1.dispersionAngleVariance == 0))
-         {
-            _loc11_ = param1.dispersionAngle;
-            if(param1.dispersionAngleVariance > 0)
+    public class FSimpleParticle 
+    {
+
+        private static var availableInstance:FSimpleParticle;
+        private static var count:int = 0;
+
+        var cNext:FSimpleParticle;
+        var cPrevious:FSimpleParticle;
+        var nX:Number;
+        var nY:Number;
+        var nRotation:Number;
+        var nScaleX:Number;
+        var nScaleY:Number;
+        var nRed:Number;
+        var nGreen:Number;
+        var nBlue:Number;
+        var nAlpha:Number;
+        var nVelocityX:Number = 0;
+        var nVelocityY:Number = 0;
+        var nAccelerationX:Number;
+        var nAccelerationY:Number;
+        var nEnergy:Number = 0;
+        var nInitialScale:Number = 1;
+        var nEndScale:Number = 1;
+        var nInitialVelocityX:Number;
+        var nInitialVelocityY:Number;
+        var nInitialVelocityAngular:Number;
+        var nInitialAccelerationX:Number;
+        var nInitialAccelerationY:Number;
+        var nInitialRed:Number;
+        var nInitialGreen:Number;
+        var nInitialBlue:Number;
+        var nInitialAlpha:Number;
+        var nEndRed:Number;
+        var nEndGreen:Number;
+        var nEndBlue:Number;
+        var nEndAlpha:Number;
+        private var __nRedDif:Number;
+        private var __nGreenDif:Number;
+        private var __nBlueDif:Number;
+        private var __nAlphaDif:Number;
+        private var __nScaleDif:Number;
+        var nAccumulatedEnergy:Number = 0;
+        private var __cNextInstance:FSimpleParticle;
+        private var __iId:int = 0;
+
+        public function FSimpleParticle():void
+        {
+            __iId = count++;
+        }
+
+        public static function precache(p_precacheCount:int):void
+        {
+            var _local4 = null;
+            var _local2 = null;
+            if (p_precacheCount < count)
             {
-               _loc11_ = _loc11_ + param1.dispersionAngleVariance * Math.random();
+                return;
+            };
+            var _local3:FSimpleParticle = get();
+            while (count < p_precacheCount)
+            {
+                _local4 = get();
+                _local4.cPrevious = _local3;
+                _local3 = _local4;
+            };
+            while (_local3)
+            {
+                _local2 = _local3;
+                _local3 = _local2.cPrevious;
+                _local2.dispose();
+            };
+        }
+
+        static function get():FSimpleParticle
+        {
+            var _local1:FSimpleParticle = availableInstance;
+            if (_local1)
+            {
+                availableInstance = _local1.__cNextInstance;
+                _local1.__cNextInstance = null;
             }
-            _loc16_ = Math.sin(_loc11_);
-            _loc7_ = Math.cos(_loc11_);
-            _loc5_ = _loc15_ * _loc7_ - _loc14_ * _loc16_;
-            _loc3_ = _loc14_ * _loc7_ + _loc15_ * _loc16_;
-            _loc8_ = _loc12_ * _loc7_ - _loc4_ * _loc16_;
-            _loc9_ = _loc4_ * _loc7_ + _loc12_ * _loc16_;
-         }
-         nVelocityX = _loc5_ * 0.001;
-         nInitialVelocityX = _loc5_ * 0.001;
-         nVelocityY = _loc3_ * 0.001;
-         nInitialVelocityY = _loc3_ * 0.001;
-         nAccelerationX = _loc8_ * 0.001;
-         nInitialAccelerationX = _loc8_ * 0.001;
-         nAccelerationY = _loc9_ * 0.001;
-         nInitialAccelerationY = _loc9_ * 0.001;
-         nInitialVelocityAngular = param1.initialAngularVelocity;
-         if(param1.initialAngularVelocityVariance > 0)
-         {
-            nInitialVelocityAngular = nInitialVelocityAngular + param1.initialAngularVelocityVariance * Math.random();
-         }
-         nInitialRed = param1.initialRed;
-         if(param1.initialRedVariance > 0)
-         {
-            nInitialRed = nInitialRed + param1.initialRedVariance * Math.random();
-         }
-         nInitialGreen = param1.initialGreen;
-         if(param1.initialGreenVariance > 0)
-         {
-            nInitialGreen = nInitialGreen + param1.initialGreenVariance * Math.random();
-         }
-         nInitialBlue = param1.initialBlue;
-         if(param1.initialBlueVariance > 0)
-         {
-            nInitialBlue = nInitialBlue + param1.initialBlueVariance * Math.random();
-         }
-         nInitialAlpha = param1.initialAlpha;
-         if(param1.initialAlphaVariance > 0)
-         {
-            nInitialAlpha = nInitialAlpha + param1.initialAlphaVariance * Math.random();
-         }
-         nEndRed = param1.endRed;
-         if(param1.endRedVariance > 0)
-         {
-            nEndRed = nEndRed + param1.endRedVariance * Math.random();
-         }
-         nEndGreen = param1.endGreen;
-         if(param1.endGreenVariance > 0)
-         {
-            nEndGreen = nEndGreen + param1.endGreenVariance * Math.random();
-         }
-         nEndBlue = param1.endBlue;
-         if(param1.endBlueVariance > 0)
-         {
-            nEndBlue = nEndBlue + param1.endBlueVariance * Math.random();
-         }
-         nEndAlpha = param1.endAlpha;
-         if(param1.endAlphaVariance > 0)
-         {
-            nEndAlpha = nEndAlpha + param1.endAlphaVariance * Math.random();
-         }
-         __nRedDif = nEndRed - nInitialRed;
-         __nGreenDif = nEndGreen - nInitialGreen;
-         __nBlueDif = nEndBlue - nInitialBlue;
-         __nAlphaDif = nEndAlpha - nInitialAlpha;
-         __nScaleDif = nEndScale - nInitialScale;
-      }
-      
-      fl2d function update(param1:FSimpleEmitter, param2:Number) : void {
-         var _loc5_:* = 0;
-         var _loc4_:* = NaN;
-         nAccumulatedEnergy = nAccumulatedEnergy + param2;
-         if(nAccumulatedEnergy >= nEnergy)
-         {
-            param1.deactivateParticle(this);
-            return;
-         }
-         _loc5_ = 0;
-         while(_loc5_ < param1.iFieldsCount)
-         {
-            param1.aFields[_loc5_].updateSimpleParticle(this,param2);
-            _loc5_++;
-         }
-         var _loc3_:Number = nAccumulatedEnergy / nEnergy;
-         nVelocityX = nVelocityX + nAccelerationX * param2;
-         nVelocityY = nVelocityY + nAccelerationY * param2;
-         nRed = __nRedDif * _loc3_ + nInitialRed;
-         nGreen = __nGreenDif * _loc3_ + nInitialGreen;
-         nBlue = __nBlueDif * _loc3_ + nInitialBlue;
-         nAlpha = __nAlphaDif * _loc3_ + nInitialAlpha;
-         nX = nX + nVelocityX * param2;
-         nY = nY + nVelocityY * param2;
-         nRotation = nRotation + nInitialVelocityAngular * param2;
-         nScaleY = __nScaleDif * _loc3_ + nInitialScale;
-         nScaleX = __nScaleDif * _loc3_ + nInitialScale;
-         if(param1.special)
-         {
-            _loc4_ = Math.sqrt(nVelocityX * nVelocityX + nVelocityY * nVelocityY);
-            nScaleY = _loc4_ * 10;
-            nRotation = -Math.atan2(nVelocityX,nVelocityY);
-         }
-      }
-      
-      fl2d function dispose() : void {
-         if(cNext)
-         {
-            cNext.cPrevious = cPrevious;
-         }
-         if(cPrevious)
-         {
-            cPrevious.cNext = cNext;
-         }
-         cNext = null;
-         cPrevious = null;
-         __cNextInstance = availableInstance;
-         availableInstance = this;
-      }
-   }
-}
+            else
+            {
+                _local1 = new (FSimpleParticle)();
+            };
+            return (_local1);
+        }
+
+
+        public function toString():String
+        {
+            return ((("[" + __iId) + "]"));
+        }
+
+        function init(p_emitter:FSimpleEmitter, p_invalidate:Boolean=true):void
+        {
+            var _local5:Number;
+            var _local3:Number;
+            var _local8:Number;
+            var _local9:Number;
+            var _local16:Number;
+            var _local7:Number;
+            var _local11:Number;
+            nAccumulatedEnergy = 0;
+            nEnergy = (p_emitter.energy * 1000);
+            if (p_emitter.energyVariance > 0)
+            {
+                nEnergy = (nEnergy + ((p_emitter.energyVariance * 1000) * Math.random()));
+            };
+            nInitialScale = p_emitter.initialScale;
+            if (p_emitter.initialScaleVariance > 0)
+            {
+                nInitialScale = (nInitialScale + (p_emitter.initialScaleVariance * Math.random()));
+            };
+            nEndScale = p_emitter.endScale;
+            if (p_emitter.endScaleVariance > 0)
+            {
+                nEndScale = (nEndScale + (p_emitter.endScaleVariance * Math.random()));
+            };
+            var _local13:Number = p_emitter.initialVelocity;
+            if (p_emitter.initialVelocityVariance > 0)
+            {
+                _local13 = (_local13 + (p_emitter.initialVelocityVariance * Math.random()));
+            };
+            var _local10:Number = p_emitter.initialAcceleration;
+            if (p_emitter.initialAccelerationVariance > 0)
+            {
+                _local10 = (_local10 + (p_emitter.initialAccelerationVariance * Math.random()));
+            };
+            _local5 = _local13;
+            var _local15:Number = _local5;
+            _local3 = 0;
+            var _local14:Number = _local3;
+            _local8 = _local10;
+            var _local12:Number = _local8;
+            _local9 = 0;
+            var _local4:Number = _local9;
+            var _local6:Number = p_emitter.cNode.transform.nWorldRotation;
+            if (_local6 != 0)
+            {
+                _local16 = Math.sin(_local6);
+                _local7 = Math.cos(_local6);
+                _local5 = (_local13 * _local7);
+                _local15 = _local5;
+                _local3 = (_local13 * _local16);
+                _local14 = _local3;
+                _local8 = (_local10 * _local7);
+                _local12 = _local8;
+                _local9 = (_local10 * _local16);
+                _local4 = _local9;
+            };
+            if (((!((p_emitter.dispersionAngle == 0))) || (!((p_emitter.dispersionAngleVariance == 0)))))
+            {
+                _local11 = p_emitter.dispersionAngle;
+                if (p_emitter.dispersionAngleVariance > 0)
+                {
+                    _local11 = (_local11 + (p_emitter.dispersionAngleVariance * Math.random()));
+                };
+                _local16 = Math.sin(_local11);
+                _local7 = Math.cos(_local11);
+                _local5 = ((_local15 * _local7) - (_local14 * _local16));
+                _local3 = ((_local14 * _local7) + (_local15 * _local16));
+                _local8 = ((_local12 * _local7) - (_local4 * _local16));
+                _local9 = ((_local4 * _local7) + (_local12 * _local16));
+            };
+            nInitialVelocityX = (nVelocityX = (_local5 * 0.001));
+            nInitialVelocityY = (nVelocityY = (_local3 * 0.001));
+            nInitialAccelerationX = (nAccelerationX = (_local8 * 0.001));
+            nInitialAccelerationY = (nAccelerationY = (_local9 * 0.001));
+            nInitialVelocityAngular = p_emitter.initialAngularVelocity;
+            if (p_emitter.initialAngularVelocityVariance > 0)
+            {
+                nInitialVelocityAngular = (nInitialVelocityAngular + (p_emitter.initialAngularVelocityVariance * Math.random()));
+            };
+            nInitialRed = p_emitter.initialRed;
+            if (p_emitter.initialRedVariance > 0)
+            {
+                nInitialRed = (nInitialRed + (p_emitter.initialRedVariance * Math.random()));
+            };
+            nInitialGreen = p_emitter.initialGreen;
+            if (p_emitter.initialGreenVariance > 0)
+            {
+                nInitialGreen = (nInitialGreen + (p_emitter.initialGreenVariance * Math.random()));
+            };
+            nInitialBlue = p_emitter.initialBlue;
+            if (p_emitter.initialBlueVariance > 0)
+            {
+                nInitialBlue = (nInitialBlue + (p_emitter.initialBlueVariance * Math.random()));
+            };
+            nInitialAlpha = p_emitter.initialAlpha;
+            if (p_emitter.initialAlphaVariance > 0)
+            {
+                nInitialAlpha = (nInitialAlpha + (p_emitter.initialAlphaVariance * Math.random()));
+            };
+            nEndRed = p_emitter.endRed;
+            if (p_emitter.endRedVariance > 0)
+            {
+                nEndRed = (nEndRed + (p_emitter.endRedVariance * Math.random()));
+            };
+            nEndGreen = p_emitter.endGreen;
+            if (p_emitter.endGreenVariance > 0)
+            {
+                nEndGreen = (nEndGreen + (p_emitter.endGreenVariance * Math.random()));
+            };
+            nEndBlue = p_emitter.endBlue;
+            if (p_emitter.endBlueVariance > 0)
+            {
+                nEndBlue = (nEndBlue + (p_emitter.endBlueVariance * Math.random()));
+            };
+            nEndAlpha = p_emitter.endAlpha;
+            if (p_emitter.endAlphaVariance > 0)
+            {
+                nEndAlpha = (nEndAlpha + (p_emitter.endAlphaVariance * Math.random()));
+            };
+            __nRedDif = (nEndRed - nInitialRed);
+            __nGreenDif = (nEndGreen - nInitialGreen);
+            __nBlueDif = (nEndBlue - nInitialBlue);
+            __nAlphaDif = (nEndAlpha - nInitialAlpha);
+            __nScaleDif = (nEndScale - nInitialScale);
+        }
+
+        function update(p_emitter:FSimpleEmitter, p_deltaTime:Number):void
+        {
+            var _local5:int;
+            var _local4:Number;
+            nAccumulatedEnergy = (nAccumulatedEnergy + p_deltaTime);
+            if (nAccumulatedEnergy >= nEnergy)
+            {
+                p_emitter.deactivateParticle(this);
+                return;
+            };
+            _local5 = 0;
+            while (_local5 < p_emitter.iFieldsCount)
+            {
+                p_emitter.aFields[_local5].updateSimpleParticle(this, p_deltaTime);
+                _local5++;
+            };
+            var _local3:Number = (nAccumulatedEnergy / nEnergy);
+            nVelocityX = (nVelocityX + (nAccelerationX * p_deltaTime));
+            nVelocityY = (nVelocityY + (nAccelerationY * p_deltaTime));
+            nRed = ((__nRedDif * _local3) + nInitialRed);
+            nGreen = ((__nGreenDif * _local3) + nInitialGreen);
+            nBlue = ((__nBlueDif * _local3) + nInitialBlue);
+            nAlpha = ((__nAlphaDif * _local3) + nInitialAlpha);
+            nX = (nX + (nVelocityX * p_deltaTime));
+            nY = (nY + (nVelocityY * p_deltaTime));
+            nRotation = (nRotation + (nInitialVelocityAngular * p_deltaTime));
+            nScaleX = (nScaleY = ((__nScaleDif * _local3) + nInitialScale));
+            if (p_emitter.special)
+            {
+                _local4 = Math.sqrt(((nVelocityX * nVelocityX) + (nVelocityY * nVelocityY)));
+                nScaleY = (_local4 * 10);
+                nRotation = -(Math.atan2(nVelocityX, nVelocityY));
+            };
+        }
+
+        function dispose():void
+        {
+            if (cNext)
+            {
+                cNext.cPrevious = cPrevious;
+            };
+            if (cPrevious)
+            {
+                cPrevious.cNext = cNext;
+            };
+            cNext = null;
+            cPrevious = null;
+            __cNextInstance = availableInstance;
+            availableInstance = this;
+        }
+
+
+    }
+}//package com.flengine.components.particles
+

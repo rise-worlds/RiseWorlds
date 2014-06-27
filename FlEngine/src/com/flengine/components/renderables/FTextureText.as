@@ -1,280 +1,282 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.renderables.FTextureText
+
 package com.flengine.components.renderables
 {
-   import com.flengine.textures.FTextureAtlas;
-   import com.flengine.core.FNode;
-   import com.flengine.textures.FTexture;
-   import com.flengine.error.FError;
-   import com.flengine.core.FNodeFactory;
-   import flash.events.MouseEvent;
-   import flash.geom.Vector3D;
-   import flash.geom.Matrix3D;
-   
-   public class FTextureText extends FRenderable
-   {
-      
-      public function FTextureText(param1:FNode) {
-         _iAlign = FTextureTextAlignType.TOP_LEFT;
-         super(param1);
-      }
-      
-      protected var _cTextureAtlas:FTextureAtlas;
-      
-      protected var _bInvalidate:Boolean = false;
-      
-      protected var _nTracking:Number = 0;
-      
-      public function get tracking() : Number {
-         return _nTracking;
-      }
-      
-      public function set tracking(param1:Number) : void {
-         _nTracking = param1;
-         _bInvalidate = true;
-      }
-      
-      protected var _nLineSpace:Number = 0;
-      
-      public function get lineSpace() : Number {
-         return _nLineSpace;
-      }
-      
-      public function set lineSpace(param1:Number) : void {
-         _nLineSpace = param1;
-         _bInvalidate = true;
-      }
-      
-      protected var _iAlign:int;
-      
-      public function get align() : int {
-         return _iAlign;
-      }
-      
-      public function set align(param1:int) : void {
-         _iAlign = param1;
-         _bInvalidate = true;
-      }
-      
-      public var maxWidth:Number = 0;
-      
-      public function get textureAtlasId() : String {
-         if(_cTextureAtlas)
-         {
-            return _cTextureAtlas.id;
-         }
-         return "";
-      }
-      
-      public function set textureAtlasId(param1:String) : void {
-         setTextureAtlas(FTextureAtlas.getTextureAtlasById(param1));
-      }
-      
-      public function setTextureAtlas(param1:FTextureAtlas) : void {
-         _cTextureAtlas = param1;
-         _bInvalidate = true;
-      }
-      
-      protected var _sText:String = "";
-      
-      public function get text() : String {
-         return _sText;
-      }
-      
-      public function set text(param1:String) : void {
-         _sText = param1;
-         _bInvalidate = true;
-      }
-      
-      protected var _nWidth:Number = 0;
-      
-      public function get width() : Number {
-         if(_bInvalidate)
-         {
+    import com.flengine.textures.FTextureAtlas;
+    import com.flengine.core.FNode;
+    import com.flengine.error.FError;
+    import com.flengine.core.FNodeFactory;
+    import flash.geom.Matrix3D;
+    import flash.geom.Vector3D;
+    import flash.events.MouseEvent;
+
+    public class FTextureText extends FRenderable 
+    {
+
+        protected var _cTextureAtlas:FTextureAtlas;
+        protected var _bInvalidate:Boolean = false;
+        protected var _nTracking:Number = 0;
+        protected var _nLineSpace:Number = 0;
+        protected var _iAlign:int;
+        public var maxWidth:Number = 0;
+        protected var _sText:String = "";
+        protected var _nWidth:Number = 0;
+        protected var _nHeight:Number = 0;
+
+        public function FTextureText(p_node:FNode)
+        {
+            _iAlign = FTextureTextAlignType.TOP_LEFT;
+            super(p_node);
+        }
+
+        public function get tracking():Number
+        {
+            return (_nTracking);
+        }
+
+        public function set tracking(p_tracking:Number):void
+        {
+            _nTracking = p_tracking;
+            _bInvalidate = true;
+        }
+
+        public function get lineSpace():Number
+        {
+            return (_nLineSpace);
+        }
+
+        public function set lineSpace(p_value:Number):void
+        {
+            _nLineSpace = p_value;
+            _bInvalidate = true;
+        }
+
+        public function get align():int
+        {
+            return (_iAlign);
+        }
+
+        public function set align(p_align:int):void
+        {
+            _iAlign = p_align;
+            _bInvalidate = true;
+        }
+
+        public function get textureAtlasId():String
+        {
+            if (_cTextureAtlas)
+            {
+                return (_cTextureAtlas.id);
+            };
+            return ("");
+        }
+
+        public function set textureAtlasId(p_value:String):void
+        {
+            setTextureAtlas(FTextureAtlas.getTextureAtlasById(p_value));
+        }
+
+        public function setTextureAtlas(p_textureAtlas:FTextureAtlas):void
+        {
+            _cTextureAtlas = p_textureAtlas;
+            _bInvalidate = true;
+        }
+
+        public function get text():String
+        {
+            return (_sText);
+        }
+
+        public function set text(p_text:String):void
+        {
+            _sText = p_text;
+            _bInvalidate = true;
+        }
+
+        public function get width():Number
+        {
+            if (_bInvalidate)
+            {
+                invalidateText();
+            };
+            return ((_nWidth * cNode.cTransform.nWorldScaleX));
+        }
+
+        public function get height():Number
+        {
+            if (_bInvalidate)
+            {
+                invalidateText();
+            };
+            return ((_nHeight * cNode.cTransform.nWorldScaleY));
+        }
+
+        override public function update(p_deltaTime:Number, p_parentTransformUpdate:Boolean, p_parentColorUpdate:Boolean):void
+        {
+            if (!_bInvalidate)
+            {
+                return;
+            };
             invalidateText();
-         }
-         return _nWidth * cNode.cTransform.nWorldScaleX;
-      }
-      
-      protected var _nHeight:Number = 0;
-      
-      public function get height() : Number {
-         if(_bInvalidate)
-         {
-            invalidateText();
-         }
-         return _nHeight * cNode.cTransform.nWorldScaleY;
-      }
-      
-      override public function update(param1:Number, param2:Boolean, param3:Boolean) : void {
-         if(!_bInvalidate)
-         {
-            return;
-         }
-         invalidateText();
-      }
-      
-      protected function invalidateText() : void {
-         var _loc6_:* = null;
-         var _loc3_:* = null;
-         var _loc7_:* = 0;
-         var _loc5_:* = null;
-         if(_cTextureAtlas == null)
-         {
-            return;
-         }
-         _nWidth = 0;
-         var _loc4_:* = 0.0;
-         var _loc2_:* = 0.0;
-         var _loc1_:FNode = cNode.firstChild;
-         _loc7_ = 0;
-         while(_loc7_ < _sText.length)
-         {
-            if(_sText.charCodeAt(_loc7_) == 10)
+        }
+
+        protected function invalidateText():void
+        {
+            var _local6 = null;
+            var _local3 = null;
+            var _local7:int;
+            var _local5 = null;
+            if (_cTextureAtlas == null)
             {
-               _nWidth = _loc4_ > _nWidth?_loc4_:_nWidth;
-               _loc4_ = 0.0;
-               _loc2_ = _loc2_ + (_loc3_.height + _nLineSpace);
-            }
-            else
+                return;
+            };
+            _nWidth = 0;
+            var _local4 = 0;
+            var _local2 = 0;
+            var _local1:FNode = cNode.firstChild;
+            _local7 = 0;
+            while (_local7 < _sText.length)
             {
-               _loc3_ = _cTextureAtlas.getTexture(_sText.charCodeAt(_loc7_));
-               if(_loc3_ == null)
-               {
-                  throw new FError("Texture for character " + _sText.charAt(_loc7_) + " with code " + _sText.charCodeAt(_loc7_) + " not found!");
-               }
-               else
-               {
-                  if(_loc1_ == null)
-                  {
-                     _loc6_ = FNodeFactory.createNodeWithComponent(FSprite) as FSprite;
-                     _loc1_ = _loc6_.cNode;
-                     cNode.addChild(_loc1_);
-                  }
-                  else
-                  {
-                     _loc6_ = _loc1_.getComponent(FSprite) as FSprite;
-                  }
-                  _loc6_.node.cameraGroup = node.cameraGroup;
-                  _loc6_.setTexture(_loc3_);
-                  if(maxWidth > 0 && _loc4_ + _loc3_.width > maxWidth)
-                  {
-                     _nWidth = _loc4_ > _nWidth?_loc4_:_nWidth;
-                     _loc4_ = 0.0;
-                     _loc2_ = _loc2_ + (_loc3_.height + _nLineSpace);
-                  }
-                  _loc4_ = _loc4_ + _loc3_.width / 2;
-                  _loc6_.cNode.cTransform.x = _loc4_;
-                  _loc6_.cNode.cTransform.y = _loc2_ + _loc3_.height / 2;
-                  _loc4_ = _loc4_ + (_loc3_.width / 2 + _nTracking);
-                  _loc1_ = _loc1_.next;
-               }
-            }
-            _loc7_++;
-         }
-         _nWidth = _loc4_ > _nWidth?_loc4_:_nWidth;
-         _nHeight = _loc2_ + (_loc3_ != null?_loc3_.height:0);
-         while(_loc1_)
-         {
-            _loc5_ = _loc1_.next;
-            cNode.removeChild(_loc1_);
-            _loc1_ = _loc5_;
-         }
-         invalidateAlign();
-         _bInvalidate = false;
-      }
-      
-      private function invalidateAlign() : void {
-         var _loc1_:* = null;
-         var _loc2_:* = _iAlign;
-         if(FTextureTextAlignType.MIDDLE_CENTER !== _loc2_)
-         {
-            if(FTextureTextAlignType.TOP_RIGHT !== _loc2_)
+                if (_sText.charCodeAt(_local7) == 10)
+                {
+                    _nWidth = (((_local4)>_nWidth) ? _local4 : _nWidth);
+                    _local4 = 0;
+                    _local2 = (_local2 + (_local3.height + _nLineSpace));
+                }
+                else
+                {
+                    _local3 = _cTextureAtlas.getTexture(_sText.charCodeAt(_local7));
+                    if (_local3 == null)
+                    {
+                        throw (new FError((((("Texture for character " + _sText.charAt(_local7)) + " with code ") + _sText.charCodeAt(_local7)) + " not found!")));
+                    };
+                    if (_local1 == null)
+                    {
+                        _local6 = (FNodeFactory.createNodeWithComponent(FSprite) as FSprite);
+                        _local1 = _local6.cNode;
+                        cNode.addChild(_local1);
+                    }
+                    else
+                    {
+                        _local6 = (_local1.getComponent(FSprite) as FSprite);
+                    };
+                    _local6.node.cameraGroup = node.cameraGroup;
+                    _local6.setTexture(_local3);
+                    if ((((maxWidth > 0)) && (((_local4 + _local3.width) > maxWidth))))
+                    {
+                        _nWidth = (((_local4)>_nWidth) ? _local4 : _nWidth);
+                        _local4 = 0;
+                        _local2 = (_local2 + (_local3.height + _nLineSpace));
+                    };
+                    _local4 = (_local4 + (_local3.width / 2));
+                    _local6.cNode.cTransform.x = _local4;
+                    _local6.cNode.cTransform.y = (_local2 + (_local3.height / 2));
+                    _local4 = (_local4 + ((_local3.width / 2) + _nTracking));
+                    _local1 = _local1.next;
+                };
+                _local7++;
+            };
+            _nWidth = (((_local4)>_nWidth) ? _local4 : _nWidth);
+            _nHeight = (_local2 + (((_local3)!=null) ? _local3.height : 0));
+            while (_local1)
             {
-               if(FTextureTextAlignType.TOP_LEFT !== _loc2_)
-               {
-                  if(FTextureTextAlignType.MIDDLE_RIGHT !== _loc2_)
-                  {
-                     if(FTextureTextAlignType.MIDDLE_LEFT === _loc2_)
-                     {
-                        _loc1_ = cNode.firstChild;
-                        while(_loc1_)
-                        {
-                           _loc1_.transform.y = _loc1_.transform.y - _nHeight / 2;
-                           _loc1_ = _loc1_.next;
-                        }
-                     }
-                  }
-                  else
-                  {
-                     _loc1_ = cNode.firstChild;
-                     while(_loc1_)
-                     {
-                        _loc1_.transform.x = _loc1_.transform.x - _nWidth;
-                        _loc1_.transform.y = _loc1_.transform.y - _nHeight / 2;
-                        _loc1_ = _loc1_.next;
-                     }
-                  }
-               }
-            }
-            else
+                _local5 = _local1.next;
+                cNode.removeChild(_local1);
+                _local1 = _local5;
+            };
+            invalidateAlign();
+            _bInvalidate = false;
+        }
+
+        private function invalidateAlign():void
+        {
+            var _local1 = null;
+            switch (_iAlign)
             {
-               _loc1_ = cNode.firstChild;
-               while(_loc1_)
-               {
-                  _loc1_.transform.x = _loc1_.transform.x - _nWidth;
-                  _loc1_ = _loc1_.next;
-               }
-            }
-         }
-         else
-         {
-            _loc1_ = cNode.firstChild;
-            while(_loc1_)
+                case FTextureTextAlignType.MIDDLE_CENTER:
+                    _local1 = cNode.firstChild;
+                    while (_local1)
+                    {
+                        _local1.transform.x = (_local1.transform.x - (_nWidth / 2));
+                        _local1.transform.y = (_local1.transform.y - (_nHeight / 2));
+                        _local1 = _local1.next;
+                    };
+                    return;
+                case FTextureTextAlignType.TOP_RIGHT:
+                    _local1 = cNode.firstChild;
+                    while (_local1)
+                    {
+                        _local1.transform.x = (_local1.transform.x - _nWidth);
+                        _local1 = _local1.next;
+                    };
+                    return;
+                case FTextureTextAlignType.TOP_LEFT:
+                    return;
+                case FTextureTextAlignType.MIDDLE_RIGHT:
+                    _local1 = cNode.firstChild;
+                    while (_local1)
+                    {
+                        _local1.transform.x = (_local1.transform.x - _nWidth);
+                        _local1.transform.y = (_local1.transform.y - (_nHeight / 2));
+                        _local1 = _local1.next;
+                    };
+                    return;
+                case FTextureTextAlignType.MIDDLE_LEFT:
+                    _local1 = cNode.firstChild;
+                    while (_local1)
+                    {
+                        _local1.transform.y = (_local1.transform.y - (_nHeight / 2));
+                        _local1 = _local1.next;
+                    };
+                    return;
+            };
+        }
+
+        override public function processMouseEvent(p_captured:Boolean, p_event:MouseEvent, p_position:Vector3D):Boolean
+        {
+            if ((((_nWidth == 0)) || ((_nHeight == 0))))
             {
-               _loc1_.transform.x = _loc1_.transform.x - _nWidth / 2;
-               _loc1_.transform.y = _loc1_.transform.y - _nHeight / 2;
-               _loc1_ = _loc1_.next;
-            }
-         }
-      }
-      
-      override public function processMouseEvent(param1:Boolean, param2:MouseEvent, param3:Vector3D) : Boolean {
-         if(_nWidth == 0 || _nHeight == 0)
-         {
-            return false;
-         }
-         if(param1)
-         {
-            if(cNode.cMouseOver == cNode)
+                return (false);
+            };
+            if (p_captured)
             {
-               cNode.handleMouseEvent(cNode,"mouseOut",NaN,NaN,param2.buttonDown,param2.ctrlKey);
-            }
-            return false;
-         }
-         var _loc6_:Matrix3D = cNode.cTransform.getTransformedWorldTransformMatrix(_nWidth,_nHeight,0,true);
-         var _loc7_:Vector3D = _loc6_.transformVector(param3);
-         _loc6_.prependScale(1 / _nWidth,1 / _nHeight,1);
-         var _loc5_:* = 0.0;
-         var _loc4_:* = 0.0;
-         var _loc8_:* = _iAlign;
-         if(FTextureTextAlignType.MIDDLE_CENTER === _loc8_)
-         {
-            _loc5_ = -0.5;
-            _loc4_ = -0.5;
-         }
-         if(_loc7_.x >= _loc5_ && _loc7_.x <= 1 + _loc5_ && _loc7_.y >= _loc4_ && _loc7_.y <= 1 + _loc4_)
-         {
-            cNode.handleMouseEvent(cNode,param2.type,_loc7_.x * _nWidth,_loc7_.y * _nHeight,param2.buttonDown,param2.ctrlKey);
-            if(cNode.cMouseOver != cNode)
+                if (cNode.cMouseOver == cNode)
+                {
+                    cNode.handleMouseEvent(cNode, "mouseOut", NaN, NaN, p_event.buttonDown, p_event.ctrlKey);
+                };
+                return (false);
+            };
+            var _local6:Matrix3D = cNode.cTransform.getTransformedWorldTransformMatrix(_nWidth, _nHeight, 0, true);
+            var _local7:Vector3D = _local6.transformVector(p_position);
+            _local6.prependScale((1 / _nWidth), (1 / _nHeight), 1);
+            var _local5 = 0;
+            var _local4 = 0;
+            switch (_iAlign)
             {
-               cNode.handleMouseEvent(cNode,"mouseOver",_loc7_.x * _nWidth,_loc7_.y * _nHeight,param2.buttonDown,param2.ctrlKey);
-            }
-            return true;
-         }
-         if(cNode.cMouseOver == cNode)
-         {
-            cNode.handleMouseEvent(cNode,"mouseOut",_loc7_.x * _nWidth,_loc7_.y * _nHeight,param2.buttonDown,param2.ctrlKey);
-         }
-         return false;
-      }
-   }
-}
+                case FTextureTextAlignType.MIDDLE_CENTER:
+                    _local5 = -0.5;
+                    _local4 = -0.5;
+            };
+            if ((((((((_local7.x >= _local5)) && ((_local7.x <= (1 + _local5))))) && ((_local7.y >= _local4)))) && ((_local7.y <= (1 + _local4)))))
+            {
+                cNode.handleMouseEvent(cNode, p_event.type, (_local7.x * _nWidth), (_local7.y * _nHeight), p_event.buttonDown, p_event.ctrlKey);
+                if (cNode.cMouseOver != cNode)
+                {
+                    cNode.handleMouseEvent(cNode, "mouseOver", (_local7.x * _nWidth), (_local7.y * _nHeight), p_event.buttonDown, p_event.ctrlKey);
+                };
+                return (true);
+            };
+            if (cNode.cMouseOver == cNode)
+            {
+                cNode.handleMouseEvent(cNode, "mouseOut", (_local7.x * _nWidth), (_local7.y * _nHeight), p_event.buttonDown, p_event.ctrlKey);
+            };
+            return (false);
+        }
+
+
+    }
+}//package com.flengine.components.renderables
+

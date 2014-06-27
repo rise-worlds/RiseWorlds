@@ -1,57 +1,70 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.signals.HelpSignal
+
 package com.flengine.signals
 {
-   import flash.utils.Dictionary;
-   
-   public class HelpSignal extends Object
-   {
-      
-      public function HelpSignal() {
-         super();
-         funcList = new Dictionary();
-      }
-      
-      private var funcList:Dictionary;
-      
-      public function dispose() : void {
-         for(var _loc1_:Object in funcList)
-         {
-            delete funcList[_loc1_];
-            _loc1_ = null;
-         }
-         funcList = null;
-      }
-      
-      public function dispatch(param1:Object) : void {
-         for(var _loc2_:Object in funcList)
-         {
-            _loc2_(param1);
-            if(funcList[_loc2_])
+    import flash.utils.Dictionary;
+
+    public class HelpSignal 
+    {
+
+        private var funcList:Dictionary;
+
+        public function HelpSignal()
+        {
+            funcList = new Dictionary();
+        }
+
+        public function dispose():void
+        {
+            for (var _local1:Object in funcList)
             {
-               delete funcList[_loc2_];
-               _loc2_ = null;
-            }
-         }
-      }
-      
-      public function add(param1:Function) : void {
-         if(funcList[param1] == undefined)
-         {
-            funcList[param1] = false;
-         }
-      }
-      
-      public function addOnce(param1:Function) : void {
-         if(funcList[param1] == undefined)
-         {
-            funcList[param1] = true;
-         }
-      }
-      
-      public function remove(param1:Function) : void {
-         if(funcList[param1] != undefined)
-         {
-            delete funcList[param1];
-         }
-      }
-   }
-}
+                delete funcList[_local1];
+                _local1 = null;
+            };
+            funcList = null;
+        }
+
+        public function dispatch(e:Object):void
+        {
+            for (var _local2:Object in funcList)
+            {
+                (_local2(e));
+                if (funcList[_local2])
+                {
+                    delete funcList[_local2];
+                    _local2 = null;
+                };
+            };
+        }
+
+        public function add(func:Function):void
+        {
+            if (funcList[func] == undefined)
+            {
+                funcList[func] = false;
+            };
+        }
+
+        public function addOnce(func:Function):void
+        {
+            if (funcList[func] == undefined)
+            {
+                funcList[func] = true;
+            };
+        }
+
+        public function remove(func:Function):void
+        {
+            if (funcList[func] != undefined)
+            {
+                delete funcList[func];
+            };
+        }
+
+
+    }
+}//package com.flengine.signals
+

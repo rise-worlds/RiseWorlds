@@ -1,40 +1,50 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.context.postprocesses.FComposedPP
+
 package com.flengine.context.postprocesses
 {
-   import com.flengine.context.FContext;
-   import com.flengine.components.FCamera;
-   import flash.geom.Rectangle;
-   import com.flengine.core.FNode;
-   import com.flengine.textures.FTexture;
-   
-   public class FComposedPP extends FPostProcess
-   {
-      
-      public function FComposedPP(param1:Vector.<FPostProcess>) {
-         super(param1.length + 1);
-         throw new Error("Not supported yet.");
-      }
-      
-      protected var _cEmptyPass:FFilterPP;
-      
-      protected var _aPostProcesses:Vector.<FPostProcess>;
-      
-      override public function render(param1:FContext, param2:FCamera, param3:Rectangle, param4:FNode, param5:Rectangle = null, param6:FTexture = null, param7:FTexture = null) : void {
-         var _loc10_:* = 0;
-         var _loc8_:Rectangle = _rDefinedBounds?_rDefinedBounds:param4.getWorldBounds(_rActiveBounds);
-         if(_loc8_.x == 1.7976931348623157E308)
-         {
-            return;
-         }
-         updatePassTextures(_loc8_);
-         _cEmptyPass.render(param1,param2,param3,param4,_loc8_,null,_aPassTextures[0]);
-         var _loc9_:int = _aPostProcesses.length;
-         _loc10_ = 0;
-         while(_loc10_ < _loc9_ - 1)
-         {
-            _aPostProcesses[_loc10_].render(param1,param2,param3,param4,_loc8_,_aPassTextures[_loc10_],_aPassTextures[_loc10_ + 1]);
-            _loc10_++;
-         }
-         _aPostProcesses[_loc9_ - 1].render(param1,param2,param3,param4,_loc8_,_aPassTextures[_loc9_ - 1],null);
-      }
-   }
-}
+    import __AS3__.vec.Vector;
+    import flash.geom.Rectangle;
+    import com.flengine.context.FContext;
+    import com.flengine.components.FCamera;
+    import com.flengine.core.FNode;
+    import com.flengine.textures.FTexture;
+
+    public class FComposedPP extends FPostProcess 
+    {
+
+        protected var _cEmptyPass:FFilterPP;
+        protected var _aPostProcesses:Vector.<FPostProcess>;
+
+        public function FComposedPP(p_postProcesses:Vector.<FPostProcess>)
+        {
+            super((p_postProcesses.length + 1));
+            throw (new Error("Not supported yet."));
+        }
+
+        override public function render(p_context:FContext, p_camera:FCamera, p_maskRect:Rectangle, p_node:FNode, p_bounds:Rectangle=null, p_source:FTexture=null, p_target:FTexture=null):void
+        {
+            var _local10:int;
+            var _local8:Rectangle = ((_rDefinedBounds) ? _rDefinedBounds : p_node.getWorldBounds(_rActiveBounds));
+            if (_local8.x == 1.79769313486232E308)
+            {
+                return;
+            };
+            updatePassTextures(_local8);
+            _cEmptyPass.render(p_context, p_camera, p_maskRect, p_node, _local8, null, _aPassTextures[0]);
+            var _local9:int = _aPostProcesses.length;
+            _local10 = 0;
+            while (_local10 < (_local9 - 1))
+            {
+                _aPostProcesses[_local10].render(p_context, p_camera, p_maskRect, p_node, _local8, _aPassTextures[_local10], _aPassTextures[(_local10 + 1)]);
+                _local10++;
+            };
+            _aPostProcesses[(_local9 - 1)].render(p_context, p_camera, p_maskRect, p_node, _local8, _aPassTextures[(_local9 - 1)], null);
+        }
+
+
+    }
+}//package com.flengine.context.postprocesses
+

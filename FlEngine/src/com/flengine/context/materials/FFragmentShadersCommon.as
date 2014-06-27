@@ -1,55 +1,63 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.context.materials.FFragmentShadersCommon
+
 package com.flengine.context.materials
 {
-   import flash.utils.Dictionary;
-   import flash.utils.ByteArray;
-   import com.adobe.utils.AGALMiniAssembler;
-   import com.flengine.context.filters.FFilter;
-   import com.flengine.fl2d;
-   use namespace fl2d;
-   public class FFragmentShadersCommon extends Object
-   {
-      
-      public function FFragmentShadersCommon() {
-         super();
-      }
-      
-      private static const COLOR_FRAGMENT_CODE:String = "mov oc, v1";
-      private static const ALPHA_FRAGMENT_CODE:String = "mul ft0, ft0, v1";
-      private static const FINAL_FRAGMENT_CODE:String = "mov oc, ft0";
-      private static var CACHED_CODE:Dictionary = new Dictionary();
-      
-      private static function getSamplerFragmentCode(param1:Boolean, param2:int, param3:int) : String {
-         return "tex ft0, v0, fs0 <2d," + (param1?"repeat":"clamp") + (param3 != 0?"," + (param3 == 1?"dxt1":"dxt5") + ",":",") + (param2 == 0?"nearest":"linear") + ",mipnone>";
-      }
-      
-      public static function getColorShaderCode() : ByteArray {
-         var _loc1_:AGALMiniAssembler = new AGALMiniAssembler();
-         _loc1_.assemble("fragment","mov oc, v1");
-         return _loc1_.agalcode;
-      }
-      
-      public static function getTexturedShaderCode(param1:Boolean, param2:int, param3:Boolean, param4:int = 0, param5:FFilter = null) : ByteArray {
-         var _loc6_:String = null;
-         if(param5 == null || !param5.bOverrideFragmentShader)
-         {
-            _loc6_ = getSamplerFragmentCode(param1,param2,param4);
-            if(param5)
+    import flash.utils.Dictionary;
+    import com.adobe.utils.AGALMiniAssembler;
+    import flash.utils.ByteArray;
+    import com.flengine.context.filters.FFilter;
+
+    public class FFragmentShadersCommon 
+    {
+
+        private static const COLOR_FRAGMENT_CODE:String = "mov oc, v1";
+        private static const ALPHA_FRAGMENT_CODE:String = "mul ft0, ft0, v1";
+        private static const FINAL_FRAGMENT_CODE:String = "mov oc, ft0";
+
+        private static var CACHED_CODE:Dictionary = new Dictionary();
+
+
+        private static function getSamplerFragmentCode(p_repeat:Boolean, p_filtering:int, p_atf:int):String
+        {
+            return ((((("tex ft0, v0, fs0 <2d," + ((p_repeat) ? "repeat" : "clamp")) + (((p_atf)!=0) ? (("," + (((p_atf)==1) ? "dxt1" : "dxt5")) + ",") : ",")) + (((p_filtering)==0) ? "nearest" : "linear")) + ",mipnone>"));
+        }
+
+        public static function getColorShaderCode():ByteArray
+        {
+            var _local1:AGALMiniAssembler = new AGALMiniAssembler();
+            _local1.assemble("fragment", "mov oc, v1");
+            return (_local1.agalcode);
+        }
+
+        public static function getTexturedShaderCode(p_repeat:Boolean, p_filtering:int, p_alpha:Boolean, p_atf:int=0, p_filter:FFilter=null):ByteArray
+        {
+            var _local6:String;
+            if ((((p_filter == null)) || (!(p_filter.bOverrideFragmentShader))))
             {
-               _loc6_ += ("\n" + param5.fragmentCode);
+                _local6 = getSamplerFragmentCode(p_repeat, p_filtering, p_atf);
+                if (p_filter)
+                {
+                    _local6 = (_local6 + ("\n" + p_filter.fragmentCode));
+                };
+                if (p_alpha)
+                {
+                    _local6 = (_local6 + "\nmul ft0, ft0, v1");
+                };
+                _local6 = (_local6 + "\nmov oc, ft0");
             }
-            if(param3)
+            else
             {
-               _loc6_ += "\nmul ft0, ft0, v1";
-            }
-            _loc6_ += "\nmov oc, ft0";
-         }
-         else
-         {
-            _loc6_ = param5.fragmentCode;
-         }
-         var _loc7_:AGALMiniAssembler = new AGALMiniAssembler();
-         _loc7_.assemble("fragment",_loc6_);
-         return _loc7_.agalcode;
-      }
-   }
-}
+                _local6 = p_filter.fragmentCode;
+            };
+            var _local7:AGALMiniAssembler = new AGALMiniAssembler();
+            _local7.assemble("fragment", _local6);
+            return (_local7.agalcode);
+        }
+
+
+    }
+}//package com.flengine.context.materials
+

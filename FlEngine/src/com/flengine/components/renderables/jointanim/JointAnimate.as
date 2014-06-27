@@ -1,807 +1,830 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.renderables.jointanim.JointAnimate
+
 package com.flengine.components.renderables.jointanim
 {
-   import com.flengine.rand.MTRand;
-   import com.adobe.utils.*;
-   import flash.geom.*;
-   import flash.utils.*;
-   import com.flengine.textures.FTextureAtlas;
-   import com.flengine.components.renderables.JAMemoryImage;
-   import com.flengine.textures.FTexture;
-   
-   public class JointAnimate extends Object
-   {
-      
-      public function JointAnimate() {
-         super();
-         _randUsed = false;
-         _rand = new MTRand();
-         _rand.SRand(getTimer());
-         _drawScale = 1;
-         _imgScale = 1;
-         _loaded = false;
-         _animRect = new Rectangle();
-         _imageVector = new Vector.<JAImage>();
-         _mainAnimDef = new JAAnimDef();
-         _remapList = [];
-      }
-      
-      public static const Load_Successed:int = 0;
-      
-      public static const Load_MagicError:int = -1;
-      
-      public static const Load_VersionError:int = -2;
-      
-      public static const Load_Failed:int = -3;
-      
-      public static const Load_LoadSpriteError:int = -4;
-      
-      public static const Load_LoadMainSpriteError:int = -5;
-      
-      public static const Load_GetImageTextureAtlasError:int = -6;
-      
-      public static var ImageSearchPathVector:Array;
-      
-      private var _loaded:Boolean;
-      
-      private var _version:uint;
-      
-      private var _animRate:int;
-      
-      private var _animRect:Rectangle;
-      
-      private var _imageVector:Vector.<JAImage>;
-      
-      private var _mainAnimDef:JAAnimDef;
-      
-      private var _remapList:Array;
-      
-      private var _particleAttachOffset:Point;
-      
-      private var _randUsed:Boolean;
-      
-      private var _rand:MTRand;
-      
-      private var _drawScale:Number;
-      
-      private var _imgScale:Number;
-      
-      public function get drawScale() : Number {
-         return _drawScale;
-      }
-      
-      public function get imgScale() : Number {
-         return _imgScale;
-      }
-      
-      public function get loaded() : Boolean {
-         return _loaded;
-      }
-      
-      public function get particleAttachOffset() : Point {
-         return _particleAttachOffset;
-      }
-      
-      public function get mainAnimDef() : JAAnimDef {
-         return _mainAnimDef;
-      }
-      
-      public function get imageVector() : Vector.<JAImage> {
-         return _imageVector;
-      }
-      
-      public function get animRect() : Rectangle {
-         return _animRect;
-      }
-      
-      private function AddOnceImageToList(param1:String, param2:Array) : void {
-         var _loc4_:* = 0;
-         var _loc3_:* = null;
-         _loc4_ = 0;
-         while(_loc4_ < param2.length)
-         {
-            _loc3_ = param2[_loc4_];
-            if(param1 == _loc3_.imageName)
+    import flash.geom.Rectangle;
+    import __AS3__.vec.Vector;
+    import flash.geom.Point;
+    import com.flengine.rand.MTRand;
+    import flash.utils.getTimer;
+    import flash.utils.ByteArray;
+    import com.flengine.textures.FTextureAtlas;
+    import com.flengine.components.renderables.JAMemoryImage;
+    import com.flengine.textures.FTexture;
+    import flash.utils.Dictionary;
+    import flash.geom.*;
+    import com.adobe.utils.*;
+    import flash.utils.*;
+
+    public class JointAnimate 
+    {
+
+        public static const Load_Successed:int = 0;
+        public static const Load_MagicError:int = -1;
+        public static const Load_VersionError:int = -2;
+        public static const Load_Failed:int = -3;
+        public static const Load_LoadSpriteError:int = -4;
+        public static const Load_LoadMainSpriteError:int = -5;
+        public static const Load_GetImageTextureAtlasError:int = -6;
+
+        public static var ImageSearchPathVector:Array = [];
+
+        private var _loaded:Boolean;
+        private var _version:uint;
+        private var _animRate:int;
+        private var _animRect:Rectangle;
+        private var _imageVector:Vector.<JAImage>;
+        private var _mainAnimDef:JAAnimDef;
+        private var _remapList:Array;
+        private var _particleAttachOffset:Point;
+        private var _randUsed:Boolean;
+        private var _rand:MTRand;
+        private var _drawScale:Number;
+        private var _imgScale:Number;
+
+        public function JointAnimate()
+        {
+            _randUsed = false;
+            _rand = new MTRand();
+            _rand.SRand(getTimer());
+            _drawScale = 1;
+            _imgScale = 1;
+            _loaded = false;
+            _animRect = new Rectangle();
+            _imageVector = new Vector.<JAImage>();
+            _mainAnimDef = new JAAnimDef();
+            _remapList = [];
+        }
+
+        public function get drawScale():Number
+        {
+            return (_drawScale);
+        }
+
+        public function get imgScale():Number
+        {
+            return (_imgScale);
+        }
+
+        public function get loaded():Boolean
+        {
+            return (_loaded);
+        }
+
+        public function get particleAttachOffset():Point
+        {
+            return (_particleAttachOffset);
+        }
+
+        public function get mainAnimDef():JAAnimDef
+        {
+            return (_mainAnimDef);
+        }
+
+        public function get imageVector():Vector.<JAImage>
+        {
+            return (_imageVector);
+        }
+
+        public function get animRect():Rectangle
+        {
+            return (_animRect);
+        }
+
+        private function AddOnceImageToList(name:String, list:Array):void
+        {
+            var _local4:int;
+            var _local3 = null;
+            _local4 = 0;
+            while (_local4 < list.length)
             {
-               return;
-            }
-            _loc4_++;
-         }
-         param2.push({"imageName":param1});
-      }
-      
-      public function GetImageFileList(param1:ByteArray, param2:Array) : int {
-         var _loc10_:* = 0;
-         var _loc8_:* = null;
-         var _loc5_:* = null;
-         var _loc3_:* = null;
-         var _loc9_:* = 0;
-         var _loc7_:* = 0;
-         var _loc4_:uint = param1.readUnsignedInt();
-         if(_loc4_ != 3136297300)
-         {
-            return -1;
-         }
-         var _loc11_:int = param1.readUnsignedInt();
-         if(_loc11_ > 5)
-         {
-            return -2;
-         }
-         param1.readUnsignedByte();
-         param1.readShort();
-         param1.readShort();
-         param1.readShort();
-         param1.readShort();
-         var _loc6_:int = param1.readShort();
-         _loc10_ = 0;
-         while(_loc10_ < _loc6_)
-         {
-            _loc8_ = ReadString(param1);
-            _loc5_ = Remap(_loc8_);
-            _loc3_ = "";
-            _loc9_ = _loc5_.indexOf("(");
-            _loc7_ = _loc5_.indexOf(")");
-            if(!(_loc9_ == -1) && !(_loc7_ == -1) && _loc9_ < _loc7_)
+                _local3 = list[_local4];
+                if (name == _local3.imageName)
+                {
+                    return;
+                };
+                _local4++;
+            };
+            list.push({"imageName":name});
+        }
+
+        public function GetImageFileList(stream:ByteArray, list:Array):int
+        {
+            var _local10:int;
+            var _local8 = null;
+            var _local5 = null;
+            var _local3 = null;
+            var _local9:int;
+            var _local7:int;
+            var _local4:uint = stream.readUnsignedInt();
+            if (_local4 != 3136297300)
             {
-               _loc3_ = _loc5_.substr(_loc9_ + 1,_loc7_ - _loc9_ - 1).toLowerCase();
-               _loc5_ = _loc5_.substr(0,_loc9_) + _loc5_.substr(_loc7_ + 1);
-            }
-            else
+                return (-1);
+            };
+            var _local11:int = stream.readUnsignedInt();
+            if (_local11 > 5)
             {
-               _loc7_ = _loc5_.indexOf("$");
-               if(_loc7_ != -1)
-               {
-                  _loc3_ = _loc5_.substr(0,_loc7_).toLowerCase();
-                  _loc5_ = _loc5_.substr(_loc7_ + 1);
-               }
-            }
-            if(_loc11_ >= 4)
+                return (-2);
+            };
+            stream.readUnsignedByte();
+            stream.readShort();
+            stream.readShort();
+            stream.readShort();
+            stream.readShort();
+            var _local6:int = stream.readShort();
+            _local10 = 0;
+            while (_local10 < _local6)
             {
-               param1.readShort();
-               param1.readShort();
-            }
-            if(_loc11_ == 1)
+                _local8 = ReadString(stream);
+                _local5 = Remap(_local8);
+                _local3 = "";
+                _local9 = _local5.indexOf("(");
+                _local7 = _local5.indexOf(")");
+                if (((((!((_local9 == -1))) && (!((_local7 == -1))))) && ((_local9 < _local7))))
+                {
+                    _local3 = _local5.substr((_local9 + 1), ((_local7 - _local9) - 1)).toLowerCase();
+                    _local5 = (_local5.substr(0, _local9) + _local5.substr((_local7 + 1)));
+                }
+                else
+                {
+                    _local7 = _local5.indexOf("$");
+                    if (_local7 != -1)
+                    {
+                        _local3 = _local5.substr(0, _local7).toLowerCase();
+                        _local5 = _local5.substr((_local7 + 1));
+                    };
+                };
+                if (_local11 >= 4)
+                {
+                    stream.readShort();
+                    stream.readShort();
+                };
+                if (_local11 == 1)
+                {
+                    stream.readShort();
+                    stream.readShort();
+                    stream.readShort();
+                }
+                else
+                {
+                    stream.readInt();
+                    stream.readInt();
+                    stream.readInt();
+                    stream.readInt();
+                    stream.readShort();
+                    stream.readShort();
+                };
+                if (_local5.length > 0)
+                {
+                    AddOnceImageToList(_local5, list);
+                };
+                _local10++;
+            };
+            return (0);
+        }
+
+        public function LoadPam(steam:ByteArray, texture:FTextureAtlas):int
+        {
+            var _local13:int;
+            var _local10:int;
+            var _local12:int;
+            var _local5:int;
+            var _local6 = null;
+            var _local11 = null;
+            var _local8 = null;
+            var _local17 = null;
+            var _local3:Number;
+            var _local4:Number;
+            var _local15:Number;
+            var _local16:uint = steam.readUnsignedInt();
+            if (_local16 != 3136297300)
             {
-               param1.readShort();
-               param1.readShort();
-               param1.readShort();
-            }
-            else
+                return (-1);
+            };
+            _version = steam.readUnsignedInt();
+            if (_version > 5)
             {
-               param1.readInt();
-               param1.readInt();
-               param1.readInt();
-               param1.readInt();
-               param1.readShort();
-               param1.readShort();
-            }
-            if(_loc5_.length > 0)
+                return (-2);
+            };
+            _animRate = steam.readUnsignedByte();
+            _animRect.x = (steam.readShort() / 20);
+            _animRect.y = (steam.readShort() / 20);
+            _animRect.width = (steam.readShort() / 20);
+            _animRect.height = (steam.readShort() / 20);
+            var _local9:int = steam.readShort();
+            _imageVector.length = _local9;
+            _local13 = 0;
+            while (_local13 < _local9)
             {
-               AddOnceImageToList(_loc5_,param2);
-            }
-            _loc10_++;
-         }
-         return 0;
-      }
-      
-      public function LoadPam(param1:ByteArray, param2:FTextureAtlas) : int {
-         var _loc13_:* = 0;
-         var _loc10_:* = 0;
-         var _loc12_:* = 0;
-         var _loc5_:* = 0;
-         var _loc6_:* = null;
-         var _loc11_:* = null;
-         var _loc8_:* = null;
-         var _loc17_:* = null;
-         var _loc3_:* = NaN;
-         var _loc4_:* = NaN;
-         var _loc15_:* = NaN;
-         var _loc16_:uint = param1.readUnsignedInt();
-         if(_loc16_ != 3136297300)
-         {
-            return -1;
-         }
-         _version = param1.readUnsignedInt();
-         if(_version > 5)
-         {
-            return -2;
-         }
-         _animRate = param1.readUnsignedByte();
-         _animRect.x = (param1.readShort()) / 20;
-         _animRect.y = (param1.readShort()) / 20;
-         _animRect.width = (param1.readShort()) / 20;
-         _animRect.height = (param1.readShort()) / 20;
-         var _loc9_:int = param1.readShort();
-         _imageVector.length = _loc9_;
-         _loc13_ = 0;
-         while(_loc13_ < _loc9_)
-         {
-            _imageVector[_loc13_] = new JAImage();
-            _loc13_++;
-         }
-         _loc13_ = 0;
-         while(_loc13_ < _loc9_)
-         {
-            _loc6_ = _imageVector[_loc13_];
-            _loc6_.drawMode = 0;
-            _loc11_ = ReadString(param1);
-            _loc8_ = Remap(_loc11_);
-            _loc17_ = "";
-            _loc12_ = _loc8_.indexOf("(");
-            _loc10_ = _loc8_.indexOf(")");
-            if(!(_loc12_ == -1) && !(_loc10_ == -1) && _loc12_ < _loc10_)
+                _imageVector[_local13] = new JAImage();
+                _local13++;
+            };
+            _local13 = 0;
+            while (_local13 < _local9)
             {
-               _loc17_ = _loc8_.substr(_loc12_ + 1,_loc10_ - _loc12_ - 1).toLowerCase();
-               _loc8_ = _loc8_.substr(0,_loc12_) + _loc8_.substr(_loc10_ + 1);
-            }
-            else
-            {
-               _loc10_ = _loc8_.indexOf("$");
-               if(_loc10_ != -1)
-               {
-                  _loc17_ = _loc8_.substr(0,_loc10_).toLowerCase();
-                  _loc8_ = _loc8_.substr(_loc10_ + 1);
-               }
-            }
-            _loc6_.cols = 1;
-            _loc6_.rows = 1;
-            _loc12_ = _loc8_.indexOf("[");
-            _loc10_ = _loc8_.indexOf("]");
-            if(!(_loc12_ == -1) && !(_loc10_ == -1) && _loc12_ < _loc10_)
-            {
-               _loc17_ = _loc8_.substr(_loc12_ + 1,_loc10_ - _loc12_ - 1).toLowerCase();
-               _loc8_ = _loc8_.substr(0,_loc12_) + _loc8_.substr(_loc10_ + 1);
-               _loc5_ = _loc17_.indexOf(",");
-               if(_loc5_ != -1)
-               {
-                  _loc6_.cols = _loc17_.substr(0,_loc5_);
-                  _loc6_.rows = _loc17_.substr(_loc5_ + 1);
-               }
-            }
-            if(_loc17_.indexOf("add") != -1)
-            {
-               _loc6_.drawMode = 1;
-            }
-            if(_version >= 4)
-            {
-               _loc6_.origWidth = param1.readShort();
-               _loc6_.origHeight = param1.readShort();
-            }
-            else
-            {
-               _loc6_.origWidth = -1;
-               _loc6_.origHeight = -1;
-            }
-            if(_version == 1)
-            {
-               _loc3_ = (param1.readShort()) / 1000;
-               _loc4_ = Math.sin(_loc3_);
-               _loc15_ = Math.cos(_loc3_);
-               _loc6_.transform.matrix.m00 = _loc15_;
-               _loc6_.transform.matrix.m01 = -_loc4_;
-               _loc6_.transform.matrix.m10 = _loc4_;
-               _loc6_.transform.matrix.m11 = _loc15_;
-               _loc6_.transform.matrix.m02 = param1.readShort() / 20;
-               _loc6_.transform.matrix.m12 = param1.readShort() / 20;
-            }
-            else
-            {
-               _loc6_.transform.matrix.m00 = (param1.readInt()) / 1310720;
-               _loc6_.transform.matrix.m01 = (param1.readInt()) / 1310720;
-               _loc6_.transform.matrix.m10 = (param1.readInt()) / 1310720;
-               _loc6_.transform.matrix.m11 = (param1.readInt()) / 1310720;
-               _loc6_.transform.matrix.m02 = (param1.readShort()) / 20;
-               _loc6_.transform.matrix.m12 = (param1.readShort()) / 20;
-            }
-            _loc6_.imageName = _loc8_;
-            if(_loc6_.imageName.length > 0)
-            {
-               if(param2 != null)
-               {
-                  if(Load_GetImage(_loc6_,param2) == false)
-                  {
-                     Load_GetImageNoTexture(_loc6_);
-                  }
-               }
-               else
-               {
-                  Load_GetImageNoTexture(_loc6_);
-               }
-            }
-            _loc13_++;
-         }
-         var _loc14_:int = param1.readShort();
-         _mainAnimDef.spriteDefVector.length = _loc14_;
-         _loc13_ = 0;
-         while(_loc13_ < _loc14_)
-         {
-            _mainAnimDef.spriteDefVector[_loc13_] = new JASpriteDef();
-            _loc13_++;
-         }
-         _loc13_ = 0;
-         while(_loc13_ < _loc14_)
-         {
-            if(LoadSpriteDef(param1,_mainAnimDef.spriteDefVector[_loc13_]) == false)
-            {
-               return -4;
-            }
-            _loc13_++;
-         }
-         var _loc7_:Boolean = _version <= 3 || param1.readBoolean();
-         if(_loc7_)
-         {
-            _mainAnimDef.mainSpriteDef = new JASpriteDef();
-            if(LoadSpriteDef(param1,_mainAnimDef.mainSpriteDef) == false)
-            {
-               return -5;
-            }
-         }
-         _loaded = true;
-         return 0;
-      }
-      
-      private function Load_GetImageNoTexture(param1:JAImage) : void {
-         var _loc2_:JAMemoryImage = new JAMemoryImage(null);
-         _loc2_.width = param1.origWidth;
-         _loc2_.height = param1.origHeight;
-         _loc2_.loadFlag = 2;
-         _loc2_.texture = null;
-         _loc2_.name = param1.imageName;
-         _loc2_.imageExist = false;
-         param1.images.push(_loc2_);
-      }
-      
-      private function Load_GetImage(param1:JAImage, param2:FTextureAtlas) : Boolean {
-         var _loc4_:FTexture = param2.getTexture(param1.imageName);
-         if(_loc4_ == null)
-         {
-            return false;
-         }
-         var _loc3_:JAMemoryImage = new JAMemoryImage(null);
-         _loc3_.width = _loc4_.frameWidth;
-         _loc3_.height = _loc4_.frameHeight;
-         _loc3_.loadFlag = 2;
-         _loc3_.texture = _loc4_;
-         param1.OnMemoryImageLoadCompleted(_loc3_);
-         param1.images.push(_loc3_);
-         return true;
-      }
-      
-      private function ReadString(param1:ByteArray) : String {
-         var _loc2_:uint = param1.readShort();
-         return param1.readUTFBytes(_loc2_);
-      }
-      
-      private function Remap(param1:String) : String {
-         var _loc5_:* = 0;
-         var _loc3_:Array = [];
-         var _loc4_:* = param1;
-         var _loc2_:uint = _remapList.length;
-         _loc5_ = 0;
-         while(_loc5_ < _loc2_)
-         {
-            if(WildcardReplace(param1,_remapList[_loc5_][0],_remapList[_loc5_][1],_loc3_))
-            {
-               _loc4_ = _loc3_[0];
-               break;
-            }
-            _loc5_++;
-         }
-         _loc3_.splice(0);
-         _loc3_ = null;
-         return _loc4_;
-      }
-      
-      private function WildcardReplace(param1:String, param2:String, param3:String, param4:Array) : Boolean {
-         var _loc6_:* = 0;
-         var _loc5_:* = 0;
-         var _loc7_:* = 0;
-         var _loc8_:* = false;
-         var _loc9_:* = 0;
-         if(param2.length == 0)
-         {
-            return false;
-         }
-         if(param2.charAt(0) == "*")
-         {
-            if(param2.length == 1)
-            {
-               param4.push(WildcardExpand(param1,0,param1.length,param3));
-               return true;
-            }
-            if(param2.charAt(param2.length - 1) == "*")
-            {
-               _loc6_ = param2.length - 2;
-               _loc5_ = param1.length - _loc6_;
-               _loc7_ = 0;
-               while(true)
-               {
-                  if(_loc7_ <= _loc5_)
-                  {
-                     _loc8_ = true;
-                     _loc9_ = 0;
-                     while(_loc9_ < _loc6_)
-                     {
-                        if(param2.charAt(_loc9_ + 1).toUpperCase() != param1.charAt(_loc7_ + _loc9_).toUpperCase())
+                _local6 = _imageVector[_local13];
+                _local6.drawMode = 0;
+                _local11 = ReadString(steam);
+                _local8 = Remap(_local11);
+                _local17 = "";
+                _local12 = _local8.indexOf("(");
+                _local10 = _local8.indexOf(")");
+                if (((((!((_local12 == -1))) && (!((_local10 == -1))))) && ((_local12 < _local10))))
+                {
+                    _local17 = _local8.substr((_local12 + 1), ((_local10 - _local12) - 1)).toLowerCase();
+                    _local8 = (_local8.substr(0, _local12) + _local8.substr((_local10 + 1)));
+                }
+                else
+                {
+                    _local10 = _local8.indexOf("$");
+                    if (_local10 != -1)
+                    {
+                        _local17 = _local8.substr(0, _local10).toLowerCase();
+                        _local8 = _local8.substr((_local10 + 1));
+                    };
+                };
+                _local6.cols = 1;
+                _local6.rows = 1;
+                _local12 = _local8.indexOf("[");
+                _local10 = _local8.indexOf("]");
+                if (((((!((_local12 == -1))) && (!((_local10 == -1))))) && ((_local12 < _local10))))
+                {
+                    _local17 = _local8.substr((_local12 + 1), ((_local10 - _local12) - 1)).toLowerCase();
+                    _local8 = (_local8.substr(0, _local12) + _local8.substr((_local10 + 1)));
+                    _local5 = _local17.indexOf(",");
+                    if (_local5 != -1)
+                    {
+                        _local6.cols = _local17.substr(0, _local5);
+                        _local6.rows = _local17.substr((_local5 + 1));
+                    };
+                };
+                if (_local17.indexOf("add") != -1)
+                {
+                    _local6.drawMode = 1;
+                };
+                if (_version >= 4)
+                {
+                    _local6.origWidth = steam.readShort();
+                    _local6.origHeight = steam.readShort();
+                }
+                else
+                {
+                    _local6.origWidth = -1;
+                    _local6.origHeight = -1;
+                };
+                if (_version == 1)
+                {
+                    _local3 = (steam.readShort() / 1000);
+                    _local4 = Math.sin(_local3);
+                    _local15 = Math.cos(_local3);
+                    _local6.transform.matrix.m00 = _local15;
+                    _local6.transform.matrix.m01 = -(_local4);
+                    _local6.transform.matrix.m10 = _local4;
+                    _local6.transform.matrix.m11 = _local15;
+                    _local6.transform.matrix.m02 = (steam.readShort() / 20);
+                    _local6.transform.matrix.m12 = (steam.readShort() / 20);
+                }
+                else
+                {
+                    _local6.transform.matrix.m00 = (steam.readInt() / 0x140000);
+                    _local6.transform.matrix.m01 = (steam.readInt() / 0x140000);
+                    _local6.transform.matrix.m10 = (steam.readInt() / 0x140000);
+                    _local6.transform.matrix.m11 = (steam.readInt() / 0x140000);
+                    _local6.transform.matrix.m02 = (steam.readShort() / 20);
+                    _local6.transform.matrix.m12 = (steam.readShort() / 20);
+                };
+                _local6.imageName = _local8;
+                if (_local6.imageName.length > 0)
+                {
+                    if (texture != null)
+                    {
+                        if (Load_GetImage(_local6, texture) == false)
                         {
-                           _loc8_ = false;
-                           break;
+                            Load_GetImageNoTexture(_local6);
+                        };
+                    }
+                    else
+                    {
+                        Load_GetImageNoTexture(_local6);
+                    };
+                };
+                _local13++;
+            };
+            var _local14:int = steam.readShort();
+            _mainAnimDef.spriteDefVector.length = _local14;
+            _local13 = 0;
+            while (_local13 < _local14)
+            {
+                _mainAnimDef.spriteDefVector[_local13] = new JASpriteDef();
+                _local13++;
+            };
+            _local13 = 0;
+            while (_local13 < _local14)
+            {
+                if (LoadSpriteDef(steam, _mainAnimDef.spriteDefVector[_local13]) == false)
+                {
+                    return (-4);
+                };
+                _local13++;
+            };
+            var _local7:Boolean = (((_version <= 3)) || (steam.readBoolean()));
+            if (_local7)
+            {
+                _mainAnimDef.mainSpriteDef = new JASpriteDef();
+                if (LoadSpriteDef(steam, _mainAnimDef.mainSpriteDef) == false)
+                {
+                    return (-5);
+                };
+            };
+            _loaded = true;
+            return (0);
+        }
+
+        private function Load_GetImageNoTexture(p_theImage:JAImage):void
+        {
+            var _local2:JAMemoryImage = new JAMemoryImage(null);
+            _local2.width = p_theImage.origWidth;
+            _local2.height = p_theImage.origHeight;
+            _local2.loadFlag = 2;
+            _local2.texture = null;
+            _local2.name = p_theImage.imageName;
+            _local2.imageExist = false;
+            p_theImage.images.push(_local2);
+        }
+
+        private function Load_GetImage(p_theImage:JAImage, p_texture:FTextureAtlas):Boolean
+        {
+            var _local4:FTexture = p_texture.getTexture(p_theImage.imageName);
+            if (_local4 == null)
+            {
+                return (false);
+            };
+            var _local3:JAMemoryImage = new JAMemoryImage(null);
+            _local3.width = _local4.frameWidth;
+            _local3.height = _local4.frameHeight;
+            _local3.loadFlag = 2;
+            _local3.texture = _local4;
+            p_theImage.OnMemoryImageLoadCompleted(_local3);
+            p_theImage.images.push(_local3);
+            return (true);
+        }
+
+        private function ReadString(bytes:ByteArray):String
+        {
+            var _local2:uint = bytes.readShort();
+            return (bytes.readUTFBytes(_local2));
+        }
+
+        private function Remap(str:String):String
+        {
+            var _local5:int;
+            var _local3:Array = [];
+            var _local4 = str;
+            var _local2:uint = _remapList.length;
+            _local5 = 0;
+            while (_local5 < _local2)
+            {
+                if (WildcardReplace(str, _remapList[_local5][0], _remapList[_local5][1], _local3))
+                {
+                    _local4 = _local3[0];
+                    break;
+                };
+                _local5++;
+            };
+            _local3.splice(0);
+            _local3 = null;
+            return (_local4);
+        }
+
+        private function WildcardReplace(theValue:String, theWildcard:String, theReplacement:String, theResult:Array):Boolean
+        {
+            var _local6:int;
+            var _local5:int;
+            var _local7:int;
+            var _local8:Boolean;
+            var _local9:int;
+            if (theWildcard.length == 0)
+            {
+                return (false);
+            };
+            if (theWildcard.charAt(0) == "*")
+            {
+                if (theWildcard.length == 1)
+                {
+                    theResult.push(WildcardExpand(theValue, 0, theValue.length, theReplacement));
+                    return (true);
+                };
+                if (theWildcard.charAt((theWildcard.length - 1)) == "*")
+                {
+                    _local6 = (theWildcard.length - 2);
+                    _local5 = (theValue.length - _local6);
+                    _local7 = 0;
+                    while (_local7 <= _local5)
+                    {
+                        _local8 = true;
+                        _local9 = 0;
+                        while (_local9 < _local6)
+                        {
+                            if (theWildcard.charAt((_local9 + 1)).toUpperCase() != theValue.charAt((_local7 + _local9)).toUpperCase())
+                            {
+                                _local8 = false;
+                                break;
+                            };
+                            _local9++;
+                        };
+                        if (_local8)
+                        {
+                            theResult.push(WildcardExpand(theValue, _local7, (_local7 + _local6), theReplacement));
+                            return (true);
+                        };
+                        _local7++;
+                    };
+                }
+                else
+                {
+                    if (theValue.length < (theWildcard.length - 1))
+                    {
+                        return (false);
+                    };
+                    if (theWildcard.substr(1).toUpperCase() != theValue.substr(((theValue.length - theWildcard.length) + 1)).toUpperCase())
+                    {
+                        return (false);
+                    };
+                    theResult.push(WildcardExpand(theValue, ((theValue.length - theWildcard.length) + 1), theValue.length, theReplacement));
+                    return (true);
+                };
+            }
+            else
+            {
+                if (theWildcard.charAt((theWildcard.length - 1)) == "*")
+                {
+                    if (theValue.length < (theWildcard.length - 1))
+                    {
+                        return (false);
+                    };
+                    if (theWildcard.substr(0, (theWildcard.length - 1)).toUpperCase() != theValue.substr(0, (theWildcard.length - 1)).toUpperCase())
+                    {
+                        return (false);
+                    };
+                    theResult.push(WildcardExpand(theValue, 0, (theWildcard.length - 1), theReplacement));
+                    return (true);
+                };
+                if (theWildcard.toUpperCase() == theValue.toUpperCase())
+                {
+                    if (theReplacement.length > 0)
+                    {
+                        if (theReplacement.charAt(0) == "*")
+                        {
+                            theResult.push((theValue + theReplacement.substr(1)));
                         }
-                        _loc9_++;
-                     }
-                     if(_loc8_)
-                     {
-                        break;
-                     }
-                     _loc7_++;
-                     continue;
-                  }
-               }
-               param4.push(WildcardExpand(param1,_loc7_,_loc7_ + _loc6_,param3));
-               return true;
-            }
-            if(param1.length < param2.length - 1)
+                        else
+                        {
+                            if (theReplacement.charAt((theReplacement.length - 1)) == "*")
+                            {
+                                theResult.push((theReplacement.substr(0, (theReplacement.length - 1)) + theValue));
+                            }
+                            else
+                            {
+                                theResult.push(theReplacement);
+                            };
+                        };
+                    }
+                    else
+                    {
+                        theResult.push(theReplacement);
+                    };
+                    return (true);
+                };
+            };
+            return (false);
+        }
+
+        private function WildcardExpand(theValue:String, theMatchStart:int, theMatchEnd:int, theReplacement:String):String
+        {
+            var _local5 = null;
+            if (theReplacement.length == 0)
             {
-               return false;
-            }
-            if(param2.substr(1).toUpperCase() != param1.substr(param1.length - param2.length + 1).toUpperCase())
-            {
-               return false;
-            }
-            param4.push(WildcardExpand(param1,param1.length - param2.length + 1,param1.length,param3));
-            return true;
-         }
-         if(param2.charAt(param2.length - 1) == "*")
-         {
-            if(param1.length < param2.length - 1)
-            {
-               return false;
-            }
-            if(param2.substr(0,param2.length - 1).toUpperCase() != param1.substr(0,param2.length - 1).toUpperCase())
-            {
-               return false;
-            }
-            param4.push(WildcardExpand(param1,0,param2.length - 1,param3));
-            return true;
-         }
-         if(param2.toUpperCase() == param1.toUpperCase())
-         {
-            if(param3.length > 0)
-            {
-               if(param3.charAt(0) == "*")
-               {
-                  param4.push(param1 + param3.substr(1));
-               }
-               else if(param3.charAt(param3.length - 1) == "*")
-               {
-                  param4.push(param3.substr(0,param3.length - 1) + param1);
-               }
-               else
-               {
-                  param4.push(param3);
-               }
-               
+                _local5 = "";
             }
             else
             {
-               param4.push(param3);
-            }
-            return true;
-         }
-         return false;
-      }
-      
-      private function WildcardExpand(param1:String, param2:int, param3:int, param4:String) : String {
-         var _loc5_:* = null;
-         if(param4.length == 0)
-         {
-            _loc5_ = "";
-         }
-         else if(param4.charAt(0) == "*")
-         {
-            if(param4.length == 1)
+                if (theReplacement.charAt(0) == "*")
+                {
+                    if (theReplacement.length == 1)
+                    {
+                        _local5 = (theValue.substr(0, theMatchStart) + theValue.substr(theMatchEnd));
+                    }
+                    else
+                    {
+                        if (theReplacement.charAt((theReplacement.length - 1)) == "*")
+                        {
+                            _local5 = ((theValue.substr(0, theMatchStart) + theReplacement.substr(1, (theReplacement.length - 2))) + theValue.substr(theMatchEnd));
+                        }
+                        else
+                        {
+                            _local5 = (theValue.substr(0, theMatchStart) + theReplacement.substr(1, (theReplacement.length - 1)));
+                        };
+                    };
+                }
+                else
+                {
+                    if (theReplacement.charAt((theReplacement.length - 1)) == "*")
+                    {
+                        _local5 = (theReplacement.substr(0, (theReplacement.length - 1)) + theValue.substr(theMatchEnd));
+                    }
+                    else
+                    {
+                        _local5 = theReplacement;
+                    };
+                };
+            };
+            return (_local5);
+        }
+
+        private function LoadSpriteDef(steam:ByteArray, jaSpriteDef:JASpriteDef):Boolean
+        {
+            var _local22:int;
+            var _local19:int;
+            var _local15 = null;
+            var _local4:int;
+            var _local3:int;
+            var _local17:int;
+            var _local12:int;
+            var _local25 = null;
+            var _local21:int;
+            var _local24 = null;
+            var _local20:int;
+            var _local13:int;
+            var _local7:int;
+            var _local11:int;
+            var _local14:Number;
+            var _local16:Number;
+            var _local23:Number;
+            var _local9 = null;
+            var _local8 = null;
+            var _local10:int;
+            var _local18:int;
+            var _local27 = null;
+            if (_version >= 4)
             {
-               _loc5_ = param1.substr(0,param2) + param1.substr(param3);
-            }
-            else if(param4.charAt(param4.length - 1) == "*")
-            {
-               _loc5_ = param1.substr(0,param2) + param4.substr(1,param4.length - 2) + param1.substr(param3);
+                jaSpriteDef.name = ReadString(steam);
+                jaSpriteDef.animRate = (steam.readInt() / 65536);
+                _mainAnimDef.objectNamePool.push(jaSpriteDef.name);
             }
             else
             {
-               _loc5_ = param1.substr(0,param2) + param4.substr(1,param4.length - 1);
-            }
-            
-         }
-         else if(param4.charAt(param4.length - 1) == "*")
-         {
-            _loc5_ = param4.substr(0,param4.length - 1) + param1.substr(param3);
-         }
-         else
-         {
-            _loc5_ = param4;
-         }
-         
-         
-         return _loc5_;
-      }
-      
-      private function LoadSpriteDef(param1:ByteArray, param2:JASpriteDef) : Boolean {
-         var _loc22_:* = 0;
-         var _loc19_:* = 0;
-         var _loc15_:* = null;
-         var _loc4_:* = 0;
-         var _loc3_:* = 0;
-         var _loc17_:* = 0;
-         var _loc12_:* = 0;
-         var _loc25_:* = null;
-         var _loc21_:* = 0;
-         var _loc24_:* = null;
-         var _loc20_:* = 0;
-         var _loc13_:* = 0;
-         var _loc7_:* = 0;
-         var _loc11_:* = 0;
-         var _loc14_:* = NaN;
-         var _loc16_:* = NaN;
-         var _loc23_:* = NaN;
-         var _loc9_:* = null;
-         var _loc8_:* = null;
-         var _loc10_:* = 0;
-         var _loc18_:* = 0;
-         var _loc27_:* = null;
-         if(_version >= 4)
-         {
-            param2.name = ReadString(param1);
-            param2.animRate = param1.readInt() / 65536;
-            _mainAnimDef.objectNamePool.push(param2.name);
-         }
-         else
-         {
-            param2.name = null;
-            param2.animRate = _animRate;
-         }
-         var _loc5_:int = param1.readShort();
-         if(_version >= 5)
-         {
-            param2.workAreaStart = param1.readShort();
-            param2.workAreaDuration = param1.readShort();
-         }
-         else
-         {
-            param2.workAreaStart = 0;
-            param2.workAreaDuration = _loc5_ - 1;
-         }
-         param2.workAreaDuration = Math.min(param2.workAreaStart + param2.workAreaDuration,_loc5_ - 1) - param2.workAreaStart;
-         param2.frames.length = _loc5_;
-         _loc22_ = 0;
-         while(_loc22_ < _loc5_)
-         {
-            param2.frames[_loc22_] = new JAFrame();
-            _loc22_++;
-         }
-         var _loc6_:Dictionary = new Dictionary();
-         _loc22_ = 0;
-         while(_loc22_ < _loc5_)
-         {
-            _loc15_ = param2.frames[_loc22_];
-            _loc4_ = param1.readUnsignedByte();
-            if(_loc4_ & 1)
+                jaSpriteDef.name = null;
+                jaSpriteDef.animRate = _animRate;
+            };
+            var _local5:int = steam.readShort();
+            if (_version >= 5)
             {
-               _loc3_ = param1.readByte();
-               if(_loc3_ == 255)
-               {
-                  _loc3_ = param1.readShort();
-               }
-               _loc19_ = 0;
-               while(_loc19_ < _loc3_)
-               {
-                  _loc17_ = param1.readShort();
-                  if(_loc17_ >= 2047)
-                  {
-                     _loc17_ = param1.readUnsignedInt();
-                  }
-                  delete _loc6_[_loc17_];
-                  _loc19_++;
-               }
+                jaSpriteDef.workAreaStart = steam.readShort();
+                jaSpriteDef.workAreaDuration = steam.readShort();
             }
-            if(_loc4_ & 2)
+            else
             {
-               _loc12_ = param1.readByte();
-               if(_loc12_ == 255)
-               {
-                  _loc12_ = param1.readShort();
-               }
-               _loc19_ = 0;
-               while(_loc19_ < _loc12_)
-               {
-                  _loc25_ = new JAObjectPos();
-                  _loc21_ = param1.readShort();
-                  _loc25_.objectNum = _loc21_ & 2047;
-                  if(_loc25_.objectNum == 2047)
-                  {
-                     _loc25_.objectNum = param1.readUnsignedInt();
-                  }
-                  _loc25_.isSprite = !((_loc21_ & 32768) == 0);
-                  _loc25_.isAdditive = !((_loc21_ & 16384) == 0);
-                  _loc25_.resNum = param1.readByte();
-                  _loc25_.hasSrcRect = false;
-                  _loc25_.color = JAColor.White;
-                  _loc25_.animFrameNum = 0;
-                  _loc25_.timeScale = 1;
-                  _loc25_.name = null;
-                  if((_loc21_ & 8192) != 0)
-                  {
-                     _loc25_.preloadFrames = param1.readShort();
-                  }
-                  else
-                  {
-                     _loc25_.preloadFrames = 0;
-                  }
-                  if(_loc21_ & 4096)
-                  {
-                     _loc24_ = ReadString(param1);
-                     _mainAnimDef.objectNamePool.push(_loc24_);
-                     _loc25_.name = _loc24_;
-                     _loc24_ = null;
-                  }
-                  if(_loc21_ & 2048)
-                  {
-                     _loc25_.timeScale = (param1.readUnsignedInt()) / 65536;
-                  }
-                  if(param2.objectDefVector.length < _loc25_.objectNum + 1)
-                  {
-                     _loc20_ = 0;
-                     while(_loc20_ < _loc25_.objectNum + 1)
-                     {
-                        param2.objectDefVector.push(new JAObjectDef());
-                        _loc20_++;
-                     }
-                  }
-                  param2.objectDefVector[_loc25_.objectNum].name = _loc25_.name;
-                  if(_loc25_.isSprite)
-                  {
-                     param2.objectDefVector[_loc25_.objectNum].spriteDef = _mainAnimDef.spriteDefVector[_loc25_.resNum];
-                  }
-                  _loc6_[_loc25_.objectNum] = _loc25_;
-                  _loc19_++;
-               }
-            }
-            if(_loc4_ & 4)
+                jaSpriteDef.workAreaStart = 0;
+                jaSpriteDef.workAreaDuration = (_local5 - 1);
+            };
+            jaSpriteDef.workAreaDuration = (Math.min((jaSpriteDef.workAreaStart + jaSpriteDef.workAreaDuration), (_local5 - 1)) - jaSpriteDef.workAreaStart);
+            jaSpriteDef.frames.length = _local5;
+            _local22 = 0;
+            while (_local22 < _local5)
             {
-               _loc13_ = param1.readByte();
-               if(_loc13_ == 255)
-               {
-                  _loc13_ = param1.readShort();
-               }
-               _loc19_ = 0;
-               while(_loc19_ < _loc13_)
-               {
-                  _loc7_ = param1.readShort();
-                  _loc11_ = _loc7_ & 1023;
-                  if(_loc11_ == 1023)
-                  {
-                     _loc11_ = param1.readUnsignedInt();
-                  }
-                  _loc25_ = _loc6_[_loc11_];
-                  _loc25_.transform.matrix.LoadIdentity();
-                  if(_loc7_ & 4096)
-                  {
-                     _loc25_.transform.matrix.m00 = (param1.readInt()) / 65536;
-                     _loc25_.transform.matrix.m01 = (param1.readInt()) / 65536;
-                     _loc25_.transform.matrix.m10 = (param1.readInt()) / 65536;
-                     _loc25_.transform.matrix.m11 = (param1.readInt()) / 65536;
-                  }
-                  else if(_loc7_ & 16384)
-                  {
-                     _loc14_ = (param1.readShort()) / 1000;
-                     _loc16_ = Math.sin(_loc14_);
-                     _loc23_ = Math.cos(_loc14_);
-                     if(_version == 2)
-                     {
-                        _loc16_ = -_loc16_;
-                     }
-                     _loc25_.transform.matrix.m00 = _loc23_;
-                     _loc25_.transform.matrix.m01 = -_loc16_;
-                     _loc25_.transform.matrix.m10 = _loc16_;
-                     _loc25_.transform.matrix.m11 = _loc23_;
-                  }
-                  
-                  _loc9_ = new JAMatrix3();
-                  if(_loc7_ & 2048)
-                  {
-                     _loc9_.m02 = (param1.readInt()) / 20;
-                     _loc9_.m12 = (param1.readInt()) / 20;
-                  }
-                  else
-                  {
-                     _loc9_.m02 = (param1.readShort()) / 20;
-                     _loc9_.m12 = (param1.readShort()) / 20;
-                  }
-                  _loc25_.transform.matrix = JAMatrix3.MulJAMatrix3(_loc9_,_loc25_.transform.matrix,_loc25_.transform.matrix);
-                  _loc25_.hasSrcRect = !((_loc7_ & 32768) == 0);
-                  if(_loc7_ & 32768)
-                  {
-                     if(_loc25_.srcRect == null)
-                     {
-                        _loc25_.srcRect = new Rectangle();
-                     }
-                     _loc25_.srcRect.x = (param1.readShort()) / 20;
-                     _loc25_.srcRect.y = (param1.readShort()) / 20;
-                     _loc25_.srcRect.width = (param1.readShort()) / 20;
-                     _loc25_.srcRect.height = (param1.readShort()) / 20;
-                  }
-                  if(_loc7_ & 8192)
-                  {
-                     if(_loc25_.color == JAColor.White)
-                     {
-                        _loc25_.color = new JAColor();
-                     }
-                     _loc25_.color.red = param1.readUnsignedByte();
-                     _loc25_.color.green = param1.readUnsignedByte();
-                     _loc25_.color.blue = param1.readUnsignedByte();
-                     _loc25_.color.alpha = param1.readUnsignedByte();
-                  }
-                  if(_loc7_ & 1024)
-                  {
-                     _loc25_.animFrameNum = param1.readShort();
-                  }
-                  _loc19_++;
-               }
-            }
-            if(_loc4_ & 8)
+                jaSpriteDef.frames[_local22] = new JAFrame();
+                _local22++;
+            };
+            var _local6:Dictionary = new Dictionary();
+            _local22 = 0;
+            while (_local22 < _local5)
             {
-               _loc8_ = ReadString(param1);
-               _loc8_ = Remap(_loc8_).toUpperCase();
-               param2.label[_loc8_] = _loc22_;
-            }
-            if(_loc4_ & 16)
+                _local15 = jaSpriteDef.frames[_local22];
+                _local4 = steam.readUnsignedByte();
+                if ((_local4 & 1))
+                {
+                    _local3 = steam.readByte();
+                    if (_local3 == 0xFF)
+                    {
+                        _local3 = steam.readShort();
+                    };
+                    _local19 = 0;
+                    while (_local19 < _local3)
+                    {
+                        _local17 = steam.readShort();
+                        if (_local17 >= 2047)
+                        {
+                            _local17 = steam.readUnsignedInt();
+                        };
+                        delete _local6[_local17];
+                        _local19++;
+                    };
+                };
+                if ((_local4 & 2))
+                {
+                    _local12 = steam.readByte();
+                    if (_local12 == 0xFF)
+                    {
+                        _local12 = steam.readShort();
+                    };
+                    _local19 = 0;
+                    while (_local19 < _local12)
+                    {
+                        _local25 = new JAObjectPos();
+                        _local21 = steam.readShort();
+                        _local25.objectNum = (_local21 & 2047);
+                        if (_local25.objectNum == 2047)
+                        {
+                            _local25.objectNum = steam.readUnsignedInt();
+                        };
+                        _local25.isSprite = !(((_local21 & 0x8000) == 0));
+                        _local25.isAdditive = !(((_local21 & 0x4000) == 0));
+                        _local25.resNum = steam.readByte();
+                        _local25.hasSrcRect = false;
+                        _local25.color = JAColor.White;
+                        _local25.animFrameNum = 0;
+                        _local25.timeScale = 1;
+                        _local25.name = null;
+                        if ((_local21 & 0x2000) != 0)
+                        {
+                            _local25.preloadFrames = steam.readShort();
+                        }
+                        else
+                        {
+                            _local25.preloadFrames = 0;
+                        };
+                        if ((_local21 & 0x1000))
+                        {
+                            _local24 = ReadString(steam);
+                            _mainAnimDef.objectNamePool.push(_local24);
+                            _local25.name = _local24;
+                            _local24 = null;
+                        };
+                        if ((_local21 & 0x0800))
+                        {
+                            _local25.timeScale = (steam.readUnsignedInt() / 65536);
+                        };
+                        if (jaSpriteDef.objectDefVector.length < (_local25.objectNum + 1))
+                        {
+                            _local20 = 0;
+                            while (_local20 < (_local25.objectNum + 1))
+                            {
+                                jaSpriteDef.objectDefVector.push(new JAObjectDef());
+                                _local20++;
+                            };
+                        };
+                        jaSpriteDef.objectDefVector[_local25.objectNum].name = _local25.name;
+                        if (_local25.isSprite)
+                        {
+                            jaSpriteDef.objectDefVector[_local25.objectNum].spriteDef = _mainAnimDef.spriteDefVector[_local25.resNum];
+                        };
+                        _local6[_local25.objectNum] = _local25;
+                        _local19++;
+                    };
+                };
+                if ((_local4 & 4))
+                {
+                    _local13 = steam.readByte();
+                    if (_local13 == 0xFF)
+                    {
+                        _local13 = steam.readShort();
+                    };
+                    _local19 = 0;
+                    while (_local19 < _local13)
+                    {
+                        _local7 = steam.readShort();
+                        _local11 = (_local7 & 1023);
+                        if (_local11 == 1023)
+                        {
+                            _local11 = steam.readUnsignedInt();
+                        };
+                        _local25 = _local6[_local11];
+                        _local25.transform.matrix.LoadIdentity();
+                        if ((_local7 & 0x1000))
+                        {
+                            _local25.transform.matrix.m00 = (steam.readInt() / 65536);
+                            _local25.transform.matrix.m01 = (steam.readInt() / 65536);
+                            _local25.transform.matrix.m10 = (steam.readInt() / 65536);
+                            _local25.transform.matrix.m11 = (steam.readInt() / 65536);
+                        }
+                        else
+                        {
+                            if ((_local7 & 0x4000))
+                            {
+                                _local14 = (steam.readShort() / 1000);
+                                _local16 = Math.sin(_local14);
+                                _local23 = Math.cos(_local14);
+                                if (_version == 2)
+                                {
+                                    _local16 = -(_local16);
+                                };
+                                _local25.transform.matrix.m00 = _local23;
+                                _local25.transform.matrix.m01 = -(_local16);
+                                _local25.transform.matrix.m10 = _local16;
+                                _local25.transform.matrix.m11 = _local23;
+                            };
+                        };
+                        _local9 = new JAMatrix3();
+                        if ((_local7 & 0x0800))
+                        {
+                            _local9.m02 = (steam.readInt() / 20);
+                            _local9.m12 = (steam.readInt() / 20);
+                        }
+                        else
+                        {
+                            _local9.m02 = (steam.readShort() / 20);
+                            _local9.m12 = (steam.readShort() / 20);
+                        };
+                        _local25.transform.matrix = JAMatrix3.MulJAMatrix3(_local9, _local25.transform.matrix, _local25.transform.matrix);
+                        _local25.hasSrcRect = !(((_local7 & 0x8000) == 0));
+                        if ((_local7 & 0x8000))
+                        {
+                            if (_local25.srcRect == null)
+                            {
+                                _local25.srcRect = new Rectangle();
+                            };
+                            _local25.srcRect.x = (steam.readShort() / 20);
+                            _local25.srcRect.y = (steam.readShort() / 20);
+                            _local25.srcRect.width = (steam.readShort() / 20);
+                            _local25.srcRect.height = (steam.readShort() / 20);
+                        };
+                        if ((_local7 & 0x2000))
+                        {
+                            if (_local25.color == JAColor.White)
+                            {
+                                _local25.color = new JAColor();
+                            };
+                            _local25.color.red = steam.readUnsignedByte();
+                            _local25.color.green = steam.readUnsignedByte();
+                            _local25.color.blue = steam.readUnsignedByte();
+                            _local25.color.alpha = steam.readUnsignedByte();
+                        };
+                        if ((_local7 & 0x0400))
+                        {
+                            _local25.animFrameNum = steam.readShort();
+                        };
+                        _local19++;
+                    };
+                };
+                if ((_local4 & 8))
+                {
+                    _local8 = ReadString(steam);
+                    _local8 = Remap(_local8).toUpperCase();
+                    jaSpriteDef.label[_local8] = _local22;
+                };
+                if ((_local4 & 16))
+                {
+                    _local15.hasStop = true;
+                };
+                if ((_local4 & 32))
+                {
+                    _local10 = steam.readByte();
+                    _local15.commandVector.length = _local10;
+                    _local19 = 0;
+                    while (_local19 < _local10)
+                    {
+                        _local15.commandVector[_local19] = new JACommand();
+                        _local19++;
+                    };
+                    _local19 = 0;
+                    while (_local19 < _local10)
+                    {
+                        _local15.commandVector[_local19].command = Remap(ReadString(steam));
+                        _local15.commandVector[_local19].param = Remap(ReadString(steam));
+                        _local19++;
+                    };
+                };
+                _local18 = 0;
+                for each (var _local26:JAObjectPos in _local6)
+                {
+                    _local15.frameObjectPosVector[_local18] = new JAObjectPos();
+                    _local15.frameObjectPosVector[_local18].clone(_local26);
+                    _local26.preloadFrames = 0;
+                    _local18++;
+                };
+                _local22++;
+            };
+            if (_local5 == 0)
             {
-               _loc15_.hasStop = true;
-            }
-            if(_loc4_ & 32)
+                jaSpriteDef.frames.length = 1;
+                jaSpriteDef.frames[0] = new JAFrame();
+            };
+            _local22 = 0;
+            while (_local22 < jaSpriteDef.objectDefVector.length)
             {
-               _loc10_ = param1.readByte();
-               _loc15_.commandVector.length = _loc10_;
-               _loc19_ = 0;
-               while(_loc19_ < _loc10_)
-               {
-                  _loc15_.commandVector[_loc19_] = new JACommand();
-                  _loc19_++;
-               }
-               _loc19_ = 0;
-               while(_loc19_ < _loc10_)
-               {
-                  _loc15_.commandVector[_loc19_].command = Remap(ReadString(param1));
-                  _loc15_.commandVector[_loc19_].param = Remap(ReadString(param1));
-                  _loc19_++;
-               }
-            }
-            _loc18_ = 0;
-            _loc29_ = 0;
-            _loc28_ = _loc6_;
-            for each(_loc26_ in _loc6_)
-            {
-               _loc15_.frameObjectPosVector[_loc18_] = new JAObjectPos();
-               _loc15_.frameObjectPosVector[_loc18_].clone(_loc26_);
-               _loc26_.preloadFrames = 0;
-               _loc18_++;
-            }
-            _loc22_++;
-         }
-         if(_loc5_ == 0)
-         {
-            param2.frames.length = 1;
-            param2.frames[0] = new JAFrame();
-         }
-         _loc22_ = 0;
-         while(_loc22_ < param2.objectDefVector.length)
-         {
-            _loc27_ = param2.objectDefVector[_loc22_];
-            _loc22_++;
-         }
-         return true;
-      }
-   }
-}
+                _local27 = jaSpriteDef.objectDefVector[_local22];
+                _local22++;
+            };
+            return (true);
+        }
+
+
+    }
+}//package com.flengine.components.renderables.jointanim
+
 const PAM_MAGIC:uint = 3136297300;
 const PAM_VERSION:uint = 5;
 const FRAMEFLAGS_HAS_REMOVES:uint = 1;
@@ -810,9 +833,10 @@ const FRAMEFLAGS_HAS_MOVES:uint = 4;
 const FRAMEFLAGS_HAS_FRAME_NAME:uint = 8;
 const FRAMEFLAGS_HAS_STOP:uint = 16;
 const FRAMEFLAGS_HAS_COMMANDS:uint = 32;
-const MOVEFLAGS_HAS_SRCRECT:uint = 32768;
-const MOVEFLAGS_HAS_ROTATE:uint = 16384;
-const MOVEFLAGS_HAS_COLOR:uint = 8192;
-const MOVEFLAGS_HAS_MATRIX:uint = 4096;
-const MOVEFLAGS_HAS_LONGCOORDS:uint = 2048;
-const MOVEFLAGS_HAS_ANIMFRAMENUM:uint = 1024;
+const MOVEFLAGS_HAS_SRCRECT:uint = 0x8000;
+const MOVEFLAGS_HAS_ROTATE:uint = 0x4000;
+const MOVEFLAGS_HAS_COLOR:uint = 0x2000;
+const MOVEFLAGS_HAS_MATRIX:uint = 0x1000;
+const MOVEFLAGS_HAS_LONGCOORDS:uint = 0x0800;
+const MOVEFLAGS_HAS_ANIMFRAMENUM:uint = 0x0400;
+

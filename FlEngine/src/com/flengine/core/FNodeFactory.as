@@ -1,79 +1,85 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.core.FNodeFactory
+
 package com.flengine.core
 {
-   import com.flengine.components.FComponent;
-   import com.flengine.error.FError;
-   import flash.utils.getDefinitionByName;
-   import com.flengine.components.FTransform;
-   
-   public class FNodeFactory extends Object
-   {
-      
-      public function FNodeFactory() {
-         super();
-      }
-      
-      public static function createNode(param1:String = "") : FNode {
-         return new FNode(param1);
-      }
-      
-      public static function createNodeWithComponent(param1:Class, param2:String = "", param3:Class = null) : FComponent {
-         var _loc4_:FNode = new FNode(param2);
-         return _loc4_.addComponent(param1,param3);
-      }
-      
-      public static function createNodeWithComponentPrototype(param1:XML, param2:String = "") : FComponent {
-         var _loc3_:FNode = new FNode(param2);
-         return _loc3_.addComponentFromPrototype(param1);
-      }
-      
-      public static function createFromPrototype(param1:XML, param2:String = "") : FNode {
-         var _loc8_:* = undefined;
-         var _loc6_:* = undefined;
-         var _loc9_:* = 0;
-         var _loc4_:* = null;
-         var _loc7_:* = null;
-         if(param1 == null)
-         {
-            throw new FError("FError: Prototype cannot be null.");
-         }
-         else
-         {
-            var _loc5_:FNode = new FNode(param2);
-            _loc5_.mouseEnabled = param1.@mouseEnabled == "true"?true:false;
-            _loc5_.mouseChildren = param1.@mouseChildren == "true"?true:false;
-            var _loc3_:Array = param1.@tags.split(",");
-            _loc9_ = 0;
-            while(_loc9_ < _loc3_.length)
+    import com.flengine.components.FComponent;
+    import com.flengine.error.FError;
+    import flash.utils.getDefinitionByName;
+    import com.flengine.components.FTransform;
+
+    public class FNodeFactory 
+    {
+
+
+        public static function createNode(p_name:String=""):FNode
+        {
+            return (new FNode(p_name));
+        }
+
+        public static function createNodeWithComponent(p_componentClass:Class, p_name:String="", p_lookupClass:Class=null):FComponent
+        {
+            var _local4:FNode = new FNode(p_name);
+            return (_local4.addComponent(p_componentClass, p_lookupClass));
+        }
+
+        public static function createNodeWithComponentPrototype(p_componentPrototype:XML, p_name:String=""):FComponent
+        {
+            var _local3:FNode = new FNode(p_name);
+            return (_local3.addComponentFromPrototype(p_componentPrototype));
+        }
+
+        public static function createFromPrototype(p_prototype:XML, p_name:String=""):FNode
+        {
+            var _local8:*;
+            var _local6:*;
+            var _local9:int;
+            var _local4 = null;
+            var _local7 = null;
+            if (p_prototype == null)
             {
-               _loc5_.addTag(_loc3_[_loc9_]);
-               _loc9_++;
-            }
-            _loc9_ = 0;
-            while(_loc9_ < param1.components.children().length())
+                throw (new FError("FError: Prototype cannot be null."));
+            };
+            var _local5:FNode = new FNode(p_name);
+            _local5.mouseEnabled = (((p_prototype.@mouseEnabled)=="true") ? true : false);
+            _local5.mouseChildren = (((p_prototype.@mouseChildren)=="true") ? true : false);
+            var _local3:Array = p_prototype.@tags.split(",");
+            _local9 = 0;
+            while (_local9 < _local3.length)
             {
-               _loc4_ = param1.components.children()[_loc9_];
-               _loc8_ = getDefinitionByName(_loc4_.@componentClass.split("-").join("::"));
-               if(_loc8_ == FTransform)
-               {
-                  _loc5_.transform.bindFromPrototype(_loc4_);
-               }
-               else
-               {
-                  _loc6_ = getDefinitionByName(_loc4_.@componentLookupClass.split("-").join("::"));
-                  _loc7_ = _loc5_.addComponent(_loc8_,_loc6_);
-                  _loc7_.bindFromPrototype(_loc4_);
-               }
-               _loc9_++;
-            }
-            _loc9_ = 0;
-            while(_loc9_ < param1.children.children().length())
+                _local5.addTag(_local3[_local9]);
+                _local9++;
+            };
+            _local9 = 0;
+            while (_local9 < p_prototype.components.children().length())
             {
-               _loc4_ = param1.children.children()[_loc9_];
-               _loc5_.addChild(FNodeFactory.createFromPrototype(_loc4_));
-               _loc9_++;
-            }
-            return _loc5_;
-         }
-      }
-   }
-}
+                _local4 = p_prototype.components.children()[_local9];
+                _local8 = getDefinitionByName(_local4.@componentClass.split("-").join("::"));
+                if (_local8 == FTransform)
+                {
+                    _local5.transform.bindFromPrototype(_local4);
+                }
+                else
+                {
+                    _local6 = getDefinitionByName(_local4.@componentLookupClass.split("-").join("::"));
+                    _local7 = _local5.addComponent(_local8, _local6);
+                    _local7.bindFromPrototype(_local4);
+                };
+                _local9++;
+            };
+            _local9 = 0;
+            while (_local9 < p_prototype.children.children().length())
+            {
+                _local4 = p_prototype.children.children()[_local9];
+                _local5.addChild(FNodeFactory.createFromPrototype(_local4));
+                _local9++;
+            };
+            return (_local5);
+        }
+
+
+    }
+}//package com.flengine.core
+

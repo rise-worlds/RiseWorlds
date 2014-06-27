@@ -1,51 +1,62 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.renderables.jointanim.JAColor
+
 package com.flengine.components.renderables.jointanim
 {
-   public class JAColor extends Object
-   {
-      
-      public function JAColor(param1:int = 0, param2:int = 0, param3:int = 0, param4:int = 255) {
-         super();
-         red = param1;
-         green = param2;
-         blue = param3;
-         alpha = param4;
-      }
-      
-      public static const White:JAColor;
-      
-      public static function FromInt(param1:int, param2:JAColor) : JAColor {
-         param2.Set(param1 >> 16 & 255,param1 >> 8 & 255,param1 & 255,param1 >> 24 & 255);
-         return param2;
-      }
-      
-      public var red:int;
-      
-      public var green:int;
-      
-      public var blue:int;
-      
-      public var alpha:int;
-      
-      public function clone(param1:JAColor) : void {
-         this.red = param1.red;
-         this.green = param1.green;
-         this.blue = param1.blue;
-         this.alpha = param1.alpha;
-      }
-      
-      public function Set(param1:int, param2:int, param3:int, param4:int = 255) : void {
-         red = param1;
-         green = param2;
-         blue = param3;
-         alpha = param4;
-      }
-      
-      public function IsWhite() : Boolean {
-         return red == 255 && green == 255 && blue == 255;
-      }
-      
-      public function toInt() : uint {
-         return alpha << 24 & 4.27819008E9 | red << 16 & 16711680 | green << 8 & 65280 | blue & 255;
-      }
-   }
-}
+    public class JAColor 
+    {
+
+        public static const White:JAColor = new (JAColor)(0xFF, 0xFF, 0xFF);
+
+        public var red:int;
+        public var green:int;
+        public var blue:int;
+        public var alpha:int;
+
+        public function JAColor(r:int=0, g:int=0, b:int=0, a:int=0xFF)
+        {
+            red = r;
+            green = g;
+            blue = b;
+            alpha = a;
+        }
+
+        public static function FromInt(theColor:int, out:JAColor):JAColor
+        {
+            out.Set(((theColor >> 16) & 0xFF), ((theColor >> 8) & 0xFF), (theColor & 0xFF), ((theColor >> 24) & 0xFF));
+            return (out);
+        }
+
+
+        public function clone(from:JAColor):void
+        {
+            this.red = from.red;
+            this.green = from.green;
+            this.blue = from.blue;
+            this.alpha = from.alpha;
+        }
+
+        public function Set(r:int, g:int, b:int, a:int=0xFF):void
+        {
+            red = r;
+            green = g;
+            blue = b;
+            alpha = a;
+        }
+
+        public function IsWhite():Boolean
+        {
+            return ((((((red == 0xFF)) && ((green == 0xFF)))) && ((blue == 0xFF))));
+        }
+
+        public function toInt():uint
+        {
+            return ((((((alpha << 24) & 0xFF000000) | ((red << 16) & 0xFF0000)) | ((green << 8) & 0xFF00)) | (blue & 0xFF)));
+        }
+
+
+    }
+}//package com.flengine.components.renderables.jointanim
+

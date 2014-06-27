@@ -1,44 +1,39 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.FPrototypePropertyType
+
 package com.flengine.components
 {
-   public class FPrototypePropertyType extends Object
-   {
-      
-      public function FPrototypePropertyType() {
-         super();
-      }
-      
-      public static const UNKNOWN:String = "unknown";
-      
-      public static const NUMBER:String = "number";
-      
-      public static const INT:String = "int";
-      
-      public static const BOOLEAN:String = "boolean";
-      
-      public static const OBJECT:String = "object";
-      
-      public static const STRING:String = "string";
-      
-      public static function getPrototypeType(param1:*) : String {
-         var _loc2_:String = typeof param1;
-         var _loc3_:* = _loc2_;
-         if("number" !== _loc3_)
-         {
-            if("boolean" !== _loc3_)
+    public class FPrototypePropertyType 
+    {
+
+        public static const UNKNOWN:String = "unknown";
+        public static const NUMBER:String = "number";
+        public static const INT:String = "int";
+        public static const BOOLEAN:String = "boolean";
+        public static const OBJECT:String = "object";
+        public static const STRING:String = "string";
+
+
+        public static function getPrototypeType(p_value:*):String
+        {
+            var _local2:String = typeof(p_value);
+            switch (_local2)
             {
-               if("string" !== _loc3_)
-               {
-                  if("object" !== _loc3_)
-                  {
-                     return "unknown";
-                  }
-                  return "object";
-               }
-               return "string";
-            }
-            return "boolean";
-         }
-         return "number";
-      }
-   }
-}
+                case "number":
+                    return ("number");
+                case "boolean":
+                    return ("boolean");
+                case "string":
+                    return ("string");
+                case "object":
+                    return ("object");
+            };
+            return ("unknown");
+        }
+
+
+    }
+}//package com.flengine.components
+

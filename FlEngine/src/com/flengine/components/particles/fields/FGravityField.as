@@ -1,78 +1,86 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.particles.fields.FGravityField
+
 package com.flengine.components.particles.fields
 {
-   import com.flengine.components.particles.FParticle;
-   import com.flengine.components.particles.FSimpleParticle;
-   import com.flengine.core.FNode;
-   
-   public class FGravityField extends FField
-   {
-      
-      public function FGravityField(param1:FNode) {
-         super(param1);
-      }
-      
-      public var radius:Number = -1;
-      
-      public var gravity:Number = 0;
-      
-      public var gravityVariance:Number = 0;
-      
-      public var inverseGravity:Boolean = false;
-      
-      override public function updateParticle(param1:FParticle, param2:Number) : void {
-         var _loc4_:* = NaN;
-         if(!_bActive)
-         {
-            return;
-         }
-         var _loc5_:Number = cNode.cTransform.nWorldX - param1.cNode.cTransform.nWorldX;
-         var _loc6_:Number = cNode.cTransform.nWorldY - param1.cNode.cTransform.nWorldY;
-         var _loc7_:Number = _loc5_ * _loc5_ + _loc6_ * _loc6_;
-         if(_loc7_ > radius * radius && radius > 0)
-         {
-            return;
-         }
-         if(_loc7_ != 0)
-         {
-            _loc4_ = Math.sqrt(_loc7_);
-            _loc5_ = _loc5_ / (inverseGravity?-_loc4_:_loc4_);
-            _loc6_ = _loc6_ / (inverseGravity?-_loc4_:_loc4_);
-         }
-         var _loc3_:Number = gravity;
-         if(gravityVariance > 0)
-         {
-            _loc3_ = _loc3_ + gravityVariance * Math.random();
-         }
-         param1.nVelocityX = param1.nVelocityX + _loc3_ * _loc5_ * 0.001 * param2;
-         param1.nVelocityY = param1.nVelocityY + _loc3_ * _loc6_ * 0.001 * param2;
-      }
-      
-      override public function updateSimpleParticle(param1:FSimpleParticle, param2:Number) : void {
-         var _loc4_:* = NaN;
-         if(!_bActive)
-         {
-            return;
-         }
-         var _loc5_:Number = cNode.cTransform.nWorldX - param1.nX;
-         var _loc6_:Number = cNode.cTransform.nWorldY - param1.nY;
-         var _loc7_:Number = _loc5_ * _loc5_ + _loc6_ * _loc6_;
-         if(_loc7_ > radius * radius && radius > 0)
-         {
-            return;
-         }
-         if(_loc7_ != 0)
-         {
-            _loc4_ = Math.sqrt(_loc7_);
-            _loc5_ = _loc5_ / (inverseGravity?-_loc4_:_loc4_);
-            _loc6_ = _loc6_ / (inverseGravity?-_loc4_:_loc4_);
-         }
-         var _loc3_:Number = gravity;
-         if(gravityVariance > 0)
-         {
-            _loc3_ = _loc3_ + gravityVariance * Math.random();
-         }
-         param1.nVelocityX = param1.nVelocityX + _loc3_ * _loc5_ * 0.001 * param2;
-         param1.nVelocityY = param1.nVelocityY + _loc3_ * _loc6_ * 0.001 * param2;
-      }
-   }
-}
+    import com.flengine.core.FNode;
+    import com.flengine.components.particles.FParticle;
+    import com.flengine.components.particles.FSimpleParticle;
+
+    public class FGravityField extends FField 
+    {
+
+        public var radius:Number = -1;
+        public var gravity:Number = 0;
+        public var gravityVariance:Number = 0;
+        public var inverseGravity:Boolean = false;
+
+        public function FGravityField(p_node:FNode)
+        {
+            super(p_node);
+        }
+
+        override public function updateParticle(p_particle:FParticle, p_deltaTime:Number):void
+        {
+            var _local4:Number;
+            if (!_bActive)
+            {
+                return;
+            };
+            var _local5:Number = (cNode.cTransform.nWorldX - p_particle.cNode.cTransform.nWorldX);
+            var _local6:Number = (cNode.cTransform.nWorldY - p_particle.cNode.cTransform.nWorldY);
+            var _local7:Number = ((_local5 * _local5) + (_local6 * _local6));
+            if ((((_local7 > (radius * radius))) && ((radius > 0))))
+            {
+                return;
+            };
+            if (_local7 != 0)
+            {
+                _local4 = Math.sqrt(_local7);
+                _local5 = (_local5 / ((inverseGravity) ? -(_local4) : _local4));
+                _local6 = (_local6 / ((inverseGravity) ? -(_local4) : _local4));
+            };
+            var _local3:Number = gravity;
+            if (gravityVariance > 0)
+            {
+                _local3 = (_local3 + (gravityVariance * Math.random()));
+            };
+            p_particle.nVelocityX = (p_particle.nVelocityX + (((_local3 * _local5) * 0.001) * p_deltaTime));
+            p_particle.nVelocityY = (p_particle.nVelocityY + (((_local3 * _local6) * 0.001) * p_deltaTime));
+        }
+
+        override public function updateSimpleParticle(p_particle:FSimpleParticle, p_deltaTime:Number):void
+        {
+            var _local4:Number;
+            if (!_bActive)
+            {
+                return;
+            };
+            var _local5:Number = (cNode.cTransform.nWorldX - p_particle.nX);
+            var _local6:Number = (cNode.cTransform.nWorldY - p_particle.nY);
+            var _local7:Number = ((_local5 * _local5) + (_local6 * _local6));
+            if ((((_local7 > (radius * radius))) && ((radius > 0))))
+            {
+                return;
+            };
+            if (_local7 != 0)
+            {
+                _local4 = Math.sqrt(_local7);
+                _local5 = (_local5 / ((inverseGravity) ? -(_local4) : _local4));
+                _local6 = (_local6 / ((inverseGravity) ? -(_local4) : _local4));
+            };
+            var _local3:Number = gravity;
+            if (gravityVariance > 0)
+            {
+                _local3 = (_local3 + (gravityVariance * Math.random()));
+            };
+            p_particle.nVelocityX = (p_particle.nVelocityX + (((_local3 * _local5) * 0.001) * p_deltaTime));
+            p_particle.nVelocityY = (p_particle.nVelocityY + (((_local3 * _local6) * 0.001) * p_deltaTime));
+        }
+
+
+    }
+}//package com.flengine.components.particles.fields
+

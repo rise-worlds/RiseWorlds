@@ -1,34 +1,44 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.renderables.FColorQuad
+
 package com.flengine.components.renderables
 {
-   import com.flengine.context.materials.FDrawColorCameraVertexShaderBatchMaterial;
-   import com.flengine.context.FContext;
-   import com.flengine.components.FCamera;
-   import flash.geom.Rectangle;
-   import com.flengine.components.FTransform;
-   import com.flengine.core.FNode;
-   
-   public class FColorQuad extends FRenderable
-   {
-      
-      public function FColorQuad(param1:FNode) {
-         super(param1);
-         if(cMaterial == null)
-         {
-            cMaterial = new FDrawColorCameraVertexShaderBatchMaterial();
-         }
-      }
-      
-      private static var cMaterial:FDrawColorCameraVertexShaderBatchMaterial;
-      
-      private static var cTransformVector:Vector.<Number> = new Vector.<Number>(12);
-      
-      override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void {
-         if(param1.checkAndSetupRender(cMaterial,iBlendMode,true,param3))
-         {
-            cMaterial.bind(param1.cContext,param1.bReinitialize,param2);
-         }
-         var _loc4_:FTransform = cNode.cTransform;
-         cMaterial.draw(_loc4_.nWorldX,_loc4_.nWorldY,_loc4_.nWorldScaleX,_loc4_.nWorldScaleY,_loc4_.nWorldRotation,_loc4_.nWorldRed,_loc4_.nWorldGreen,_loc4_.nWorldBlue,_loc4_.nWorldAlpha);
-      }
-   }
-}
+    import __AS3__.vec.Vector;
+    import com.flengine.context.materials.FDrawColorCameraVertexShaderBatchMaterial;
+    import com.flengine.core.FNode;
+    import com.flengine.components.FTransform;
+    import com.flengine.context.FContext;
+    import com.flengine.components.FCamera;
+    import flash.geom.Rectangle;
+
+    public class FColorQuad extends FRenderable 
+    {
+
+        private static var cMaterial:FDrawColorCameraVertexShaderBatchMaterial;
+        private static var cTransformVector:Vector.<Number> = new <Number>[0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
+
+        public function FColorQuad(p_node:FNode)
+        {
+            super(p_node);
+            if (cMaterial == null)
+            {
+                cMaterial = new FDrawColorCameraVertexShaderBatchMaterial();
+            };
+        }
+
+        override public function render(p_context:FContext, p_camera:FCamera, p_maskRect:Rectangle):void
+        {
+            if (p_context.checkAndSetupRender(cMaterial, iBlendMode, true, p_maskRect))
+            {
+                cMaterial.bind(p_context.cContext, p_context.bReinitialize, p_camera);
+            };
+            var _local4:FTransform = cNode.cTransform;
+            cMaterial.draw(_local4.nWorldX, _local4.nWorldY, _local4.nWorldScaleX, _local4.nWorldScaleY, _local4.nWorldRotation, _local4.nWorldRed, _local4.nWorldGreen, _local4.nWorldBlue, _local4.nWorldAlpha);
+        }
+
+
+    }
+}//package com.flengine.components.renderables
+

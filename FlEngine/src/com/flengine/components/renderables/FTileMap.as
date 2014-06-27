@@ -1,135 +1,141 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.renderables.FTileMap
+
 package com.flengine.components.renderables
 {
-   import com.flengine.context.FContext;
-   import com.flengine.components.FCamera;
-   import flash.geom.Rectangle;
-   import com.flengine.textures.FTexture;
-   import com.flengine.core.FNode;
-   
-   public class FTileMap extends FRenderable
-   {
-      
-      public function FTileMap(param1:FNode) {
-         super(param1);
-      }
-      
-      protected var _iWidth:int;
-      
-      protected var _iHeight:int;
-      
-      protected var _aTiles:Vector.<FTile>;
-      
-      protected var _iTileWidth:int = 0;
-      
-      protected var _iTileHeight:int = 0;
-      
-      protected var _bIso:Boolean = false;
-      
-      public function setTiles(param1:Vector.<FTile>, param2:int, param3:int, param4:int, param5:int, param6:Boolean = false) : void {
-         if(param2 * param3 != param1.length)
-         {
-            throw new Error("Invalid tile map.");
-         }
-         else
-         {
-            _aTiles = param1;
-            _iWidth = param2;
-            _iHeight = param3;
-            _bIso = param6;
-            setTileSize(param4,param5);
-            return;
-         }
-      }
-      
-      public function setTile(param1:int, param2:int) : void {
-         if(param1 < 0 || param1 >= _aTiles.length)
-         {
-            return;
-         }
-         _aTiles[param1] = param2;
-      }
-      
-      public function setTileSize(param1:int, param2:int) : void {
-         _iTileWidth = param1;
-         _iTileHeight = param2;
-      }
-      
-      override public function render(param1:FContext, param2:FCamera, param3:Rectangle) : void {
-         var _loc14_:* = 0;
-         var _loc13_:* = 0;
-         var _loc22_:* = NaN;
-         var _loc21_:* = NaN;
-         var _loc5_:* = 0;
-         var _loc18_:* = null;
-         if(_aTiles == null)
-         {
-            return;
-         }
-         var _loc6_:Number = _iTileWidth * _iWidth * 0.5;
-         var _loc11_:Number = _iTileHeight * _iHeight * (_bIso?0.25:0.5);
-         var _loc16_:Number = param2.cNode.cTransform.nWorldX - cNode.cTransform.nWorldX - param2.rViewRectangle.width * 0.5;
-         var _loc17_:Number = param2.cNode.cTransform.nWorldY - cNode.cTransform.nWorldY - param2.rViewRectangle.height * 0.5;
-         var _loc9_:Number = -_loc6_ + (_bIso?_iTileWidth / 2:0);
-         var _loc7_:Number = -_loc11_ + (_bIso?_iTileHeight / 2:0);
-         var _loc19_:int = (_loc16_ - _loc9_) / _iTileWidth;
-         if(_loc19_ < 0)
-         {
-            _loc19_ = 0;
-         }
-         var _loc20_:int = (_loc17_ - _loc7_) / (_bIso?_iTileHeight / 2:_iTileHeight);
-         if(_loc20_ < 0)
-         {
-            _loc20_ = 0;
-         }
-         var _loc8_:Number = param2.cNode.cTransform.nWorldX - cNode.cTransform.nWorldX + param2.rViewRectangle.width * 0.5 - (_bIso?_iTileWidth / 2:_iTileWidth);
-         var _loc10_:Number = param2.cNode.cTransform.nWorldY - cNode.cTransform.nWorldY + param2.rViewRectangle.height * 0.5 - (_bIso?0:_iTileHeight);
-         var _loc15_:int = (_loc8_ - _loc9_) / _iTileWidth - _loc19_ + 2;
-         if(_loc15_ > _iWidth - _loc19_)
-         {
-            _loc15_ = _iWidth - _loc19_;
-         }
-         var _loc4_:int = (_loc10_ - _loc7_) / (_bIso?_iTileHeight / 2:_iTileHeight) - _loc20_ + 2;
-         if(_loc4_ > _iHeight - _loc20_)
-         {
-            _loc4_ = _iHeight - _loc20_;
-         }
-         var _loc12_:int = _loc15_ * _loc4_;
-         _loc14_ = 0;
-         while(_loc14_ < _loc12_)
-         {
-            _loc13_ = _loc14_ / _loc15_;
-            _loc22_ = cNode.cTransform.nWorldX + (_loc19_ + _loc14_ % _loc15_) * _iTileWidth - _loc6_ + (_bIso && (_loc20_ + _loc13_) % 2 == 1?_iTileWidth:_iTileWidth / 2);
-            _loc21_ = cNode.cTransform.nWorldY + (_loc20_ + _loc13_) * (_bIso?_iTileHeight / 2:_iTileHeight) - _loc11_ + _iTileHeight / 2;
-            _loc5_ = _loc20_ * _iWidth + _loc19_ + (_loc14_ / _loc15_) * _iWidth + _loc14_ % _loc15_;
-            _loc18_ = _aTiles[_loc5_];
-            if(!(_loc18_ == null) && !(_loc18_.textureId == null))
+    import __AS3__.vec.Vector;
+    import com.flengine.core.FNode;
+    import com.flengine.textures.FTexture;
+    import com.flengine.context.FContext;
+    import com.flengine.components.FCamera;
+    import flash.geom.Rectangle;
+
+    public class FTileMap extends FRenderable 
+    {
+
+        protected var _iWidth:int;
+        protected var _iHeight:int;
+        protected var _aTiles:Vector.<FTile>;
+        protected var _iTileWidth:int = 0;
+        protected var _iTileHeight:int = 0;
+        protected var _bIso:Boolean = false;
+
+        public function FTileMap(p_node:FNode)
+        {
+            super(p_node);
+        }
+
+        public function setTiles(p_tiles:Vector.<FTile>, p_mapWidth:int, p_mapHeight:int, p_tileWidth:int, p_tileHeight:int, p_iso:Boolean=false):void
+        {
+            if ((p_mapWidth * p_mapHeight) != p_tiles.length)
             {
-               param1.draw(FTexture.getTextureById(_loc18_.textureId),_loc22_,_loc21_,1,1,0,1,1,1,1,1,param3);
-            }
-            _loc14_++;
-         }
-      }
-      
-      public function getTileAt(param1:Number, param2:Number, param3:FCamera = null) : FTile {
-         if(param3 == null)
-         {
-            param3 = node.core.defaultCamera;
-         }
-         var param1:Number = param1 - (param3.rViewRectangle.x + param3.rViewRectangle.width / 2);
-         var param2:Number = param2 - (param3.rViewRectangle.y + param3.rViewRectangle.height / 2);
-         var _loc7_:Number = _iTileWidth * _iWidth * 0.5;
-         var _loc10_:Number = _iTileHeight * _iHeight * (_bIso?0.25:0.5);
-         var _loc8_:Number = -_loc7_ + (_bIso?_iTileWidth / 2:0);
-         var _loc6_:Number = -_loc10_ + (_bIso?_iTileHeight / 2:0);
-         var _loc5_:Number = param3.cNode.cTransform.nWorldX - cNode.cTransform.nWorldX + param1;
-         var _loc4_:Number = param3.cNode.cTransform.nWorldY - cNode.cTransform.nWorldY + param2;
-         var _loc9_:int = Math.floor((_loc5_ - _loc8_) / _iTileWidth);
-         var _loc11_:int = Math.floor((_loc4_ - _loc6_) / _iTileHeight);
-         if(_loc9_ < 0 || _loc9_ >= _iWidth || _loc11_ < 0 || _loc11_ >= _iHeight)
-         {
-            return null;
-         }
-         return _aTiles[_loc11_ * _iWidth + _loc9_];
-      }
-   }
-}
+                throw (new Error("Invalid tile map."));
+            };
+            _aTiles = p_tiles;
+            _iWidth = p_mapWidth;
+            _iHeight = p_mapHeight;
+            _bIso = p_iso;
+            setTileSize(p_tileWidth, p_tileHeight);
+        }
+
+        public function setTile(p_tileIndex:int, p_tile:int):void
+        {
+            if ((((p_tileIndex < 0)) || ((p_tileIndex >= _aTiles.length))))
+            {
+                return;
+            };
+            _aTiles[p_tileIndex] = p_tile;
+        }
+
+        public function setTileSize(p_width:int, p_height:int):void
+        {
+            _iTileWidth = p_width;
+            _iTileHeight = p_height;
+        }
+
+        override public function render(p_context:FContext, p_camera:FCamera, p_maskRect:Rectangle):void
+        {
+            var _local14:int;
+            var _local13:int;
+            var _local22:Number;
+            var _local21:Number;
+            var _local5:int;
+            var _local18 = null;
+            if (_aTiles == null)
+            {
+                return;
+            };
+            var _local6:Number = ((_iTileWidth * _iWidth) * 0.5);
+            var _local11:Number = ((_iTileHeight * _iHeight) * ((_bIso) ? 0.25 : 0.5));
+            var _local16:Number = ((p_camera.cNode.cTransform.nWorldX - cNode.cTransform.nWorldX) - (p_camera.rViewRectangle.width * 0.5));
+            var _local17:Number = ((p_camera.cNode.cTransform.nWorldY - cNode.cTransform.nWorldY) - (p_camera.rViewRectangle.height * 0.5));
+            var _local9:Number = (-(_local6) + ((_bIso) ? (_iTileWidth / 2) : 0));
+            var _local7:Number = (-(_local11) + ((_bIso) ? (_iTileHeight / 2) : 0));
+            var _local19:int = ((_local16 - _local9) / _iTileWidth);
+            if (_local19 < 0)
+            {
+                _local19 = 0;
+            };
+            var _local20:int = ((_local17 - _local7) / ((_bIso) ? (_iTileHeight / 2) : _iTileHeight));
+            if (_local20 < 0)
+            {
+                _local20 = 0;
+            };
+            var _local8:Number = (((p_camera.cNode.cTransform.nWorldX - cNode.cTransform.nWorldX) + (p_camera.rViewRectangle.width * 0.5)) - ((_bIso) ? (_iTileWidth / 2) : _iTileWidth));
+            var _local10:Number = (((p_camera.cNode.cTransform.nWorldY - cNode.cTransform.nWorldY) + (p_camera.rViewRectangle.height * 0.5)) - ((_bIso) ? 0 : _iTileHeight));
+            var _local15:int = ((((_local8 - _local9) / _iTileWidth) - _local19) + 2);
+            if (_local15 > (_iWidth - _local19))
+            {
+                _local15 = (_iWidth - _local19);
+            };
+            var _local4:int = ((((_local10 - _local7) / ((_bIso) ? (_iTileHeight / 2) : _iTileHeight)) - _local20) + 2);
+            if (_local4 > (_iHeight - _local20))
+            {
+                _local4 = (_iHeight - _local20);
+            };
+            var _local12:int = (_local15 * _local4);
+            _local14 = 0;
+            while (_local14 < _local12)
+            {
+                _local13 = (_local14 / _local15);
+                _local22 = (((cNode.cTransform.nWorldX + ((_local19 + (_local14 % _local15)) * _iTileWidth)) - _local6) + ((((_bIso) && ((((_local20 + _local13) % 2) == 1)))) ? _iTileWidth : (_iTileWidth / 2)));
+                _local21 = (((cNode.cTransform.nWorldY + ((_local20 + _local13) * ((_bIso) ? (_iTileHeight / 2) : _iTileHeight))) - _local11) + (_iTileHeight / 2));
+                _local5 = ((((_local20 * _iWidth) + _local19) + ((_local14 / _local15) * _iWidth)) + (_local14 % _local15));
+                _local18 = _aTiles[_local5];
+                if (((!((_local18 == null))) && (!((_local18.textureId == null)))))
+                {
+                    p_context.draw(FTexture.getTextureById(_local18.textureId), _local22, _local21, 1, 1, 0, 1, 1, 1, 1, 1, p_maskRect);
+                };
+                _local14++;
+            };
+        }
+
+        public function getTileAt(p_x:Number, p_y:Number, p_camera:FCamera=null):FTile
+        {
+            if (p_camera == null)
+            {
+                p_camera = node.core.defaultCamera;
+            };
+            p_x = (p_x - (p_camera.rViewRectangle.x + (p_camera.rViewRectangle.width / 2)));
+            p_y = (p_y - (p_camera.rViewRectangle.y + (p_camera.rViewRectangle.height / 2)));
+            var _local7:Number = ((_iTileWidth * _iWidth) * 0.5);
+            var _local10:Number = ((_iTileHeight * _iHeight) * ((_bIso) ? 0.25 : 0.5));
+            var _local8:Number = (-(_local7) + ((_bIso) ? (_iTileWidth / 2) : 0));
+            var _local6:Number = (-(_local10) + ((_bIso) ? (_iTileHeight / 2) : 0));
+            var _local5:Number = ((p_camera.cNode.cTransform.nWorldX - cNode.cTransform.nWorldX) + p_x);
+            var _local4:Number = ((p_camera.cNode.cTransform.nWorldY - cNode.cTransform.nWorldY) + p_y);
+            var _local9:int = Math.floor(((_local5 - _local8) / _iTileWidth));
+            var _local11:int = Math.floor(((_local4 - _local6) / _iTileHeight));
+            if ((((((((_local9 < 0)) || ((_local9 >= _iWidth)))) || ((_local11 < 0)))) || ((_local11 >= _iHeight))))
+            {
+                return (null);
+            };
+            return (_aTiles[((_local11 * _iWidth) + _local9)]);
+        }
+
+
+    }
+}//package com.flengine.components.renderables
+

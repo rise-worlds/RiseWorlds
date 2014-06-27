@@ -1,55 +1,71 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.rand.Random
+
 package com.flengine.rand
 {
-   public class Random extends Object
-   {
-      
-      public function Random(param1:PseudoRandomNumberGenerator) {
-         super();
-         mPRNG = param1;
-      }
-      
-      private var mPRNG:PseudoRandomNumberGenerator;
-      
-      public function SetSeed(param1:Number) : void {
-         mPRNG.SetSeed(param1);
-      }
-      
-      public function Next() : Number {
-         return mPRNG.Next();
-      }
-      
-      public function Float(param1:Number, param2:Number = undefined) : Number {
-         if(isNaN(param2))
-         {
-            param2 = param1;
-            param1 = 0.0;
-         }
-         return Next() * (param2 - param1) + param1;
-      }
-      
-      public function Bool(param1:Number = 0.5) : Boolean {
-         return Next() < param1;
-      }
-      
-      public function Sign(param1:Number = 0.5) : int {
-         return Next() < param1?1:-1;
-      }
-      
-      public function Bit(param1:Number = 0.5, param2:uint = 0) : int {
-         return Next() < param1?1 << param2:0;
-      }
-      
-      public function Int(param1:Number, param2:Number = undefined) : int {
-         if(isNaN(param2))
-         {
-            param2 = param1;
-            param1 = 0.0;
-         }
-         return Float(param1,param2);
-      }
-      
-      public function Reset() : void {
-         mPRNG.Reset();
-      }
-   }
-}
+    public class Random 
+    {
+
+        private var mPRNG:PseudoRandomNumberGenerator;
+
+        public function Random(prng:PseudoRandomNumberGenerator)
+        {
+            mPRNG = prng;
+        }
+
+        public function SetSeed(seed:Number):void
+        {
+            mPRNG.SetSeed(seed);
+        }
+
+        public function Next():Number
+        {
+            return (mPRNG.Next());
+        }
+
+        public function Float(min:Number, max:Number=NaN):Number
+        {
+            if (isNaN(max))
+            {
+                max = min;
+                min = 0;
+            };
+            return (((Next() * (max - min)) + min));
+        }
+
+        public function Bool(chance:Number=0.5):Boolean
+        {
+            return ((Next() < chance));
+        }
+
+        public function Sign(chance:Number=0.5):int
+        {
+            return ((((Next())<chance) ? 1 : -1));
+        }
+
+        public function Bit(chance:Number=0.5, shift:uint=0):int
+        {
+            return ((((Next())<chance) ? (1 << shift) : 0));
+        }
+
+        public function Int(min:Number, max:Number=NaN):int
+        {
+            if (isNaN(max))
+            {
+                max = min;
+                min = 0;
+            };
+            return (Float(min, max));
+        }
+
+        public function Reset():void
+        {
+            mPRNG.Reset();
+        }
+
+
+    }
+}//package com.flengine.rand
+

@@ -1,66 +1,64 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.components.renderables.jointanim.JAObjectPos
+
 package com.flengine.components.renderables.jointanim
 {
-   import flash.geom.Rectangle;
-   
-   public class JAObjectPos extends Object
-   {
-      
-      public function JAObjectPos() {
-         super();
-         transform = new JATransform();
-      }
-      
-      public var name:String;
-      
-      public var objectNum:int;
-      
-      public var isSprite:Boolean;
-      
-      public var isAdditive:Boolean;
-      
-      public var resNum:int;
-      
-      public var hasSrcRect:Boolean;
-      
-      public var srcRect:Rectangle;
-      
-      public var color:JAColor;
-      
-      public var animFrameNum:int;
-      
-      public var timeScale:Number;
-      
-      public var preloadFrames:int;
-      
-      public var transform:JATransform;
-      
-      public function clone(param1:JAObjectPos) : void {
-         this.name = param1.name;
-         this.objectNum = param1.objectNum;
-         this.isSprite = param1.isSprite;
-         this.isAdditive = param1.isAdditive;
-         this.resNum = param1.resNum;
-         this.hasSrcRect = param1.hasSrcRect;
-         if(this.hasSrcRect)
-         {
-            if(param1.srcRect != null)
+    import flash.geom.Rectangle;
+
+    public class JAObjectPos 
+    {
+
+        public var name:String;
+        public var objectNum:int;
+        public var isSprite:Boolean;
+        public var isAdditive:Boolean;
+        public var resNum:int;
+        public var hasSrcRect:Boolean;
+        public var srcRect:Rectangle;
+        public var color:JAColor;
+        public var animFrameNum:int;
+        public var timeScale:Number;
+        public var preloadFrames:int;
+        public var transform:JATransform;
+
+        public function JAObjectPos()
+        {
+            transform = new JATransform();
+        }
+
+        public function clone(from:JAObjectPos):void
+        {
+            this.name = from.name;
+            this.objectNum = from.objectNum;
+            this.isSprite = from.isSprite;
+            this.isAdditive = from.isAdditive;
+            this.resNum = from.resNum;
+            this.hasSrcRect = from.hasSrcRect;
+            if (this.hasSrcRect)
             {
-               this.srcRect = param1.srcRect.clone();
+                if (from.srcRect != null)
+                {
+                    this.srcRect = from.srcRect.clone();
+                };
+            };
+            if (from.color != JAColor.White)
+            {
+                this.color = new JAColor();
+                this.color.clone(from.color);
             }
-         }
-         if(param1.color != JAColor.White)
-         {
-            this.color = new JAColor();
-            this.color.clone(param1.color);
-         }
-         else
-         {
-            this.color = param1.color;
-         }
-         this.animFrameNum = param1.animFrameNum;
-         this.timeScale = param1.timeScale;
-         this.preloadFrames = param1.preloadFrames;
-         transform.clone(param1.transform);
-      }
-   }
-}
+            else
+            {
+                this.color = from.color;
+            };
+            this.animFrameNum = from.animFrameNum;
+            this.timeScale = from.timeScale;
+            this.preloadFrames = from.preloadFrames;
+            transform.clone(from.transform);
+        }
+
+
+    }
+}//package com.flengine.components.renderables.jointanim
+

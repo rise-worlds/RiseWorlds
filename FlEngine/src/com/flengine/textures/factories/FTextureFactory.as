@@ -1,90 +1,80 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.textures.factories.FTextureFactory
+
 package com.flengine.textures.factories
 {
-	import com.flengine.textures.FTexture;
-	import flash.display.Bitmap;
-	import com.flengine.textures.FTextureUtils;
-	import flash.display.BitmapData;
-	import com.flengine.error.FError;
-	import flash.utils.ByteArray;
-	import flash.geom.Rectangle;
-	
-	public class FTextureFactory extends Object
-	{
-		
-		public function FTextureFactory()
-		{
-			super();
-		}
-		
-		public static function createFromAsset(param1:String, param2:Class):FTexture
-		{
-			var _loc3_:Bitmap = new param2();
-			return new FTexture(param1, 3, _loc3_.bitmapData, _loc3_.bitmapData.rect, FTextureUtils.isBitmapDataTransparent(_loc3_.bitmapData), _loc3_.bitmapData.rect.width, _loc3_.bitmapData.rect.height);
-		}
-		
-		public static function createFromColor(param1:String, param2:uint, param3:int, param4:int):FTexture
-		{
-			var _loc5_:BitmapData = new BitmapData(param3, param4, false, param2);
-			return new FTexture(param1, 3, _loc5_, _loc5_.rect, false, _loc5_.rect.width, _loc5_.rect.height);
-		}
-		
-		public static function createFromBitmapData(param1:String, param2:BitmapData):FTexture
-		{
-			if (param2 == null)
-			{
-				throw new FError("FError: BitmapData cannot be null.");
-			}
-			else
-			{
-				return new FTexture(param1, 3, param2, param2.rect, FTextureUtils.isBitmapDataTransparent(param2), param2.rect.width, param2.rect.height);
-			}
-		}
-		
-		public static function createFromATF(param1:String, param2:ByteArray, param3:Function = null):FTexture
-		{
-			var _loc8_:* = 0;
-			var _loc6_:String = String.fromCharCode(param2[0], param2[1], param2[2]);
-			if (_loc6_ != "ATF")
-			{
-				throw new FError("FError: Invalid ATF data.");
-			}
-			else
-			{
-				var _loc7_:Boolean = true;
-				var _loc9_:int = param2[6];
-				if (1 !== _loc9_)
-				{
-					if (3 !== _loc9_)
-					{
-						if (5 === _loc9_)
-						{
-							_loc8_ = 2;
-						}
-					}
-					else
-					{
-						_loc8_ = 1;
-						_loc7_ = false;
-					}
-				}
-				else
-				{
-					_loc8_ = 0;
-				}
-				var _loc5_:Number = Math.pow(2, param2[7]);
-				var _loc4_:Number = Math.pow(2, param2[8]);
-				return new FTexture(param1, _loc8_, param2, new Rectangle(0, 0, _loc5_, _loc4_), _loc7_, _loc5_, _loc4_, 0, 0, param3);
-			}
-		}
-		
-		public static function createFromByteArray(param1:String, param2:ByteArray, param3:int, param4:int, param5:Boolean):FTexture
-		{
-			return new FTexture(param1, 2, param2, new Rectangle(0, 0, param3, param4), param5, param3, param4);
-		}
-		
-		public static function createRenderTexture(param1:String, param2:int, param3:int, param4:Boolean):FTexture
-		{
-			return new FTexture(param1, 4, null, new Rectangle(0, 0, param2, param3), param4, param2, param3);
-		}
-	}
-}
+    import flash.display.Bitmap;
+    import com.flengine.textures.FTexture;
+    import com.flengine.textures.FTextureUtils;
+    import flash.display.BitmapData;
+    import com.flengine.error.FError;
+    import flash.geom.Rectangle;
+    import flash.utils.ByteArray;
+
+    public class FTextureFactory 
+    {
+
+
+        public static function createFromAsset(p_id:String, p_asset:Class):FTexture
+        {
+            var _local3:Bitmap = new (p_asset)();
+            return (new FTexture(p_id, 3, _local3.bitmapData, _local3.bitmapData.rect, FTextureUtils.isBitmapDataTransparent(_local3.bitmapData), _local3.bitmapData.rect.width, _local3.bitmapData.rect.height));
+        }
+
+        public static function createFromColor(p_id:String, p_color:uint, p_width:int, p_height:int):FTexture
+        {
+            var _local5:BitmapData = new BitmapData(p_width, p_height, false, p_color);
+            return (new FTexture(p_id, 3, _local5, _local5.rect, false, _local5.rect.width, _local5.rect.height));
+        }
+
+        public static function createFromBitmapData(p_id:String, p_bitmapData:BitmapData):FTexture
+        {
+            if (p_bitmapData == null)
+            {
+                throw (new FError("FError: BitmapData cannot be null."));
+            };
+            return (new FTexture(p_id, 3, p_bitmapData, p_bitmapData.rect, FTextureUtils.isBitmapDataTransparent(p_bitmapData), p_bitmapData.rect.width, p_bitmapData.rect.height));
+        }
+
+        public static function createFromATF(p_id:String, p_atfData:ByteArray, p_uploadCallback:Function=null):FTexture
+        {
+            var _local8:int;
+            var _local6:String = String.fromCharCode(p_atfData[0], p_atfData[1], p_atfData[2]);
+            if (_local6 != "ATF")
+            {
+                throw (new FError("FError: Invalid ATF data."));
+            };
+            var _local7:Boolean = true;
+            switch (p_atfData[6])
+            {
+                case 1:
+                    _local8 = 0;
+                    break;
+                case 3:
+                    _local8 = 1;
+                    _local7 = false;
+                    break;
+                case 5:
+                    _local8 = 2;
+            };
+            var _local5:int = Math.pow(2, p_atfData[7]);
+            var _local4:int = Math.pow(2, p_atfData[8]);
+            return (new FTexture(p_id, _local8, p_atfData, new Rectangle(0, 0, _local5, _local4), _local7, _local5, _local4, 0, 0, p_uploadCallback));
+        }
+
+        public static function createFromByteArray(p_id:String, p_byteArray:ByteArray, p_width:int, p_height:int, p_transparent:Boolean):FTexture
+        {
+            return (new FTexture(p_id, 2, p_byteArray, new Rectangle(0, 0, p_width, p_height), p_transparent, p_width, p_height));
+        }
+
+        public static function createRenderTexture(p_id:String, p_width:int, p_height:int, p_transparent:Boolean):FTexture
+        {
+            return (new FTexture(p_id, 4, null, new Rectangle(0, 0, p_width, p_height), p_transparent, p_width, p_height));
+        }
+
+
+    }
+}//package com.flengine.textures.factories
+

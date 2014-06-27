@@ -1,234 +1,221 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.context.materials.FDrawColorCameraVertexBufferCPUBatchMaterial
+
 package com.flengine.context.materials
 {
-	import flash.display3D.VertexBuffer3D;
-	import flash.display3D.IndexBuffer3D;
-	import flash.display3D.Program3D;
-	import flash.display3D.Context3D;
-	import com.adobe.utils.AGALMiniAssembler;
-	import com.flengine.components.FCamera;
-	import flash.geom.Matrix;
-	import com.flengine.core.FStats;
-	import com.flengine.fl2d;
-	use namespace fl2d;
-	
-	public final class FDrawColorCameraVertexBufferCPUBatchMaterial extends Object implements IGMaterial
-	{
-		
-		public function FDrawColorCameraVertexBufferCPUBatchMaterial()
-		{
-			super();
-		}
-		
-		private static const BATCH_SIZE:int = 1000;
-		private static const DATA_PER_VERTEX:int = 6;
-		private static const VERTEX_SHADER_CODE:Array = [
-				"mov vt0, va0", 
-				"sub vt1, vt0.xy, vc5.xy", 
-				"mul vt1, vt1.xy, vc5.zw", 
-				"mov vt4.x, vc4.x", 
-				"sin vt2.x, vt4.x", 
-				"cos vt2.y, vt4.x", 
-				"mul vt3.x, vt1.x, vt2.y", 
-				"mul vt3.y, vt1.y, vt2.x", 
-				"sub vt4.x, vt3.x, vt3.y", 
-				"mul vt3.y, vt1.y, vt2.y", 
-				"mul vt3.x, vt1.x, vt2.x", 
-				"add vt4.y, vt3.y, vt3.x", 
-				"add vt1, vt4.xy, vc4.yz", 
-				"mov vt1.zw, vt0.zw", 
-				"m44 op, vt1, vc0", 
-				"mov v1, va1"];
-		
-		private var __vb3VertexBuffer:VertexBuffer3D;
-		private var __aVertexVector:Vector.<Number>;
-		private var __ib3QuadIndexBuffer:IndexBuffer3D;
-		private var __ib3TriangleIndexBuffer:IndexBuffer3D;
-		private var __iTriangleCount:int = 0;
-		private var __bInitializedThisFrame:Boolean = false;
-		private var __bDrawQuads:Boolean = true;
-		private var __p3ShaderProgram:Program3D;
-		private var __cContext:Context3D;
-		private var vertexShader:AGALMiniAssembler;
-		private var vertexShaderAlpha:AGALMiniAssembler;
-		
-		fl2d function initialize(param1:Context3D):void
-		{
-			var _loc3_:* = 0;
-			__cContext = param1;
-			vertexShader = new AGALMiniAssembler();
-			vertexShader.assemble("vertex", VERTEX_SHADER_CODE.join("\n"));
-			__p3ShaderProgram = param1.createProgram();
-			__p3ShaderProgram.upload(vertexShader.agalcode, FFragmentShadersCommon.getColorShaderCode());
-			__aVertexVector = new Vector.<Number>(3 * 1000 * 6);
-			__vb3VertexBuffer = __cContext.createVertexBuffer(3 * 1000, 6);
-			var _loc2_:Vector.<uint> = new Vector.<uint>();
-			_loc3_ = 0;
-			while (_loc3_ < 3 * 1000)
-			{
-				_loc2_.push(_loc3_);
-				_loc3_++;
-			}
-			__ib3TriangleIndexBuffer = param1.createIndexBuffer(3 * 1000);
-			__ib3TriangleIndexBuffer.uploadFromVector(_loc2_, 0, 3 * 1000);
-			_loc2_.length = 0;
-			_loc3_ = 0;
-			while (_loc3_ < 1000 / 2)
-			{
-				_loc2_ = _loc2_.concat(Vector.<uint>([4 * _loc3_, 4 * _loc3_ + 1, 4 * _loc3_ + 2, 4 * _loc3_, 4 * _loc3_ + 2, 4 * _loc3_ + 3]));
-				_loc3_++;
-			}
-			__ib3QuadIndexBuffer = param1.createIndexBuffer(3 * 1000);
-			__ib3QuadIndexBuffer.uploadFromVector(_loc2_, 0, 3 * 1000);
-			__iTriangleCount = 0;
-		}
-		
-		fl2d function bind(param1:Context3D, param2:Boolean, param3:FCamera):void
-		{
-			if (__p3ShaderProgram == null || param2 && !__bInitializedThisFrame)
-			{
-				initialize(param1);
-			}
-			__bInitializedThisFrame = param2;
-			__cContext.setProgram(__p3ShaderProgram);
-			__cContext.setProgramConstantsFromVector("vertex", 4, param3.aCameraVector, 2);
-			__cContext.setProgramConstantsFromVector("fragment", 0, Vector.<Number>([1, 0, 0, 0.5]), 1);
-			__iTriangleCount = 0;
-		}
-		
-		public function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number):void
-		{
-			__bDrawQuads = true;
-			var _loc11_:Number = Math.cos(param5);
-			var _loc14_:Number = Math.sin(param5);
-			var _loc18_:Number = 0.5 * param3;
-			var _loc17_:Number = 0.5 * param4;
-			var _loc12_:Number = _loc11_ * _loc18_;
-			var _loc13_:Number = _loc11_ * _loc17_;
-			var _loc15_:Number = _loc14_ * _loc18_;
-			var _loc16_:Number = _loc14_ * _loc17_;
-			var _loc10_:int = 6 * 3 * __iTriangleCount;
-			__aVertexVector[_loc10_] = -_loc12_ - _loc16_ + param1;
-			__aVertexVector[_loc10_ + 1] = _loc13_ - _loc15_ + param2;
-			__aVertexVector[_loc10_ + 2] = param6;
-			__aVertexVector[_loc10_ + 3] = param7;
-			__aVertexVector[_loc10_ + 4] = param8;
-			__aVertexVector[_loc10_ + 5] = param9;
-			__aVertexVector[_loc10_ + 6] = -_loc12_ + _loc16_ + param1;
-			__aVertexVector[_loc10_ + 7] = -_loc13_ - _loc15_ + param2;
-			__aVertexVector[_loc10_ + 8] = param6;
-			__aVertexVector[_loc10_ + 9] = param7;
-			__aVertexVector[_loc10_ + 10] = param8;
-			__aVertexVector[_loc10_ + 11] = param9;
-			__aVertexVector[_loc10_ + 12] = _loc12_ + _loc16_ + param1;
-			__aVertexVector[_loc10_ + 13] = -_loc13_ + _loc15_ + param2;
-			__aVertexVector[_loc10_ + 14] = param6;
-			__aVertexVector[_loc10_ + 15] = param7;
-			__aVertexVector[_loc10_ + 16] = param8;
-			__aVertexVector[_loc10_ + 17] = param9;
-			__aVertexVector[_loc10_ + 18] = _loc12_ - _loc16_ + param1;
-			__aVertexVector[_loc10_ + 19] = _loc13_ + _loc15_ + param2;
-			__aVertexVector[_loc10_ + 20] = param6;
-			__aVertexVector[_loc10_ + 21] = param7;
-			__aVertexVector[_loc10_ + 22] = param8;
-			__aVertexVector[_loc10_ + 23] = param9;
-			__iTriangleCount = __iTriangleCount + 2;
-			if (__iTriangleCount == 1000)
-			{
-				push();
-			}
-		}
-		
-		public function drawPoly(param1:Vector.<Number>, param2:Number, param3:Number, param4:Number, param5:Number, param6:Number, param7:Number, param8:Number, param9:Number, param10:Number):void
-		{
-			var _loc14_:* = 0;
-			__bDrawQuads = false;
-			var _loc13_:Number = Math.cos(param6);
-			var _loc16_:Number = Math.sin(param6);
-			var _loc12_:int = param1.length;
-			var _loc15_:* = _loc12_ >> 1;
-			var _loc17_:int = _loc15_ / 3;
-			if (__iTriangleCount + _loc17_ > 1000)
-			{
-				push();
-			}
-			var _loc11_:int = 6 * 3 * __iTriangleCount;
-			_loc14_ = 0;
-			while (_loc14_ < _loc12_)
-			{
-				__aVertexVector[_loc11_] = _loc13_ * param1[_loc14_] * param4 - _loc16_ * param1[_loc14_ + 1] * param5 + param2;
-				__aVertexVector[_loc11_ + 1] = _loc16_ * param1[_loc14_] * param4 + _loc13_ * param1[_loc14_ + 1] * param5 + param3;
-				__aVertexVector[_loc11_ + 2] = param7;
-				__aVertexVector[_loc11_ + 3] = param8;
-				__aVertexVector[_loc11_ + 4] = param9;
-				__aVertexVector[_loc11_ + 5] = param10;
-				_loc11_ = _loc11_ + 6;
-				_loc14_ = _loc14_ + 2;
-			}
-			__iTriangleCount = __iTriangleCount + _loc17_;
-			if (__iTriangleCount >= 1000)
-			{
-				push();
-			}
-		}
-		
-		public function drawMatrix(param1:Matrix, param2:Number, param3:Number, param4:Number, param5:Number):void
-		{
-			__bDrawQuads = true;
-			var _loc7_:int = 6 * 2 * __iTriangleCount;
-			var _loc6_:* = 0.5;
-			var _loc8_:* = 0.5;
-			__aVertexVector[_loc7_] = param1.a * -_loc6_ + param1.c * _loc8_ + param1.tx;
-			__aVertexVector[_loc7_ + 1] = param1.d * _loc8_ + param1.b * -_loc6_ + param1.ty;
-			__aVertexVector[_loc7_ + 2] = param2;
-			__aVertexVector[_loc7_ + 3] = param3;
-			__aVertexVector[_loc7_ + 4] = param4;
-			__aVertexVector[_loc7_ + 5] = param5;
-			__aVertexVector[_loc7_ + 6] = param1.a * -_loc6_ + param1.c * -_loc8_ + param1.tx;
-			__aVertexVector[_loc7_ + 7] = param1.d * -_loc8_ + param1.b * -_loc6_ + param1.ty;
-			__aVertexVector[_loc7_ + 8] = param2;
-			__aVertexVector[_loc7_ + 9] = param3;
-			__aVertexVector[_loc7_ + 10] = param4;
-			__aVertexVector[_loc7_ + 11] = param5;
-			__aVertexVector[_loc7_ + 12] = param1.a * _loc6_ + param1.c * -_loc8_ + param1.tx;
-			__aVertexVector[_loc7_ + 13] = param1.d * -_loc8_ + param1.b * _loc6_ + param1.ty;
-			__aVertexVector[_loc7_ + 14] = param2;
-			__aVertexVector[_loc7_ + 15] = param3;
-			__aVertexVector[_loc7_ + 16] = param4;
-			__aVertexVector[_loc7_ + 17] = param5;
-			__aVertexVector[_loc7_ + 18] = param1.a * _loc6_ + param1.c * _loc8_ + param1.tx;
-			__aVertexVector[_loc7_ + 19] = param1.d * _loc8_ + param1.b * _loc6_ + param1.ty;
-			__aVertexVector[_loc7_ + 20] = param2;
-			__aVertexVector[_loc7_ + 21] = param3;
-			__aVertexVector[_loc7_ + 22] = param4;
-			__aVertexVector[_loc7_ + 23] = param5;
-			__iTriangleCount = __iTriangleCount + 2;
-			if (__iTriangleCount == 1000)
-			{
-				push();
-			}
-		}
-		
-		public function push():void
-		{
-			FStats.iDrawCalls++;
-			__vb3VertexBuffer.uploadFromVector(__aVertexVector, 0, 3 * 1000);
-			__cContext.setVertexBufferAt(0, __vb3VertexBuffer, 0, "float2");
-			__cContext.setVertexBufferAt(1, __vb3VertexBuffer, 2, "float4");
-			if (__bDrawQuads)
-			{
-				__cContext.drawTriangles(__ib3QuadIndexBuffer, 0, __iTriangleCount);
-			}
-			else
-			{
-				__cContext.drawTriangles(__ib3TriangleIndexBuffer, 0, __iTriangleCount);
-			}
-			__iTriangleCount = 0;
-		}
-		
-		public function clear():void
-		{
-			__cContext.setVertexBufferAt(0, null);
-			__cContext.setVertexBufferAt(1, null);
-		}
-	}
-}
+    import flash.display3D.VertexBuffer3D;
+    import __AS3__.vec.Vector;
+    import flash.display3D.IndexBuffer3D;
+    import flash.display3D.Program3D;
+    import flash.display3D.Context3D;
+    import com.adobe.utils.AGALMiniAssembler;
+    import com.flengine.components.FCamera;
+    import flash.geom.Matrix;
+    import com.flengine.core.FStats;
+
+    public final class FDrawColorCameraVertexBufferCPUBatchMaterial implements IGMaterial 
+    {
+
+        private static const BATCH_SIZE:int = 1000;
+        private static const DATA_PER_VERTEX:int = 6;
+        private static const VERTEX_SHADER_CODE:Array = ["mov vt0, va0", "sub vt1, vt0.xy, vc5.xy", "mul vt1, vt1.xy, vc5.zw", "mov vt4.x, vc4.x", "sin vt2.x, vt4.x", "cos vt2.y, vt4.x", "mul vt3.x, vt1.x, vt2.y", "mul vt3.y, vt1.y, vt2.x", "sub vt4.x, vt3.x, vt3.y", "mul vt3.y, vt1.y, vt2.y", "mul vt3.x, vt1.x, vt2.x", "add vt4.y, vt3.y, vt3.x", "add vt1, vt4.xy, vc4.yz", "mov vt1.zw, vt0.zw", "m44 op, vt1, vc0", "mov v1, va1"];
+
+        private var __vb3VertexBuffer:VertexBuffer3D;
+        private var __aVertexVector:Vector.<Number>;
+        private var __ib3QuadIndexBuffer:IndexBuffer3D;
+        private var __ib3TriangleIndexBuffer:IndexBuffer3D;
+        private var __iTriangleCount:int = 0;
+        private var __bInitializedThisFrame:Boolean = false;
+        private var __bDrawQuads:Boolean = true;
+        private var __p3ShaderProgram:Program3D;
+        private var __cContext:Context3D;
+        private var vertexShader:AGALMiniAssembler;
+        private var vertexShaderAlpha:AGALMiniAssembler;
+
+
+        function initialize(p_context:Context3D):void
+        {
+            var _local3:int;
+            __cContext = p_context;
+            vertexShader = new AGALMiniAssembler();
+            vertexShader.assemble("vertex", VERTEX_SHADER_CODE.join("\n"));
+            __p3ShaderProgram = p_context.createProgram();
+            __p3ShaderProgram.upload(vertexShader.agalcode, FFragmentShadersCommon.getColorShaderCode());
+            __aVertexVector = new Vector.<Number>(((3 * 1000) * 6));
+            __vb3VertexBuffer = __cContext.createVertexBuffer((3 * 1000), 6);
+            var _local2:Vector.<uint> = new Vector.<uint>();
+            _local3 = 0;
+            while (_local3 < (3 * 1000))
+            {
+                _local2.push(_local3);
+                _local3++;
+            };
+            __ib3TriangleIndexBuffer = p_context.createIndexBuffer((3 * 1000));
+            __ib3TriangleIndexBuffer.uploadFromVector(_local2, 0, (3 * 1000));
+            _local2.length = 0;
+            _local3 = 0;
+            while (_local3 < (1000 / 2))
+            {
+                _local2 = _local2.concat(Vector.<uint>([(4 * _local3), ((4 * _local3) + 1), ((4 * _local3) + 2), (4 * _local3), ((4 * _local3) + 2), ((4 * _local3) + 3)]));
+                _local3++;
+            };
+            __ib3QuadIndexBuffer = p_context.createIndexBuffer((3 * 1000));
+            __ib3QuadIndexBuffer.uploadFromVector(_local2, 0, (3 * 1000));
+            __iTriangleCount = 0;
+        }
+
+        function bind(p_context:Context3D, p_reinitialize:Boolean, p_camera:FCamera):void
+        {
+            if ((((__p3ShaderProgram == null)) || (((p_reinitialize) && (!(__bInitializedThisFrame))))))
+            {
+                initialize(p_context);
+            };
+            __bInitializedThisFrame = p_reinitialize;
+            __cContext.setProgram(__p3ShaderProgram);
+            __cContext.setProgramConstantsFromVector("vertex", 4, p_camera.aCameraVector, 2);
+            __cContext.setProgramConstantsFromVector("fragment", 0, Vector.<Number>([1, 0, 0, 0.5]), 1);
+            __iTriangleCount = 0;
+        }
+
+        public function draw(p_x:Number, p_y:Number, p_scaleX:Number, p_scaleY:Number, p_rotation:Number, p_red:Number, p_green:Number, p_blue:Number, p_alpha:Number):void
+        {
+            __bDrawQuads = true;
+            var _local11:Number = Math.cos(p_rotation);
+            var _local14:Number = Math.sin(p_rotation);
+            var _local18:Number = (0.5 * p_scaleX);
+            var _local17:Number = (0.5 * p_scaleY);
+            var _local12:Number = (_local11 * _local18);
+            var _local13:Number = (_local11 * _local17);
+            var _local15:Number = (_local14 * _local18);
+            var _local16:Number = (_local14 * _local17);
+            var _local10:int = ((6 * 3) * __iTriangleCount);
+            __aVertexVector[_local10] = ((-(_local12) - _local16) + p_x);
+            __aVertexVector[(_local10 + 1)] = ((_local13 - _local15) + p_y);
+            __aVertexVector[(_local10 + 2)] = p_red;
+            __aVertexVector[(_local10 + 3)] = p_green;
+            __aVertexVector[(_local10 + 4)] = p_blue;
+            __aVertexVector[(_local10 + 5)] = p_alpha;
+            __aVertexVector[(_local10 + 6)] = ((-(_local12) + _local16) + p_x);
+            __aVertexVector[(_local10 + 7)] = ((-(_local13) - _local15) + p_y);
+            __aVertexVector[(_local10 + 8)] = p_red;
+            __aVertexVector[(_local10 + 9)] = p_green;
+            __aVertexVector[(_local10 + 10)] = p_blue;
+            __aVertexVector[(_local10 + 11)] = p_alpha;
+            __aVertexVector[(_local10 + 12)] = ((_local12 + _local16) + p_x);
+            __aVertexVector[(_local10 + 13)] = ((-(_local13) + _local15) + p_y);
+            __aVertexVector[(_local10 + 14)] = p_red;
+            __aVertexVector[(_local10 + 15)] = p_green;
+            __aVertexVector[(_local10 + 16)] = p_blue;
+            __aVertexVector[(_local10 + 17)] = p_alpha;
+            __aVertexVector[(_local10 + 18)] = ((_local12 - _local16) + p_x);
+            __aVertexVector[(_local10 + 19)] = ((_local13 + _local15) + p_y);
+            __aVertexVector[(_local10 + 20)] = p_red;
+            __aVertexVector[(_local10 + 21)] = p_green;
+            __aVertexVector[(_local10 + 22)] = p_blue;
+            __aVertexVector[(_local10 + 23)] = p_alpha;
+            __iTriangleCount = (__iTriangleCount + 2);
+            if (__iTriangleCount == 1000)
+            {
+                push();
+            };
+        }
+
+        public function drawPoly(p_vertices:Vector.<Number>, p_x:Number, p_y:Number, p_scaleX:Number, p_scaleY:Number, p_rotation:Number, p_red:Number, p_green:Number, p_blue:Number, p_alpha:Number):void
+        {
+            var _local14:int;
+            __bDrawQuads = false;
+            var _local13:Number = Math.cos(p_rotation);
+            var _local16:Number = Math.sin(p_rotation);
+            var _local12:int = p_vertices.length;
+            var _local15 = (_local12 >> 1);
+            var _local17:int = (_local15 / 3);
+            if ((__iTriangleCount + _local17) > 1000)
+            {
+                push();
+            };
+            var _local11:int = ((6 * 3) * __iTriangleCount);
+            _local14 = 0;
+            while (_local14 < _local12)
+            {
+                __aVertexVector[_local11] = ((((_local13 * p_vertices[_local14]) * p_scaleX) - ((_local16 * p_vertices[(_local14 + 1)]) * p_scaleY)) + p_x);
+                __aVertexVector[(_local11 + 1)] = ((((_local16 * p_vertices[_local14]) * p_scaleX) + ((_local13 * p_vertices[(_local14 + 1)]) * p_scaleY)) + p_y);
+                __aVertexVector[(_local11 + 2)] = p_red;
+                __aVertexVector[(_local11 + 3)] = p_green;
+                __aVertexVector[(_local11 + 4)] = p_blue;
+                __aVertexVector[(_local11 + 5)] = p_alpha;
+                _local11 = (_local11 + 6);
+                _local14 = (_local14 + 2);
+            };
+            __iTriangleCount = (__iTriangleCount + _local17);
+            if (__iTriangleCount >= 1000)
+            {
+                push();
+            };
+        }
+
+        public function drawMatrix(p_matrix:Matrix, p_red:Number, p_green:Number, p_blue:Number, p_alpha:Number):void
+        {
+            __bDrawQuads = true;
+            var _local7:int = ((6 * 2) * __iTriangleCount);
+            var _local6 = 0.5;
+            var _local8 = 0.5;
+            __aVertexVector[_local7] = (((p_matrix.a * -(_local6)) + (p_matrix.c * _local8)) + p_matrix.tx);
+            __aVertexVector[(_local7 + 1)] = (((p_matrix.d * _local8) + (p_matrix.b * -(_local6))) + p_matrix.ty);
+            __aVertexVector[(_local7 + 2)] = p_red;
+            __aVertexVector[(_local7 + 3)] = p_green;
+            __aVertexVector[(_local7 + 4)] = p_blue;
+            __aVertexVector[(_local7 + 5)] = p_alpha;
+            __aVertexVector[(_local7 + 6)] = (((p_matrix.a * -(_local6)) + (p_matrix.c * -(_local8))) + p_matrix.tx);
+            __aVertexVector[(_local7 + 7)] = (((p_matrix.d * -(_local8)) + (p_matrix.b * -(_local6))) + p_matrix.ty);
+            __aVertexVector[(_local7 + 8)] = p_red;
+            __aVertexVector[(_local7 + 9)] = p_green;
+            __aVertexVector[(_local7 + 10)] = p_blue;
+            __aVertexVector[(_local7 + 11)] = p_alpha;
+            __aVertexVector[(_local7 + 12)] = (((p_matrix.a * _local6) + (p_matrix.c * -(_local8))) + p_matrix.tx);
+            __aVertexVector[(_local7 + 13)] = (((p_matrix.d * -(_local8)) + (p_matrix.b * _local6)) + p_matrix.ty);
+            __aVertexVector[(_local7 + 14)] = p_red;
+            __aVertexVector[(_local7 + 15)] = p_green;
+            __aVertexVector[(_local7 + 16)] = p_blue;
+            __aVertexVector[(_local7 + 17)] = p_alpha;
+            __aVertexVector[(_local7 + 18)] = (((p_matrix.a * _local6) + (p_matrix.c * _local8)) + p_matrix.tx);
+            __aVertexVector[(_local7 + 19)] = (((p_matrix.d * _local8) + (p_matrix.b * _local6)) + p_matrix.ty);
+            __aVertexVector[(_local7 + 20)] = p_red;
+            __aVertexVector[(_local7 + 21)] = p_green;
+            __aVertexVector[(_local7 + 22)] = p_blue;
+            __aVertexVector[(_local7 + 23)] = p_alpha;
+            __iTriangleCount = (__iTriangleCount + 2);
+            if (__iTriangleCount == 1000)
+            {
+                push();
+            };
+        }
+
+        public function push():void
+        {
+            FStats.iDrawCalls++;
+            __vb3VertexBuffer.uploadFromVector(__aVertexVector, 0, (3 * 1000));
+            __cContext.setVertexBufferAt(0, __vb3VertexBuffer, 0, "float2");
+            __cContext.setVertexBufferAt(1, __vb3VertexBuffer, 2, "float4");
+            if (__bDrawQuads)
+            {
+                __cContext.drawTriangles(__ib3QuadIndexBuffer, 0, __iTriangleCount);
+            }
+            else
+            {
+                __cContext.drawTriangles(__ib3TriangleIndexBuffer, 0, __iTriangleCount);
+            };
+            __iTriangleCount = 0;
+        }
+
+        public function clear():void
+        {
+            __cContext.setVertexBufferAt(0, null);
+            __cContext.setVertexBufferAt(1, null);
+        }
+
+
+    }
+}//package com.flengine.context.materials
+

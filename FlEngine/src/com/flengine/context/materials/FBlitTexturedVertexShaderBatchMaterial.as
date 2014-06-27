@@ -1,190 +1,202 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.context.materials.FBlitTexturedVertexShaderBatchMaterial
+
 package com.flengine.context.materials
 {
-	import flash.utils.ByteArray;
-	import flash.display3D.VertexBuffer3D;
-	import flash.display3D.IndexBuffer3D;
-	import flash.display3D.textures.Texture;
-	import flash.display3D.Context3D;
-	import flash.utils.Dictionary;
-	import flash.display3D.Program3D;
-	import com.flengine.core.FlEngine;
-	import flash.system.ApplicationDomain;
-	import com.flengine.textures.FTexture;
-	import com.flengine.core.FStats;
-	import com.flengine.fl2d;
-	use namespace fl2d;
-	
-	public final class FBlitTexturedVertexShaderBatchMaterial extends Object implements IGMaterial
-	{
-		
-		public function FBlitTexturedVertexShaderBatchMaterial()
-		{
-//         VertexShaderEmbed = FBlitTexturedVertexShaderBatchMaterialVertex_ash;
-//         VertexShaderCode = new VertexShaderEmbed() as ByteArray;
-			__aVertexConstants = new Vector.<Number>(496);
-			super();
-		}
-		
-		private static const NORMALIZED_VERTICES:Vector.<Number> = new <Number>[-0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5];
-		private static const NORMALIZED_UVS:Vector.<Number> = new <Number>[0, 1, 0, 0, 1, 0, 1, 1];
-		private static var _helpBindFloat2:String = "float2";
-		private const BATCH_CONSTANTS:int = 124;
-		private const CONSTANTS_PER_BATCH:int = 2;
-		private const BATCH_SIZE:int = 62;
-		private const VertexShaderEmbed:Class = FBlitTexturedVertexShaderBatchMaterialVertex_ash;
-		private const VertexShaderCode:ByteArray = new VertexShaderEmbed() as ByteArray;
-		private var __vb3VertexBuffer:VertexBuffer3D;
-		private var __vb3UVBuffer:VertexBuffer3D;
-		private var __vb3RegisterIndexBuffer:VertexBuffer3D;
-		private var __ib3IndexBuffer:IndexBuffer3D;
-		private var __bInitializedThisFrame:Boolean;
-		private var __iQuadCount:int = 0;
-		private var __cActiveContextTexture:Texture;
-		private var __aVertexConstants:Vector.<Number>;
-		private var __baVertexArray:ByteArray;
-		private var __iConstantsOffset:int = 0;
-		private var __iActiveAtf:int = 0;
-		private var __bUseFastMem:Boolean = false;
-		private var __cContext:Context3D;
-		private var __aCachedPrograms:Dictionary;
-		
-		private function getCachedProgram(param1:Boolean, param2:int, param3:int):Program3D
-		{
-			var _loc4_:* = (param1 ? 1 : 0) << 31 | (param2 & 1) << 29 | (param3 & 3) << 27;
-			if (__aCachedPrograms[_loc4_] != null)
-			{
-				return __aCachedPrograms[_loc4_];
-			}
-			var _loc5_:Program3D = __cContext.createProgram();
-			_loc5_.upload(VertexShaderCode, FFragmentShadersCommon.getTexturedShaderCode(param1, param2, false, param3));
-			__aCachedPrograms[_loc4_] = _loc5_;
-			return _loc5_;
-		}
-		
-		fl2d function initialize(param1:Context3D):void
-		{
-			var _loc7_:* = 0;
-			var _loc3_:* = 0;
-			__cContext = param1;
-			__bUseFastMem = FlEngine.getInstance().cConfig.useFastMem;
-			VertexShaderCode.endian = "littleEndian";
-			__aCachedPrograms = new Dictionary();
-			var _loc4_:Vector.<Number> = new Vector.<Number>();
-			var _loc6_:Vector.<Number> = new Vector.<Number>();
-			var _loc2_:Vector.<Number> = new Vector.<Number>();
-			_loc7_ = 0;
-			while (_loc7_ < 62)
-			{
-				_loc4_ = _loc4_.concat(NORMALIZED_VERTICES);
-				_loc6_ = _loc6_.concat(NORMALIZED_UVS);
-				_loc3_ = 4 + _loc7_ * 2;
-				_loc2_.push(_loc3_, _loc3_ + 1);
-				_loc2_.push(_loc3_, _loc3_ + 1);
-				_loc2_.push(_loc3_, _loc3_ + 1);
-				_loc2_.push(_loc3_, _loc3_ + 1);
-				_loc7_++;
-			}
-			__vb3VertexBuffer = param1.createVertexBuffer(248, 2);
-			__vb3VertexBuffer.uploadFromVector(_loc4_, 0, 248);
-			__vb3UVBuffer = param1.createVertexBuffer(248, 2);
-			__vb3UVBuffer.uploadFromVector(_loc6_, 0, 248);
-			__vb3RegisterIndexBuffer = param1.createVertexBuffer(248, 2);
-			__vb3RegisterIndexBuffer.uploadFromVector(_loc2_, 0, 248);
-			var _loc5_:Vector.<uint> = new Vector.<uint>();
-			_loc7_ = 0;
-			while (_loc7_ < 62)
-			{
-				_loc5_ = _loc5_.concat(Vector.<uint>([4 * _loc7_, 4 * _loc7_ + 1, 4 * _loc7_ + 2, 4 * _loc7_, 4 * _loc7_ + 2, 4 * _loc7_ + 3]));
-				_loc7_++;
-			}
-			__ib3IndexBuffer = param1.createIndexBuffer(372);
-			__ib3IndexBuffer.uploadFromVector(_loc5_, 0, 372);
-			__baVertexArray = new ByteArray();
-			__baVertexArray.endian = "littleEndian";
-			__baVertexArray.length = 2048;
-		}
-		
-		public function bind(param1:Context3D, param2:Boolean):void
-		{
-			if (__aCachedPrograms == null || param2 && !__bInitializedThisFrame)
-			{
-				initialize(param1);
-			}
-			__bInitializedThisFrame = param2;
-			__cContext.setProgram(getCachedProgram(true, 0, __iActiveAtf));
-			__cContext.setVertexBufferAt(0, __vb3VertexBuffer, 0, _helpBindFloat2);
-			__cContext.setVertexBufferAt(1, __vb3UVBuffer, 0, _helpBindFloat2);
-			__cContext.setVertexBufferAt(2, __vb3RegisterIndexBuffer, 0, _helpBindFloat2);
-			__iQuadCount = 0;
-			__iConstantsOffset = 0;
-			__cActiveContextTexture = null;
-			if (__bUseFastMem)
-			{
-				ApplicationDomain.currentDomain.domainMemory = __baVertexArray;
-			}
-		}
-		
-		public function draw(param1:Number, param2:Number, param3:Number, param4:Number, param5:FTexture):void
-		{
-			var _loc7_:Texture = param5.cContextTexture.tTexture;
-			var _loc8_:* = !(__cActiveContextTexture == _loc7_);
-			var _loc6_:* = !(__iActiveAtf == param5.iAtfType);
-			if (_loc8_)
-			{
-				if (__cActiveContextTexture != null)
-				{
-					push();
-				}
-				if (_loc8_)
-				{
-					__cActiveContextTexture = _loc7_;
-					__cContext.setTextureAt(0, __cActiveContextTexture);
-				}
-				if (_loc6_)
-				{
-					__iActiveAtf = param5.iAtfType;
-					__cContext.setProgram(getCachedProgram(true, 0, __iActiveAtf));
-				}
-			}
-			__iConstantsOffset = __iQuadCount << 3;
-			__aVertexConstants[__iConstantsOffset] = param1;
-			__aVertexConstants[__iConstantsOffset + 1] = param2;
-			__aVertexConstants[__iConstantsOffset + 2] = param5.iWidth * param3;
-			__aVertexConstants[__iConstantsOffset + 3] = param5.iHeight * param4;
-			__aVertexConstants[__iConstantsOffset + 4] = param5.uvX;
-			__aVertexConstants[__iConstantsOffset + 5] = param5.uvY;
-			__aVertexConstants[__iConstantsOffset + 6] = param5.uvScaleX;
-			__aVertexConstants[__iConstantsOffset + 7] = param5.uvScaleY;
-			__iQuadCount = __iQuadCount + 1;
-			if (__iQuadCount == 62)
-			{
-				push();
-			}
-		}
-		
-		public function push():void
-		{
-			FStats.iDrawCalls = FStats.iDrawCalls + 1;
-			if (__bUseFastMem)
-			{
-				__cContext.setProgramConstantsFromByteArray("vertex", 4, 124, __baVertexArray, 0);
-			}
-			else
-			{
-				__cContext.setProgramConstantsFromVector("vertex", 4, __aVertexConstants, 124);
-			}
-			__cContext.drawTriangles(__ib3IndexBuffer, 0, __iQuadCount * 2);
-			__iQuadCount = 0;
-			__iConstantsOffset = 0;
-		}
-		
-		public function clear():void
-		{
-			__cContext.setTextureAt(0, null);
-			__cContext.setVertexBufferAt(0, null);
-			__cContext.setVertexBufferAt(1, null);
-			__cContext.setVertexBufferAt(2, null);
-			__cActiveContextTexture = null;
-		}
-	}
-}
+    import __AS3__.vec.Vector;
+    import flash.utils.ByteArray;
+    import flash.display3D.VertexBuffer3D;
+    import flash.display3D.IndexBuffer3D;
+    import flash.display3D.textures.Texture;
+    import flash.display3D.Context3D;
+    import flash.utils.Dictionary;
+    import flash.display3D.Program3D;
+    import com.flengine.core.FlEngine;
+    import flash.system.ApplicationDomain;
+    import com.flengine.textures.FTexture;
+    import com.flengine.core.FStats;
+
+    public final class FBlitTexturedVertexShaderBatchMaterial implements IGMaterial 
+    {
+
+        private static const NORMALIZED_VERTICES:Vector.<Number> = Vector.<Number>([-0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5]);
+        private static const NORMALIZED_UVS:Vector.<Number> = Vector.<Number>([0, 1, 0, 0, 1, 0, 1, 1]);
+
+        private static var _helpBindFloat2:String = "float2";
+
+        private const BATCH_CONSTANTS:int = 124;
+        private const CONSTANTS_PER_BATCH:int = 2;
+        private const BATCH_SIZE:int = 62;
+        private const VertexShaderEmbed:Class = FBlitTexturedVertexShaderBatchMaterialVertex_ash;
+        private const VertexShaderCode:ByteArray = (new VertexShaderEmbed() as ByteArray);
+
+        private var __vb3VertexBuffer:VertexBuffer3D;
+        private var __vb3UVBuffer:VertexBuffer3D;
+        private var __vb3RegisterIndexBuffer:VertexBuffer3D;
+        private var __ib3IndexBuffer:IndexBuffer3D;
+        private var __bInitializedThisFrame:Boolean;
+        private var __iQuadCount:int = 0;
+        private var __cActiveContextTexture:Texture;
+        private var __aVertexConstants:Vector.<Number>;
+        private var __baVertexArray:ByteArray;
+        private var __iConstantsOffset:int = 0;
+        private var __iActiveAtf:int = 0;
+        private var __bUseFastMem:Boolean = false;
+        private var __cContext:Context3D;
+        private var __aCachedPrograms:Dictionary;
+
+        public function FBlitTexturedVertexShaderBatchMaterial()
+        {
+            __aVertexConstants = new Vector.<Number>(496);
+            super();
+        }
+
+        private function getCachedProgram(p_repeat:Boolean, p_filtering:int, p_atf:int):Program3D
+        {
+            var _local4 = (((((p_repeat) ? 1 : 0) << 31) | ((p_filtering & 1) << 29)) | ((p_atf & 3) << 27));
+            if (__aCachedPrograms[_local4] != null)
+            {
+                return (__aCachedPrograms[_local4]);
+            };
+            var _local5:Program3D = __cContext.createProgram();
+            _local5.upload(VertexShaderCode, FFragmentShadersCommon.getTexturedShaderCode(p_repeat, p_filtering, false, p_atf));
+            __aCachedPrograms[_local4] = _local5;
+            return (_local5);
+        }
+
+        function initialize(p_context:Context3D):void
+        {
+            var _local7:int;
+            var _local3:int;
+            __cContext = p_context;
+            __bUseFastMem = FlEngine.getInstance().cConfig.useFastMem;
+            VertexShaderCode.endian = "littleEndian";
+            __aCachedPrograms = new Dictionary();
+            var _local4:Vector.<Number> = new Vector.<Number>();
+            var _local6:Vector.<Number> = new Vector.<Number>();
+            var _local2:Vector.<Number> = new Vector.<Number>();
+            _local7 = 0;
+            while (_local7 < 62)
+            {
+                _local4 = _local4.concat(NORMALIZED_VERTICES);
+                _local6 = _local6.concat(NORMALIZED_UVS);
+                _local3 = (4 + (_local7 * 2));
+                _local2.push(_local3, (_local3 + 1));
+                _local2.push(_local3, (_local3 + 1));
+                _local2.push(_local3, (_local3 + 1));
+                _local2.push(_local3, (_local3 + 1));
+                _local7++;
+            };
+            __vb3VertexBuffer = p_context.createVertexBuffer(248, 2);
+            __vb3VertexBuffer.uploadFromVector(_local4, 0, 248);
+            __vb3UVBuffer = p_context.createVertexBuffer(248, 2);
+            __vb3UVBuffer.uploadFromVector(_local6, 0, 248);
+            __vb3RegisterIndexBuffer = p_context.createVertexBuffer(248, 2);
+            __vb3RegisterIndexBuffer.uploadFromVector(_local2, 0, 248);
+            var _local5:Vector.<uint> = new Vector.<uint>();
+            _local7 = 0;
+            while (_local7 < 62)
+            {
+                _local5 = _local5.concat(Vector.<uint>([(4 * _local7), ((4 * _local7) + 1), ((4 * _local7) + 2), (4 * _local7), ((4 * _local7) + 2), ((4 * _local7) + 3)]));
+                _local7++;
+            };
+            __ib3IndexBuffer = p_context.createIndexBuffer(372);
+            __ib3IndexBuffer.uploadFromVector(_local5, 0, 372);
+            __baVertexArray = new ByteArray();
+            __baVertexArray.endian = "littleEndian";
+            __baVertexArray.length = 0x0800;
+        }
+
+        [Inline]
+        public function bind(p_context:Context3D, p_reinitialize:Boolean):void
+        {
+            if ((((__aCachedPrograms == null)) || (((p_reinitialize) && (!(__bInitializedThisFrame))))))
+            {
+                initialize(p_context);
+            };
+            __bInitializedThisFrame = p_reinitialize;
+            __cContext.setProgram(getCachedProgram(true, 0, __iActiveAtf));
+            __cContext.setVertexBufferAt(0, __vb3VertexBuffer, 0, _helpBindFloat2);
+            __cContext.setVertexBufferAt(1, __vb3UVBuffer, 0, _helpBindFloat2);
+            __cContext.setVertexBufferAt(2, __vb3RegisterIndexBuffer, 0, _helpBindFloat2);
+            __iQuadCount = 0;
+            __iConstantsOffset = 0;
+            __cActiveContextTexture = null;
+            if (__bUseFastMem)
+            {
+                ApplicationDomain.currentDomain.domainMemory = __baVertexArray;
+            };
+        }
+
+        [Inline]
+        public function draw(p_x:Number, p_y:Number, p_scaleX:Number, p_scaleY:Number, p_texture:FTexture):void
+        {
+            var _local7:Texture = p_texture.cContextTexture.tTexture;
+            var _local8 = !((__cActiveContextTexture == _local7));
+            var _local6 = !((__iActiveAtf == p_texture.iAtfType));
+            if (_local8)
+            {
+                if (__cActiveContextTexture != null)
+                {
+                    push();
+                };
+                if (_local8)
+                {
+                    __cActiveContextTexture = _local7;
+                    __cContext.setTextureAt(0, __cActiveContextTexture);
+                };
+                if (_local6)
+                {
+                    __iActiveAtf = p_texture.iAtfType;
+                    __cContext.setProgram(getCachedProgram(true, 0, __iActiveAtf));
+                };
+            };
+            __iConstantsOffset = (__iQuadCount << 3);
+            __aVertexConstants[__iConstantsOffset] = p_x;
+            __aVertexConstants[(__iConstantsOffset + 1)] = p_y;
+            __aVertexConstants[(__iConstantsOffset + 2)] = (p_texture.iWidth * p_scaleX);
+            __aVertexConstants[(__iConstantsOffset + 3)] = (p_texture.iHeight * p_scaleY);
+            __aVertexConstants[(__iConstantsOffset + 4)] = p_texture.uvX;
+            __aVertexConstants[(__iConstantsOffset + 5)] = p_texture.uvY;
+            __aVertexConstants[(__iConstantsOffset + 6)] = p_texture.uvScaleX;
+            __aVertexConstants[(__iConstantsOffset + 7)] = p_texture.uvScaleY;
+            __iQuadCount++;
+            if (__iQuadCount == 62)
+            {
+                push();
+            };
+        }
+
+        [Inline]
+        public function push():void
+        {
+            FStats.iDrawCalls = (FStats.iDrawCalls + 1);
+            if (__bUseFastMem)
+            {
+                __cContext.setProgramConstantsFromByteArray("vertex", 4, 124, __baVertexArray, 0);
+            }
+            else
+            {
+                __cContext.setProgramConstantsFromVector("vertex", 4, __aVertexConstants, 124);
+            };
+            __cContext.drawTriangles(__ib3IndexBuffer, 0, (__iQuadCount * 2));
+            __iQuadCount = 0;
+            __iConstantsOffset = 0;
+        }
+
+        [Inline]
+        public function clear():void
+        {
+            __cContext.setTextureAt(0, null);
+            __cContext.setVertexBufferAt(0, null);
+            __cContext.setVertexBufferAt(1, null);
+            __cContext.setVertexBufferAt(2, null);
+            __cActiveContextTexture = null;
+        }
+
+
+    }
+}//package com.flengine.context.materials
+

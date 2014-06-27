@@ -1,106 +1,117 @@
+﻿// Decompiled by AS3 Sorcerer 2.20
+// http://www.as3sorcerer.com/
+
+//com.flengine.textures.FTextureAtlas
+
 package com.flengine.textures
 {
-   import flash.utils.Dictionary;
-   import flash.geom.Rectangle;
-   import com.flengine.error.FError;
-   import com.flengine.fl2d;
-   use namespace fl2d;
-   public class FTextureAtlas extends FTextureBase
-   {
-      
-      public function FTextureAtlas(param1:String, param2:int, param3:int, param4:int, param5:*, param6:Boolean, param7:Function) {
-         super(param1,param2,param5,param6,param7);
-         if(!FTextureUtils.isValidTextureSize(param3) || !FTextureUtils.isValidTextureSize(param4))
-         {
-            throw new FError("FError: Invalid atlas size, it needs to be power of 2.");
-         }
-         else
-         {
-            iWidth = param3;
-            iHeight = param4;
+    import flash.utils.Dictionary;
+    import com.flengine.error.FError;
+    import flash.geom.Rectangle;
+
+    public class FTextureAtlas extends FTextureBase 
+    {
+
+        private var __dTextures:Dictionary;
+
+        public function FTextureAtlas(p_id:String, p_sourceType:int, p_width:int, p_height:int, p_source:*, p_transparent:Boolean, p_uploadCallback:Function)
+        {
+            super(p_id, p_sourceType, p_source, p_transparent, p_uploadCallback);
+            if (((!(FTextureUtils.isValidTextureSize(p_width))) || (!(FTextureUtils.isValidTextureSize(p_height)))))
+            {
+                throw (new FError("FError: Invalid atlas size, it needs to be power of 2."));
+            };
+            iWidth = p_width;
+            iHeight = p_height;
             __dTextures = new Dictionary();
-            return;
-         }
-      }
-      
-      public static function getTextureAtlasById(param1:String) : FTextureAtlas {
-         return FTextureBase.getTextureBaseById(param1) as FTextureAtlas;
-      }
-      
-      private var __dTextures:Dictionary;
-      
-      public function get textures() : Dictionary {
-         return __dTextures;
-      }
-      
-      override public function set filteringType(param1:int) : void {
-         super.filteringType = param1;
-         var _loc2_:FTexture;
-         for each(_loc2_ in __dTextures)
-         {
-            _loc2_.iFilteringType = param1;
-         }
-      }
-      
-      public function getTexture(param1:String) : FTexture {
-         return __dTextures[param1];
-      }
-      
-      override protected function invalidateContextTexture(param1:Boolean) : void {
-         super.invalidateContextTexture(param1);
-         var _loc2_:FTexture;
-         for each(_loc2_ in __dTextures)
-         {
-            _loc2_.cContextTexture = cContextTexture;
-            _loc2_.iAtfType = iAtfType;
-         }
-      }
-      
-      public function addSubTexture(param1:String, param2:Rectangle, param3:Number, param4:Number, param5:Number = 0, param6:Number = 0, param7:Boolean = false) : FTexture {
-         var _loc8_:FTexture = new FTexture(_sId + "_" + param1,iSourceType,getSource(),param2,bTransparent,param3,param4,param5,param6,null,this);
-         _loc8_.sSubId = param1;
-         _loc8_.filteringType = filteringType;
-         _loc8_.cContextTexture = cContextTexture;
-         __dTextures[param1] = _loc8_;
-         if(param7)
-         {
-            invalidate();
-         }
-         return _loc8_;
-      }
-      
-      public function removeSubTexture(param1:String) : void {
-         __dTextures[param1] = null;
-      }
-      
-      private function disposeSubTextures() : void {
-         var _loc2_:FTexture = null;
-         var _loc1_:String;
-         for(_loc1_ in __dTextures)
-         {
-            _loc2_ = __dTextures[_loc1_];
-            _loc2_.dispose();
-            delete __dTextures[_loc1_];
-         }
-         __dTextures = new Dictionary();
-      }
-      
-      override public function dispose() : void {
-         disposeSubTextures();
-         if(baByteArray)
-         {
-            baByteArray = null;
-         }
-         if(bdBitmapData)
-         {
-            bdBitmapData.dispose();
-            bdBitmapData = null;
-         }
-         if(cContextTexture)
-         {
-            cContextTexture.dispose();
-         }
-         super.dispose();
-      }
-   }
-}
+        }
+
+        public static function getTextureAtlasById(p_id:String):FTextureAtlas
+        {
+            return ((FTextureBase.getTextureBaseById(p_id) as FTextureAtlas));
+        }
+
+
+        public function get textures():Dictionary
+        {
+            return (__dTextures);
+        }
+
+        override public function set filteringType(p_type:int):void
+        {
+            super.filteringType = p_type;
+            for each (var _local2:FTexture in __dTextures)
+            {
+                _local2.iFilteringType = p_type;
+            };
+        }
+
+        public function getTexture(p_id:String):FTexture
+        {
+            return (__dTextures[p_id]);
+        }
+
+        override protected function invalidateContextTexture(p_reinitialize:Boolean):void
+        {
+            super.invalidateContextTexture(p_reinitialize);
+            for each (var _local2:FTexture in __dTextures)
+            {
+                _local2.cContextTexture = cContextTexture;
+                _local2.iAtfType = iAtfType;
+            };
+        }
+
+        public function addSubTexture(p_subId:String, p_region:Rectangle, p_frameWidth:Number, p_frameHeight:Number, p_pivotX:Number=0, p_pivotY:Number=0, p_invalidate:Boolean=false):FTexture
+        {
+            var _local8:FTexture = new FTexture(((_sId + "_") + p_subId), iSourceType, getSource(), p_region, bTransparent, p_frameWidth, p_frameHeight, p_pivotX, p_pivotY, null, this);
+            _local8.sSubId = p_subId;
+            _local8.filteringType = filteringType;
+            _local8.cContextTexture = cContextTexture;
+            __dTextures[p_subId] = _local8;
+            if (p_invalidate)
+            {
+                invalidate();
+            };
+            return (_local8);
+        }
+
+        public function removeSubTexture(p_subId:String):void
+        {
+            __dTextures[p_subId] = null;
+        }
+
+        private function disposeSubTextures():void
+        {
+            var _local2 = null;
+            for (var _local1:String in __dTextures)
+            {
+                _local2 = __dTextures[_local1];
+                _local2.dispose();
+                delete __dTextures[_local1];
+            };
+            __dTextures = new Dictionary();
+        }
+
+        override public function dispose():void
+        {
+            disposeSubTextures();
+            if (baByteArray)
+            {
+                baByteArray = null;
+            };
+            if (bdBitmapData)
+            {
+                bdBitmapData.dispose();
+                bdBitmapData = null;
+            };
+            if (cContextTexture)
+            {
+                cContextTexture.dispose();
+            };
+            super.dispose();
+        }
+
+
+    }
+}//package com.flengine.textures
+
