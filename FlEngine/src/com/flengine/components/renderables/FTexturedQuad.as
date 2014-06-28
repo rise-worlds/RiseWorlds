@@ -16,6 +16,8 @@ package com.flengine.components.renderables
     import flash.geom.Matrix3D;
     import flash.geom.Vector3D;
     import flash.events.MouseEvent;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FTexturedQuad extends FRenderable 
     {
@@ -23,7 +25,7 @@ package com.flengine.components.renderables
         private static const NORMALIZED_VERTICES_3D:Vector.<Number> = Vector.<Number>([-0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0]);
 
         public var filter:FFilter;
-        var cTexture:FTexture;
+        fl2d var cTexture:FTexture;
         protected var _aTransformedVertices:Vector.<Number>;
         public var mousePixelEnabled:Boolean = false;
 
@@ -89,7 +91,7 @@ package com.flengine.components.renderables
             return (p_target);
         }
 
-        function getTransformedVertices3D():Vector.<Number>
+        fl2d function getTransformedVertices3D():Vector.<Number>
         {
             if (cTexture == null)
             {

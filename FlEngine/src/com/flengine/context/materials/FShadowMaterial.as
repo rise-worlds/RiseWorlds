@@ -13,6 +13,8 @@ package com.flengine.context.materials
     import com.adobe.utils.AGALMiniAssembler;
     import com.flengine.components.FCamera;
     import com.flengine.core.FStats;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FShadowMaterial implements IGMaterial 
     {
@@ -45,7 +47,7 @@ package com.flengine.context.materials
             super();
         }
 
-        function initialize(p_context:Context3D):void
+        fl2d function initialize(p_context:Context3D):void
         {
             var _local8:int;
             var _local4:int;
@@ -96,7 +98,7 @@ package com.flengine.context.materials
             __ib3IndexBuffer.uploadFromVector(_local6, 0, 1440);
         }
 
-        function bind(p_context:Context3D, p_reinitialize:Boolean, p_camera:FCamera):void
+        fl2d function bind(p_context:Context3D, p_reinitialize:Boolean, p_camera:FCamera):void
         {
             if ((((__p3ShaderProgram == null)) || (((p_reinitialize) && (!(__bInitializedThisFrame))))))
             {
@@ -113,7 +115,7 @@ package com.flengine.context.materials
             __iConstantsOffset = 0;
         }
 
-        function draw(p_x:Number, p_y:Number, p_scaleX:Number, p_scaleY:Number, p_rotation:Number, p_lightX:Number, p_lightY:Number, p_depth:Number=1):void
+        fl2d function draw(p_x:Number, p_y:Number, p_scaleX:Number, p_scaleY:Number, p_rotation:Number, p_lightX:Number, p_lightY:Number, p_depth:Number=1):void
         {
             __aVertexConstants[__iConstantsOffset] = p_x;
             __aVertexConstants[(__iConstantsOffset + 1)] = p_y;

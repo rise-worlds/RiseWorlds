@@ -7,6 +7,8 @@ package com.flengine.core
 {
     import flash.geom.Rectangle;
     import flash.display.Stage3D;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FConfig 
     {

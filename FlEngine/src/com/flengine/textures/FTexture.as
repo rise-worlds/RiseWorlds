@@ -8,22 +8,24 @@ package com.flengine.textures
     import flash.display.DisplayObject;
     import flash.geom.Rectangle;
     import flash.display.BitmapData;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FTexture extends FTextureBase 
     {
 
-        var doNativeObject:DisplayObject;
-        var nUvX:Number = 0;
-        var nUvY:Number = 0;
-        var nUvScaleX:Number = 1;
-        var nUvScaleY:Number = 1;
-        var nFrameWidth:Number = 0;
-        var nFrameHeight:Number = 0;
-        var nPivotX:Number = 0;
-        var nPivotY:Number = 0;
-        var cParent:FTextureAtlas;
-        var sSubId:String = "";
-        var rRegion:Rectangle;
+        fl2d var doNativeObject:DisplayObject;
+        fl2d var nUvX:Number = 0;
+        fl2d var nUvY:Number = 0;
+        fl2d var nUvScaleX:Number = 1;
+        fl2d var nUvScaleY:Number = 1;
+        fl2d var nFrameWidth:Number = 0;
+        fl2d var nFrameHeight:Number = 0;
+        fl2d var nPivotX:Number = 0;
+        fl2d var nPivotY:Number = 0;
+        fl2d var cParent:FTextureAtlas;
+        fl2d var sSubId:String = "";
+        fl2d var rRegion:Rectangle;
 
         public function FTexture(p_id:String, p_sourceType:int, p_source:*, p_region:Rectangle, p_transparent:Boolean, p_frameWidth:Number, p_frameHeight:Number, p_pivotX:Number=0, p_pivotY:Number=0, p_asyncCallback:Function=null, p_parent:FTextureAtlas=null)
         {
@@ -297,7 +299,7 @@ package com.flengine.textures
             super.invalidateContextTexture(p_reinitialize);
         }
 
-        function setParent(p_parent:FTextureAtlas, p_region:Rectangle):void
+        fl2d function setParent(p_parent:FTextureAtlas, p_region:Rectangle):void
         {
             cParent = p_parent;
             region = p_region;

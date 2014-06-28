@@ -9,6 +9,8 @@ package com.flengine.context.materials
     import com.adobe.utils.AGALMiniAssembler;
     import flash.utils.ByteArray;
     import com.flengine.context.filters.FFilter;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FFragmentShadersCommon 
     {

@@ -33,6 +33,8 @@ package com.flengine.context
     import flash.geom.Matrix;
     import flash.display3D.Context3DClearMask;
     import flash.display.BitmapData;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FContext 
     {
@@ -40,19 +42,19 @@ package com.flengine.context
         public static const NEAR:int = 0;
         public static const FAR:int = 100;
 
-        var eInitialized:HelpSignal;
-        var eFailed:HelpSignal;
+        fl2d var eInitialized:HelpSignal;
+        fl2d var eFailed:HelpSignal;
         private var __bInitialized:Boolean = false;
-        var bReinitialize:Boolean = false;
-        var cContext:Context3D;
+        fl2d var bReinitialize:Boolean = false;
+        fl2d var cContext:Context3D;
         private var __mProjectionMatrix:Matrix3D;
         private var __stStage:Stage;
         private var __st3Stage3D:Stage3D;
         private var __cCore:FlEngine;
-        var cActiveMaterial:IGMaterial;
-        var iActiveBlendMode:int;
-        var bActivePremultiplied:Boolean;
-        var rActiveMaskRect:Rectangle;
+        fl2d var cActiveMaterial:IGMaterial;
+        fl2d var iActiveBlendMode:int;
+        fl2d var bActivePremultiplied:Boolean;
+        fl2d var rActiveMaskRect:Rectangle;
         protected var _cRenderTarget:FTexture;
         protected var _cBlitColorMaterial:FBlitColorVertexShaderBatchMaterial;
         protected var _cBlitMaterial:FBlitTexturedVertexShaderBatchMaterial;
@@ -98,7 +100,7 @@ package com.flengine.context
             __cActiveCamera = p_camera;
         }
 
-        function init(p_stage:Stage, p_stage3D:Stage3D=null):void
+        fl2d function init(p_stage:Stage, p_stage3D:Stage3D=null):void
         {
             __stStage = p_stage;
             if (p_stage3D == null)
@@ -126,7 +128,7 @@ package com.flengine.context
             };
         }
 
-        function dispose():void
+        fl2d function dispose():void
         {
             eInitialized.dispose();
             eInitialized = null;
@@ -185,7 +187,7 @@ package com.flengine.context
             return (_local4);
         }
 
-        function invalidate():void
+        fl2d function invalidate():void
         {
             if (__cCore.cConfig.externalStage3D == null)
             {
@@ -209,12 +211,12 @@ package com.flengine.context
             __mProjectionMatrix = getProjectionMatrix(__cCore.cConfig.viewRect.width, __cCore.cConfig.viewRect.height);
         }
 
-        function createTexture(p_width:int, p_height:int, p_format:String, p_optimizeForRenderToTexture:Boolean):FContextTexture
+        fl2d function createTexture(p_width:int, p_height:int, p_format:String, p_optimizeForRenderToTexture:Boolean):FContextTexture
         {
             return (new FContextTexture(cContext, p_width, p_height, p_format, p_optimizeForRenderToTexture));
         }
 
-        function begin(p_red:Number, p_green:Number, p_blue:Number):void
+        fl2d function begin(p_red:Number, p_green:Number, p_blue:Number):void
         {
             FStats.clear();
             _cRenderTarget = null;
@@ -232,7 +234,7 @@ package com.flengine.context
             cContext.setProgramConstantsFromMatrix("vertex", 0, __mProjectionMatrix, true);
         }
 
-        function end():void
+        fl2d function end():void
         {
             if (__cCore.cConfig.enableStats)
             {
@@ -461,7 +463,7 @@ package com.flengine.context
             _cDrawTextureBufferCPUMaterial.drawPoly(p_vertices, p_uvs, p_x, p_y, p_scaleX, p_scaleY, p_rotation, p_red, p_green, p_blue, p_alpha, p_texture, p_filter);
         }
 
-        function checkAndSetupRender(p_material:IGMaterial, p_blendMode:int, p_premultiplied:Boolean, p_maskRect:Rectangle):Boolean
+        fl2d function checkAndSetupRender(p_material:IGMaterial, p_blendMode:int, p_premultiplied:Boolean, p_maskRect:Rectangle):Boolean
         {
             var _local7:Boolean = ((!((p_material == cActiveMaterial))) || ((cActiveMaterial == null)));
             var _local5:Boolean = ((!((p_blendMode == iActiveBlendMode))) || (!((p_premultiplied == bActivePremultiplied))));
@@ -503,7 +505,7 @@ package com.flengine.context
             };
         }
 
-        function clearStencil():void
+        fl2d function clearStencil():void
         {
             if (cActiveMaterial)
             {
@@ -512,7 +514,7 @@ package com.flengine.context
             cContext.clear(0, 0, 0, 0, 0, 0, Context3DClearMask.STENCIL);
         }
 
-        function renderAsStencilMask(p_maskLayer:int):void
+        fl2d function renderAsStencilMask(p_maskLayer:int):void
         {
             if (cActiveMaterial)
             {
@@ -524,7 +526,7 @@ package com.flengine.context
             cContext.setColorMask(false, false, false, false);
         }
 
-        function renderToColor(p_stencilLayer:int):void
+        fl2d function renderToColor(p_stencilLayer:int):void
         {
             if (cActiveMaterial)
             {

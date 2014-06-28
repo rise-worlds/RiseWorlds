@@ -5,6 +5,9 @@
 
 package com.flengine.physics
 {
+	import com.flengine.fl2d;
+	use namespace fl2d;
+	
     public class FPhysics 
     {
 
@@ -12,7 +15,7 @@ package com.flengine.physics
         public var minimumTimeStep:int = 0;
 
 
-        function step(p_deltaTime:Number):void
+        fl2d function step(p_deltaTime:Number):void
         {
         }
 

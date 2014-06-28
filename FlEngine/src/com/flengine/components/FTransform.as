@@ -9,6 +9,8 @@ package com.flengine.components
     import com.flengine.core.FNode;
     import flash.geom.Rectangle;
     import flash.geom.Vector3D;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FTransform extends FComponent 
     {
@@ -17,31 +19,31 @@ package com.flengine.components
         private var __bWorldTransformMatrixDirty:Boolean = true;
         private var __mWorldTransformMatrix:Matrix3D;
         private var __mLocalTransformMatrix:Matrix3D;
-        var bTransformDirty:Boolean = true;
-        var nWorldX:Number = 0;
-        var nLocalX:Number = 0;
-        var nWorldY:Number = 0;
-        var nLocalY:Number = 0;
-        var nWorldScaleX:Number = 1;
+        fl2d var bTransformDirty:Boolean = true;
+        fl2d var nWorldX:Number = 0;
+        fl2d var nLocalX:Number = 0;
+        fl2d var nWorldY:Number = 0;
+        fl2d var nLocalY:Number = 0;
+        fl2d var nWorldScaleX:Number = 1;
         private var __nLocalScaleX:Number = 1;
-        var nWorldScaleY:Number = 1;
+        fl2d var nWorldScaleY:Number = 1;
         private var __nLocalScaleY:Number = 1;
-        var nWorldRotation:Number = 0;
+        fl2d var nWorldRotation:Number = 0;
         private var __nLocalRotation:Number = 0;
-        var bColorDirty:Boolean = true;
-        var nWorldRed:Number = 1;
+        fl2d var bColorDirty:Boolean = true;
+        fl2d var nWorldRed:Number = 1;
         private var _red:Number = 1;
-        var nWorldGreen:Number = 1;
+        fl2d var nWorldGreen:Number = 1;
         private var _green:Number = 1;
-        var nWorldBlue:Number = 1;
+        fl2d var nWorldBlue:Number = 1;
         private var _blue:Number = 1;
-        var nWorldAlpha:Number = 1;
+        fl2d var nWorldAlpha:Number = 1;
         private var _alpha:Number = 1;
         public var useWorldSpace:Boolean = false;
         public var useWorldColor:Boolean = false;
-        var cMask:FNode;
-        var rMaskRect:Rectangle;
-        var rAbsoluteMaskRect:Rectangle;
+        fl2d var cMask:FNode;
+        fl2d var rMaskRect:Rectangle;
+        fl2d var rAbsoluteMaskRect:Rectangle;
 
         public function FTransform(p_node:FNode)
         {
@@ -291,7 +293,7 @@ package com.flengine.components
             rAbsoluteMaskRect.y = (rAbsoluteMaskRect.y + nWorldY);
         }
 
-        function invalidate(p_invalidateTransform:Boolean, p_invalidateColor:Boolean):void
+        fl2d function invalidate(p_invalidateTransform:Boolean, p_invalidateColor:Boolean):void
         {
             var _local3:Number;
             var _local5:Number;

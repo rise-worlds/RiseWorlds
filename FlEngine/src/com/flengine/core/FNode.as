@@ -21,6 +21,8 @@ package com.flengine.core
     import com.flengine.signals.FMouseSignal;
     import flash.utils.getDefinitionByName;
     import com.flengine.components.renderables.FRenderable;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FNode 
     {
@@ -32,24 +34,24 @@ package com.flengine.core
         private var __eOnRemovedFromStage:HelpSignal;
         private var __eOnComponentAdded:HelpSignal;
         private var __eOnComponentRemoved:HelpSignal;
-        var cPool:FNodePool;
-        var cPoolPrevious:FNode;
-        var cPoolNext:FNode;
-        var cPrevious:FNode;
-        var cNext:FNode;
+        fl2d var cPool:FNodePool;
+        fl2d var cPoolPrevious:FNode;
+        fl2d var cPoolNext:FNode;
+        fl2d var cPrevious:FNode;
+        fl2d var cNext:FNode;
         private var __bChangedParent:Boolean = false;
         public var cameraGroup:int = 0;
         private var __bParentActive:Boolean = true;
-        var iUsedAsMask:int = 0;
+        fl2d var iUsedAsMask:int = 0;
         private var __bActive:Boolean = true;
         private var __aTags:Vector.<String>;
         private var __oUserData:Object;
-        var cCore:FlEngine;
+        fl2d var cCore:FlEngine;
         protected var _iId:uint;
         protected var _sName:String;
-        var cTransform:FTransform;
-        var cBody:FBody;
-        var cParent:FNode;
+        fl2d var cTransform:FTransform;
+        fl2d var cBody:FBody;
+        fl2d var cParent:FNode;
         private var __bUpdating:Boolean = false;
         private var __bDisposeAfterUpdate:Boolean = false;
         private var __bRemoveAfterUpdate:Boolean = false;
@@ -64,16 +66,16 @@ package com.flengine.core
         private var __eOnMouseOut:HelpSignal;
         public var mouseEnabled:Boolean = false;
         public var mouseChildren:Boolean = true;
-        var cMouseOver:FNode;
-        var cMouseDown:FNode;
-        var cRightMouseDown:FNode;
+        fl2d var cMouseOver:FNode;
+        fl2d var cMouseDown:FNode;
+        fl2d var cRightMouseDown:FNode;
         private var __dComponentsLookupTable:Dictionary;
         private var __cFirstComponent:FComponent;
         private var __cLastComponent:FComponent;
         private var _iChildCount:int = 0;
         private var _cFirstChild:FNode;
         private var _cLastChild:FNode;
-        var iUsedAsPPMask:int;
+        fl2d var iUsedAsPPMask:int;
 
         public function FNode(p_name:String="")
         {
@@ -309,7 +311,7 @@ package com.flengine.core
             return (cParent);
         }
 
-        function update(p_deltaTime:Number, p_parentTransformUpdate:Boolean, p_parentColorUpdate:Boolean):void
+        fl2d function update(p_deltaTime:Number, p_parentTransformUpdate:Boolean, p_parentColorUpdate:Boolean):void
         {
             var _local5 = null;
             if (((!(__bActive)) || (!(__bParentActive))))
@@ -358,7 +360,7 @@ package com.flengine.core
             __bUpdating = false;
         }
 
-        function render(p_context:FContext, p_camera:FCamera, p_maskRect:Rectangle, p_renderAsMask:Boolean):void
+        fl2d function render(p_context:FContext, p_camera:FCamera, p_maskRect:Rectangle, p_renderAsMask:Boolean):void
         {
             if (((((((((((!(__bActive)) || (__bChangedParent))) || (!(__bParentActive)))) || (!(cTransform.visible)))) || (((((cameraGroup & p_camera.mask) == 0)) && (!((cameraGroup == 0))))))) || ((((iUsedAsMask > 0)) && (!(p_renderAsMask))))))
             {
@@ -586,7 +588,7 @@ package com.flengine.core
             return (__eOnMouseOut);
         }
 
-        function processMouseEvent(p_captured:Boolean, p_event:MouseEvent, p_position:Vector3D, p_camera:FCamera):Boolean
+        fl2d function processMouseEvent(p_captured:Boolean, p_event:MouseEvent, p_position:Vector3D, p_camera:FCamera):Boolean
         {
             var _local5:FNode;
             var _local6:FComponent;
@@ -615,7 +617,7 @@ package com.flengine.core
             return (p_captured);
         }
 
-        function handleMouseEvent(p_object:FNode, p_type:String, p_x:int, p_y:int, p_buttonDown:Boolean, p_ctrlDown:Boolean):void
+        fl2d function handleMouseEvent(p_object:FNode, p_type:String, p_x:int, p_y:int, p_buttonDown:Boolean, p_ctrlDown:Boolean):void
         {
             var _local7 = null;
             var _local8 = null;

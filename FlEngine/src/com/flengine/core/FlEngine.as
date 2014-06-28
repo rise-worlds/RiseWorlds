@@ -17,6 +17,8 @@ package com.flengine.core
     import flash.geom.Vector3D;
     import flash.events.MouseEvent;
     import flash.events.TouchEvent;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FlEngine 
     {
@@ -39,11 +41,11 @@ package com.flengine.core
         public var paused:Boolean = false;
         private var __iRenderFrameCount:int = 0;
         private var __bInitialized:Boolean = false;
-        var nCurrentDeltaTime:Number = 0;
-        var aCameras:Vector.<FCamera>;
-        var cDefaultCamera:FCamera;
-        var cConfig:FConfig;
-        var cContext:FContext;
+        fl2d var nCurrentDeltaTime:Number = 0;
+        fl2d var aCameras:Vector.<FCamera>;
+        fl2d var cDefaultCamera:FCamera;
+        fl2d var cConfig:FConfig;
+        fl2d var cContext:FContext;
         private var __stStage:Stage;
         private var __nLastTime:Number;
         private var __iFrameId:int = 0;
@@ -335,7 +337,7 @@ package com.flengine.core
             return (-1);
         }
 
-        function addCamera(p_camera:FCamera):void
+		fl2d function addCamera(p_camera:FCamera):void
         {
             if (aCameras.indexOf(p_camera) != -1)
             {
@@ -345,7 +347,7 @@ package com.flengine.core
             __eOnCameraAdded.dispatch(p_camera);
         }
 
-        function removeCamera(p_camera:FCamera):void
+        fl2d function removeCamera(p_camera:FCamera):void
         {
             var _local2:int = aCameras.indexOf(p_camera);
             if (_local2 != -1)

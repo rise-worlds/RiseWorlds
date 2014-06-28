@@ -8,6 +8,8 @@ package com.flengine.components.renderables
     import com.flengine.core.FNode;
     import com.flengine.textures.FTextureBase;
     import com.flengine.textures.FTexture;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FSprite extends FTexturedQuad 
     {

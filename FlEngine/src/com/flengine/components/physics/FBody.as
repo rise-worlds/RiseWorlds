@@ -8,6 +8,8 @@ package com.flengine.components.physics
     import com.flengine.components.FComponent;
     import com.flengine.core.FNode;
     import com.flengine.components.FTransform;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FBody extends FComponent 
     {
@@ -72,15 +74,15 @@ package com.flengine.components.physics
             return (false);
         }
 
-        function addToSpace():void
+        fl2d function addToSpace():void
         {
         }
 
-        function removeFromSpace():void
+        fl2d function removeFromSpace():void
         {
         }
 
-        function invalidateKinematic(p_transform:FTransform):void
+        fl2d function invalidateKinematic(p_transform:FTransform):void
         {
         }
 

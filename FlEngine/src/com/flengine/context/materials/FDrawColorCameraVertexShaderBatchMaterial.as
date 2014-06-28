@@ -13,6 +13,8 @@ package com.flengine.context.materials
     import flash.display3D.Context3D;
     import com.flengine.components.FCamera;
     import com.flengine.core.FStats;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FDrawColorCameraVertexShaderBatchMaterial implements IGMaterial 
     {
@@ -42,7 +44,7 @@ package com.flengine.context.materials
             super();
         }
 
-        function initialize(p_context:Context3D):void
+        fl2d function initialize(p_context:Context3D):void
         {
             var _local6:int;
             var _local3:int;

@@ -12,6 +12,8 @@ package com.flengine.textures
     import com.flengine.core.FlEngine;
     import com.flengine.error.FError;
     import flash.events.Event;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FTextureBase 
     {
@@ -22,21 +24,21 @@ package com.flengine.textures
         private static var __iDefaultFilteringType:int = 1;
         private static var __dReferences:Dictionary = new Dictionary();
 
-        var bdBitmapData:BitmapData;
-        var baByteArray:ByteArray;
+        fl2d var bdBitmapData:BitmapData;
+        fl2d var baByteArray:ByteArray;
         protected var _iResampleType:int;
         protected var _iResampleScale:int;
-        var iFilteringType:int;
-        var nSourceWidth:int;
-        var nSourceHeight:int;
+        fl2d var iFilteringType:int;
+        fl2d var nSourceWidth:int;
+        fl2d var nSourceHeight:int;
         public var premultiplied:Boolean = true;
-        var iWidth:int;
-        var iHeight:int;
+        fl2d var iWidth:int;
+        fl2d var iHeight:int;
         protected var _sId:String;
-        var cContextTexture:FContextTexture;
-        var iSourceType:int;
-        var iAtfType:int;
-        var bTransparent:Boolean;
+        fl2d var cContextTexture:FContextTexture;
+        fl2d var iSourceType:int;
+        fl2d var iAtfType:int;
+        fl2d var bTransparent:Boolean;
         protected var _fAsyncCallback:Function;
         public var resampled:BitmapData;
 
@@ -145,7 +147,7 @@ package com.flengine.textures
             return (_local2);
         }
 
-        static function invalidate():void
+        fl2d static function invalidate():void
         {
             for (var _local1:String in __dReferences)
             {
@@ -233,7 +235,7 @@ package com.flengine.textures
             return (_sId);
         }
 
-        function getSource()
+        fl2d function getSource()
         {
             switch (iSourceType)
             {

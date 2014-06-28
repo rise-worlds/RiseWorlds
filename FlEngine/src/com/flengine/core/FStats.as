@@ -13,6 +13,8 @@ package com.flengine.core
     import flash.utils.getTimer;
     import flash.system.System;
     import com.flengine.textures.FTextureBase;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FStats 
     {
@@ -34,7 +36,7 @@ package com.flengine.core
         private static var __iMem:int;
         private static var __iMemMax:int;
         private static var __bdBitmapData:BitmapData;
-        static var iDrawCalls:int = 0;
+        fl2d static var iDrawCalls:int = 0;
 
 
         public static function get fps():int
@@ -42,7 +44,7 @@ package com.flengine.core
             return (__iLastFPS);
         }
 
-        static function init():void
+        fl2d static function init():void
         {
             __bdBitmapData = new BitmapData(0x0100, 16, false, 0);
             __cTexture = FTextureFactory.createFromBitmapData("stats_internal", __bdBitmapData);
@@ -61,7 +63,7 @@ package com.flengine.core
             __bdBitmapData = new BitmapData(0x0100, __tfStatsField.height, false, 0);
         }
 
-        static function update():void
+        fl2d static function update():void
         {
             var _local1:uint = getTimer();
             if ((_local1 - 1000) > __iPreviousTime)
@@ -77,7 +79,7 @@ package com.flengine.core
             __iFPS++;
         }
 
-        static function clear():void
+        fl2d static function clear():void
         {
             if (!__bInitialized)
             {
@@ -86,7 +88,7 @@ package com.flengine.core
             iDrawCalls = 0;
         }
 
-        static function draw():void
+        fl2d static function draw():void
         {
             var _local2:int;
             var _local1:int;

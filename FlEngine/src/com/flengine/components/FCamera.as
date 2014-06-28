@@ -11,6 +11,8 @@ package com.flengine.components
     import com.flengine.context.FContext;
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FCamera extends FComponent 
     {
@@ -24,15 +26,15 @@ package com.flengine.components
         public var backgroundGreen:Number = 0;
         public var backgroundBlue:Number = 0;
         public var backgroundAlpha:Number = 0;
-        var rViewRectangle:Rectangle;
-        var rendererData:Object;
-        var bCapturedThisFrame:Boolean = false;
-        var nViewX:Number = 0;
-        var nViewY:Number = 0;
-        var nScaleX:Number = 1;
-        var nScaleY:Number = 1;
-        var aCameraVector:Vector.<Number>;
-        var iRenderedNodesCount:int;
+        fl2d var rViewRectangle:Rectangle;
+        fl2d var rendererData:Object;
+        fl2d var bCapturedThisFrame:Boolean = false;
+        fl2d var nViewX:Number = 0;
+        fl2d var nViewY:Number = 0;
+        fl2d var nScaleX:Number = 1;
+        fl2d var nScaleY:Number = 1;
+        fl2d var aCameraVector:Vector.<Number>;
+        fl2d var iRenderedNodesCount:int;
 
         public function FCamera(p_node:FNode)
         {
@@ -76,7 +78,7 @@ package com.flengine.components
         {
         }
 
-        function invalidate():void
+        fl2d function invalidate():void
         {
             rViewRectangle.x = (normalizedViewX * cNode.cCore.cConfig.viewRect.width);
             rViewRectangle.y = (normalizedViewY * cNode.cCore.cConfig.viewRect.height);
@@ -108,7 +110,7 @@ package com.flengine.components
             cNode.cCore.root.render(p_context, this, rViewRectangle, false);
         }
 
-        function captureMouseEvent(p_captured:Boolean, p_event:MouseEvent, p_position:Vector3D):Boolean
+        fl2d function captureMouseEvent(p_captured:Boolean, p_event:MouseEvent, p_position:Vector3D):Boolean
         {
             if (((bCapturedThisFrame) || (!(cNode.active))))
             {

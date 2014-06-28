@@ -20,6 +20,8 @@ package com.flengine.context.materials
     import com.flengine.textures.FTexture;
     import flash.geom.Matrix;
     import com.flengine.core.FStats;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public final class FDrawTextureCameraVertexBufferCPUBatchMaterial implements IGMaterial 
     {
@@ -63,7 +65,7 @@ package com.flengine.context.materials
             return (_local7);
         }
 
-        function initialize(p_context:Context3D):void
+        fl2d function initialize(p_context:Context3D):void
         {
             var _local3:int;
             __cContext = p_context;
@@ -96,7 +98,7 @@ package com.flengine.context.materials
             __iTriangleCount = 0;
         }
 
-        function bind(p_context:Context3D, p_reinitialize:Boolean, p_camera:FCamera):void
+        fl2d function bind(p_context:Context3D, p_reinitialize:Boolean, p_camera:FCamera):void
         {
             if ((((__aCachedPrograms == null)) || (((p_reinitialize) && (!(__bInitializedThisFrame))))))
             {

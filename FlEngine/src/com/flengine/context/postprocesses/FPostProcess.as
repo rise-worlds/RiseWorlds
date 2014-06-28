@@ -16,6 +16,8 @@ package com.flengine.context.postprocesses
     import com.flengine.components.FCamera;
     import com.flengine.core.FNode;
     import com.flengine.textures.factories.FTextureFactory;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FPostProcess 
     {
@@ -38,7 +40,7 @@ package com.flengine.context.postprocesses
         {
             _cMatrix = new Matrix3D();
             super();
-            _sId = __iCount++;
+            _sId = (__iCount++).toString();
             if (p_passes < 1)
             {
                 throw (new FError("FError: Post process needs atleast one pass."));

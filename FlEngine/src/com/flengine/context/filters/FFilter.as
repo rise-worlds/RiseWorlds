@@ -8,14 +8,16 @@ package com.flengine.context.filters
     import __AS3__.vec.Vector;
     import flash.display3D.Context3D;
     import com.flengine.textures.FTexture;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FFilter 
     {
 
         public var fragmentCode:String;
         protected var _aFragmentConstants:Vector.<Number>;
-        var iId:int;
-        var bOverrideFragmentShader:Boolean = false;
+        fl2d var iId:int;
+        fl2d var bOverrideFragmentShader:Boolean = false;
 
         public function FFilter()
         {

@@ -13,6 +13,8 @@ package com.flengine.components
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
     import flash.events.TouchEvent;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FComponent 
     {
@@ -20,11 +22,11 @@ package com.flengine.components
         protected var _xPrototype:XML;
         protected var _bActive:Boolean = true;
         protected var _sId:String = "";
-        var cLookupClass:Object;
-        var cPrevious:FComponent;
-        var cNext:FComponent;
-        var cNode:FNode;
-        var cRenderData:Object;
+        fl2d var cLookupClass:Object;
+        fl2d var cPrevious:FComponent;
+        fl2d var cNext:FComponent;
+        fl2d var cNode:FNode;
+        fl2d var cRenderData:Object;
 
         public function FComponent(p_node:FNode)
         {

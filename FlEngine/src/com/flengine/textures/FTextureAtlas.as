@@ -8,6 +8,8 @@ package com.flengine.textures
     import flash.utils.Dictionary;
     import com.flengine.error.FError;
     import flash.geom.Rectangle;
+	import com.flengine.fl2d;
+	use namespace fl2d;
 
     public class FTextureAtlas extends FTextureBase 
     {
