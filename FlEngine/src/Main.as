@@ -32,7 +32,7 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			var config:FConfig = new FConfig(new Rectangle(0, 0, stage.stageWidth, stage.stageHeight));
-			config.enableStats = true;
+			//config.enableStats = true;
 			// Initialize Genome2D
 			genome = FlEngine.getInstance();
 			genome.onInitialized.addOnce(initialized);
