@@ -4,8 +4,7 @@ package com.genome2d.components.renderables.jointanim;
  * ...
  * @author Rise
  */
-class JAObjectInst
-{
+class JAObjectInst {
 	public var name:String;
 	public var spriteInst:JASpriteInst;
 	public var blendSrcTransform:JATransform;
@@ -17,8 +16,7 @@ class JAObjectInst
 	public var imagePredrawCallback:Bool;
 	public var postdrawCallback:Bool;
 
-	public function new() 
-	{
+	public function new() {
 		name = null;
 		spriteInst = null;
 		predrawCallback = true;
@@ -30,8 +28,7 @@ class JAObjectInst
 		blendSrcColor = new JAColor();
 		blendSrcTransform = new JATransform();
 	}
-	
-	public function Dispose():Void
-	{
+
+	public function Dispose():Void {
 	}
 }

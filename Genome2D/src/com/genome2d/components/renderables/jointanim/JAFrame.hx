@@ -4,16 +4,14 @@ import flash.Vector;
  * ...
  * @author Rise
  */
-class JAFrame
-{
+class JAFrame {
 	public var hasStop:Bool;
 	public var commandVector:Vector<JACommand>;
 	public var frameObjectPosVector:Vector<JAObjectPos>;
-	
-	public function new() 
-	{
+
+	public function new() {
 		commandVector = new Vector<JACommand>();
 		frameObjectPosVector = new Vector<JAObjectPos>();
 	}
-	
+
 }

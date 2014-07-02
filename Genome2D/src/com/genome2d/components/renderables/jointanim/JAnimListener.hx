@@ -6,9 +6,7 @@ import flash.geom.Matrix;
  * ...
  * @author Rise
  */
-interface JAnimListener
-{
-
+interface JAnimListener {
 	function JAnimPLaySample(_arg1:String, _arg2:Int, _arg3:Float, _arg4:Float):Void;
 	function JAnimObjectPredraw(_arg1:Int, _arg2:JAnim, _arg3:IContext, _arg4:JASpriteInst, _arg5:JAObjectInst, _arg6:JATransform, _arg7:JAColor):Bool;
 	function JAnimObjectPostdraw(_arg1:Int, _arg2:JAnim, _arg3:IContext, _arg4:JASpriteInst, _arg5:JAObjectInst, _arg6:JATransform, _arg7:JAColor):Bool;
@@ -17,5 +15,4 @@ interface JAnimListener
 	function JAnimCommand(_arg1:Int, _arg2:JAnim, _arg3:JASpriteInst, _arg4:String, _arg5:String):Bool;
 	function JAnimImageNotExistDraw(_arg1:String, _arg2:IContext, _arg3:Matrix, _arg4:Float, _arg5:Float, _arg6:Float, _arg7:Float, _arg8:Int):Void;
 
-	
 }

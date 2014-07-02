@@ -4,8 +4,7 @@ import flash.Vector;
  * ...
  * @author Rise
  */
-class MTRand
-{
+class MTRand {
 	private static inline var MTRAND_N:Int = 624;
 	private static var mag01:Array<Dynamic> = [0, 0x9908B0DF];
 	private static inline var UPPER_MASK:UInt = 0x80000000;
@@ -17,25 +16,21 @@ class MTRand
 	private var mt:Vector<UInt>;
 	private var mti:Int;
 
-	public function new() 
-	{
+	public function new() {
 		mt = new Vector<UInt>();
 		mt.fixed = false;
 		mt.length = 624;
 		mt.fixed = true;
 		SRand(4357);
 	}
-	
-	public function SRand(seed:UInt):Void
-	{
-		if (seed == 0)
-		{
+
+	public function SRand(seed:UInt):Void {
+		if (seed == 0) {
 			seed = 4357;
 		};
 		mt[0] = (seed & 0xFFFFFFFF);
 		mti = 1;
-		while (mti < 624)
-		{
+		while (mti < 624) {
 			mt[mti] = ((0x6C078965 * (mt[(mti - 1)] ^ ((mt[(mti - 1)] >> 30) & 3))) + mti);
 			var _local2 = mti;
 			var _local3 = (mt[_local2] & 0xFFFFFFFF);
@@ -44,21 +39,17 @@ class MTRand
 		};
 	}
 
-	public function Next():UInt
-	{
+	public function Next():UInt {
 		var _local2:Int;
 		var _local1:Int;
-		if (mti >= 624)
-		{
+		if (mti >= 624) {
 			_local1 = 0;
-			while (_local1 < (624 - 397))
-			{
+			while (_local1 < (624 - 397)) {
 				_local2 = ((mt[_local1] & 0x80000000) | (mt[(_local1 + 1)] & LOWER_MASK));
 				mt[_local1] = ((mt[(_local1 + 397)] ^ ((_local2 >> 1) & LOWER_MASK)) ^ mag01[(_local2 & 1)]);
 				_local1++;
 			};
-			while (_local1 < (624 - 1))
-			{
+			while (_local1 < (624 - 1)) {
 				_local2 = ((mt[_local1] & 0x80000000) | (mt[(_local1 + 1)] & LOWER_MASK));
 				mt[_local1] = ((mt[(_local1 + (397 - 624))] ^ ((_local2 >> 1) & LOWER_MASK)) ^ mag01[(_local2 & 1)]);
 				_local1++;
@@ -75,18 +66,15 @@ class MTRand
 		return ((_local2 & LOWER_MASK));
 	}
 
-	public function NextRange(range:UInt):UInt
-	{
+	public function NextRange(range:UInt):UInt {
 		return ((Next() % range));
 	}
 
-	public function NextFloat(range:Float):Float
-	{
+	public function NextFloat(range:Float):Float {
 		return (((Next() / LOWER_MASK) * range));
 	}
 
-	public function Dispose():Void
-	{
+	public function Dispose():Void {
 		mt.splice(0, mt.length);
 		mt = null;
 	}

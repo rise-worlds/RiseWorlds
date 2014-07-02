@@ -8,8 +8,7 @@ import flash.geom.Rectangle;
  * ...
  * @author Rise
  */
-class JAMemoryImage
-{
+class JAMemoryImage {
 	public static inline var Image_Uninitialized:Int = 0;
 	public static inline var Image_Loading:Int = 1;
 	public static inline var Image_Loaded:Int = 2;
@@ -25,8 +24,7 @@ class JAMemoryImage
 	public var imageExist:Bool;
 	private var onImgLoadCompleted:Dynamic;
 
-	public function new(onLoadCompleted:Dynamic) 
-	{
+	public function new(onLoadCompleted:Dynamic) {
 		width = 0;
 		height = 0;
 		numRows = 1;
@@ -35,58 +33,48 @@ class JAMemoryImage
 		loadFlag = 0;
 		onImgLoadCompleted = onLoadCompleted;
 	}
-	
-	public function GetCelRect(theCel:Int, out:Rectangle):Void
-	{
+
+	public function GetCelRect(theCel:Int, out:Rectangle):Void {
 		out.height = GetCelHeight();
 		out.width = GetCelWidth();
 		out.x = ((theCel % numCols) * out.width);
 		out.y = ((theCel / numCols) * out.height);
 	}
 
-	public function GetCelHeight():Float
-	{
+	public function GetCelHeight():Float {
 		return ((height / numRows));
 	}
 
-	public function GetCelWidth():Float
-	{
+	public function GetCelWidth():Float {
 		return ((width / numCols));
 	}
 
-	public function OnLoadedCompleted(event:Event):Void
-	{
+	public function OnLoadedCompleted(event:Event):Void {
 		event.target.removeEventListener("complete", OnLoadedCompleted);
 		bd = cast(event.target.content.bitmapData, BitmapData);
 		width = bd.width;
 		height = bd.height;
 		loadFlag = 2;
-		if (onImgLoadCompleted != null)
-		{
+		if (onImgLoadCompleted != null) {
 			(onImgLoadCompleted(this));
 			onImgLoadCompleted = null;
 		};
 	}
 
-	public function onBeChanged():Void
-	{
-		if (bd != null)
-		{
+	public function onBeChanged():Void {
+		if (bd != null) {
 			width = bd.width;
 			height = bd.height;
 			loadFlag = 2;
 		};
 	}
 
-	public function Dispose():Void
-	{
-		if (texture != null)
-		{
+	public function Dispose():Void {
+		if (texture != null) {
 			texture.dispose();
 		};
 		texture = null;
-		if (bd != null)
-		{
+		if (bd != null) {
 			bd.dispose();
 		};
 	}

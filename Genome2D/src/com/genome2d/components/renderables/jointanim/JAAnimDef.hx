@@ -5,17 +5,15 @@ import flash.Vector;
  * ...
  * @author Rise
  */
-class JAAnimDef
-{
+class JAAnimDef {
 	public var mainSpriteDef:JASpriteDef;
 	public var spriteDefVector:Vector<JASpriteDef>;
 	public var objectNamePool:Array<Dynamic>;
-	
-	public function new() 
-	{
+
+	public function new() {
 		mainSpriteDef = null;
 		spriteDefVector = new Vector<JASpriteDef>();
 		objectNamePool = [];
 	}
-	
+
 }

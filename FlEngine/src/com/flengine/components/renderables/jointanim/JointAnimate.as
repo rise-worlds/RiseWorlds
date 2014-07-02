@@ -821,10 +821,6 @@ package com.flengine.components.renderables.jointanim
             return (true);
         }
 
-
-    }
-}//package com.flengine.components.renderables.jointanim
-
 const PAM_MAGIC:uint = 3136297300;
 const PAM_VERSION:uint = 5;
 const FRAMEFLAGS_HAS_REMOVES:uint = 1;
@@ -839,4 +835,8 @@ const MOVEFLAGS_HAS_COLOR:uint = 0x2000;
 const MOVEFLAGS_HAS_MATRIX:uint = 0x1000;
 const MOVEFLAGS_HAS_LONGCOORDS:uint = 0x0800;
 const MOVEFLAGS_HAS_ANIMFRAMENUM:uint = 0x0400;
+
+    }
+}//package com.flengine.components.renderables.jointanim
+
 

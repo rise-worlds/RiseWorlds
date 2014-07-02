@@ -1,13 +1,16 @@
 package com.genome2d.components.renderables.jointanim;
+import com.genome2d.geom.GMatrix;
+import flash.geom.Matrix;
 import flash.geom.Matrix3D;
 import flash.Vector;
 
 /**
- * ...
  * @author Rise
+// [ a c tx ]
+// [ b d ty ]
+// [ u v w  ]
  */
-class JAMatrix3
-{
+class JAMatrix3 extends GMatrix {
 	private static var _helpMatrixArg1:JAMatrix3 = new JAMatrix3();
 	private static var _helpMatrixArg2:JAMatrix3 = new JAMatrix3();
 	private static var _helpMatrix3DVector1:Array<Float> = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
@@ -15,132 +18,125 @@ class JAMatrix3
 	private static var _helpMatrix3DArg1:Matrix3D = new Matrix3D();
 	private static var _helpMatrix3DArg2:Matrix3D = new Matrix3D();
 
-	public var m00:Float;
-	public var m01:Float;
-	public var m02:Float;
-	public var m10:Float;
-	public var m11:Float;
-	public var m12:Float;
-
-	public function new() 
-	{
-		LoadIdentity();
+	public function new() {
+		super();
+		//LoadIdentity();
 	}
-	
-	public static function MulJAMatrix3(d:JAMatrix3, c:JAMatrix3, out:JAMatrix3):JAMatrix3
-	{
-		_helpMatrixArg1.m00 = d.m00;
-		_helpMatrixArg1.m01 = d.m01;
-		_helpMatrixArg1.m02 = d.m02;
-		_helpMatrixArg1.m10 = d.m10;
-		_helpMatrixArg1.m11 = d.m11;
-		_helpMatrixArg1.m12 = d.m12;
-		_helpMatrixArg2.m00 = c.m00;
-		_helpMatrixArg2.m01 = c.m01;
-		_helpMatrixArg2.m02 = c.m02;
-		_helpMatrixArg2.m10 = c.m10;
-		_helpMatrixArg2.m11 = c.m11;
-		_helpMatrixArg2.m12 = c.m12;
-		out.m00 = ((_helpMatrixArg1.m00 * _helpMatrixArg2.m00) + (_helpMatrixArg1.m01 * _helpMatrixArg2.m10));
-		out.m10 = ((_helpMatrixArg1.m10 * _helpMatrixArg2.m00) + (_helpMatrixArg1.m11 * _helpMatrixArg2.m10));
-		out.m01 = ((_helpMatrixArg1.m00 * _helpMatrixArg2.m01) + (_helpMatrixArg1.m01 * _helpMatrixArg2.m11));
-		out.m11 = ((_helpMatrixArg1.m10 * _helpMatrixArg2.m01) + (_helpMatrixArg1.m11 * _helpMatrixArg2.m11));
-		out.m02 = (((_helpMatrixArg1.m00 * _helpMatrixArg2.m02) + (_helpMatrixArg1.m01 * _helpMatrixArg2.m12)) + _helpMatrixArg1.m02);
-		out.m12 = (((_helpMatrixArg1.m10 * _helpMatrixArg2.m02) + (_helpMatrixArg1.m11 * _helpMatrixArg2.m12)) + _helpMatrixArg1.m12);
+
+	public static function MulJAMatrix3(d:JAMatrix3, c:JAMatrix3, out:JAMatrix3):JAMatrix3 {
+		_helpMatrixArg1.a = d.a;
+		_helpMatrixArg1.c = d.c;
+		_helpMatrixArg1.tx = d.tx;
+		_helpMatrixArg1.b = d.b;
+		_helpMatrixArg1.d = d.d;
+		_helpMatrixArg1.ty = d.ty;
+		_helpMatrixArg2.a = c.a;
+		_helpMatrixArg2.c = c.c;
+		_helpMatrixArg2.tx = c.tx;
+		_helpMatrixArg2.b = c.b;
+		_helpMatrixArg2.d = c.d;
+		_helpMatrixArg2.ty = c.ty;
+		out.a = ((_helpMatrixArg1.a * _helpMatrixArg2.a) + (_helpMatrixArg1.c * _helpMatrixArg2.b));
+		out.b = ((_helpMatrixArg1.b * _helpMatrixArg2.a) + (_helpMatrixArg1.d * _helpMatrixArg2.b));
+		out.c = ((_helpMatrixArg1.a * _helpMatrixArg2.c) + (_helpMatrixArg1.c * _helpMatrixArg2.d));
+		out.d = ((_helpMatrixArg1.b * _helpMatrixArg2.c) + (_helpMatrixArg1.d * _helpMatrixArg2.d));
+		out.tx = (((_helpMatrixArg1.a * _helpMatrixArg2.tx) + (_helpMatrixArg1.c * _helpMatrixArg2.ty)) + _helpMatrixArg1.tx);
+		out.ty = (((_helpMatrixArg1.b * _helpMatrixArg2.tx) + (_helpMatrixArg1.d * _helpMatrixArg2.ty)) + _helpMatrixArg1.ty);
 		return (out);
 	}
 
-	public static function MulJAMatrix3_M3D(c:Matrix3D, d:JATransform2D, out:JATransform2D):JATransform2D
-	{
-		_helpMatrix3DVector1[0] = d.m00;
-		_helpMatrix3DVector1[1] = d.m10;
-		_helpMatrix3DVector1[4] = d.m01;
-		_helpMatrix3DVector1[5] = d.m11;
-		_helpMatrix3DVector1[12] = d.m02;
-		_helpMatrix3DVector1[13] = d.m12;
+	public static function MulJAMatrix3_M3D(c:Matrix3D, d:JATransform2D, out:JATransform2D):JATransform2D {
+		_helpMatrix3DVector1[0] = d.a;
+		_helpMatrix3DVector1[1] = d.b;
+		_helpMatrix3DVector1[4] = d.c;
+		_helpMatrix3DVector1[5] = d.d;
+		_helpMatrix3DVector1[12] = d.tx;
+		_helpMatrix3DVector1[13] = d.ty;
 		_helpMatrix3DArg1.copyRawDataFrom(Vector.ofArray(_helpMatrix3DVector1));
 		_helpMatrix3DArg1.prepend(c);
 		_helpMatrix3DArg1.copyRawDataTo(Vector.ofArray(_helpMatrix3DVector1));
-		out.m00 = _helpMatrix3DVector1[0];
-		out.m10 = _helpMatrix3DVector1[1];
-		out.m01 = _helpMatrix3DVector1[4];
-		out.m11 = _helpMatrix3DVector1[5];
-		out.m02 = _helpMatrix3DVector1[12];
-		out.m12 = _helpMatrix3DVector1[13];
+		out.a = _helpMatrix3DVector1[0];
+		out.b = _helpMatrix3DVector1[1];
+		out.c = _helpMatrix3DVector1[4];
+		out.d = _helpMatrix3DVector1[5];
+		out.tx = _helpMatrix3DVector1[12];
+		out.ty = _helpMatrix3DVector1[13];
 		return (out);
 	}
 
-	public static function MulJAMatrix3_2D(d:JAMatrix3, c:JATransform2D, out:JATransform2D):JATransform2D
-	{
-		_helpMatrixArg1.m00 = d.m00;
-		_helpMatrixArg1.m01 = d.m01;
-		_helpMatrixArg1.m02 = d.m02;
-		_helpMatrixArg1.m10 = d.m10;
-		_helpMatrixArg1.m11 = d.m11;
-		_helpMatrixArg1.m12 = d.m12;
-		_helpMatrixArg2.m00 = c.m00;
-		_helpMatrixArg2.m01 = c.m01;
-		_helpMatrixArg2.m02 = c.m02;
-		_helpMatrixArg2.m10 = c.m10;
-		_helpMatrixArg2.m11 = c.m11;
-		_helpMatrixArg2.m12 = c.m12;
-		out.m00 = ((_helpMatrixArg1.m00 * _helpMatrixArg2.m00) + (_helpMatrixArg1.m01 * _helpMatrixArg2.m10));
-		out.m10 = ((_helpMatrixArg1.m10 * _helpMatrixArg2.m00) + (_helpMatrixArg1.m11 * _helpMatrixArg2.m10));
-		out.m01 = ((_helpMatrixArg1.m00 * _helpMatrixArg2.m01) + (_helpMatrixArg1.m01 * _helpMatrixArg2.m11));
-		out.m11 = ((_helpMatrixArg1.m10 * _helpMatrixArg2.m01) + (_helpMatrixArg1.m11 * _helpMatrixArg2.m11));
-		out.m02 = (((_helpMatrixArg1.m00 * _helpMatrixArg2.m02) + (_helpMatrixArg1.m01 * _helpMatrixArg2.m12)) + _helpMatrixArg1.m02);
-		out.m12 = (((_helpMatrixArg1.m10 * _helpMatrixArg2.m02) + (_helpMatrixArg1.m11 * _helpMatrixArg2.m12)) + _helpMatrixArg1.m12);
+	public static function MulJAMatrix3_2D(d:JAMatrix3, c:JATransform2D, out:JATransform2D):JATransform2D {
+		_helpMatrixArg1.a = d.a;
+		_helpMatrixArg1.c = d.c;
+		_helpMatrixArg1.tx = d.tx;
+		_helpMatrixArg1.b = d.b;
+		_helpMatrixArg1.d = d.d;
+		_helpMatrixArg1.ty = d.ty;
+		_helpMatrixArg2.a = c.a;
+		_helpMatrixArg2.c = c.c;
+		_helpMatrixArg2.tx = c.tx;
+		_helpMatrixArg2.b = c.b;
+		_helpMatrixArg2.d = c.d;
+		_helpMatrixArg2.ty = c.ty;
+		out.a = ((_helpMatrixArg1.a * _helpMatrixArg2.a) + (_helpMatrixArg1.c * _helpMatrixArg2.b));
+		out.b = ((_helpMatrixArg1.b * _helpMatrixArg2.a) + (_helpMatrixArg1.d * _helpMatrixArg2.b));
+		out.c = ((_helpMatrixArg1.a * _helpMatrixArg2.c) + (_helpMatrixArg1.c * _helpMatrixArg2.d));
+		out.d = ((_helpMatrixArg1.b * _helpMatrixArg2.c) + (_helpMatrixArg1.d * _helpMatrixArg2.d));
+		out.tx = (((_helpMatrixArg1.a * _helpMatrixArg2.tx) + (_helpMatrixArg1.c * _helpMatrixArg2.ty)) + _helpMatrixArg1.tx);
+		out.ty = (((_helpMatrixArg1.b * _helpMatrixArg2.tx) + (_helpMatrixArg1.d * _helpMatrixArg2.ty)) + _helpMatrixArg1.ty);
 		return (out);
 	}
 
-	public static function MulJAVec2X(m:JAMatrix3, x:Float, y:Float):Float
-	{
-		return ((((m.m00 * x) + (m.m01 * y)) + m.m02));
+	public static function MulJAVec2X(m:JAMatrix3, x:Float, y:Float):Float {
+		return ((((m.a * x) + (m.c * y)) + m.tx));
 	}
 
-	public static function MulJAVec2Y(m:JAMatrix3, x:Float, y:Float):Float
-	{
-		return ((((m.m10 * x) + (m.m11 * y)) + m.m12));
+	public static function MulJAVec2Y(m:JAMatrix3, x:Float, y:Float):Float {
+		return ((((m.b * x) + (m.d * y)) + m.ty));
 	}
 
-	public static function cloneTo(sourceMatrix:JAMatrix3, newMatrix:JAMatrix3):Void
-	{
-		sourceMatrix.m00 = newMatrix.m00;
-		sourceMatrix.m01 = newMatrix.m01;
-		sourceMatrix.m02 = newMatrix.m02;
-		sourceMatrix.m10 = newMatrix.m10;
-		sourceMatrix.m11 = newMatrix.m11;
-		sourceMatrix.m12 = newMatrix.m12;
+	public static function cloneTo(sourceMatrix:JAMatrix3, newMatrix:JAMatrix3):Void {
+		sourceMatrix.a = newMatrix.a;
+		sourceMatrix.c = newMatrix.c;
+		sourceMatrix.tx = newMatrix.tx;
+		sourceMatrix.b = newMatrix.b;
+		sourceMatrix.d = newMatrix.d;
+		sourceMatrix.ty = newMatrix.ty;
 	}
 
+//public function clone(from:JAMatrix3):JAMatrix3
+//{
+//	this.a = from.a;
+//	this.b = from.b;
+//	this.c = from.c;
+//	this.d = from.d;
+//	this.tx = from.tx;
+//	this.ty = from.ty;
+//}
 
-	public function clone(from:JAMatrix3):Void
-	{
-		this.m00 = from.m00;
-		this.m01 = from.m01;
-		this.m02 = from.m02;
-		this.m10 = from.m10;
-		this.m11 = from.m11;
-		this.m12 = from.m12;
+	public function copy(from:JAMatrix3):Void {
+		this.a = from.a;
+		this.c = from.c;
+		this.tx = from.tx;
+		this.b = from.b;
+		this.d = from.d;
+		this.ty = from.ty;
 	}
 
-	public function ZeroMatrix():Void
-	{
-		m00 = 0;
-		m01 = 0;
-		m02 = 0;
-		m10 = 0;
-		m11 = 0;
-		m12 = 0;
+	public function ZeroMatrix():Void {
+		a = 0;
+		c = 0;
+		tx = 0;
+		b = 0;
+		d = 0;
+		ty = 0;
 	}
 
-	public function LoadIdentity():Void
-	{
-		m00 = 1;
-		m01 = 0;
-		m02 = 0;
-		m10 = 0;
-		m11 = 1;
-		m12 = 0;
+	public function LoadIdentity():Void {
+		a = 1;
+		c = 0;
+		tx = 0;
+		b = 0;
+		d = 1;
+		ty = 0;
 	}
 }

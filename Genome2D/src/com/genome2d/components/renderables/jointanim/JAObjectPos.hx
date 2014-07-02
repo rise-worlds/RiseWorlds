@@ -5,8 +5,7 @@ import com.genome2d.geom.GRectangle;
  * ...
  * @author Rise
  */
-class JAObjectPos
-{
+class JAObjectPos {
 	public var name:String;
 	public var objectNum:Int;
 	public var isSprite:Bool;
@@ -20,13 +19,11 @@ class JAObjectPos
 	public var preloadFrames:Int;
 	public var transform:JATransform;
 
-	public function new() 
-	{
+	public function new() {
 		transform = new JATransform();
 	}
-	
-	public function clone(from:JAObjectPos):Void
-	{
+
+	public function clone(from:JAObjectPos):Void {
 		this.name = from.name;
 		this.objectNum = from.objectNum;
 		this.isSprite = from.isSprite;

@@ -5,8 +5,7 @@ import flash.Vector;
  * ...
  * @author Rise
  */
-class JASpriteInst
-{
+class JASpriteInst {
 	public var parent:JASpriteInst;
 	public var delayFrames:Int;
 	public var frameNum:Float;
@@ -19,22 +18,19 @@ class JASpriteInst
 	public var children:Vector<JAObjectInst>;
 	public var spriteDef:JASpriteDef;
 
-	public function new() 
-	{
+	public function new() {
 		children = new Vector<JAObjectInst>();
 		curTransform = new JATransform();
 		spriteDef = null;
 	}
-	
-	public function Dispose():Void
-	{
+
+	public function Dispose():Void {
 		var _local1:Int;
 		_local1 = 0;
-		while (_local1 < children.length)
-		{
+		while (_local1 < children.length) {
 			children[_local1].Dispose();
 			_local1++;
-		};
+		}
 		children.splice(0, children.length);
 		children = null;
 		curTransform = null;
@@ -42,15 +38,13 @@ class JASpriteInst
 		curColor = null;
 	}
 
-	public function Reset():Void
-	{
+	public function Reset():Void {
 		var _local1:Int;
 		_local1 = 0;
-		while (_local1 < children.length)
-		{
+		while (_local1 < children.length) {
 			children[_local1].Dispose();
 			_local1++;
-		};
+		}
 		children.splice(0, children.length);
 	}
 }

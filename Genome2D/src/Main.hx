@@ -5,6 +5,7 @@ import com.genome2d.components.renderables.GMovieClip;
 import com.genome2d.components.renderables.GSprite;
 import com.genome2d.components.renderables.jointanim.JAnim;
 import com.genome2d.components.renderables.jointanim.JointAnimate;
+import com.genome2d.context.filters.GHDRPassFilter;
 import com.genome2d.context.GContextConfig;
 import com.genome2d.context.stats.GStats;
 import com.genome2d.Genome2D;
@@ -55,6 +56,8 @@ class Main
     private function initGenome():Void {
         genome = Genome2D.getInstance();
         genome.onInitialized.add(genomeInitializedHandler);
+		genome.onUpdate.add(genomeUpdateHandler);
+		genome.onPostRender.add(genomeRenderHandler);
         genome.init(new GContextConfig());
     }
 
@@ -62,6 +65,7 @@ class Main
         Genome2D initialized handler
      **/
     private function genomeInitializedHandler():Void {
+		GStats.visible = true;
         initAssets();
     }
 
@@ -70,8 +74,10 @@ class Main
      **/
     private function initAssets():Void {
         assetManager = new GAssetManager();
-        assetManager.addUrl("atlas_gfx", "atlas.png");
-        assetManager.addUrl("atlas_xml", "atlas.xml");
+        //assetManager.addUrl("atlas_gfx", "atlas.png");
+        //assetManager.addUrl("atlas_xml", "atlas.xml");
+        assetManager.addUrl("atlas_gfx", "VS.png");
+        assetManager.addUrl("atlas_xml", "VS.xml");
         //assetManager.addUrl("atlas_dat", "atlas.pam");
         assetManager.onAllLoaded.add(assetsInitializedHandler);
         assetManager.load();
@@ -211,20 +217,61 @@ class Main
 		urlLoader.dataFormat = URLLoaderDataFormat.BINARY;
 		urlLoader.addEventListener(Event.COMPLETE, g2d_completeHandler);
 		//urlLoader.addEventListener(IOErrorEvent.IO_ERROR, g2d_ioErrorHandler);
-		urlLoader.load(new URLRequest("atlas.pam"));
+		//urlLoader.load(new URLRequest("atlas.pam"));
+		urlLoader.load(new URLRequest("VS.pam"));
 		JAnim.HelpCallInitialize();
     }
 	
+	private var anim:JAnim;
 	private function g2d_completeHandler(p_event:Event):Void
 	{
 		var g2d_bytes:ByteArray = cast(p_event.target.data, ByteArray);
 		g2d_bytes.endian = Endian.LITTLE_ENDIAN;
 		g2d_bytes.position = 0;
+		var callback:AnimCallback = new AnimCallback();
 		var textureAltas:GTextureAtlas = GTextureAtlasFactory.createFromAssets("atlas", cast assetManager.getAssetById("atlas_gfx"), cast assetManager.getAssetById("atlas_xml"));
 		var joint:JointAnimate = new JointAnimate();
 		joint.LoadPam(g2d_bytes, textureAltas);
-		var anim:JAnim = new JAnim(null, joint, 0);
-		//genome.root.addChild(anim);
+		//var anim:JAnim = new JAnim(null, joint, 0);
+		anim = cast GNodeFactory.createNodeWithComponent(JAnim);
+		anim.setJointAnim(joint, 0, callback);
+		//anim.Play("MOVE_F");
+		anim.Play("VS");
+		//anim.mirror = true;
+		//anim.color = cast 0xAABBCCDDEE;
+		//anim.filter = new GHDRPassFilter();
+		//anim.transform.LoadIdentity();
+		//anim.transform.Translate(100, 100);
+		genome.root.addChild(anim.node);
+		
+		
+		//var clip:GMovieClip;
+        //clip = createMovieClip(500, 400, ["atlas_GENERAL101B_MOVE_F0000",
+		//								  "atlas_GENERAL101B_MOVE_F0001",
+		//								  "atlas_GENERAL101B_MOVE_F0002",
+		//								  "atlas_GENERAL101B_MOVE_F0003",
+		//								  "atlas_GENERAL101B_MOVE_F0004",
+		//								  "atlas_GENERAL101B_MOVE_F0005",
+		//								  "atlas_GENERAL101B_MOVE_F0006",
+		//								  "atlas_GENERAL101B_MOVE_F0007",
+		//								  "atlas_GENERAL101B_MOVE_F0008",
+		//								  "atlas_GENERAL101B_MOVE_F0009"]);
+	}
+	
+	private function genomeUpdateHandler(time:Float):Void
+	{
+		if (anim != null)
+		{
+			anim.Update(time * 0.1);
+		}
+	}
+	
+	private function genomeRenderHandler():Void
+	{
+		if (anim != null)
+		{
+			//anim.Draw(genome.getContext());
+		}
 	}
 
     /**

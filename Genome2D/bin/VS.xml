@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="VS.png">
+<SubTexture name="dun" x="837" y="324" width="122" height="134"/>
+<SubTexture name="guang" x="0" y="0" width="835" height="416"/>
+<SubTexture name="hong" x="346" y="418" width="339" height="82"/>
+<SubTexture name="jian_1" x="837" y="0" width="96" height="160"/>
+<SubTexture name="jian_2" x="837" y="162" width="96" height="160"/>
+<SubTexture name="lan" x="0" y="460" width="344" height="82"/>
+<SubTexture name="m1" x="786" y="460" width="212" height="34"/>
+<SubTexture name="m2" x="0" y="418" width="212" height="34"/>
+<SubTexture name="vs_1" x="935" y="0" width="87" height="67"/>
+<SubTexture name="vs_2" x="687" y="418" width="97" height="76"/>
+</TextureAtlas>
