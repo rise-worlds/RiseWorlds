@@ -20,9 +20,9 @@ class JAImage {
 		_transform = new JATransform();
 		images = new Vector<JAMemoryImage>();
 	}
-
+	#if swc @:extern #end
 	public var transform(get, never):JATransform;
-
+	#if swc @:getter(transform) #end
 	inline private function get_transform():JATransform {
 		return _transform;
 	}

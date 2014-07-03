@@ -210,59 +210,61 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	//	};
 	//	Update((p_deltaTime * 0.1));
 	//}
-
+	#if swc @:extern #end
 	public var transform(get, never):JATransform2D;
-
+	#if swc @:getter(transform) #end
 	inline private function get_transform():JATransform2D {
 		return _transform;
 	}
-
+	#if swc @:extern #end
 	public var lastPlayedLabel(get, never):String;
-
+	#if swc @:getter(lastPlayedLabel) #end
 	inline private function get_lastPlayedLabel():String {
 		return _lastPlayedFrameLabel;
 	}
-
+	#if swc @:extern #end
 	public var interpolate(get, set):Bool;
-
+	#if swc @:getter(interpolate) #end
 	inline private function get_interpolate():Bool {
 		return _interpolate;
 	}
-
+	#if swc @:setter(interpolate) #end
 	inline private function set_interpolate(val:Bool):Bool {
 		_interpolate = val;
 		return _interpolate;
 	}
 
+	#if swc @:extern #end
 	public var mirror(get, set):Bool;
-
+	#if swc @:getter(mirror) #end
 	inline private function get_mirror():Bool {
 		return _mirror;
 	}
-
+	#if swc @:setter(mirror) #end
 	inline private function set_mirror(val:Bool):Bool {
 		_mirror = val;
 		return _mirror;
 	}
 
-#if swc @:extern #end
+	#if swc @:extern #end
 	public var additive(get, set):Bool;
-#if swc @:getter(mask) #end
+	#if swc @:getter(additive) #end
 	inline private function get_additive():Bool {
 		return _additive;
 	}
-#if swc @:setter(mask) #end
+	#if swc @:setter(additive) #end
 	inline private function set_additive(val:Bool):Bool {
 		_additive = val;
 		return _additive;
 	}
-
+	
+	#if swc @:extern #end
 	public var color(get, set):Int;
-
+	#if swc @:getter(color) #end
 	inline private function get_color():Int {
 		return _color.toInt();
 	}
-
+	#if swc @:setter(color) #end
 	inline private function set_color(val:Int):Int {
 		_color.alpha = ((val >> 24) & 0xFF);
 		_color.red = ((val >> 16) & 0xFF);
@@ -270,9 +272,9 @@ class JAnim extends GTexturedQuad implements IRenderable {
 		_color.blue = (val & 0xFF);
 		return _color.toInt();
 	}
-
+	#if swc @:extern #end
 	public var mainSpriteInst(get, never):JASpriteInst;
-
+	#if swc @:getter(mainSpriteInst) #end
 	inline private function get_mainSpriteInst():JASpriteInst {
 		return _mainSpriteInst;
 	}

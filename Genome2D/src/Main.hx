@@ -76,8 +76,8 @@ class Main
         assetManager = new GAssetManager();
         //assetManager.addUrl("atlas_gfx", "atlas.png");
         //assetManager.addUrl("atlas_xml", "atlas.xml");
-        assetManager.addUrl("atlas_gfx", "VS.png");
-        assetManager.addUrl("atlas_xml", "VS.xml");
+        assetManager.addUrl("atlas_gfx", "cloud.png");
+        assetManager.addUrl("atlas_xml", "cloud.xml");
         //assetManager.addUrl("atlas_dat", "atlas.pam");
         assetManager.onAllLoaded.add(assetsInitializedHandler);
         assetManager.load();
@@ -218,7 +218,7 @@ class Main
 		urlLoader.addEventListener(Event.COMPLETE, g2d_completeHandler);
 		//urlLoader.addEventListener(IOErrorEvent.IO_ERROR, g2d_ioErrorHandler);
 		//urlLoader.load(new URLRequest("atlas.pam"));
-		urlLoader.load(new URLRequest("VS.pam"));
+		urlLoader.load(new URLRequest("cloud.pam"));
 		JAnim.HelpCallInitialize();
     }
 	
@@ -236,7 +236,7 @@ class Main
 		anim = cast GNodeFactory.createNodeWithComponent(JAnim);
 		anim.setJointAnim(joint, 0, callback);
 		//anim.Play("MOVE_F");
-		anim.Play("VS");
+		anim.Play("CLOUD");
 		//anim.mirror = true;
 		//anim.color = cast 0xAABBCCDDEE;
 		//anim.filter = new GHDRPassFilter();

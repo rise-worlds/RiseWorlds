@@ -49,44 +49,45 @@ class JointAnimate {
 		_remapList = [];
 	}
 
+	#if swc @:extern #end
 	public var drawScale(get, never):Float;
-
+	#if swc @:getter(drawScale) #end
 	inline private function get_drawScale():Float {
 		return _drawScale;
 	}
-
+	#if swc @:extern #end
 	public var imgScale(get, never):Float;
-
+	#if swc @:getter(imgScale) #end
 	inline private function get_imgScale():Float {
 		return _imgScale;
 	}
-
+	#if swc @:extern #end
 	public var loaded(get, never):Bool;
-
+	#if swc @:getter(loaded) #end
 	inline private function get_loaded():Bool {
 		return _loaded;
 	}
-
+	#if swc @:extern #end
 	public var particleAttachOffset(get, never):Point;
-
+	#if swc @:getter(particleAttachOffset) #end
 	inline private function get_particleAttachOffset():Point {
 		return _particleAttachOffset;
 	}
-
+	#if swc @:extern #end
 	public var mainAnimDef(get, never):JAAnimDef;
-
+	#if swc @:getter(mainAnimDef) #end
 	inline private function get_mainAnimDef():JAAnimDef {
 		return _mainAnimDef;
 	}
-
+	#if swc @:extern #end
 	public var imageVector(get, never):Vector<JAImage>;
-
+	#if swc @:getter(imageVector) #end
 	inline private function get_imageVector():Vector<JAImage> {
 		return _imageVector;
 	}
-
+	#if swc @:extern #end
 	public var animRect(get, never):Rectangle;
-
+	#if swc @:getter(animRect) #end
 	inline private function get_animRect():Rectangle {
 		return _animRect;
 	}
