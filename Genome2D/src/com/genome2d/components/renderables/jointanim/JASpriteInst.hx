@@ -25,11 +25,10 @@ class JASpriteInst {
 	}
 
 	public function Dispose():Void {
-		var _local1:Int;
-		_local1 = 0;
-		while (_local1 < children.length) {
-			children[_local1].Dispose();
-			_local1++;
+		var aChildIdx:Int = 0;
+		while (aChildIdx < children.length) {
+			children[aChildIdx].Dispose();
+			aChildIdx++;
 		}
 		children.splice(0, children.length);
 		children = null;
@@ -39,11 +38,10 @@ class JASpriteInst {
 	}
 
 	public function Reset():Void {
-		var _local1:Int;
-		_local1 = 0;
-		while (_local1 < children.length) {
-			children[_local1].Dispose();
-			_local1++;
+		var aChildIdx:Int = 0;
+		while (aChildIdx < children.length) {
+			children[aChildIdx].Dispose();
+			aChildIdx++;
 		}
 		children.splice(0, children.length);
 	}

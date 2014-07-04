@@ -30,7 +30,7 @@ class JAMemoryImage {
 		numRows = 1;
 		numCols = 1;
 		imageExist = true;
-		loadFlag = 0;
+		loadFlag = Image_Uninitialized;
 		onImgLoadCompleted = onLoadCompleted;
 	}
 
@@ -54,7 +54,7 @@ class JAMemoryImage {
 		bd = cast(event.target.content.bitmapData, BitmapData);
 		width = bd.width;
 		height = bd.height;
-		loadFlag = 2;
+		loadFlag = Image_Loaded;
 		if (onImgLoadCompleted != null) {
 			(onImgLoadCompleted(this));
 			onImgLoadCompleted = null;
@@ -65,7 +65,7 @@ class JAMemoryImage {
 		if (bd != null) {
 			width = bd.width;
 			height = bd.height;
-			loadFlag = 2;
+			loadFlag = Image_Loaded;
 		};
 	}
 

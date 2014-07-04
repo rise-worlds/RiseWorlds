@@ -6,9 +6,10 @@ import flash.Vector;
 
 /**
  * @author Rise
-// [ a c tx ]
-// [ b d ty ]
-// [ u v w  ]
+ * [ a c tx ]
+ * [ b d ty ]
+ * [ u v w  ]
+ * u=0,v=0,w=1
  */
 class JAMatrix3 extends GMatrix {
 	private static var _helpMatrixArg1:JAMatrix3 = new JAMatrix3();

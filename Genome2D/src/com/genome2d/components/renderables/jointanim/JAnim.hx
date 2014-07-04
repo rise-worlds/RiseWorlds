@@ -8,6 +8,7 @@ import flash.geom.Matrix;
 import flash.geom.Matrix3D;
 import flash.geom.Rectangle;
 import flash.geom.Vector3D;
+import flash.Lib;
 import flash.Vector;
 
 /**
@@ -21,7 +22,7 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	private static var _helpCallTransform:Vector<JATransform> = new Vector<JATransform>(1000);
 	private static var _helpCallColor:Vector<JAColor> = new Vector<JAColor>(1000);
 	private static var _helpCallDepth:Int = 0;
-	private static var _helpDrawSpriteASrcRect:Rectangle = new Rectangle();
+	private static var _helpDrawSpriteASrcRect:GRectangle = new GRectangle();
 	private static var _helpCalcTransform:JATransform;
 	private static var _helpCalcColor:JAColor;
 	private static var _helpANextObjectPos:Vector<JAObjectPos> = new Vector<JAObjectPos>(3);
@@ -45,17 +46,17 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	private var _drawTransform:JATransform2D;
 	private var _mirror:Bool;
 	private var _additive:Bool;
-	private var _inNode:Bool;
+	//private var _inNode:Bool;
 	private var _mainSpriteInst:JASpriteInst;
 	private var _transDirty:Bool;
 	private var _blendTicksTotal:Float;
 	private var _blendTicksCur:Float;
 	private var _blendDelay:Float;
 	private var _lastPlayedFrameLabel:String;
-	private var _helpGetTransformedVertices3DVector:Vector<Float>;
+	//private var _helpGetTransformedVertices3DVector:Vector<Float>;
 
 	public function new() {
-		_helpGetTransformedVertices3DVector = new Vector<Float>();
+		//_helpGetTransformedVertices3DVector = new Vector<Float>();
 		//super(p_node);
 		super();
 		//if (jointAnimate == null)
@@ -84,7 +85,7 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	}
 
 	public function setJointAnim(jointAnimate:JointAnimate, id:Int, listener:JAnimListener = null) {
-		_inNode = (node != null);
+		//_inNode = (node != null);
 		_JointAnimate = jointAnimate;
 		_id = id;
 		_listener = listener;
@@ -119,82 +120,87 @@ class JAnim extends GTexturedQuad implements IRenderable {
 		return (false);
 	}*/
 
+	override public function getBounds(p_bounds:GRectangle = null):GRectangle {
+		if (p_bounds != null) p_bounds.setTo(0, 0, 640, 480);
+		else p_bounds = new GRectangle(0, 0, 640, 480);
+		return p_bounds;
+	}
 ///*override*/ public function getWorldBounds(p_target:Rectangle=null):Rectangle
-	override public function getBounds(p_target:GRectangle = null):GRectangle {
-		var _local4:Int;
-		var _local2:Vector<Float> = getTransformedVertices3D();
-		if (p_target != null) {
-			p_target.setTo(_local2[0], _local2[1], 0, 0);
-		}
-		else {
-			p_target = new Rectangle(_local2[0], _local2[1], 0, 0);
-		};
-		var _local3:Int = _local2.length;
-		_local4 = 3;
-		while (_local4 < _local3) {
-			if (p_target.left > _local2[_local4]) {
-				p_target.left = _local2[_local4];
-			};
-			if (p_target.right < _local2[_local4]) {
-				p_target.right = _local2[_local4];
-			};
-			if (p_target.top > _local2[(_local4 + 1)]) {
-				p_target.top = _local2[(_local4 + 1)];
-			};
-			if (p_target.bottom < _local2[(_local4 + 1)]) {
-				p_target.bottom = _local2[(_local4 + 1)];
-			};
-			_local4 = (_local4 + 3);
-		};
-		return (p_target);
-	}
+	//override public function getBounds(p_target:GRectangle = null):GRectangle {
+	//	var _local4:Int;
+	//	var _local2:Vector<Float> = getTransformedVertices3D();
+	//	if (p_target != null) {
+	//		p_target.setTo(_local2[0], _local2[1], 0, 0);
+	//	}
+	//	else {
+	//		p_target = new Rectangle(_local2[0], _local2[1], 0, 0);
+	//	};
+	//	var _local3:Int = _local2.length;
+	//	_local4 = 3;
+	//	while (_local4 < _local3) {
+	//		if (p_target.left > _local2[_local4]) {
+	//			p_target.left = _local2[_local4];
+	//		};
+	//		if (p_target.right < _local2[_local4]) {
+	//			p_target.right = _local2[_local4];
+	//		};
+	//		if (p_target.top > _local2[(_local4 + 1)]) {
+	//			p_target.top = _local2[(_local4 + 1)];
+	//		};
+	//		if (p_target.bottom < _local2[(_local4 + 1)]) {
+	//			p_target.bottom = _local2[(_local4 + 1)];
+	//		};
+	//		_local4 = (_local4 + 3);
+	//	};
+	//	return (p_target);
+	//}
 
-	private function getTransformedVertices3D():Vector<Float> {
-		//_helpGetTransformedVertices3DTransformMatrix.copyfFrom(node.transform.matrix);
-		var matrix3d:Matrix3D = new Matrix3D();
-		matrix3d.identity();
-		matrix3d.prependScale(node.transform.scaleX, node.transform.scaleY, 1);
-		matrix3d.prependRotation(node.transform.rotation * 180 / Math.PI, Vector3D.Z_AXIS);
-		matrix3d.prependTranslation(node.transform.x, node.transform.y, 0);
-
-		_helpGetTransformedVertices3DTransformMatrix.copyFrom(matrix3d);
-		_helpMatrix3DVector1[0] = _transform.a;
-		_helpMatrix3DVector1[1] = _transform.b;
-		_helpMatrix3DVector1[4] = _transform.c;
-		_helpMatrix3DVector1[5] = _transform.d;
-		_helpMatrix3DVector1[12] = _transform.tx;
-		_helpMatrix3DVector1[13] = _transform.ty;
-		_helpMatrix3DArg1.copyRawDataFrom(Vector.ofArray(_helpMatrix3DVector1));
-		_helpGetTransformedVertices3DTransformMatrix.prepend(_helpMatrix3DArg1);
-		NORMALIZED_VERTICES_3D[0] = _JointAnimate.animRect.x;
-		NORMALIZED_VERTICES_3D[1] = _JointAnimate.animRect.y;
-		NORMALIZED_VERTICES_3D[2] = 0;
-		NORMALIZED_VERTICES_3D[3] = _JointAnimate.animRect.x;
-		NORMALIZED_VERTICES_3D[4] = (_JointAnimate.animRect.y + _JointAnimate.animRect.height);
-		NORMALIZED_VERTICES_3D[5] = 0;
-		NORMALIZED_VERTICES_3D[6] = (_JointAnimate.animRect.x + _JointAnimate.animRect.width);
-		NORMALIZED_VERTICES_3D[7] = (_JointAnimate.animRect.y + _JointAnimate.animRect.height);
-		NORMALIZED_VERTICES_3D[8] = 0;
-		NORMALIZED_VERTICES_3D[9] = (_JointAnimate.animRect.x + _JointAnimate.animRect.width);
-		NORMALIZED_VERTICES_3D[10] = _JointAnimate.animRect.y;
-		NORMALIZED_VERTICES_3D[11] = 0;
-		_helpGetTransformedVertices3DTransformMatrix.transformVectors(Vector.ofArray(NORMALIZED_VERTICES_3D), _helpGetTransformedVertices3DVector);
-		return (_helpGetTransformedVertices3DVector);
-	}
+	//private function getTransformedVertices3D():Vector<Float> {
+	//	//_helpGetTransformedVertices3DTransformMatrix.copyfFrom(node.transform.matrix);
+	//	var matrix3d:Matrix3D = new Matrix3D();
+	//	matrix3d.identity();
+	//	matrix3d.prependScale(node.transform.scaleX, node.transform.scaleY, 1);
+	//	matrix3d.prependRotation(node.transform.rotation * 180 / Math.PI, Vector3D.Z_AXIS);
+	//	matrix3d.prependTranslation(node.transform.x, node.transform.y, 0);
+    //
+	//	_helpGetTransformedVertices3DTransformMatrix.copyFrom(matrix3d);
+	//	_helpMatrix3DVector1[0] = _transform.a;
+	//	_helpMatrix3DVector1[1] = _transform.b;
+	//	_helpMatrix3DVector1[4] = _transform.c;
+	//	_helpMatrix3DVector1[5] = _transform.d;
+	//	_helpMatrix3DVector1[12] = _transform.tx;
+	//	_helpMatrix3DVector1[13] = _transform.ty;
+	//	_helpMatrix3DArg1.copyRawDataFrom(Vector.ofArray(_helpMatrix3DVector1));
+	//	_helpGetTransformedVertices3DTransformMatrix.prepend(_helpMatrix3DArg1);
+	//	NORMALIZED_VERTICES_3D[0] = _JointAnimate.animRect.x;
+	//	NORMALIZED_VERTICES_3D[1] = _JointAnimate.animRect.y;
+	//	NORMALIZED_VERTICES_3D[2] = 0;
+	//	NORMALIZED_VERTICES_3D[3] = _JointAnimate.animRect.x;
+	//	NORMALIZED_VERTICES_3D[4] = (_JointAnimate.animRect.y + _JointAnimate.animRect.height);
+	//	NORMALIZED_VERTICES_3D[5] = 0;
+	//	NORMALIZED_VERTICES_3D[6] = (_JointAnimate.animRect.x + _JointAnimate.animRect.width);
+	//	NORMALIZED_VERTICES_3D[7] = (_JointAnimate.animRect.y + _JointAnimate.animRect.height);
+	//	NORMALIZED_VERTICES_3D[8] = 0;
+	//	NORMALIZED_VERTICES_3D[9] = (_JointAnimate.animRect.x + _JointAnimate.animRect.width);
+	//	NORMALIZED_VERTICES_3D[10] = _JointAnimate.animRect.y;
+	//	NORMALIZED_VERTICES_3D[11] = 0;
+	//	_helpGetTransformedVertices3DTransformMatrix.transformVectors(Vector.ofArray(NORMALIZED_VERTICES_3D), _helpGetTransformedVertices3DVector);
+	//	return (_helpGetTransformedVertices3DVector);
+	//}
 
 ///*override*/ public function render(p_context:IContext, p_camera:GContextCamera, p_maskRect:Rectangle):Void
 	override public function render(p_camera:GContextCamera, p_useMatrix:Bool):Void {
-		if (_inNode) {
-			var matrix3d:Matrix3D = new Matrix3D();
-			matrix3d.identity();
-			matrix3d.prependScale(node.transform.scaleX, node.transform.scaleY, 1);
-			matrix3d.prependRotation(node.transform.rotation * 180 / Math.PI, Vector3D.Z_AXIS);
-			matrix3d.prependTranslation(node.transform.x, node.transform.y, 0);
-			_drawTransform = JAMatrix3.MulJAMatrix3_M3D(matrix3d, _transform, _helpJAnimRender);
-		}
-		else {
-			_drawTransform = _transform;
-		};
+		//if (_inNode) {
+		//	var matrix3d:Matrix3D = new Matrix3D();
+		//	matrix3d.identity();
+		//	matrix3d.prependScale(node.transform.scaleX, node.transform.scaleY, 1);
+		//	matrix3d.prependRotation(node.transform.rotation * 180 / Math.PI, Vector3D.Z_AXIS);
+		//	matrix3d.prependTranslation(node.transform.x, node.transform.y, 0);
+		//	_drawTransform = JAMatrix3.MulJAMatrix3_M3D(matrix3d, _transform, _helpJAnimRender);
+		//}
+		//else {
+		//	_drawTransform = _transform;
+		//};
 		Draw(node.core.getContext());
 	}
 
@@ -282,7 +288,7 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	public function IsActive():Bool {
 		if (_animRunning) {
 			return (true);
-		};
+		}
 		return (false);
 	}
 
@@ -297,7 +303,7 @@ class JAnim extends GTexturedQuad implements IRenderable {
 			Update(0);
 			_animRunning = _local1;
 			_paused = _local2;
-		};
+		}
 	}
 
 	public function ResetAnim():Void {
@@ -310,62 +316,63 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	}
 
 	public function SetupSpriteInst(theName:String = ""):Bool {
-		var _local4:Int;
 		if (_mainSpriteInst == null) {
 			return (false);
-		};
-		if (((!((_mainSpriteInst.spriteDef == null))) && ((theName == "")))) {
+		}
+		if ((_mainSpriteInst.spriteDef != null) && (theName == "")) {
 			return (true);
-		};
+		}
 		if (_JointAnimate.mainAnimDef.mainSpriteDef != null) {
 			InitSpriteInst(_mainSpriteInst, _JointAnimate.mainAnimDef.mainSpriteDef);
 			return (true);
-		};
+		}
 		if (_JointAnimate.mainAnimDef.spriteDefVector.length == 0) {
 			return (false);
-		};
-		var _local3 = theName;
-		if (_local3.length == 0) {
-			_local3 = "main";
-		};
-		var _local2:JASpriteDef = null;
-		_local4 = 0;
-		while (_local4 < _JointAnimate.mainAnimDef.spriteDefVector.length) {
-			if (((!((_JointAnimate.mainAnimDef.spriteDefVector[_local4].name == null))) && ((_JointAnimate.mainAnimDef.spriteDefVector[_local4].name == _local3)))) {
-				_local2 = _JointAnimate.mainAnimDef.spriteDefVector[_local4];
-				_lastPlayedFrameLabel = _local3;
+		}
+		var aName:String = theName;
+		if (aName.length == 0) {
+			aName = "main";
+		}
+		var aWantDef:JASpriteDef = null;
+		var i:Int = 0;
+		while (i < _JointAnimate.mainAnimDef.spriteDefVector.length) {
+			if (((!((_JointAnimate.mainAnimDef.spriteDefVector[i].name == null))) && ((_JointAnimate.mainAnimDef.spriteDefVector[i].name == aName)))) {
+				aWantDef = _JointAnimate.mainAnimDef.spriteDefVector[i];
+				_lastPlayedFrameLabel = aName;
 				break;
-			};
-			_local4++;
-		};
-		if (_local2 == null) {
-			_local2 = _JointAnimate.mainAnimDef.spriteDefVector[0];
-		};
-		if (_local2 != _mainSpriteInst.spriteDef) {
+			}
+			i++;
+		}
+		if (aWantDef == null) {
+			aWantDef = _JointAnimate.mainAnimDef.spriteDefVector[0];
+		}
+		if (aWantDef != _mainSpriteInst.spriteDef) {
 			if (_mainSpriteInst.spriteDef != null) {
 				_mainSpriteInst.Reset();
 				_mainSpriteInst.parent = null;
-			};
-			InitSpriteInst(_mainSpriteInst, _local2);
+			}
+			InitSpriteInst(_mainSpriteInst, aWantDef);
 			_transDirty = true;
-		};
+		}
 		return (true);
 	}
 
 	public function Play(theFrameLabel:String, resetAnim:Bool = true):Bool {
-		var _local3:Int;
+		if(theFrameLabel == null) {
+			theFrameLabel = '';
+		}
 		_animRunning = false;
 		if (_JointAnimate.mainAnimDef.mainSpriteDef != null) {
 			if (!SetupSpriteInst()) {
 				return (false);
-			};
-			_local3 = _JointAnimate.mainAnimDef.mainSpriteDef.GetLabelFrame(theFrameLabel);
-			if (_local3 == -1) {
+			}
+			var aFrameNum:Int = _JointAnimate.mainAnimDef.mainSpriteDef.GetLabelFrame(theFrameLabel);
+			if (aFrameNum == -1) {
 				return (false);
-			};
+			}
 			_lastPlayedFrameLabel = theFrameLabel;
-			return (PlayIndex(_local3, resetAnim));
-		};
+			return (PlayIndex(aFrameNum, resetAnim));
+		}
 		_lastPlayedFrameLabel = theFrameLabel;
 		SetupSpriteInst(theFrameLabel);
 		return (PlayIndex(_mainSpriteInst.spriteDef.workAreaStart, resetAnim));
@@ -374,14 +381,14 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	public function PlayIndex(theFrameNum:Int = 0, resetAnim:Bool = true):Bool {
 		if (!SetupSpriteInst()) {
 			return (false);
-		};
+		}
 		if (theFrameNum >= _mainSpriteInst.spriteDef.frames.length) {
 			_animRunning = false;
 			return (false);
-		};
+		}
 		if (((!((_mainSpriteInst.frameNum == theFrameNum))) && (resetAnim))) {
 			ResetAnim();
-		};
+		}
 		_paused = false;
 		_animRunning = true;
 		_mainSpriteInst.delayFrames = 0;
@@ -390,7 +397,7 @@ class JAnim extends GTexturedQuad implements IRenderable {
 		_mainSpriteInst.frameRepeats = 0;
 		if (_blendDelay == 0) {
 			DoFramesHit(_mainSpriteInst, null);
-		};
+		}
 		return (true);
 	}
 
@@ -413,9 +420,9 @@ class JAnim extends GTexturedQuad implements IRenderable {
 			return;
 		};
 		_helpCallDepth = 0;
-		if (!_inNode) {
+		//if (!_inNode) {
 			_drawTransform = _transform;
-		};
+		//};
 		if (_transDirty) {
 			UpdateTransforms(_mainSpriteInst, null, _color, false);
 			_transDirty = false;
@@ -424,54 +431,58 @@ class JAnim extends GTexturedQuad implements IRenderable {
 	}
 
 	private function DrawSprite(p_context:IContext, theSpriteInst:JASpriteInst, theTransform:JATransform, theColor:JAColor, additive:Bool, parentFrozen:Bool):Void {
-		var _local7 = null;
-		var _local16:Int;
-		var _local20:JAObjectPos = null;
-		var _local9 = null;
-		var _local24 = null;
-		var _local8 = null;
-		var _local19:Int;
-		var _local11 = null;
+		var aChildSpriteInst:JASpriteInst = null;
+		var _local24:JATransform = null;
+		var aNewColor:JAColor = null;
+		var anImageDrawCount:Int;
+		var anImage:JAImage = null;
 		var _local13:JATransform = null;
-		var _local21 = null;
-		var _local23 = null;
+		var _local21:JAMemoryImage = null;
+		var _local23:GRectangle = null;
 		var _local12:Float;
 		var _local14:Float;
 		var _local18:Int;
-		var _local17:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
-		var _local22:JATransform = _helpCallTransform[_helpCallDepth];
-		var _local10:JAColor = _helpCallColor[_helpCallDepth];
+		var aFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var aCurTransform:JATransform = _helpCallTransform[_helpCallDepth];
+		var aCurColor:JAColor = _helpCallColor[_helpCallDepth];
 		_helpCallDepth++;
-		var _local15:Bool = ((((parentFrozen) || ((theSpriteInst.delayFrames > 0)))) || (_local17.hasStop));
-		_local16 = 0;
-		while (_local16 < _local17.frameObjectPosVector.length) {
-			_local20 = _local17.frameObjectPosVector[_local16];
-			_local9 = theSpriteInst.children[_local20.objectNum];
-			if (((!((_listener == null))) && (_local9.predrawCallback))) {
-				_local9.predrawCallback = _listener.JAnimObjectPredraw(_id, this, p_context, theSpriteInst, _local9, theTransform, theColor);
+		var frozen:Bool = ((((parentFrozen) || ((theSpriteInst.delayFrames > 0)))) || (aFrame.hasStop));
+		var anObjectPosIdx:Int = 0;
+		while (anObjectPosIdx < aFrame.frameObjectPosVector.length) {
+			var anObjectPos:JAObjectPos = aFrame.frameObjectPosVector[anObjectPosIdx];
+			if(anObjectPos == null) {
+				continue;
+			}
+			var anObjectInst:JAObjectInst = theSpriteInst.children[anObjectPos.objectNum];
+			if ((_listener != null) && (anObjectInst.predrawCallback)) {
+				anObjectInst.predrawCallback = _listener.JAnimObjectPredraw(_id, this, p_context, theSpriteInst, anObjectInst, theTransform, theColor);
 			};
-			if (_local20.isSprite) {
-				_local7 = theSpriteInst.children[_local20.objectNum].spriteInst;
-				_local10.clone(_local7.curColor);
-				_local22.clone(_local7.curTransform);
+			if (anObjectPos.isSprite) {
+				aChildSpriteInst = theSpriteInst.children[anObjectPos.objectNum].spriteInst;
+				aCurColor.clone(aChildSpriteInst.curColor);
+				aCurTransform.clone(aChildSpriteInst.curTransform);
 			}
 			else {
-				CalcObjectPos(theSpriteInst, _local16, _local15);
-				_local22 = _helpCalcTransform;
-				_local10 = _helpCalcColor;
+				CalcObjectPos(theSpriteInst, anObjectPosIdx, frozen);
+				aCurTransform = _helpCalcTransform;
+				aCurColor = _helpCalcColor;
 				_helpCalcTransform = null;
 				_helpCalcColor = null;
 			};
+			//new
+			//if(_listener != null) {
+			//	aCurColor = _listener.JAnimObjectPredraw(theSpriteInst, anObjectInst, theTransform, aCurColor);
+			//}
 			if ((((theTransform == null)) && (!((_JointAnimate.drawScale == 1))))) {
 				_helpTransform.matrix.LoadIdentity();
 				_helpTransform.matrix.a = _JointAnimate.drawScale;
 				_helpTransform.matrix.d = _JointAnimate.drawScale;
 				_helpTransform.matrix = JAMatrix3.MulJAMatrix3(_drawTransform, _helpTransform.matrix, _helpTransform.matrix);
-				_local24 = _helpTransform.TransformSrc(_local22, _local22);
+				_local24 = _helpTransform.TransformSrc(aCurTransform, aCurTransform);
 			}
 			else {
-				if ((((theTransform == null)) || (_local20.isSprite))) {
-					_local24 = _local22;
+				if ((((theTransform == null)) || (anObjectPos.isSprite))) {
+					_local24 = aCurTransform;
 					if (_JointAnimate.drawScale != 1) {
 						_helpTransform.matrix.LoadIdentity();
 						_helpTransform.matrix.a = _JointAnimate.drawScale;
@@ -481,36 +492,36 @@ class JAnim extends GTexturedQuad implements IRenderable {
 					_local24.matrix = JAMatrix3.MulJAMatrix3(_drawTransform, _local24.matrix, _local24.matrix);
 				}
 				else {
-					_local24 = theTransform.TransformSrc(_local22, _local22);
+					_local24 = theTransform.TransformSrc(aCurTransform, aCurTransform);
 				};
 			};
-			_local8 = _helpCallColor[_helpCallDepth];
+			aNewColor = _helpCallColor[_helpCallDepth];
 			_helpCallDepth++;
-			_local8.Set(cast (((_local10.red * theColor.red) * _local9.colorMult.red) / 0xFE01),
-			cast (((_local10.green * theColor.green) * _local9.colorMult.green) / 0xFE01),
-			cast (((_local10.blue * theColor.blue) * _local9.colorMult.blue) / 0xFE01),
-			cast (((_local10.alpha * theColor.alpha) * _local9.colorMult.alpha) / 0xFE01));
-			if (_local8.alpha != 0) {
-				if (_local20.isSprite) {
-					_local7 = theSpriteInst.children[_local20.objectNum].spriteInst;
-					DrawSprite(p_context, _local7, _local24, _local8, ((_local20.isAdditive) || (additive)), _local15);
+			aNewColor.Set(cast (((aCurColor.red * theColor.red) * anObjectInst.colorMult.red) / 0xFE01),
+				cast (((aCurColor.green * theColor.green) * anObjectInst.colorMult.green) / 0xFE01),
+				cast (((aCurColor.blue * theColor.blue) * anObjectInst.colorMult.blue) / 0xFE01),
+				cast (((aCurColor.alpha * theColor.alpha) * anObjectInst.colorMult.alpha) / 0xFE01));
+			if (aNewColor.alpha != 0) {
+				if (anObjectPos.isSprite) {
+					aChildSpriteInst = theSpriteInst.children[anObjectPos.objectNum].spriteInst;
+					DrawSprite(p_context, aChildSpriteInst, _local24, aNewColor, ((anObjectPos.isAdditive) || (additive)), frozen);
 				}
 				else {
-					_local19 = 0;
+					anImageDrawCount = 0;
 					while (true) {
-						_local11 = _JointAnimate.imageVector[_local20.resNum];
-						_local13 = _local24.TransformSrc(_local11.transform, _local24);
+						anImage = _JointAnimate.imageVector[anObjectPos.resNum];
+						_local13 = _local24.TransformSrc(anImage.transform, _local24);
 						_local23 = _helpDrawSpriteASrcRect;
-						if ((((_local20.animFrameNum == 0)) || ((_local11.images.length == 1)))) {
-							_local21 = _local11.images[0];
-							_local21.GetCelRect(_local20.animFrameNum, _local23);
+						if ((((anObjectPos.animFrameNum == 0)) || ((anImage.images.length == 1)))) {
+							_local21 = anImage.images[0];
+							_local21.GetCelRect(anObjectPos.animFrameNum, _local23);
 						}
 						else {
-							_local21 = _local11.images[_local20.animFrameNum];
+							_local21 = anImage.images[anObjectPos.animFrameNum];
 							_local21.GetCelRect(0, _local23);
 						};
-						if (_local20.hasSrcRect) {
-							_local23 = _local20.srcRect;
+						if (anObjectPos.hasSrcRect) {
+							_local23 = anObjectPos.srcRect;
 						};
 						if (_JointAnimate.imgScale != 1) {
 							_local12 = _local13.matrix.tx;
@@ -521,27 +532,29 @@ class JAnim extends GTexturedQuad implements IRenderable {
 							_local13 = _helpTransform.TransformSrc(_local13, _local13);
 							_local13.matrix.tx = _local12;
 							_local13.matrix.ty = _local14;
-						};
+						}
 						_local18 = 0;
-						if (((!((_listener == null))) && (_local9.imagePredrawCallback))) {
-							_local18 = _listener.JAnimImagePredraw(theSpriteInst, _local9, _local13, _local21, p_context, _local19);
+						if (((!((_listener == null))) && (anObjectInst.imagePredrawCallback))) {
+							_local18 = _listener.JAnimImagePredraw(theSpriteInst, anObjectInst, _local13, _local21, p_context, anImageDrawCount);
 							if (_local18 == 0) {
-								_local9.imagePredrawCallback = false;
-							};
+								anObjectInst.imagePredrawCallback = false;
+							}
 							if (_local18 == 2) break;
-						};
+						}
 						_helpTransform.matrix.LoadIdentity();
+						//_helpTransform.matrix.tx = (_local23.width / 2);
+						//_helpTransform.matrix.ty = (_local23.height / 2);
 						_helpTransform.matrix.tx = (_local23.width / 2);
 						_helpTransform.matrix.ty = (_local23.height / 2);
 						if (_mirror) {
 							_helpTransform.matrix.a = -1;
-						};
+						}
 						_local13.matrix = JAMatrix3.MulJAMatrix3(_local13.matrix, _helpTransform.matrix, _local13.matrix);
 						if (_mirror) {
 							_local13.matrix.tx = ((_JointAnimate.animRect.width - _local13.matrix.tx) + (2 * _drawTransform.tx));
 							_local13.matrix.c = -(_local13.matrix.c);
 							_local13.matrix.b = -(_local13.matrix.b);
-						};
+						}
 						_helpDrawSprite.a = _local13.matrix.a;
 						_helpDrawSprite.b = _local13.matrix.b;
 						_helpDrawSprite.c = _local13.matrix.c;
@@ -550,59 +563,60 @@ class JAnim extends GTexturedQuad implements IRenderable {
 						_helpDrawSprite.ty = _local13.matrix.ty;
 						if (_local21.imageExist) {
 							p_context.drawMatrix(_local21.texture,
-							_helpDrawSprite.a,
-							_helpDrawSprite.b,
-							_helpDrawSprite.c,
-							_helpDrawSprite.d,
-							_helpDrawSprite.tx,
-							_helpDrawSprite.ty,
-							(_local8.red * 0.003921568627451),
-							(_local8.green * 0.003921568627451),
-							(_local8.blue * 0.003921568627451),
-							(_local8.alpha * 0.003921568627451),
-							((((additive) || (_local20.isAdditive))) ? 2 : 1));
+								_helpDrawSprite.a,
+								_helpDrawSprite.b,
+								_helpDrawSprite.c,
+								_helpDrawSprite.d,
+								_helpDrawSprite.tx,
+								_helpDrawSprite.ty,
+								(aNewColor.red * 0.003921568627451),
+								(aNewColor.green * 0.003921568627451),
+								(aNewColor.blue * 0.003921568627451),
+								(aNewColor.alpha * 0.003921568627451),
+								((((additive) || (anObjectPos.isAdditive))) ? 2 : 1));
+							Lib.trace(_helpDrawSprite);
 						}
 						else {
 							if (_listener != null) {
 								_listener.JAnimImageNotExistDraw(_local21.name, p_context, _helpDrawSprite,
-								(_local8.red * 0.003921568627451),
-								(_local8.green * 0.003921568627451),
-								(_local8.blue * 0.003921568627451),
-								(_local8.alpha * 0.003921568627451),
-								((((additive) || (_local20.isAdditive))) ? 2 : 1));
+									(aNewColor.red * 0.003921568627451),
+									(aNewColor.green * 0.003921568627451),
+									(aNewColor.blue * 0.003921568627451),
+									(aNewColor.alpha * 0.003921568627451),
+									((((additive) || (anObjectPos.isAdditive))) ? 2 : 1));
 							};
 						};
 						if (_local18 != 3) break;
-						_local19++;
+						anImageDrawCount++;
 					};
-					if (((!((_listener == null))) && (_local9.postdrawCallback))) {
-						_local9.postdrawCallback = _listener.JAnimObjectPostdraw(_id, this, p_context, theSpriteInst, _local9, theTransform, theColor);
+					if (((!((_listener == null))) && (anObjectInst.postdrawCallback))) {
+						anObjectInst.postdrawCallback = _listener.JAnimObjectPostdraw(_id, this, p_context, theSpriteInst, anObjectInst, theTransform, theColor);
 					};
 				};
 			};
-			_local16++;
+			anObjectPosIdx++;
 		};
 	}
 
 	private function AnimUpdate(val:Float):Void {
 		if (!_animRunning) {
 			return;
-		};
+		}
 		if (_blendTicksTotal > 0) {
 			_blendTicksCur = (_blendTicksCur + val);
 			if (_blendTicksCur >= _blendTicksTotal) {
 				_blendTicksTotal = 0;
-			};
-		};
+			}
+		}
 		_transDirty = true;
 		if (_blendDelay > 0) {
 			_blendDelay = (_blendDelay - val);
 			if (_blendDelay <= 0) {
 				_blendDelay = 0;
 				DoFramesHit(_mainSpriteInst, null);
-			};
+			}
 			return;
-		};
+		}
 		IncSpriteInstFrame(_mainSpriteInst, null, val);
 		PrepSpriteInstFrame(_mainSpriteInst, null);
 	}
@@ -611,75 +625,67 @@ class JAnim extends GTexturedQuad implements IRenderable {
 		var _local6:Int;
 		var _local10:Int;
 		var _local7 = null;
-		var _local11:Int;
-		var _local5 = null;
-		var _local8 = null;
-		var _local4:Int;
-		var _local3:Int;
-		var _local9:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var aCurFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
 		if (theSpriteInst.onNewFrame) {
-			if (theSpriteInst.lastFrameNum < theSpriteInst.frameNum) {
-				_local6 = cast theSpriteInst.frameNum;
-				_local10 = cast (theSpriteInst.lastFrameNum + 1);
-				while (_local10 < _local6) {
-					_local7 = theSpriteInst.spriteDef.frames[_local10];
-					FrameHit(theSpriteInst, _local7, theObjectPos);
-					_local10++;
-				};
-			};
-			FrameHit(theSpriteInst, _local9, theObjectPos);
-		};
-		if (_local9.hasStop) {
+			//if (theSpriteInst.lastFrameNum < theSpriteInst.frameNum) {
+			//	_local6 = cast theSpriteInst.frameNum;
+			//	_local10 = cast (theSpriteInst.lastFrameNum + 1);
+			//	while (_local10 < _local6) {
+			//		_local7 = theSpriteInst.spriteDef.frames[_local10];
+			//		FrameHit(theSpriteInst, _local7, theObjectPos);
+			//		_local10++;
+			//	}
+			//}
+			FrameHit(theSpriteInst, aCurFrame, theObjectPos);
+		}
+		if (aCurFrame.hasStop) {
 			if (theSpriteInst == _mainSpriteInst) {
 				_animRunning = false;
 				if (_listener != null) {
 					_listener.JAnimStopped(_id, this);
-				};
-			};
+				}
+			}
 			return;
-		};
-		_local11 = 0;
-		while (_local11 < _local9.frameObjectPosVector.length) {
-			_local5 = _local9.frameObjectPosVector[_local11];
-			if (_local5.isSprite) {
-				_local8 = theSpriteInst.children[_local5.objectNum].spriteInst;
-				if (_local8 != null) {
-					_local4 = cast (theSpriteInst.frameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
-					_local3 = cast (theSpriteInst.lastFrameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
-					if (((!((_local8.lastUpdated == _local3))) && (!((_local8.lastUpdated == _local4))))) {
-						_local8.frameNum = 0;
-						_local8.lastFrameNum = 0;
-						_local8.frameRepeats = 0;
-						_local8.delayFrames = 0;
-						_local8.onNewFrame = true;
-					};
-					PrepSpriteInstFrame(_local8, _local5);
-					_local8.lastUpdated = _local4;
-				};
-			};
-			_local11++;
-		};
+		}
+		var anObjectPosIdx:Int = 0;
+		while (anObjectPosIdx < aCurFrame.frameObjectPosVector.length) {
+			var theObjectPos:JAObjectPos = aCurFrame.frameObjectPosVector[anObjectPosIdx];
+			if (theObjectPos.isSprite) {
+				var aSpriteInst:JASpriteInst = theSpriteInst.children[theObjectPos.objectNum].spriteInst;
+				if (aSpriteInst != null) {
+					var aPhysFrameNum:Int = cast (theSpriteInst.frameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
+					var aPhysLastFrameNum:Int = cast (theSpriteInst.lastFrameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
+					if (((!((aSpriteInst.lastUpdated == aPhysLastFrameNum))) && (!((aSpriteInst.lastUpdated == aPhysFrameNum))))) {
+						aSpriteInst.frameNum = 0;
+						aSpriteInst.lastFrameNum = 0;
+						aSpriteInst.frameRepeats = 0;
+						aSpriteInst.delayFrames = 0;
+						aSpriteInst.onNewFrame = true;
+					}
+					PrepSpriteInstFrame(aSpriteInst, theObjectPos);
+					aSpriteInst.lastUpdated = aPhysFrameNum;
+				}
+			}
+			anObjectPosIdx++;
+		}
 	}
 
 	private function IncSpriteInstFrame(theSpriteInst:JASpriteInst, theObjectPos:JAObjectPos, theFrac:Float):Void {
-		var _local9:Int;
-		var _local4 = null;
-		var _local8 = null;
-		var _local5:Int = cast theSpriteInst.frameNum;
-		var _local7:JAFrame = theSpriteInst.spriteDef.frames[_local5];
-		if (_local7.hasStop) {
+		var aLastFrameNum:Int = cast theSpriteInst.frameNum;
+		var aLastFrame:JAFrame = theSpriteInst.spriteDef.frames[aLastFrameNum];
+		if (aLastFrame.hasStop) {
 			return;
-		};
+		}
 		theSpriteInst.lastFrameNum = theSpriteInst.frameNum;
-		var _local6:Float = (((theObjectPos) != null) ? theObjectPos.timeScale : 1);
-		theSpriteInst.frameNum = (theSpriteInst.frameNum + ((theFrac * (theSpriteInst.spriteDef.animRate / 100)) / _local6));
+		var aTimeScale:Float = ((theObjectPos != null) ? theObjectPos.timeScale : 1);
+		theSpriteInst.frameNum = (theSpriteInst.frameNum + ((theFrac * (theSpriteInst.spriteDef.animRate / 100)) / aTimeScale));
 		if (theSpriteInst == _mainSpriteInst) {
 			if (!theSpriteInst.spriteDef.frames[(theSpriteInst.spriteDef.frames.length - 1)].hasStop) {
 				if (theSpriteInst.frameNum >= ((theSpriteInst.spriteDef.workAreaStart + theSpriteInst.spriteDef.workAreaDuration) + 1)) {
 					theSpriteInst.frameRepeats++;
 					theSpriteInst.frameNum = (theSpriteInst.frameNum - (theSpriteInst.spriteDef.workAreaDuration + 1));
 					theSpriteInst.lastFrameNum = theSpriteInst.frameNum;
-				};
+				}
 			}
 			else {
 				if (theSpriteInst.frameNum >= (theSpriteInst.spriteDef.workAreaStart + theSpriteInst.spriteDef.workAreaDuration)) {
@@ -692,286 +698,283 @@ class JAnim extends GTexturedQuad implements IRenderable {
 							_listener.JAnimStopped(_id, this);
 						};
 						return;
-					};
+					}
 					theSpriteInst.frameRepeats++;
-				};
-			};
+				}
+			}
 		}
 		else {
 			if (theSpriteInst.frameNum >= theSpriteInst.spriteDef.frames.length) {
 				theSpriteInst.frameRepeats++;
 				theSpriteInst.frameNum = (theSpriteInst.frameNum - theSpriteInst.spriteDef.frames.length);
-			};
-		};
-		theSpriteInst.onNewFrame = !((theSpriteInst.frameNum == _local5));
+			}
+		}
+		theSpriteInst.onNewFrame = !((theSpriteInst.frameNum == aLastFrameNum));
 		if (((theSpriteInst.onNewFrame) && ((theSpriteInst.delayFrames > 0)))) {
 			theSpriteInst.onNewFrame = false;
-			theSpriteInst.frameNum = _local5;
+			theSpriteInst.frameNum = aLastFrameNum;
 			theSpriteInst.lastFrameNum = theSpriteInst.frameNum;
 			theSpriteInst.delayFrames--;
 			return;
-		};
-		_local9 = 0;
-		while (_local9 < _local7.frameObjectPosVector.length) {
-			_local4 = _local7.frameObjectPosVector[_local9];
-			if (_local4.isSprite) {
-				_local8 = theSpriteInst.children[_local4.objectNum].spriteInst;
-				IncSpriteInstFrame(_local8, _local4, (theFrac / _local6));
-			};
-			_local9++;
-		};
+		}
+		var anObjectPosIdx:Int = 0;
+		while (anObjectPosIdx < aLastFrame.frameObjectPosVector.length) {
+			var anObjectPos:JAObjectPos = aLastFrame.frameObjectPosVector[anObjectPosIdx];
+			if (anObjectPos.isSprite) {
+				var aSpriteInst:JASpriteInst = theSpriteInst.children[anObjectPos.objectNum].spriteInst;
+				IncSpriteInstFrame(aSpriteInst, anObjectPos, (theFrac / aTimeScale));
+			}
+			anObjectPosIdx++;
+		}
 	}
 
 	private function DoFramesHit(theSpriteInst:JASpriteInst, theObjectPos:JAObjectPos):Void {
-		var _local6:Int;
-		var _local3 = null;
-		var _local4 = null;
-		var _local5:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
-		FrameHit(theSpriteInst, _local5, theObjectPos);
-		_local6 = 0;
-		while (_local6 < _local5.frameObjectPosVector.length) {
-			_local3 = _local5.frameObjectPosVector[_local6];
-			if (_local3.isSprite) {
-				_local4 = theSpriteInst.children[_local3.objectNum].spriteInst;
-				if (_local4 != null) {
-					DoFramesHit(_local4, _local3);
-				};
-			};
-			_local6++;
-		};
+		var aCurFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		FrameHit(theSpriteInst, aCurFrame, theObjectPos);
+		var anObjectPosIdx:Int = 0;
+		while (anObjectPosIdx < aCurFrame.frameObjectPosVector.length) {
+			var anObjectPos:JAObjectPos = aCurFrame.frameObjectPosVector[anObjectPosIdx];
+			if (anObjectPos.isSprite) {
+				var aSpriteInst:JASpriteInst = theSpriteInst.children[anObjectPos.objectNum].spriteInst;
+				if (aSpriteInst != null) {
+					DoFramesHit(aSpriteInst, anObjectPos);
+				}
+			}
+			anObjectPosIdx++;
+		}
 	}
 
 	private function FrameHit(theSpriteInst:JASpriteInst, theFrame:JAFrame, theObjectPos:JAObjectPos):Void {
-		var _local13:Int;
-		var _local14 = null;
-		var _local8 = null;
-		var _local18:Int;
-		var _local16:Int;
-		var _local6:Int;
+		var aCurParam1:Int;
+		var aCommaPos:Int;
 		var _local4 = null;
 		var _local7:Bool;
 		var _local17:Int;
-		var _local11:Int;
-		var _local10:JACommand = null;
-		var _local20:Int;
+		var aCurParam2:Int;
 		var _local19:String = null;
 		var _local5:Int;
 		var _local12:Float;
 		var _local15:Float;
 		var _local9 = null;
 		theSpriteInst.onNewFrame = false;
-		_local13 = 0;
-		while (_local13 < theFrame.frameObjectPosVector.length) {
-			_local14 = theFrame.frameObjectPosVector[_local13];
-			if (_local14.isSprite) {
-				_local8 = theSpriteInst.children[_local14.objectNum].spriteInst;
-				if (_local8 != null) {
-					_local18 = 0;
-					while (_local18 < _local14.preloadFrames) {
-						IncSpriteInstFrame(_local8, _local14, (100 / theSpriteInst.spriteDef.animRate));
-						_local18++;
-					};
-				};
-			};
-			_local13++;
-		};
-		_local11 = 0;
-		while (_local11 < theFrame.commandVector.length) {
-			_local10 = theFrame.commandVector[_local11];
-			if ((((_listener == null)) || (!(_listener.JAnimCommand(_id, this, theSpriteInst, _local10.command, _local10.param))))) {
-				if (_local10.command == "delay") {
-					_local6 = _local10.param.indexOf(",");
-					if (_local6 != -1) {
-						_local16 = cast _local10.param.substr(0, _local6);
-						_local20 = cast _local10.param.substr((_local6 + 1));
-						if (_local20 <= _local16) {
-							_local20 = (_local16 + 1);
-						};
-						theSpriteInst.delayFrames = (_local16 + ((cast Math.random() * 100000) % (_local20 - _local16)));
+		var anObjectPosIdx:Int = 0;
+		while (anObjectPosIdx < theFrame.frameObjectPosVector.length) {
+			var anObjectPos:JAObjectPos = theFrame.frameObjectPosVector[anObjectPosIdx];
+			if ((anObjectPos != null) && anObjectPos.isSprite) {
+				var aSpriteInst:JASpriteInst = theSpriteInst.children[anObjectPos.objectNum].spriteInst;
+				if (aSpriteInst != null) {
+					var aPreload:Int = 0;
+					while (aPreload < anObjectPos.preloadFrames) {
+						IncSpriteInstFrame(aSpriteInst, anObjectPos, (100 / theSpriteInst.spriteDef.animRate));
+						aPreload++;
+					}
+				}
+			}
+			anObjectPosIdx++;
+		}
+		if(theFrame.commandVector != null) {
+			var aCmdNum:Int = 0;
+			while (aCmdNum < theFrame.commandVector.length) {
+				var aCommand:JACommand  = theFrame.commandVector[aCmdNum];
+				if ((((_listener == null)) || (!(_listener.JAnimCommand(_id, this, theSpriteInst, aCommand.command, aCommand.param))))) {
+					if (aCommand.command == "delay") {
+						aCommaPos = aCommand.param.indexOf(",");
+						if (aCommaPos != -1) {
+							aCurParam1 = cast aCommand.param.substr(0, aCommaPos);
+							aCurParam2 = cast aCommand.param.substr((aCommaPos + 1));
+							if (aCurParam2 <= aCurParam1) {
+								aCurParam2 = (aCurParam1 + 1);
+							};
+							theSpriteInst.delayFrames = (aCurParam1 + ((cast Math.random() * 100000) % (aCurParam2 - aCurParam1)));
+						}
+						else {
+							aCurParam1 = cast aCommand.param;
+							theSpriteInst.delayFrames = aCurParam1;
+						}
 					}
 					else {
-						_local16 = cast _local10.param;
-						theSpriteInst.delayFrames = _local16;
-					};
-				}
-				else {
-					if (_local10.command == "playsample") {
-						_local19 = _local10.param;
-						_local5 = 0;
-						_local12 = 1;
-						_local15 = 0;
-						_local7 = true;
-						while (_local19.length > 0) {
-							_local6 = _local19.indexOf(",");
-							if (_local6 == -1) {
-								_local4 = _local19;
-							}
-							else {
-								_local4 = _local19.substr(0, _local6);
-							};
-							if (_local7) {
-								_local9 = _local4;
-								_local7 = false;
-							}
-							else {
-								while ((_local17 = _local4.indexOf(" ")) != -1) {
-									_local4 = (_local4.substr(0, _local17) + _local4.substr((_local17 + 1)));
-								};
-								if (_local4.substr(0, 7) == "volume=") {
-									_local12 = cast _local4.substr(7);
+						if (aCommand.command == "playsample") {
+							_local19 = aCommand.param;
+							_local5 = 0;
+							_local12 = 1;
+							_local15 = 0;
+							_local7 = true;
+							while (_local19.length > 0) {
+								aCommaPos = _local19.indexOf(",");
+								if (aCommaPos == -1) {
+									_local4 = _local19;
 								}
 								else {
-									if (_local4.substr(0, 4) == "pan=") {
-										_local5 = cast _local4.substr(4);
+									_local4 = _local19.substr(0, aCommaPos);
+								};
+								if (_local7) {
+									_local9 = _local4;
+									_local7 = false;
+								}
+								else {
+									while ((_local17 = _local4.indexOf(" ")) != -1) {
+										_local4 = (_local4.substr(0, _local17) + _local4.substr((_local17 + 1)));
+									};
+									if (_local4.substr(0, 7) == "volume=") {
+										_local12 = cast _local4.substr(7);
 									}
 									else {
-										if (_local4.substr(0, 6) == "steps=") {
-											_local15 = cast _local4.substr(6);
-										};
-									};
-								};
-							};
-							if (_local6 == -1) break;
-							_local19 = _local19.substr((_local6 + 1));
-						};
-						if (_listener != null) {
-							_listener.JAnimPLaySample(_local9, _local5, _local12, _local15);
-						};
-					};
-				};
-			};
-			_local11++;
-		};
+										if (_local4.substr(0, 4) == "pan=") {
+											_local5 = cast _local4.substr(4);
+										}
+										else {
+											if (_local4.substr(0, 6) == "steps=") {
+												_local15 = cast _local4.substr(6);
+											}
+										}
+									}
+								}
+								if (aCommaPos == -1) break;
+								_local19 = _local19.substr((aCommaPos + 1));
+							}
+							if (_listener != null) {
+								_listener.JAnimPLaySample(_local9, _local5, _local12, _local15);
+							}
+						}
+					}
+				}
+				aCmdNum++;
+			}
+		}
 	}
 
 	private function UpdateTransforms(theSpriteInst:JASpriteInst, theTransform:JATransform, theColor:JAColor, parentFrozen:Bool):Void {
-		var _local9:Int;
-		var _local6 = null;
 		if (theTransform != null) {
 			theSpriteInst.curTransform.clone(theTransform);
 		}
 		else {
 			theSpriteInst.curTransform.matrix.copy(_drawTransform);
-		};
+		}
 		if (theSpriteInst.curColor == null) {
 			theSpriteInst.curColor = new JAColor();
-		};
+		}
 		theSpriteInst.curColor.clone(theColor);
-		var _local5:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
-		var _local7:JATransform = _helpCallTransform[_helpCallDepth];
-		var _local8:JAColor = _helpCallColor[_helpCallDepth];
+		var aFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var aCurTransform:JATransform = _helpCallTransform[_helpCallDepth];
+		var aCurColor:JAColor = _helpCallColor[_helpCallDepth];
 		_helpCallDepth++;
-		var _local10:Bool = ((((parentFrozen) || ((theSpriteInst.delayFrames > 0)))) || (_local5.hasStop));
-		_local9 = 0;
-		while (_local9 < _local5.frameObjectPosVector.length) {
-			_local6 = _local5.frameObjectPosVector[_local9];
-			if (_local6.isSprite) {
-				CalcObjectPos(theSpriteInst, _local9, _local10);
-				_local7 = _helpCalcTransform;
-				_local8 = _helpCalcColor;
+		var frozen:Bool = (parentFrozen || (theSpriteInst.delayFrames > 0) || aFrame.hasStop);
+		var anObjectPosIdx:Int = 0;
+		while (anObjectPosIdx < aFrame.frameObjectPosVector.length) {
+			var anObjectPos:JAObjectPos = aFrame.frameObjectPosVector[anObjectPosIdx];
+			if (anObjectPos.isSprite) {
+				CalcObjectPos(theSpriteInst, anObjectPosIdx, frozen);
+				aCurTransform = _helpCalcTransform;
+				aCurColor = _helpCalcColor;
 				_helpCalcTransform = null;
 				_helpCalcColor = null;
 				if (theTransform != null) {
-					_local7 = theTransform.TransformSrc(_local7, _local7);
-				};
-				UpdateTransforms(theSpriteInst.children[_local6.objectNum].spriteInst, _local7, _local8, _local10);
-			};
-			_local9++;
-		};
+					aCurTransform = theTransform.TransformSrc(aCurTransform, aCurTransform);
+				}
+				UpdateTransforms(theSpriteInst.children[anObjectPos.objectNum].spriteInst, aCurTransform, aCurColor, frozen);
+			}
+			anObjectPosIdx++;
+		}
 	}
 
 	private function CalcObjectPos(theSpriteInst:JASpriteInst, theObjectPosIdx:Int, frozen:Bool):Void {
-		var _local17 = null;
+		var _local17:JASpriteInst = null;
 		var _local6 = null;
 		var _local7 = null;
-		var _local10:Int;
-		var _local19 = null;
 		var _local8:Int;
-		var _local9:Float;
+		var aBlendInterp:Float;
 		var _local18:Bool;
-		var _local11:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
-		var _local12:JAObjectPos = _local11.frameObjectPosVector[theObjectPosIdx];
-		var _local5:JAObjectInst = theSpriteInst.children[_local12.objectNum];
+		var iFrameNum:Float = theSpriteInst.frameNum;
+		var aFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var anObjectPos:JAObjectPos = aFrame.frameObjectPosVector[theObjectPosIdx];
+		var anObjectInst:JAObjectInst = theSpriteInst.children[anObjectPos.objectNum];
 		_helpANextObjectPos[0] = null;
 		_helpANextObjectPos[1] = null;
 		_helpANextObjectPos[2] = null;
-		var _local14:Int = (theSpriteInst.spriteDef.frames.length - 1);
-		var _local16:Int = 1;
-		var _local13:Int = 2;
+		//var totalFrames:Int = (theSpriteInst.spriteDef.frames.length - 1);
+		//var _local16:Int = 1;
+		//var _local13:Int = 2;
+		var mOfsTab:Array<Int> = [0, 1, 2];
+		mOfsTab[0] = theSpriteInst.spriteDef.frames.length - 1;
 		if ((((theSpriteInst == _mainSpriteInst)) && ((theSpriteInst.frameNum >= theSpriteInst.spriteDef.workAreaStart)))) {
-			_local14 = (theSpriteInst.spriteDef.workAreaDuration - 1);
-		};
-		var _local15:JATransform = _helpCallTransform[_helpCallDepth];
-		var _local4:JAColor = _helpCallColor[_helpCallDepth];
+			//totalFrames = (theSpriteInst.spriteDef.workAreaDuration - 1);
+			mOfsTab[0] = (theSpriteInst.spriteDef.workAreaDuration - 1);
+		}
+		var aCurTransform:JATransform = _helpCallTransform[_helpCallDepth];
+		var aCurColor:JAColor = _helpCallColor[_helpCallDepth];
 		_helpCallDepth++;
 		if (((_interpolate) && (!(frozen)))) {
-			_local10 = 0;
-			while (_local10 < 3) {
-				_local19 = theSpriteInst.spriteDef.frames[cast ((theSpriteInst.frameNum + (((_local10) == 0) ? _local14 : (((_local10) == 1) ? _local16 : _local13))) % theSpriteInst.spriteDef.frames.length)];
-				if ((((theSpriteInst == _mainSpriteInst)) && ((theSpriteInst.frameNum >= theSpriteInst.spriteDef.workAreaStart)))) {
-					_local19 = theSpriteInst.spriteDef.frames[cast ((((theSpriteInst.frameNum + (((_local10) == 0) ? _local14 : (((_local10) == 1) ? _local16 : _local13))) - theSpriteInst.spriteDef.workAreaStart) % (theSpriteInst.spriteDef.workAreaDuration + 1)) + theSpriteInst.spriteDef.workAreaStart)];
+			var anOfsIdx:Int = 0;
+			while (anOfsIdx < 3) {
+				//var aNextFrame:JAFrame = theSpriteInst.spriteDef.frames[cast ((theSpriteInst.frameNum + (((anOfsIdx) == 0) ? totalFrames : (((anOfsIdx) == 1) ? _local16 : _local13))) % theSpriteInst.spriteDef.frames.length)];
+				var aNextFrame:JAFrame = theSpriteInst.spriteDef.frames[cast(iFrameNum + mOfsTab[anOfsIdx]) % theSpriteInst.spriteDef.frames.length];
+				if ((theSpriteInst == _mainSpriteInst) && (theSpriteInst.frameNum >= theSpriteInst.spriteDef.workAreaStart)) {
+					//aNextFrame = theSpriteInst.spriteDef.frames[cast ((((theSpriteInst.frameNum + (((anOfsIdx) == 0) ? totalFrames : (((anOfsIdx) == 1) ? _local16 : _local13))) - theSpriteInst.spriteDef.workAreaStart) % (theSpriteInst.spriteDef.workAreaDuration + 1)) + theSpriteInst.spriteDef.workAreaStart)];
+					aNextFrame = theSpriteInst.spriteDef.frames[cast(iFrameNum + mOfsTab[anOfsIdx] - theSpriteInst.spriteDef.workAreaStart) % (theSpriteInst.spriteDef.workAreaDuration + 1) + theSpriteInst.spriteDef.workAreaStart];
 				}
 				else {
-					_local19 = theSpriteInst.spriteDef.frames[cast ((theSpriteInst.frameNum + (((_local10) == 0) ? _local14 : (((_local10) == 1) ? _local16 : _local13))) % theSpriteInst.spriteDef.frames.length)];
-				};
-				if (_local11.hasStop) {
-					_local19 = _local11;
-				};
-				if (_local19.frameObjectPosVector.length > theObjectPosIdx) {
-					_helpANextObjectPos[_local10] = _local19.frameObjectPosVector[theObjectPosIdx];
-					if (_helpANextObjectPos[_local10].objectNum != _local12.objectNum) {
-						_helpANextObjectPos[_local10] = null;
-					};
-				};
-				if (_helpANextObjectPos[_local10] == null) {
-					_local8 = 0;
-					while (_local8 < _local19.frameObjectPosVector.length) {
-						if (_local19.frameObjectPosVector[_local8].objectNum == _local12.objectNum) {
-							_helpANextObjectPos[_local10] = _local19.frameObjectPosVector[_local8];
+					//aNextFrame = theSpriteInst.spriteDef.frames[cast ((theSpriteInst.frameNum + (((anOfsIdx) == 0) ? totalFrames : (((anOfsIdx) == 1) ? _local16 : _local13))) % theSpriteInst.spriteDef.frames.length)];
+					aNextFrame = theSpriteInst.spriteDef.frames[cast(iFrameNum + mOfsTab[anOfsIdx]) % theSpriteInst.spriteDef.frames.length];
+				}
+				if (aFrame.hasStop) {
+					aNextFrame = aFrame;
+				}
+				if (aNextFrame.frameObjectPosVector.length > theObjectPosIdx) {
+					_helpANextObjectPos[anOfsIdx] = aNextFrame.frameObjectPosVector[theObjectPosIdx];
+					if ((_helpANextObjectPos[anOfsIdx] == null) || _helpANextObjectPos[anOfsIdx].objectNum != anObjectPos.objectNum) {
+						_helpANextObjectPos[anOfsIdx] = null;
+					}
+				}
+				if (_helpANextObjectPos[anOfsIdx] == null) {
+					var aCheckObjectPosIdx:Int = 0;
+					while (aCheckObjectPosIdx < aNextFrame.frameObjectPosVector.length) {
+						if (aNextFrame.frameObjectPosVector[aCheckObjectPosIdx].objectNum == anObjectPos.objectNum) {
+							_helpANextObjectPos[anOfsIdx] = aNextFrame.frameObjectPosVector[aCheckObjectPosIdx];
 							break;
-						};
-						_local8++;
-					};
-				};
-				_local10++;
-			};
-			if (_helpANextObjectPos[1] != null) {
-				_local9 = (theSpriteInst.frameNum - Math.floor(theSpriteInst.frameNum));
+						}
+						aCheckObjectPosIdx++;
+					}
+				}
+				anOfsIdx++;
+			}
+			//if (_helpANextObjectPos[1] != null) {
+			// new
+			if (_helpANextObjectPos[1] != null && ((anObjectPos.transform != _helpANextObjectPos[1].transform) || (anObjectPos.color != _helpANextObjectPos[1].color))) {
+				var anInterp:Float = (theSpriteInst.frameNum - Math.floor(theSpriteInst.frameNum));
 				_local18 = false;
-				_local15 = _local12.transform.InterpolateTo(_helpANextObjectPos[1].transform, _local9, _local15);
-				_local4.Set(cast (((_local12.color.red * (1 - _local9)) + (_helpANextObjectPos[1].color.red * _local9)) + 0.5), cast (((_local12.color.green * (1 - _local9)) + (_helpANextObjectPos[1].color.green * _local9)) + 0.5), cast (((_local12.color.blue * (1 - _local9)) + (_helpANextObjectPos[1].color.blue * _local9)) + 0.5), cast (((_local12.color.alpha * (1 - _local9)) + (_helpANextObjectPos[1].color.alpha * _local9)) + 0.5));
+				aCurTransform = anObjectPos.transform.InterpolateTo(_helpANextObjectPos[1].transform, anInterp, aCurTransform);
+				aCurColor.Set(cast (((anObjectPos.color.red * (1 - anInterp)) + (_helpANextObjectPos[1].color.red * anInterp)) + 0.5), 
+					cast (((anObjectPos.color.green * (1 - anInterp)) + (_helpANextObjectPos[1].color.green * anInterp)) + 0.5), 
+					cast (((anObjectPos.color.blue * (1 - anInterp)) + (_helpANextObjectPos[1].color.blue * anInterp)) + 0.5), 
+					cast (((anObjectPos.color.alpha * (1 - anInterp)) + (_helpANextObjectPos[1].color.alpha * anInterp)) + 0.5));
 			}
 			else {
-				_local15.clone(_local12.transform);
-				_local4.clone(_local12.color);
-			};
+				aCurTransform.clone(anObjectPos.transform);
+				aCurColor.clone(anObjectPos.color);
+			}
 		}
 		else {
-			_local15.clone(_local12.transform);
-			_local4.clone(_local12.color);
-		};
-		_local15.matrix = JAMatrix3.MulJAMatrix3(_local5.transform, _local15.matrix, _local15.matrix);
-		if (((((_local5.isBlending) && (!((_blendTicksTotal == 0))))) && ((theSpriteInst == _mainSpriteInst)))) {
-			_local9 = (_blendTicksCur / _blendTicksTotal);
-			_local15 = _local5.blendSrcTransform.InterpolateTo(_local15, _local9, _local15);
-			_local4.Set(cast (((_local5.blendSrcColor.red * (1 - _local9)) + (_local4.red * _local9)) + 0.5),
-			cast (((_local5.blendSrcColor.green * (1 - _local9)) + (_local4.green * _local9)) + 0.5),
-			cast (((_local5.blendSrcColor.blue * (1 - _local9)) + (_local4.blue * _local9)) + 0.5),
-			cast (((_local5.blendSrcColor.alpha * (1 - _local9)) + (_local4.alpha * _local9)) + 0.5));
-		};
-		_helpCalcTransform = _local15;
-		_helpCalcColor = _local4;
+			aCurTransform.clone(anObjectPos.transform);
+			aCurColor.clone(anObjectPos.color);
+		}
+		aCurTransform.matrix = JAMatrix3.MulJAMatrix3(anObjectInst.transform, aCurTransform.matrix, aCurTransform.matrix);
+		if (((((anObjectInst.isBlending) && (!((_blendTicksTotal == 0))))) && ((theSpriteInst == _mainSpriteInst)))) {
+			aBlendInterp = (_blendTicksCur / _blendTicksTotal);
+			aCurTransform = anObjectInst.blendSrcTransform.InterpolateTo(aCurTransform, aBlendInterp, aCurTransform);
+			aCurColor.Set(cast (((anObjectInst.blendSrcColor.red * (1 - aBlendInterp)) + (aCurColor.red * aBlendInterp)) + 0.5),
+						cast (((anObjectInst.blendSrcColor.green * (1 - aBlendInterp)) + (aCurColor.green * aBlendInterp)) + 0.5),
+						cast (((anObjectInst.blendSrcColor.blue * (1 - aBlendInterp)) + (aCurColor.blue * aBlendInterp)) + 0.5),
+						cast (((anObjectInst.blendSrcColor.alpha * (1 - aBlendInterp)) + (aCurColor.alpha * aBlendInterp)) + 0.5));
+		}
+		_helpCalcTransform = aCurTransform;
+		_helpCalcColor = aCurColor;
 		_helpANextObjectPos[0] = null;
 		_helpANextObjectPos[1] = null;
 		_helpANextObjectPos[2] = null;
+		//Lib.trace(anObjectPos.transform.matrix);
 	}
 
 	private function InitSpriteInst(theSpriteInst:JASpriteInst, theSpriteDef:JASpriteDef):Void {
-		var _local7:Int;
-		var _local6 = null;
-		var _local5 = null;
-		var _local4 = null;
-		var _local3 = null;
 		theSpriteInst.frameRepeats = 0;
 		theSpriteInst.delayFrames = 0;
 		theSpriteInst.spriteDef = theSpriteDef;
@@ -981,50 +984,48 @@ class JAnim extends GTexturedQuad implements IRenderable {
 		theSpriteInst.lastFrameNum = 0;
 		theSpriteInst.children.splice(0, theSpriteInst.children.length);
 		theSpriteInst.children.length = theSpriteDef.objectDefVector.length;
-		_local7 = 0;
-		while (_local7 < theSpriteDef.objectDefVector.length) {
-			theSpriteInst.children[_local7] = new JAObjectInst();
-			_local7++;
-		};
-		_local7 = 0;
-		while (_local7 < theSpriteDef.objectDefVector.length) {
-			_local6 = theSpriteDef.objectDefVector[_local7];
-			_local5 = theSpriteInst.children[_local7];
-			_local5.colorMult = new JAColor();
-			_local5.colorMult.clone(JAColor.White);
-			_local5.name = _local6.name;
-			_local5.isBlending = false;
-			_local4 = _local6.spriteDef;
-			if (_local4 != null) {
-				_local3 = new JASpriteInst();
-				_local3.parent = theSpriteInst;
-				InitSpriteInst(_local3, _local4);
-				_local5.spriteInst = _local3;
-			};
-			_local7++;
-		};
+		var anObjectNum:Int = 0;
+		while (anObjectNum < theSpriteDef.objectDefVector.length) {
+			theSpriteInst.children[anObjectNum] = new JAObjectInst();
+		//	anObjectNum++;
+		//}
+		//anObjectNum = 0;
+		//while (anObjectNum < theSpriteDef.objectDefVector.length) {
+			var anObjectDef:JAObjectDef = theSpriteDef.objectDefVector[anObjectNum];
+			var anObjectInst = theSpriteInst.children[anObjectNum];
+			anObjectInst.colorMult = new JAColor();
+			anObjectInst.colorMult.clone(JAColor.White);
+			anObjectInst.name = anObjectDef.name;
+			anObjectInst.isBlending = false;
+			var aChildSpriteDef:JASpriteDef = anObjectDef.spriteDef;
+			if (aChildSpriteDef != null) {
+				var aChildSpriteInst:JASpriteInst = new JASpriteInst();
+				aChildSpriteInst.parent = theSpriteInst;
+				InitSpriteInst(aChildSpriteInst, aChildSpriteDef);
+				anObjectInst.spriteInst = aChildSpriteInst;
+			}
+			anObjectNum++;
+		}
 		if (theSpriteInst == _mainSpriteInst) {
 			GetToFirstFrame();
-		};
+		}
 	}
 
 	private function ResetAnimHelper(theSpriteInst:JASpriteInst):Void {
-		var _local3:Int;
-		var _local2 = null;
 		theSpriteInst.frameNum = 0;
 		theSpriteInst.lastFrameNum = 0;
 		theSpriteInst.frameRepeats = 0;
 		theSpriteInst.delayFrames = 0;
 		theSpriteInst.lastUpdated = -1;
 		theSpriteInst.onNewFrame = true;
-		_local3 = 0;
-		while (_local3 < theSpriteInst.children.length) {
-			_local2 = theSpriteInst.children[_local3].spriteInst;
-			if (_local2 != null) {
-				ResetAnimHelper(_local2);
-			};
-			_local3++;
-		};
+		var i:Int = 0;
+		while (i < theSpriteInst.children.length) {
+			var aSpriteInst = theSpriteInst.children[i].spriteInst;
+			if (aSpriteInst != null) {
+				ResetAnimHelper(aSpriteInst);
+			}
+			i++;
+		}
 		_transDirty = true;
 	}
 }

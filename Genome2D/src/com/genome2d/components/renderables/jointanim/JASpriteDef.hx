@@ -2,15 +2,15 @@ package com.genome2d.components.renderables.jointanim;
 import flash.Vector;
 
 /**
- * 单个组合动画
+ * 单个组合动画（标签）
  * @author Rise
  */
 class JASpriteDef {
 	public var name:String;
 	public var animRate:Float;
-	public var workAreaStart:Int;
-	public var workAreaDuration:Int;
-	public var frames:Vector<JAFrame>;
+	public var workAreaStart:Int;						// 开始时间
+	public var workAreaDuration:Int;					// 持续时间
+	public var frames:Vector<JAFrame>;					// 帧序列
 	public var objectDefVector:Array<JAObjectDef>;
 	public var label:Dynamic;
 

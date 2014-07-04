@@ -74,10 +74,10 @@ class Main
      **/
     private function initAssets():Void {
         assetManager = new GAssetManager();
-        //assetManager.addUrl("atlas_gfx", "atlas.png");
-        //assetManager.addUrl("atlas_xml", "atlas.xml");
-        assetManager.addUrl("atlas_gfx", "cloud.png");
-        assetManager.addUrl("atlas_xml", "cloud.xml");
+        assetManager.addUrl("atlas_gfx", "atlas.png");
+        assetManager.addUrl("atlas_xml", "atlas.xml");
+        //assetManager.addUrl("atlas_gfx", "cloud.png");
+        //assetManager.addUrl("atlas_xml", "cloud.xml");
         //assetManager.addUrl("atlas_dat", "atlas.pam");
         assetManager.onAllLoaded.add(assetsInitializedHandler);
         assetManager.load();
@@ -90,6 +90,7 @@ class Main
         initExample();
     }
 
+	private var clip:GMovieClip;
     /**
         Initialize Example code
      **/
@@ -116,17 +117,17 @@ class Main
         //sprite = createSprite(500, 300, "atlas_0");
         //sprite.node.transform.color = 0x00FF00;
 		
-		//var clip:GMovieClip;
-        //clip = createMovieClip(300, 200, ["atlas_GENERAL101B_ATTACK_B0000",
-		//								  "atlas_GENERAL101B_ATTACK_B0001",
-		//								  "atlas_GENERAL101B_ATTACK_B0002",
-		//								  "atlas_GENERAL101B_ATTACK_B0003",
-		//								  "atlas_GENERAL101B_ATTACK_B0004",
-		//								  "atlas_GENERAL101B_ATTACK_B0005",
-		//								  "atlas_GENERAL101B_ATTACK_B0006",
-		//								  "atlas_GENERAL101B_ATTACK_B0007",
-		//								  "atlas_GENERAL101B_ATTACK_B0008",
-		//								  "atlas_GENERAL101B_ATTACK_B0009"]);
+        //clip = createMovieClip(300, 200, ["atlas_GENERAL101B_MOVE_F0000",
+										  //"atlas_GENERAL101B_MOVE_F0001",
+										  //"atlas_GENERAL101B_MOVE_F0002",
+										  //"atlas_GENERAL101B_MOVE_F0003",
+										  //"atlas_GENERAL101B_MOVE_F0004",
+										  //"atlas_GENERAL101B_MOVE_F0005",
+										  //"atlas_GENERAL101B_MOVE_F0006",
+										  //"atlas_GENERAL101B_MOVE_F0007",
+										  //"atlas_GENERAL101B_MOVE_F0008",
+										  //"atlas_GENERAL101B_MOVE_F0009"]);
+		//clip.repeatable = false;
 		//									
 		//clip = createMovieClip(500,200, ["atlas_GENERAL101B_ATTACK_D0000",
 		//								 "atlas_GENERAL101B_ATTACK_D0001",
@@ -217,8 +218,8 @@ class Main
 		urlLoader.dataFormat = URLLoaderDataFormat.BINARY;
 		urlLoader.addEventListener(Event.COMPLETE, g2d_completeHandler);
 		//urlLoader.addEventListener(IOErrorEvent.IO_ERROR, g2d_ioErrorHandler);
-		//urlLoader.load(new URLRequest("atlas.pam"));
-		urlLoader.load(new URLRequest("cloud.pam"));
+		urlLoader.load(new URLRequest("atlas.pam"));
+		//urlLoader.load(new URLRequest("cloud.pam"));
 		JAnim.HelpCallInitialize();
     }
 	
@@ -235,8 +236,9 @@ class Main
 		//var anim:JAnim = new JAnim(null, joint, 0);
 		anim = cast GNodeFactory.createNodeWithComponent(JAnim);
 		anim.setJointAnim(joint, 0, callback);
-		//anim.Play("MOVE_F");
-		anim.Play("CLOUD");
+		//anim.interpolate = false;
+		anim.Play("MOVE_F");
+		//anim.Play("CLOUD");
 		//anim.mirror = true;
 		//anim.color = cast 0xAABBCCDDEE;
 		//anim.filter = new GHDRPassFilter();

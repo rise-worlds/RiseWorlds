@@ -8,7 +8,7 @@ import com.genome2d.geom.GRectangle;
 class JAObjectPos {
 	public var name:String;
 	public var objectNum:Int;
-	public var isSprite:Bool;
+	public var isSprite:Bool;					// 是否是标签
 	public var isAdditive:Bool;
 	public var resNum:Int;
 	public var hasSrcRect:Bool;

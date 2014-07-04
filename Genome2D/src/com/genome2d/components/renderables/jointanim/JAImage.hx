@@ -9,8 +9,8 @@ class JAImage {
 	public var drawMode:Int;
 	public var cols:Int;
 	public var rows:Int;
-	public var origWidth:Int;
-	public var origHeight:Int;
+	public var origWidth:Int;					// 真实宽度（原始）
+	public var origHeight:Int;					// 真实高度（原始）
 	public var _transform:JATransform;
 	public var imageName:String;
 	public var images:Vector<JAMemoryImage>;

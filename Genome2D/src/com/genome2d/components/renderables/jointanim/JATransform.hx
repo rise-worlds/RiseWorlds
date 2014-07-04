@@ -5,18 +5,18 @@ package com.genome2d.components.renderables.jointanim;
  * @author Rise
  */
 class JATransform {
-	private static var _m00:Float;
-	private static var _m01:Float;
-	private static var _m10:Float;
-	private static var _m11:Float;
-	private static var _m02:Float;
-	private static var _m12:Float;
-	private static var __m00:Float;
-	private static var __m01:Float;
-	private static var __m10:Float;
-	private static var __m11:Float;
-	private static var __m02:Float;
-	private static var __m12:Float;
+	private static var _a:Float;
+	private static var _c:Float;
+	private static var _b:Float;
+	private static var _d:Float;
+	private static var _tx:Float;
+	private static var _ty:Float;
+	private static var __a:Float;
+	private static var __c:Float;
+	private static var __b:Float;
+	private static var __d:Float;
+	private static var __tx:Float;
+	private static var __ty:Float;
 	public var matrix:JAMatrix3;
 
 	public function new() {
@@ -28,46 +28,46 @@ class JATransform {
 	}
 
 	public function TransformSrc(theSrcTransform:JATransform, outTransform:JATransform):JATransform {
-		__m00 = theSrcTransform.matrix.a;
-		__m01 = theSrcTransform.matrix.c;
-		__m10 = theSrcTransform.matrix.b;
-		__m11 = theSrcTransform.matrix.d;
-		__m02 = theSrcTransform.matrix.tx;
-		__m12 = theSrcTransform.matrix.ty;
-		_m00 = matrix.a;
-		_m01 = matrix.c;
-		_m10 = matrix.b;
-		_m11 = matrix.d;
-		_m02 = matrix.tx;
-		_m12 = matrix.ty;
-		outTransform.matrix.a = ((_m00 * __m00) + (_m01 * __m10));
-		outTransform.matrix.c = ((_m00 * __m01) + (_m01 * __m11));
-		outTransform.matrix.b = ((_m10 * __m00) + (_m11 * __m10));
-		outTransform.matrix.d = ((_m10 * __m01) + (_m11 * __m11));
-		outTransform.matrix.tx = ((_m02 + (_m00 * __m02)) + (_m01 * __m12));
-		outTransform.matrix.ty = ((_m12 + (_m10 * __m02)) + (_m11 * __m12));
+		__a = theSrcTransform.matrix.a;
+		__c = theSrcTransform.matrix.c;
+		__b = theSrcTransform.matrix.b;
+		__d = theSrcTransform.matrix.d;
+		__tx = theSrcTransform.matrix.tx;
+		__ty = theSrcTransform.matrix.ty;
+		_a = matrix.a;
+		_c = matrix.c;
+		_b = matrix.b;
+		_d = matrix.d;
+		_tx = matrix.tx;
+		_ty = matrix.ty;
+		outTransform.matrix.a = ((_a * __a) + (_c * __b));
+		outTransform.matrix.c = ((_a * __c) + (_c * __d));
+		outTransform.matrix.b = ((_b * __a) + (_d * __b));
+		outTransform.matrix.d = ((_b * __c) + (_d * __d));
+		outTransform.matrix.tx = ((_tx + (_a * __tx)) + (_c * __ty));
+		outTransform.matrix.ty = ((_ty + (_b * __tx)) + (_d * __ty));
 		return (outTransform);
 	}
 
 	public function InterpolateTo(theNextTransform:JATransform, thePct:Float, outTransform:JATransform):JATransform {
-		__m00 = theNextTransform.matrix.a;
-		__m01 = theNextTransform.matrix.c;
-		__m10 = theNextTransform.matrix.b;
-		__m11 = theNextTransform.matrix.d;
-		__m02 = theNextTransform.matrix.tx;
-		__m12 = theNextTransform.matrix.ty;
-		_m00 = matrix.a;
-		_m01 = matrix.c;
-		_m10 = matrix.b;
-		_m11 = matrix.d;
-		_m02 = matrix.tx;
-		_m12 = matrix.ty;
-		outTransform.matrix.a = ((_m00 * (1 - thePct)) + (__m00 * thePct));
-		outTransform.matrix.c = ((_m01 * (1 - thePct)) + (__m01 * thePct));
-		outTransform.matrix.b = ((_m10 * (1 - thePct)) + (__m10 * thePct));
-		outTransform.matrix.d = ((_m11 * (1 - thePct)) + (__m11 * thePct));
-		outTransform.matrix.tx = ((_m02 * (1 - thePct)) + (__m02 * thePct));
-		outTransform.matrix.ty = ((_m12 * (1 - thePct)) + (__m12 * thePct));
+		__a = theNextTransform.matrix.a;
+		__c = theNextTransform.matrix.c;
+		__b = theNextTransform.matrix.b;
+		__d = theNextTransform.matrix.d;
+		__tx = theNextTransform.matrix.tx;
+		__ty = theNextTransform.matrix.ty;
+		_a = matrix.a;
+		_c = matrix.c;
+		_b = matrix.b;
+		_d = matrix.d;
+		_tx = matrix.tx;
+		_ty = matrix.ty;
+		outTransform.matrix.a = ((_a * (1 - thePct)) + (__a * thePct));
+		outTransform.matrix.c = ((_c * (1 - thePct)) + (__c * thePct));
+		outTransform.matrix.b = ((_b * (1 - thePct)) + (__b * thePct));
+		outTransform.matrix.d = ((_d * (1 - thePct)) + (__d * thePct));
+		outTransform.matrix.tx = ((_tx * (1 - thePct)) + (__tx * thePct));
+		outTransform.matrix.ty = ((_ty * (1 - thePct)) + (__ty * thePct));
 		return (outTransform);
 	}
 
