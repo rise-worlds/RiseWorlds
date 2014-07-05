@@ -8,6 +8,8 @@
  */
 package com.genome2d.components.renderables.text;
 
+import com.genome2d.utils.GVAlignType;
+import com.genome2d.utils.GHAlignType;
 import com.genome2d.error.GError;
 import com.genome2d.textures.GCharTexture;
 import com.genome2d.textures.GFontTextureAtlas;
@@ -148,7 +150,7 @@ class GTextureText extends GComponent implements IRenderable
     inline private function get_autoSize():Bool {
         return g2d_autoSize;
     }
-    #if swc @:setter(width) #end
+    #if swc @:setter(autoSize) #end
     inline private function set_autoSize(p_value:Bool):Bool {
         g2d_autoSize = p_value;
         g2d_invalidate = true;
@@ -318,9 +320,9 @@ class GTextureText extends GComponent implements IRenderable
 
         var bottom:Float = offsetY + g2d_textureAtlas.lineHeight;
         var offsetY:Float = 0;
-        if (g2d_vAlign == GTextureTextVAlignType.MIDDLE) {
+        if (g2d_vAlign == GVAlignType.MIDDLE) {
             offsetY = (g2d_height - bottom) * .5;
-        } else if (g2d_vAlign == GTextureTextVAlignType.BOTTOM) {
+        } else if (g2d_vAlign == GVAlignType.BOTTOM) {
             offsetY = g2d_height - bottom;
         }
 
@@ -333,9 +335,9 @@ class GTextureText extends GComponent implements IRenderable
             var last:GChar = currentLine[charCount-1];
             var right:Float = last.g2d_x - last.g2d_texture.xoffset + last.g2d_texture.xadvance;
 
-            if (g2d_hAlign == GTextureTextHAlignType.CENTER) {
+            if (g2d_hAlign == GHAlignType.CENTER) {
                 offsetX = (g2d_width - right) * .5;
-            } else if (g2d_hAlign == GTextureTextHAlignType.RIGHT) {
+            } else if (g2d_hAlign == GHAlignType.RIGHT) {
                 offsetX = g2d_width - right;
             }
 

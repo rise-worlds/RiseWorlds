@@ -18,6 +18,7 @@ import flash.utils.Object;
 #end
 import msignal.Signal.Signal0;
 import msignal.Signal.Signal1;
+import msignal.Signal.Signal2;
 import com.genome2d.signals.GKeyboardSignal;
 import com.genome2d.textures.GContextTexture;
 import com.genome2d.signals.GMouseSignal;
@@ -38,6 +39,7 @@ interface IContext {
     var onFrame(get,null):Signal1<Float>;
     var onMouseSignal(get,null):Signal1<GMouseSignal>;
     var onKeyboardSignal(get,null):Signal1<GKeyboardSignal>;
+    var onResize(get,null):Signal2<Int,Int>;
     #else
     var onInitialized(default,null):Signal0;
     var onFailed(default,null):Signal1<String>;
@@ -45,6 +47,7 @@ interface IContext {
     var onFrame(default,null):Signal1<Float>;
     var onMouseSignal(default,null):Signal1<GMouseSignal>;
     var onKeyboardSignal(default,null):Signal1<GKeyboardSignal>;
+    var onResize(default,null):Signal2<Int,Int>;
     #end
     function getStageViewRect():GRectangle;
     function getDefaultCamera():GContextCamera;
@@ -77,6 +80,8 @@ interface IContext {
     function drawPoly(p_texture:GContextTexture, p_vertices:Array<Float>, p_uvs:Array<Float>, p_x:Float, p_y:Float, p_scaleX:Float = 1, p_scaleY:Float = 1, p_rotation:Float = 0, p_red:Float = 1, p_green:Float = 1, p_blue:Float = 1, p_alpha:Float = 1, p_blendMode:Int=1, p_filter:GFilter = null):Void;
 
     function bindRenderer(p_renderer:Dynamic):Void;
+
+    function resize(p_rect:GRectangle):Void;
 
     // Low level
     function clearStencil():Void;

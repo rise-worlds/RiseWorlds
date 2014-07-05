@@ -62,9 +62,13 @@ class GTextureAtlasFactory
 			var region:GRectangle = new GRectangle(Std.parseInt(node.get("x")), Std.parseInt(node.get("y")), Std.parseInt(node.get("width")), Std.parseInt(node.get("height")));
 			
 			var pivotX:Float = (node.get("frameX") == null || node.get("frameWidth") == null) ? 0 : (Std.parseInt(node.get("frameWidth"))-region.width)/2 + Std.parseInt(node.get("frameX"));
-			var pivotY:Float = (node.get("frameY") == null || node.get("frameHeight") == null) ? 0 : (Std.parseInt(node.get("frameHeight"))-region.height)/2 + Std.parseInt(node.get("frameY"));
+			var pivotY:Float = (node.get("frameY") == null || node.get("frameHeight") == null) ? 0 : (Std.parseInt(node.get("frameHeight")) - region.height) / 2 + Std.parseInt(node.get("frameY"));
+			var frameWidth:Float = (node.get("frameWidth") == null) ? region.width : Std.parseInt(node.get("frameWidth"));
+			var frameHeight:Float = (node.get("frameHeight") == null) ? region.height : Std.parseInt(node.get("frameHeight"));
 
-			textureAtlas.addSubTexture(node.get("name"), region, pivotX, pivotY);
+			var subTexture:GTexture = textureAtlas.addSubTexture(node.get("name"), region, pivotX, pivotY);
+			subTexture.frameWidth = frameWidth;
+			subTexture.frameHeight = frameHeight;
 		}
 
 		textureAtlas.invalidateNativeTexture(false);
@@ -214,9 +218,13 @@ class GTextureAtlasFactory
             var region:GRectangle = new GRectangle(Std.parseInt(node.get("x")), Std.parseInt(node.get("y")), Std.parseInt(node.get("width")), Std.parseInt(node.get("height")));
 
             var pivotX:Float = (node.get("frameX") == null || node.get("frameWidth") == null) ? 0 : (Std.parseInt(node.get("frameWidth"))-region.width)/2 + Std.parseInt(node.get("frameX"));
-            var pivotY:Float = (node.get("frameY") == null || node.get("frameHeight") == null) ? 0 : (Std.parseInt(node.get("frameHeight"))-region.height)/2 + Std.parseInt(node.get("frameY"));
+            var pivotY:Float = (node.get("frameY") == null || node.get("frameHeight") == null) ? 0 : (Std.parseInt(node.get("frameHeight")) - region.height) / 2 + Std.parseInt(node.get("frameY"));
+			var frameWidth:Float = (node.get("frameWidth") == null) ? region.width : Std.parseInt(node.get("frameWidth"));
+			var frameHeight:Float = (node.get("frameHeight") == null) ? region.height : Std.parseInt(node.get("frameHeight"));
 
-            textureAtlas.addSubTexture(node.get("name"), region, pivotX, pivotY);
+            var subTexture:GTexture = textureAtlas.addSubTexture(node.get("name"), region, pivotX, pivotY);
+			subTexture.frameWidth = frameWidth;
+			subTexture.frameHeight = frameHeight;
         }
 
         textureAtlas.invalidateNativeTexture(false);
