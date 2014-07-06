@@ -54,11 +54,12 @@ class Main
         Initialize Genome2D
      **/
     private function initGenome():Void {
+		var config = new GContextConfig();
         genome = Genome2D.getInstance();
         genome.onInitialized.add(genomeInitializedHandler);
 		genome.onUpdate.add(genomeUpdateHandler);
 		genome.onPostRender.add(genomeRenderHandler);
-        genome.init(new GContextConfig());
+        genome.init(config);
     }
 
     /**
@@ -91,15 +92,23 @@ class Main
     }
 
 	private var clip:GMovieClip;
+    private var sprite:GSprite;
     /**
         Initialize Example code
      **/
     private function initExample():Void {
         //GTextureAtlasFactory.createFromAssets("atlas", cast assetManager.getAssetById("atlas_gfx"), cast assetManager.getAssetById("atlas_xml"));
-
-        //var sprite:GSprite;
-        //
-        //sprite = createSprite(300, 200, "atlas_0");
+        
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0000");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0001");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0002");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0003");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0004");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0005");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0006");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0007");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0008");
+        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0009");
         //
         //sprite = createSprite(500, 200, "atlas_0");
         //sprite.node.transform.setScale(2,2);
@@ -235,36 +244,71 @@ class Main
 		joint.LoadPam(g2d_bytes, textureAltas);
 		//var anim:JAnim = new JAnim(null, joint, 0);
 		anim = cast GNodeFactory.createNodeWithComponent(JAnim);
+		//anim = new JAnim();
 		anim.setJointAnim(joint, 0, callback);
-		//anim.interpolate = false;
+		anim.interpolate = false;
 		anim.Play("MOVE_F");
 		//anim.Play("CLOUD");
 		//anim.mirror = true;
 		//anim.color = cast 0xAABBCCDDEE;
 		//anim.filter = new GHDRPassFilter();
-		//anim.transform.LoadIdentity();
-		//anim.transform.Translate(100, 100);
+		anim.transform.LoadIdentity();
+		anim.transform.Translate(100, 100);
 		genome.root.addChild(anim.node);
 		
-		
+		sprite = createSprite(100, 100, "atlas_GENERAL101B_MOVE_F0000");
 		//var clip:GMovieClip;
         //clip = createMovieClip(500, 400, ["atlas_GENERAL101B_MOVE_F0000",
-		//								  "atlas_GENERAL101B_MOVE_F0001",
-		//								  "atlas_GENERAL101B_MOVE_F0002",
-		//								  "atlas_GENERAL101B_MOVE_F0003",
-		//								  "atlas_GENERAL101B_MOVE_F0004",
-		//								  "atlas_GENERAL101B_MOVE_F0005",
-		//								  "atlas_GENERAL101B_MOVE_F0006",
-		//								  "atlas_GENERAL101B_MOVE_F0007",
-		//								  "atlas_GENERAL101B_MOVE_F0008",
-		//								  "atlas_GENERAL101B_MOVE_F0009"]);
+										  //"atlas_GENERAL101B_MOVE_F0001",
+										  //"atlas_GENERAL101B_MOVE_F0002",
+										  //"atlas_GENERAL101B_MOVE_F0003",
+										  //"atlas_GENERAL101B_MOVE_F0004",
+										  //"atlas_GENERAL101B_MOVE_F0005",
+										  //"atlas_GENERAL101B_MOVE_F0006",
+										  //"atlas_GENERAL101B_MOVE_F0007",
+										  //"atlas_GENERAL101B_MOVE_F0008",
+										  //"atlas_GENERAL101B_MOVE_F0009"]);
 	}
+	
+	private var list:Array<String> = 
+			["atlas_GENERAL101B_MOVE_F0000",
+			 "atlas_GENERAL101B_MOVE_F0001",
+			 "atlas_GENERAL101B_MOVE_F0002",
+			 "atlas_GENERAL101B_MOVE_F0003",
+			 "atlas_GENERAL101B_MOVE_F0004",
+			 "atlas_GENERAL101B_MOVE_F0005",
+			 "atlas_GENERAL101B_MOVE_F0006",
+			 "atlas_GENERAL101B_MOVE_F0007",
+			 "atlas_GENERAL101B_MOVE_F0008",
+			 "atlas_GENERAL101B_MOVE_F0009"];
+	private var g2d_accumulatedTime:Float = 0;
+	private var g2d_currentFrame:Int = 0;
 	
 	private function genomeUpdateHandler(time:Float):Void
 	{
 		if (anim != null)
 		{
 			anim.Update(time * 0.1);
+			//anim._update(time * 0.1);
+		}
+		if (sprite != null) 
+		{
+			g2d_accumulatedTime += genome.root.core.getCurrentFrameDeltaTime();
+			if (g2d_accumulatedTime >= 100) {
+				g2d_currentFrame += Std.int(g2d_accumulatedTime / 100);
+				//if (g2d_currentFrame == list.length) 
+				//{
+				//	g2d_currentFrame = 1;
+				//}
+				//else 
+				{
+					g2d_currentFrame %= list.length;
+				}
+				//sprite.textureId = list[g2d_currentFrame];
+				g2d_accumulatedTime %= 100;
+				//Lib.trace(g2d_currentFrame);
+				//Lib.trace(list[g2d_currentFrame]);
+			}
 		}
 	}
 	
@@ -272,7 +316,7 @@ class Main
 	{
 		if (anim != null)
 		{
-			//anim.Draw(genome.getContext());
+			anim.Draw(genome.getContext());
 		}
 	}
 
@@ -292,6 +336,7 @@ class Main
         var clip:GMovieClip = cast GNodeFactory.createNodeWithComponent(GMovieClip);
         clip.frameRate = 10;
         clip.frameTextureIds = p_frames;
+		clip.repeatable = false;
         clip.node.transform.setPosition(p_x, p_y);
         genome.root.addChild(clip.node);
         return clip;
