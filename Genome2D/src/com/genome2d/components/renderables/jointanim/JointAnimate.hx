@@ -94,118 +94,15 @@ class JointAnimate {
 		return _animRect;
 	}
 
-	//private function AddOnceImageToList(name:String, list:Array<Dynamic>):Void
-	//{
-	//	var _local4:Int;
-	//	var _local3 = null;
-	//	_local4 = 0;
-	//	while (_local4 < list.length)
-	//	{
-	//		_local3 = list[_local4];
-	//		if (name == _local3.imageName)
-	//		{
-	//			return;
-	//		};
-	//		_local4++;
-	//	};
-	//	list.push({"imageName":name});
-	//}
-	//
-	//public function GetImageFileList(stream:ByteArray, list:Array<Dynamic>):Int
-	//{
-	//	var _local10:Int;
-	//	var _local8 = null;
-	//	var _local5 = null;
-	//	var _local3 = null;
-	//	var _local9:Int;
-	//	var _local7:Int;
-	//	var _local4:UInt = stream.readUnsignedInt();
-	//	if (_local4 != PAM_MAGIC)
-	//	{
-	//		return Load_MagicError;
-	//	};
-	//	var version:UInt = stream.readUnsignedInt();
-	//	if (version > PAM_VERSION)
-	//	{
-	//		return Load_VersionError;
-	//	};
-	//	var temp:Int = stream.readUnsignedByte();
-	//	var temp:Int = stream.readShort();
-	//	var temp:Int = stream.readShort();
-	//	var temp:Int = stream.readShort();
-	//	var temp:Int = stream.readShort();
-	//	var _local6:Int = stream.readShort();
-	//	_local10 = 0;
-	//	while (_local10 < _local6)
-	//	{
-	//		_local8 = ReadString(stream);
-	//		_local5 = Remap(_local8);
-	//		_local3 = "";
-	//		_local9 = _local5.indexOf("(");
-	//		_local7 = _local5.indexOf(")");
-	//		if (((((!((_local9 == -1))) && (!((_local7 == -1))))) && ((_local9 < _local7))))
-	//		{
-	//			_local3 = _local5.substr((_local9 + 1), ((_local7 - _local9) - 1)).toLowerCase();
-	//			_local5 = (_local5.substr(0, _local9) + _local5.substr((_local7 + 1)));
-	//		}
-	//		else
-	//		{
-	//			_local7 = _local5.indexOf("$");
-	//			if (_local7 != -1)
-	//			{
-	//				_local3 = _local5.substr(0, _local7).toLowerCase();
-	//				_local5 = _local5.substr((_local7 + 1));
-	//			};
-	//		};
-	//		if (version >= 4)
-	//		{
-	//			stream.readShort();
-	//			stream.readShort();
-	//		};
-	//		if (version == 1)
-	//		{
-	//			stream.readShort();
-	//			stream.readShort();
-	//			stream.readShort();
-	//		}
-	//		else
-	//		{
-	//			stream.readInt();
-	//			stream.readInt();
-	//			stream.readInt();
-	//			stream.readInt();
-	//			stream.readShort();
-	//			stream.readShort();
-	//		};
-	//		if (_local5.length > 0)
-	//		{
-	//			AddOnceImageToList(_local5, list);
-	//		};
-	//		_local10++;
-	//	};
-	//	return (0);
-	//}
-
 	public function LoadPam(steam:ByteArray, texture:GTextureAtlas):Int {
-		var i:Int;
-		var _local10:Int;
-		var _local12:Int;
-		var _local5:Int;
-		var image:JAImage = null;
-		var _local11 = null;
-		var _local8:String = null;
-		var _local17:String = null;
-		var _local3:Float;
-		var _local4:Float;
-		var _local15:Float;
-		var _local16:UInt = steam.readUnsignedInt();
-		if (_local16 != PAM_MAGIC) {
+		var magic:UInt = steam.readUnsignedInt();
+		if (magic != PAM_MAGIC) {
 			return Load_MagicError;
-		};
+		}
 		_version = steam.readUnsignedInt();
 		if (_version > 5) {
 			return Load_VersionError;
-		};
+		}
 		_animRate = steam.readUnsignedByte();
 		_animRect.x = (steam.readShort() / 20);
 		_animRect.y = (steam.readShort() / 20);
@@ -213,96 +110,31 @@ class JointAnimate {
 		_animRect.height = (steam.readShort() / 20);
 		var aNumImages:Int = steam.readShort();
 		_imageVector.length = aNumImages;
-		i = 0;
+		var i:Int = 0;
 		while (i < aNumImages) {
-			_imageVector[i] = new JAImage();
-		//	_local13++;
-		//}
-		//_local13 = 0;
-		//while (_local13 < _local9)
-		//{
-			image = _imageVector[i];
+			var image:JAImage = new JAImage();
 			image.drawMode = 0;
-			//_local11 = ReadString(steam);
-			//_local8 = Remap(_local11);
-			_local8 = ReadString(steam);
-			//_local17 = "";
-			//_local12 = _local8.indexOf("(");
-			//_local10 = _local8.indexOf(")");
-			//if (((((!((_local12 == -1))) && (!((_local10 == -1))))) && ((_local12 < _local10))))
-			//{
-			//	_local17 = _local8.substr((_local12 + 1), ((_local10 - _local12) - 1)).toLowerCase();
-			//	_local8 = (_local8.substr(0, _local12) + _local8.substr((_local10 + 1)));
-			//}
-			//else
-			//{
-			//	_local10 = _local8.indexOf("$");
-			//	if (_local10 != -1)
-			//	{
-			//		_local17 = _local8.substr(0, _local10).toLowerCase();
-			//		_local8 = _local8.substr((_local10 + 1));
-			//	}
-			//}
+			var imageName:String = ReadString(steam);
 			image.cols = 1;
 			image.rows = 1;
-			//_local12 = _local8.indexOf("[");
-			//_local10 = _local8.indexOf("]");
-			//if (((((!((_local12 == -1))) && (!((_local10 == -1))))) && ((_local12 < _local10))))
-			//{
-			//	_local17 = _local8.substr((_local12 + 1), ((_local10 - _local12) - 1)).toLowerCase();
-			//	_local8 = (_local8.substr(0, _local12) + _local8.substr((_local10 + 1)));
-			//	_local5 = _local17.indexOf(",");
-			//	if (_local5 != -1)
-			//	{
-			//		_local6.cols = untyped(_local17.substr(0, _local5));
-			//		_local6.rows = untyped(_local17.substr((_local5 + 1)));
-			//	}
-			//}
-			//if (_local17.indexOf("add") != -1)
-			//{
-			//	_local6.drawMode = 1;
-			//}
-			//if (_version >= 4)
-			{
-				image.origWidth = steam.readShort();
-				image.origHeight = steam.readShort();
+			image.origWidth = steam.readShort();
+			image.origHeight = steam.readShort();
+			image.transform.matrix.a = (steam.readInt() / (65536.0 * 20.0));
+			image.transform.matrix.c = (steam.readInt() / (65536.0 * 20.0));
+			image.transform.matrix.b = (steam.readInt() / (65536.0 * 20.0));
+			image.transform.matrix.d = (steam.readInt() / (65536.0 * 20.0));
+			image.transform.matrix.tx = (steam.readShort() / 20);
+			image.transform.matrix.ty = (steam.readShort() / 20);
+			// new
+			if ((Math.abs(image.transform.matrix.a - 1.0) < 0.005) 
+				&& (image.transform.matrix.b == 0.0) 
+				&& (image.transform.matrix.c == 0.0) 
+				&& (Math.abs(image.transform.matrix.d - 1.0) < 0.005) 
+				&& (image.transform.matrix.tx == 0.0) 
+				&& (image.transform.matrix.ty == 0.0)) {
+					image.transform.matrix.LoadIdentity();
 			}
-			//else
-			//{
-			//	_local6.origWidth = -1;
-			//	_local6.origHeight = -1;
-			//}
-			//if (_version == 1)
-			//{
-			//	_local3 = (steam.readShort() / 1000);
-			//	_local4 = Math.sin(_local3);
-			//	_local15 = Math.cos(_local3);
-			//	_local6.transform.matrix.a = _local15;
-			//	_local6.transform.matrix.c = -(_local4);
-			//	_local6.transform.matrix.b = _local4;
-			//	_local6.transform.matrix.d = _local15;
-			//	_local6.transform.matrix.tx = (steam.readShort() / 20);
-			//	_local6.transform.matrix.ty = (steam.readShort() / 20);
-			//}
-			//else
-			{
-				image.transform.matrix.a = (steam.readInt() / (65536.0 * 20.0));
-				image.transform.matrix.c = (steam.readInt() / (65536.0 * 20.0));
-				image.transform.matrix.b = (steam.readInt() / (65536.0 * 20.0));
-				image.transform.matrix.d = (steam.readInt() / (65536.0 * 20.0));
-				image.transform.matrix.tx = (steam.readShort() / 20);
-				image.transform.matrix.ty = (steam.readShort() / 20);
-				// new
-				if ((Math.abs(image.transform.matrix.a - 1.0) < 0.005) 
-					&& (image.transform.matrix.b == 0.0) 
-					&& (image.transform.matrix.c == 0.0) 
-					&& (Math.abs(image.transform.matrix.d - 1.0) < 0.005) 
-					&& (image.transform.matrix.tx == 0.0) 
-					&& (image.transform.matrix.ty == 0.0)) {
-						image.transform.matrix.LoadIdentity();
-				}
-			}
-			image.imageName = _local8;
+			image.imageName = imageName;
 			if (image.imageName.length > 0) {
 				if (texture != null) {
 					if (Load_GetImage(image, texture) == false) {
@@ -313,6 +145,8 @@ class JointAnimate {
 					Load_GetImageNoTexture(image);
 				}
 			}
+			
+			_imageVector[i] = image;
 			i++;
 		}
 		var aNumSprites:Int = steam.readShort();
@@ -320,23 +154,9 @@ class JointAnimate {
 		i = 0;
 		while (i < aNumSprites) {
 			_mainAnimDef.spriteDefVector[i] = new JASpriteDef();
-		//	i++;
-		//}
-		//i = 0;
-		//while (i < aNumSprites) {
-		//	if (LoadSpriteDef(steam, _mainAnimDef.spriteDefVector[i]) == false) {
-		//		return Load_LoadSpriteError;
-		//	}
 			LoadSpriteDef(steam, _mainAnimDef.spriteDefVector[i]);
 			i++;
 		}
-		//var hasMainSpriteDef:Bool = (((_version <= 3)) || (steam.readBoolean()));
-		//if (hasMainSpriteDef) {
-		//	_mainAnimDef.mainSpriteDef = new JASpriteDef();
-		//	if (LoadSpriteDef(steam, _mainAnimDef.mainSpriteDef) == false) {
-		//		return Load_LoadMainSpriteError;
-		//	}
-		//}
 		var hasMainSpriteDef:Bool = steam.readBoolean();
 		if (hasMainSpriteDef) {
 			_mainAnimDef.mainSpriteDef = new JASpriteDef();
@@ -378,136 +198,7 @@ class JointAnimate {
 		var _local2:Int = bytes.readShort();
 		return (bytes.readUTFBytes(_local2));
 	}
-
-	//private function Remap(str:String):String {
-	//	var _local5:UInt;
-	//	var _local3:Array<Dynamic> = [];
-	//	var _local4 = str;
-	//	var _local2:UInt = _remapList.length;
-	//	_local5 = 0;
-	//	while (_local5 < _local2) {
-	//		if (WildcardReplace(str, _remapList[_local5][0], _remapList[_local5][1], _local3)) {
-	//			_local4 = _local3[0];
-	//			break;
-	//		}
-	//		_local5++;
-	//	}
-	//	_local3.splice(0, _local3.length);
-	//	_local3 = null;
-	//	return (_local4);
-	//}
-	//
-	//private function WildcardReplace(theValue:String, theWildcard:String, theReplacement:String, theResult:Array<Dynamic>):Bool {
-	//	var _local6:Int;
-	//	var _local5:Int;
-	//	var _local7:Int;
-	//	var _local8:Bool;
-	//	var _local9:Int;
-	//	if (theWildcard.length == 0) {
-	//		return (false);
-	//	}
-	//	if (theWildcard.charAt(0) == "*") {
-	//		if (theWildcard.length == 1) {
-	//			theResult.push(WildcardExpand(theValue, 0, theValue.length, theReplacement));
-	//			return (true);
-	//		}
-	//		if (theWildcard.charAt((theWildcard.length - 1)) == "*") {
-	//			_local6 = (theWildcard.length - 2);
-	//			_local5 = (theValue.length - _local6);
-	//			_local7 = 0;
-	//			while (_local7 <= _local5) {
-	//				_local8 = true;
-	//				_local9 = 0;
-	//				while (_local9 < _local6) {
-	//					if (theWildcard.charAt((_local9 + 1)).toUpperCase() != theValue.charAt((_local7 + _local9)).toUpperCase()) {
-	//						_local8 = false;
-	//						break;
-	//					}
-	//					_local9++;
-	//				}
-	//				if (_local8) {
-	//					theResult.push(WildcardExpand(theValue, _local7, (_local7 + _local6), theReplacement));
-	//					return (true);
-	//				}
-	//				_local7++;
-	//			}
-	//		}
-	//		else {
-	//			if (theValue.length < (theWildcard.length - 1)) {
-	//				return (false);
-	//			}
-	//			if (theWildcard.substr(1).toUpperCase() != theValue.substr(((theValue.length - theWildcard.length) + 1)).toUpperCase()) {
-	//				return (false);
-	//			}
-	//			theResult.push(WildcardExpand(theValue, ((theValue.length - theWildcard.length) + 1), theValue.length, theReplacement));
-	//			return (true);
-	//		}
-	//	}
-	//	else {
-	//		if (theWildcard.charAt((theWildcard.length - 1)) == "*") {
-	//			if (theValue.length < (theWildcard.length - 1)) {
-	//				return (false);
-	//			}
-	//			if (theWildcard.substr(0, (theWildcard.length - 1)).toUpperCase() != theValue.substr(0, (theWildcard.length - 1)).toUpperCase()) {
-	//				return (false);
-	//			}
-	//			theResult.push(WildcardExpand(theValue, 0, (theWildcard.length - 1), theReplacement));
-	//			return (true);
-	//		}
-	//		if (theWildcard.toUpperCase() == theValue.toUpperCase()) {
-	//			if (theReplacement.length > 0) {
-	//				if (theReplacement.charAt(0) == "*") {
-	//					theResult.push((theValue + theReplacement.substr(1)));
-	//				}
-	//				else {
-	//					if (theReplacement.charAt((theReplacement.length - 1)) == "*") {
-	//						theResult.push((theReplacement.substr(0, (theReplacement.length - 1)) + theValue));
-	//					}
-	//					else {
-	//						theResult.push(theReplacement);
-	//					}
-	//				}
-	//			}
-	//			else {
-	//				theResult.push(theReplacement);
-	//			}
-	//			return (true);
-	//		}
-	//	}
-	//	return (false);
-	//}
-	//
-	//private function WildcardExpand(theValue:String, theMatchStart:Int, theMatchEnd:Int, theReplacement:String):String {
-	//	var _local5 = null;
-	//	if (theReplacement.length == 0) {
-	//		_local5 = "";
-	//	}
-	//	else {
-	//		if (theReplacement.charAt(0) == "*") {
-	//			if (theReplacement.length == 1) {
-	//				_local5 = (theValue.substr(0, theMatchStart) + theValue.substr(theMatchEnd));
-	//			}
-	//			else {
-	//				if (theReplacement.charAt((theReplacement.length - 1)) == "*") {
-	//					_local5 = ((theValue.substr(0, theMatchStart) + theReplacement.substr(1, (theReplacement.length - 2))) + theValue.substr(theMatchEnd));
-	//				}
-	//				else {
-	//					_local5 = (theValue.substr(0, theMatchStart) + theReplacement.substr(1, (theReplacement.length - 1)));
-	//				}
-	//			}
-	//		}
-	//		else {
-	//			if (theReplacement.charAt((theReplacement.length - 1)) == "*") {
-	//				_local5 = (theReplacement.substr(0, (theReplacement.length - 1)) + theValue.substr(theMatchEnd));
-	//			}
-	//			else {
-	//				_local5 = theReplacement;
-	//			}
-	//		}
-	//	}
-	//	return (_local5);
-	//}
-
+	
 	private function LoadSpriteDef(steam:ByteArray, jaSpriteDef:JASpriteDef):Bool {
 		var aFrameNum:Int;
 		var aRemoveNum:Int;
@@ -517,19 +208,11 @@ class JointAnimate {
 		var anObjectId:Int;
 		var aNumAdds:Int;
 		var aPopAnimObjectPos:JAObjectPos = null;
-		//var _local21:Int;
 		var _local24:String = null;
 		var _local20:Int;
-		//var _local13:Int;
-		//var _local7:Int;
-		//var _local11:Int;
 		var _local14:Float;
 		var _local16:Float;
 		var _local23:Float;
-		//var _local9:JAMatrix3 = null;
-		//var _local8:String = null;
-		//var _local10:Int;
-		//var _local18:Int;
 		var _local27:JAObjectDef = null;
 		if (_version >= 4) {
 			jaSpriteDef.name = ReadString(steam);
@@ -555,10 +238,6 @@ class JointAnimate {
 		var aCurObjectMap:Dictionary = new Dictionary();
 		while (aFrameNum < aNumFrames) {
 			jaSpriteDef.frames[aFrameNum] = new JAFrame();
-		//	aFrameNum++;
-		//}
-		//aFrameNum = 0;
-		//while (aFrameNum < aNumFrames) {
 			aFrame = jaSpriteDef.frames[aFrameNum];
 			aFrameFlags = steam.readUnsignedByte();
 			if ((aFrameFlags & FRAMEFLAGS_HAS_REMOVES) != 0) {
@@ -624,7 +303,6 @@ class JointAnimate {
 					if (aPopAnimObjectPos.isSprite) {
 						jaSpriteDef.objectDefVector[aPopAnimObjectPos.objectNum].spriteDef = _mainAnimDef.spriteDefVector[aPopAnimObjectPos.resNum];
 					}
-					//_local6[_local25.objectNum] = _local25;
 					Reflect.setField(aCurObjectMap, aPopAnimObjectPos.objectNum + "", aPopAnimObjectPos);
 					anAddNum++;
 				}
@@ -641,7 +319,6 @@ class JointAnimate {
 					if (anObjectNum == 0x3FF) {
 						anObjectNum = steam.readUnsignedInt();
 					}
-					//_local25 = _local6[anObjectNum];
 					aPopAnimObjectPos = Reflect.field(aCurObjectMap, anObjectNum + "");
 					aPopAnimObjectPos.transform.matrix.LoadIdentity();
 					if ((aFlagsAndObjectNum & MOVEFLAGS_HAS_MATRIX) != 0) {
@@ -653,15 +330,6 @@ class JointAnimate {
 					else {
 						if ((aFlagsAndObjectNum & MOVEFLAGS_HAS_ROTATE) != 0) {
 							var aRot:Float = (steam.readShort() / 1000);
-							//_local16 = Math.sin(aRot);
-							//_local23 = Math.cos(aRot);
-							//if (_version == 2) {
-							//	_local16 = -(_local16);
-							//};
-							//aPopAnimObjectPos.transform.matrix.a = _local23;
-							//aPopAnimObjectPos.transform.matrix.c = -(_local16);
-							//aPopAnimObjectPos.transform.matrix.b = _local16;
-							//aPopAnimObjectPos.transform.matrix.d = _local23;
 							aPopAnimObjectPos.transform.matrix.LoadIdentity();
 							aPopAnimObjectPos.transform.matrix.rotate(aRot);
 						}
@@ -705,8 +373,6 @@ class JointAnimate {
 			}
 			if ((aFrameFlags & FRAMEFLAGS_HAS_FRAME_NAME) != 0) {
 				var aFrameName:String = ReadString(steam);
-				//aFrameName = Remap(aFrameName).toUpperCase();
-				//jaSpriteDef.label[aFrameName] = _local22;
 				Reflect.setField(jaSpriteDef.label, aFrameName, aFrameNum);
 			}
 			if ((aFrameFlags & FRAMEFLAGS_HAS_STOP) != 0) {
@@ -715,24 +381,15 @@ class JointAnimate {
 			if ((aFrameFlags & FRAMEFLAGS_HAS_COMMANDS) != 0) {
 				var aNumCmds:Int = steam.readByte();
 				aFrame.commandVector.length = aNumCmds;
-				//_local15.commandVector.splice(0, _local15.commandVector.length);
 				var aCmdNum:Int = 0;
 				while (aCmdNum < aNumCmds) {
 					aFrame.commandVector[aCmdNum] = new JACommand();
-					//_local15.commandVector.push(new JACommand());
-				//	aCmdNum++;
-				//}
-				//aCmdNum = 0;
-				//while (aCmdNum < aNumCmds) {
-					//_local15.commandVector[_local19].command = Remap(ReadString(steam));
-					//_local15.commandVector[_local19].param = Remap(ReadString(steam));
 					aFrame.commandVector[aCmdNum].command = ReadString(steam);
 					aFrame.commandVector[aCmdNum].param = ReadString(steam);
 					aCmdNum++;
 				}
 			}
 			var aCurObjectNum:Int = 0;
-			//for (_local26 in _local6)
 			var textureIds:Array<String> = untyped __keys__(aCurObjectMap);
 			for (i in 0...textureIds.length) {
 				var anObjectPos:JAObjectPos = untyped aCurObjectMap[textureIds[i]];

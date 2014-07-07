@@ -6,7 +6,7 @@
     <movie input="" />
     <movie path="bin\Genome2D.swf" />
     <movie fps="60" />
-    <movie width="800" />
+    <movie width="1000" />
     <movie height="600" />
     <movie version="12" />
     <movie minorVersion="0" />
