@@ -616,8 +616,14 @@ class JAnim extends GComponent implements IRenderable {
 							if (_local18 == 2) break;
 						}
 						_helpTransform.matrix.LoadIdentity();
+						//_helpTransform.matrix.tx = (_local23.width / 2);
+						//_helpTransform.matrix.ty = (_local23.height / 2);
 						_helpTransform.matrix.tx = (_local23.width / 2);
 						_helpTransform.matrix.ty = (_local23.height / 2);
+						if (_local21.imageExist) {
+							_helpTransform.matrix.tx -= _local21.texture.pivotX;
+							_helpTransform.matrix.ty -= _local21.texture.pivotY;
+						}
 						//_helpTransform.matrix.tx = (anImage.origWidth / 2);
 						//_helpTransform.matrix.ty = (anImage.origHeight / 2);
 						//_helpTransform.matrix.tx = (_local21.texture.width / 2);
@@ -655,7 +661,7 @@ class JAnim extends GComponent implements IRenderable {
 								(aNewColor.blue * 0.003921568627451),
 								(aNewColor.alpha * 0.003921568627451),
 								((((additive) || (anObjectPos.isAdditive))) ? 2 : 1)*/);
-							Lib.trace(_helpDrawSprite);
+							//Lib.trace(_helpDrawSprite);
 						}
 						else 
 						{
@@ -718,15 +724,15 @@ class JAnim extends GComponent implements IRenderable {
 		var _local7 = null;
 		var aCurFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
 		if (theSpriteInst.onNewFrame) {
-			//if (theSpriteInst.lastFrameNum < theSpriteInst.frameNum) {
-			//	_local6 = cast theSpriteInst.frameNum;
-			//	_local10 = cast (theSpriteInst.lastFrameNum + 1);
-			//	while (_local10 < _local6) {
-			//		_local7 = theSpriteInst.spriteDef.frames[_local10];
-			//		FrameHit(theSpriteInst, _local7, theObjectPos);
-			//		_local10++;
-			//	}
-			//}
+			if (theSpriteInst.lastFrameNum < theSpriteInst.frameNum) {
+				_local6 = cast theSpriteInst.frameNum;
+				_local10 = cast (theSpriteInst.lastFrameNum + 1);
+				while (_local10 < _local6) {
+					_local7 = theSpriteInst.spriteDef.frames[_local10];
+					FrameHit(theSpriteInst, _local7, theObjectPos);
+					_local10++;
+				}
+			}
 			FrameHit(theSpriteInst, aCurFrame, theObjectPos);
 		}
 		if (aCurFrame.hasStop) 

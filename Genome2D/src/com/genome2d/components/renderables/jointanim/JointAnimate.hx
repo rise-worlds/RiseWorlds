@@ -183,8 +183,8 @@ class JointAnimate {
 			return (false);
 		}
 		var _local3:JAMemoryImage = new JAMemoryImage(null);
-		_local3.width = _local4.width;
-		_local3.height = _local4.height;
+		_local3.width = cast _local4.frameWidth;
+		_local3.height = cast _local4.frameHeight;
 		_local3.loadFlag = JAMemoryImage.Image_Loaded;
 		_local3.texture = _local4;
 		var bmp:Bitmap = new Bitmap(_local4.g2d_bitmapData);

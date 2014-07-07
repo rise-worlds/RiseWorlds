@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="building1.png">
+<SubTexture name="GZ" x="0" y="246" width="333" height="201" frameX="-23" frameY="-1" frameWidth="400" frameHeight="260"/>
+<SubTexture name="HGZD" x="0" y="0" width="368" height="244"/>
+<!--<SubTexture name="HGZD" x="0" y="0" width="368" height="244" frameWidth="400" frameHeight="260"/>-->
+<!--<SubTexture name="HGZD" x="0" y="0" width="368" height="244" frameX="0" frameY="0" frameWidth="400" frameHeight="260"/>-->
+</TextureAtlas>

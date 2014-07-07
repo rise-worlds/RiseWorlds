@@ -75,164 +75,34 @@ class Main
      **/
     private function initAssets():Void {
         assetManager = new GAssetManager();
-        assetManager.addUrl("atlas_gfx", "atlas.png");
-        assetManager.addUrl("atlas_xml", "atlas.xml");
+        //assetManager.addUrl("atlas_gfx", "building1.png");
+        //assetManager.addUrl("atlas_xml", "building1.xml");
         //assetManager.addUrl("atlas_gfx", "cloud.png");
         //assetManager.addUrl("atlas_xml", "cloud.xml");
-        //assetManager.addUrl("atlas_dat", "atlas.pam");
+        assetManager.addUrl("atlas_gfx", "vs.png");
+        assetManager.addUrl("atlas_xml", "vs.xml");
         assetManager.onAllLoaded.add(assetsInitializedHandler);
         assetManager.load();
     }
+
+	private var clip:GMovieClip;
+    private var sprite:GSprite;
+	private var anim:JAnim;
 
     /**
         Assets initialization handler dispatched after all assets were initialized
      **/
     private function assetsInitializedHandler():Void {
-        initExample();
-    }
-
-	private var clip:GMovieClip;
-    private var sprite:GSprite;
-    /**
-        Initialize Example code
-     **/
-    private function initExample():Void {
-        //GTextureAtlasFactory.createFromAssets("atlas", cast assetManager.getAssetById("atlas_gfx"), cast assetManager.getAssetById("atlas_xml"));
-        
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0000");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0001");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0002");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0003");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0004");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0005");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0006");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0007");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0008");
-        //sprite = createSprite(300, 200, "atlas_GENERAL101B_MOVE_F0009");
-        //
-        //sprite = createSprite(500, 200, "atlas_0");
-        //sprite.node.transform.setScale(2,2);
-        //
-        //sprite = createSprite(300, 400, "atlas_0");
-        //sprite.node.transform.rotation = 0.753;
-        //
-        //sprite = createSprite(500, 400, "atlas_0");
-        //sprite.node.transform.rotation = 0.753;
-        //sprite.node.transform.setScale(2,2);
-        //
-        //sprite = createSprite(300, 300, "atlas_0");
-        //sprite.node.transform.alpha = .5;
-        //
-        //sprite = createSprite(500, 300, "atlas_0");
-        //sprite.node.transform.color = 0x00FF00;
-		
-        //clip = createMovieClip(300, 200, ["atlas_GENERAL101B_MOVE_F0000",
-										  //"atlas_GENERAL101B_MOVE_F0001",
-										  //"atlas_GENERAL101B_MOVE_F0002",
-										  //"atlas_GENERAL101B_MOVE_F0003",
-										  //"atlas_GENERAL101B_MOVE_F0004",
-										  //"atlas_GENERAL101B_MOVE_F0005",
-										  //"atlas_GENERAL101B_MOVE_F0006",
-										  //"atlas_GENERAL101B_MOVE_F0007",
-										  //"atlas_GENERAL101B_MOVE_F0008",
-										  //"atlas_GENERAL101B_MOVE_F0009"]);
-		//clip.repeatable = false;
-		//									
-		//clip = createMovieClip(500,200, ["atlas_GENERAL101B_ATTACK_D0000",
-		//								 "atlas_GENERAL101B_ATTACK_D0001",
-		//								 "atlas_GENERAL101B_ATTACK_D0002",
-		//								 "atlas_GENERAL101B_ATTACK_D0003",
-		//								 "atlas_GENERAL101B_ATTACK_D0004",
-		//								 "atlas_GENERAL101B_ATTACK_D0005",
-		//								 "atlas_GENERAL101B_ATTACK_D0006",
-		//								 "atlas_GENERAL101B_ATTACK_D0007",
-		//								 "atlas_GENERAL101B_ATTACK_D0008",
-		//								 "atlas_GENERAL101B_ATTACK_D0009"]);
-        ////clip.node.transform.setScale(2, 2);
-		//
-		//clip = createMovieClip(300,400, ["atlas_GENERAL101B_ATTACK_U0000",
-		//								 "atlas_GENERAL101B_ATTACK_U0001",
-		//								 "atlas_GENERAL101B_ATTACK_U0002",
-		//								 "atlas_GENERAL101B_ATTACK_U0003",
-		//								 "atlas_GENERAL101B_ATTACK_U0004",
-		//								 "atlas_GENERAL101B_ATTACK_U0005",
-		//								 "atlas_GENERAL101B_ATTACK_U0006",
-		//								 "atlas_GENERAL101B_ATTACK_U0007",
-		//								 "atlas_GENERAL101B_ATTACK_U0008",
-		//								 "atlas_GENERAL101B_ATTACK_U0009"]);
-        ////clip.node.transform.rotation = 0.753;
-		//
-		//clip = createMovieClip(500,400, ["atlas_GENERAL101B_ATTACK_F0000",
-		//								 "atlas_GENERAL101B_ATTACK_F0001",
-		//								 "atlas_GENERAL101B_ATTACK_F0002",
-		//								 "atlas_GENERAL101B_ATTACK_F0003",
-		//								 "atlas_GENERAL101B_ATTACK_F0004",
-		//								 "atlas_GENERAL101B_ATTACK_F0005",
-		//								 "atlas_GENERAL101B_ATTACK_F0006",
-		//								 "atlas_GENERAL101B_ATTACK_F0007",
-		//								 "atlas_GENERAL101B_ATTACK_F0008",
-		//								 "atlas_GENERAL101B_ATTACK_F0009"]);
-        ////clip.node.transform.rotation = 0.753;
-        ////clip.node.transform.setScale(2, 2);
-		//
-		//clip = createMovieClip(300,300, ["atlas_GENERAL101B_ATTACK_S0000",
-		//								 "atlas_GENERAL101B_ATTACK_S0001",
-		//								 "atlas_GENERAL101B_ATTACK_S0002",
-		//								 "atlas_GENERAL101B_ATTACK_S0003",
-		//								 "atlas_GENERAL101B_ATTACK_S0004",
-		//								 "atlas_GENERAL101B_ATTACK_S0005",
-		//								 "atlas_GENERAL101B_ATTACK_S0006",
-		//								 "atlas_GENERAL101B_ATTACK_S0007",
-		//								 "atlas_GENERAL101B_ATTACK_S0008",
-		//								 "atlas_GENERAL101B_ATTACK_S0009"]);
-		////clip.node.transform.color = 0x00FF00;
-		//clip.node.transform.red = 0.5;
-		//clip.node.transform.green = 0.5;
-		//clip.node.transform.blue = 1.5;
-        //clip.node.transform.alpha = .5;
-		
-
-        //clip = createMovieClip(300,200, ["atlas_1","atlas_2","atlas_3","atlas_4","atlas_5","atlas_6","atlas_7"]);
-        //
-        //clip = createMovieClip(500,200, ["atlas_1","atlas_2","atlas_3","atlas_4","atlas_5","atlas_6","atlas_7"]);
-        //clip.node.transform.setScale(2,2);
-        //
-        //clip = createMovieClip(300,400, ["atlas_1","atlas_2","atlas_3","atlas_4","atlas_5","atlas_6","atlas_7"]);
-        //clip.node.transform.rotation = 0.753;
-        //
-        //clip = createMovieClip(500,400, ["atlas_1","atlas_2","atlas_3","atlas_4","atlas_5","atlas_6","atlas_7"]);
-        //clip.node.transform.rotation = 0.753;
-        //clip.node.transform.setScale(2,2);
-        //
-        //clip = createMovieClip(300,300, ["atlas_1","atlas_2","atlas_3","atlas_4","atlas_5","atlas_6","atlas_7"]);
-        //clip.node.transform.alpha = .5;
-        //
-        //clip = createMovieClip(500,300, ["atlas_1","atlas_2","atlas_3","atlas_4","atlas_5","atlas_6","atlas_7"]);
-        //clip.node.transform.color = 0x00FF00;
-		
-		//var sprite:GSprite = cast GNodeFactory.createNodeWithComponent(GSprite);
-        //sprite.texture = GTexture.getTextureById("atlas_0");
-        //sprite.node.transform.setPosition(400, 300);
-        //
-        //sprite.node.mouseEnabled = true;
-        //sprite.node.onMouseClick.add(mouseClickHandler);
-        //sprite.node.onMouseOver.add(mouseOverHandler);
-        //sprite.node.onMouseOut.add(mouseOutHandler);
-        //sprite.node.onMouseDown.add(mouseDownHandler);
-        //sprite.node.onMouseUp.add(mouseUpHandler);
-        //
-        //genome.root.addChild(sprite.node);
-		
 		var urlLoader:URLLoader = new URLLoader();
 		urlLoader.dataFormat = URLLoaderDataFormat.BINARY;
 		urlLoader.addEventListener(Event.COMPLETE, g2d_completeHandler);
 		//urlLoader.addEventListener(IOErrorEvent.IO_ERROR, g2d_ioErrorHandler);
-		urlLoader.load(new URLRequest("atlas.pam"));
+		//urlLoader.load(new URLRequest("building1.pam"));
 		//urlLoader.load(new URLRequest("cloud.pam"));
+		urlLoader.load(new URLRequest("vs.pam"));
 		JAnim.HelpCallInitialize();
     }
 	
-	private var anim:JAnim;
 	private function g2d_completeHandler(p_event:Event):Void
 	{
 		var g2d_bytes:ByteArray = cast(p_event.target.data, ByteArray);
@@ -247,16 +117,18 @@ class Main
 		//anim = new JAnim();
 		anim.setJointAnim(joint, 0, callback);
 		anim.interpolate = false;
-		anim.Play("MOVE_F");
+		//anim.Play("MOVE_F");
+		anim.Play("VS");
+		//anim.Play("ZC_HG");
 		//anim.Play("CLOUD");
-		//anim.mirror = true;
+		anim.mirror = true;
 		//anim.color = cast 0xAABBCCDDEE;
 		//anim.filter = new GHDRPassFilter();
 		anim.transform.LoadIdentity();
-		anim.transform.Translate(100, 100);
+		//anim.transform.Translate(100, 100);
 		genome.root.addChild(anim.node);
 		
-		sprite = createSprite(100, 100, "atlas_GENERAL101B_MOVE_F0000");
+		//sprite = createSprite(100, 100, "atlas_GENERAL101B_MOVE_F0000");
 		//var clip:GMovieClip;
         //clip = createMovieClip(500, 400, ["atlas_GENERAL101B_MOVE_F0000",
 										  //"atlas_GENERAL101B_MOVE_F0001",
