@@ -8,8 +8,6 @@
  */
 package com.genome2d.components.renderables.text;
 
-import com.genome2d.utils.GVAlignType;
-import com.genome2d.utils.GHAlignType;
 import com.genome2d.error.GError;
 import com.genome2d.textures.GCharTexture;
 import com.genome2d.textures.GFontTextureAtlas;
@@ -320,9 +318,9 @@ class GTextureText extends GComponent implements IRenderable
 
         var bottom:Float = offsetY + g2d_textureAtlas.lineHeight;
         var offsetY:Float = 0;
-        if (g2d_vAlign == GVAlignType.MIDDLE) {
+        if (g2d_vAlign == GTextureTextVAlignType.MIDDLE) {
             offsetY = (g2d_height - bottom) * .5;
-        } else if (g2d_vAlign == GVAlignType.BOTTOM) {
+        } else if (g2d_vAlign == GTextureTextVAlignType.BOTTOM) {
             offsetY = g2d_height - bottom;
         }
 
@@ -335,9 +333,9 @@ class GTextureText extends GComponent implements IRenderable
             var last:GChar = currentLine[charCount-1];
             var right:Float = last.g2d_x - last.g2d_texture.xoffset + last.g2d_texture.xadvance;
 
-            if (g2d_hAlign == GHAlignType.CENTER) {
+            if (g2d_hAlign == GTextureTextHAlignType.CENTER) {
                 offsetX = (g2d_width - right) * .5;
-            } else if (g2d_hAlign == GHAlignType.RIGHT) {
+            } else if (g2d_hAlign == GTextureTextHAlignType.RIGHT) {
                 offsetX = g2d_width - right;
             }
 
