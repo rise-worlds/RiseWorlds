@@ -2,6 +2,7 @@ package com.genome2d.components.renderables.jointanim;
 
 import com.genome2d.context.GContextCamera;
 import com.genome2d.context.IContext;
+import com.genome2d.error.GError;
 import com.genome2d.geom.GRectangle;
 import com.genome2d.node.GNode;
 import com.genome2d.textures.GTexture;
@@ -87,9 +88,13 @@ class JAnim extends GComponent implements IRenderable {
 		_blendTicksTotal = 0;
 	}
 
-	public function setJointAnim(jointAnimate:JointAnimate, id:Int, listener:JAnimListener = null) {
+	public function setJointAnim(jointAnimate:JointAnimate, id:Int, listener:JAnimListener = null):Void {
 		//_inNode = (node != null);
-		_inNode = true;
+		if (jointAnimate == null)
+        {
+            throw (new GError("Joint Animate is null!"));
+        }
+		_inNode = false;
 		_JointAnimate = jointAnimate;
 		_id = id;
 		_listener = listener;
@@ -113,7 +118,6 @@ class JAnim extends GComponent implements IRenderable {
 		}
 	}
 
-
 	override public function dispose():Void 
 	{
 		super.dispose();
@@ -123,12 +127,12 @@ class JAnim extends GComponent implements IRenderable {
 		_JointAnimate = null;
 	}
 
-	//override public function processMouseEvent(p_captured:Bool, p_event:MouseEvent, p_position:Vector3D):Bool
-	//{
-	//	return (false);
-	//}
-
-	/*override*/
+	////override public function processMouseEvent(p_captured:Bool, p_event:MouseEvent, p_position:Vector3D):Bool
+	////{
+	////	return (false);
+	////}
+    //
+	///*override*/
 	public function getBounds(p_target:GRectangle = null):GRectangle 
 	{
 		var _local4:Int;
@@ -165,7 +169,7 @@ class JAnim extends GComponent implements IRenderable {
 		};
 		return (p_target);
 	}
-
+    
 	private function getTransformedVertices3D():Vector<Float> {
 		//_helpGetTransformedVertices3DTransformMatrix.copyfFrom(node.transform.matrix);
 		var matrix3d:Matrix3D = new Matrix3D();
@@ -198,8 +202,8 @@ class JAnim extends GComponent implements IRenderable {
 		_helpGetTransformedVertices3DTransformMatrix.transformVectors(Vector.ofArray(NORMALIZED_VERTICES_3D), _helpGetTransformedVertices3DVector);
 		return (_helpGetTransformedVertices3DVector);
 	}
-
-///*override*/ public function render(p_context:IContext, p_camera:GContextCamera, p_maskRect:Rectangle):Void
+    
+///*//override*/ public function render(p_context:IContext, p_camera:GContextCamera, p_maskRect:Rectangle):Void
 	/*override*/ public function render(p_camera:GContextCamera, p_useMatrix:Bool):Void {
 		if (_inNode) {
 			var matrix3d:Matrix3D = new Matrix3D();
@@ -661,7 +665,6 @@ class JAnim extends GComponent implements IRenderable {
 								(aNewColor.blue * 0.003921568627451),
 								(aNewColor.alpha * 0.003921568627451),
 								((((additive) || (anObjectPos.isAdditive))) ? 2 : 1)*/);
-							//Lib.trace(_helpDrawSprite);
 						}
 						else 
 						{
@@ -719,16 +722,13 @@ class JAnim extends GComponent implements IRenderable {
 
 	private function PrepSpriteInstFrame(theSpriteInst:JASpriteInst, theObjectPos:JAObjectPos):Void 
 	{
-		var _local6:Int;
-		var _local10:Int;
-		var _local7 = null;
-		var aCurFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var aCurFrame:JAFrame = theSpriteInst.spriteDef.frames[Std.int(theSpriteInst.frameNum)];
 		if (theSpriteInst.onNewFrame) {
 			if (theSpriteInst.lastFrameNum < theSpriteInst.frameNum) {
-				_local6 = cast theSpriteInst.frameNum;
-				_local10 = cast (theSpriteInst.lastFrameNum + 1);
+				var _local6:Int = Std.int(theSpriteInst.frameNum);
+				var _local10:Int = Std.int(theSpriteInst.lastFrameNum + 1);
 				while (_local10 < _local6) {
-					_local7 = theSpriteInst.spriteDef.frames[_local10];
+					var _local7:JAFrame = theSpriteInst.spriteDef.frames[_local10];
 					FrameHit(theSpriteInst, _local7, theObjectPos);
 					_local10++;
 				}
@@ -756,9 +756,9 @@ class JAnim extends GComponent implements IRenderable {
 				var aSpriteInst:JASpriteInst = theSpriteInst.children[theObjectPos.objectNum].spriteInst;
 				if (aSpriteInst != null) 
 				{
-					var aPhysFrameNum:Int = cast (theSpriteInst.frameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
-					var aPhysLastFrameNum:Int = cast (theSpriteInst.lastFrameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
-					if (((!((aSpriteInst.lastUpdated == aPhysLastFrameNum))) && (!((aSpriteInst.lastUpdated == aPhysFrameNum))))) 
+					var aPhysFrameNum:Int = Std.int(theSpriteInst.frameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
+					var aPhysLastFrameNum:Int = Std.int(theSpriteInst.lastFrameNum + (theSpriteInst.frameRepeats * theSpriteInst.spriteDef.frames.length));
+					if ((aSpriteInst.lastUpdated != aPhysLastFrameNum) && (aSpriteInst.lastUpdated != aPhysFrameNum)) 
 					{
 						aSpriteInst.frameNum = 0;
 						aSpriteInst.lastFrameNum = 0;
@@ -776,7 +776,7 @@ class JAnim extends GComponent implements IRenderable {
 
 	private function IncSpriteInstFrame(theSpriteInst:JASpriteInst, theObjectPos:JAObjectPos, theFrac:Float):Void 
 	{
-		var aLastFrameNum:Int = cast theSpriteInst.frameNum;
+		var aLastFrameNum:Int = Std.int(theSpriteInst.frameNum);
 		var aLastFrame:JAFrame = theSpriteInst.spriteDef.frames[aLastFrameNum];
 		if (aLastFrame.hasStop) 
 		{
@@ -848,7 +848,7 @@ class JAnim extends GComponent implements IRenderable {
 
 	private function DoFramesHit(theSpriteInst:JASpriteInst, theObjectPos:JAObjectPos):Void 
 	{
-		var aCurFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var aCurFrame:JAFrame = theSpriteInst.spriteDef.frames[Std.int(theSpriteInst.frameNum)];
 		FrameHit(theSpriteInst, aCurFrame, theObjectPos);
 		var anObjectPosIdx:Int = 0;
 		while (anObjectPosIdx < aCurFrame.frameObjectPosVector.length) 
@@ -1004,7 +1004,7 @@ class JAnim extends GComponent implements IRenderable {
 			theSpriteInst.curColor = new JAColor();
 		}
 		theSpriteInst.curColor.clone(theColor);
-		var aFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var aFrame:JAFrame = theSpriteInst.spriteDef.frames[Std.int(theSpriteInst.frameNum)];
 		var aCurTransform:JATransform = _helpCallTransform[_helpCallDepth];
 		var aCurColor:JAColor = _helpCallColor[_helpCallDepth];
 		_helpCallDepth++;
@@ -1038,7 +1038,7 @@ class JAnim extends GComponent implements IRenderable {
 		var aBlendInterp:Float;
 		var _local18:Bool;
 		var iFrameNum:Float = theSpriteInst.frameNum;
-		var aFrame:JAFrame = theSpriteInst.spriteDef.frames[cast theSpriteInst.frameNum];
+		var aFrame:JAFrame = theSpriteInst.spriteDef.frames[Std.int(iFrameNum)];
 		var anObjectPos:JAObjectPos = aFrame.frameObjectPosVector[theObjectPosIdx];
 		var anObjectInst:JAObjectInst = theSpriteInst.children[anObjectPos.objectNum];
 		_helpANextObjectPos[0] = null;
@@ -1058,14 +1058,14 @@ class JAnim extends GComponent implements IRenderable {
 			var anOfsIdx:Int = 0;
 			while (anOfsIdx < 3) 
 			{
-				var aNextFrame:JAFrame = theSpriteInst.spriteDef.frames[cast(iFrameNum + mOfsTab[anOfsIdx]) % theSpriteInst.spriteDef.frames.length];
+				var aNextFrame:JAFrame = theSpriteInst.spriteDef.frames[Std.int(iFrameNum + mOfsTab[anOfsIdx]) % theSpriteInst.spriteDef.frames.length];
 				if ((theSpriteInst == _mainSpriteInst) && (theSpriteInst.frameNum >= theSpriteInst.spriteDef.workAreaStart)) {
-					aNextFrame = theSpriteInst.spriteDef.frames[cast(iFrameNum + mOfsTab[anOfsIdx] - theSpriteInst.spriteDef.workAreaStart) % (theSpriteInst.spriteDef.workAreaDuration + 1) + theSpriteInst.spriteDef.workAreaStart];
+					aNextFrame = theSpriteInst.spriteDef.frames[Std.int(iFrameNum + mOfsTab[anOfsIdx] - theSpriteInst.spriteDef.workAreaStart) % (theSpriteInst.spriteDef.workAreaDuration + 1) + theSpriteInst.spriteDef.workAreaStart];
 				}
 				else 
 				{
 					//aNextFrame = theSpriteInst.spriteDef.frames[cast ((theSpriteInst.frameNum + (((anOfsIdx) == 0) ? totalFrames : (((anOfsIdx) == 1) ? _local16 : _local13))) % theSpriteInst.spriteDef.frames.length)];
-					aNextFrame = theSpriteInst.spriteDef.frames[cast(iFrameNum + mOfsTab[anOfsIdx]) % theSpriteInst.spriteDef.frames.length];
+					aNextFrame = theSpriteInst.spriteDef.frames[Std.int(iFrameNum + mOfsTab[anOfsIdx]) % theSpriteInst.spriteDef.frames.length];
 				}
 				if (aFrame.hasStop) 
 				{

@@ -187,8 +187,6 @@ class JointAnimate {
 		_local3.height = cast _local4.frameHeight;
 		_local3.loadFlag = JAMemoryImage.Image_Loaded;
 		_local3.texture = _local4;
-		var bmp:Bitmap = new Bitmap(_local4.g2d_bitmapData);
-		bmp.bitmapData.fillRect(new Rectangle(0, 0, _local4.width, _local4.height), 0xFF0000);
 		p_theImage.OnMemoryImageLoadCompleted(_local3);
 		p_theImage.images.push(_local3);
 		return (true);
@@ -345,7 +343,6 @@ class JointAnimate {
 					};
 					aPopAnimObjectPos.transform.matrix = JAMatrix3.MulJAMatrix3(aMatrix, aPopAnimObjectPos.transform.matrix, aPopAnimObjectPos.transform.matrix);
 					//aPopAnimObjectPos.transform.concat(aMatrix); // new
-					//Lib.trace(aPopAnimObjectPos.transform.matrix.toString());
 					aPopAnimObjectPos.hasSrcRect = ((aFlagsAndObjectNum & MOVEFLAGS_HAS_SRCRECT) != 0);
 					if ((aFlagsAndObjectNum & MOVEFLAGS_HAS_SRCRECT) != 0) {
 						if (aPopAnimObjectPos.srcRect == null) {
