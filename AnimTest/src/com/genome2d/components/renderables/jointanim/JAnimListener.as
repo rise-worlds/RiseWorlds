@@ -6,7 +6,7 @@
 package com.genome2d.components.renderables.jointanim
 {
     import com.genome2d.context.IContext;
-    import com.genome2d.components.renderables.JAMemoryImage;
+    import com.genome2d.components.renderables.jointanim.JAMemoryImage;
     import flash.geom.Matrix;
 
     public /*dynamic*/ interface JAnimListener 

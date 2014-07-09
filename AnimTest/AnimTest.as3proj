@@ -81,7 +81,7 @@
   <!-- Executed before build -->
   <preBuildCommand />
   <!-- Executed after build -->
-  <postBuildCommand alwaysRun="True">"$(CompilerPath)\bin\compc.exe" -include-sources "$(ProjectDir)\src\com" -compiler.library-path "$(ProjectDir)\lib\Genome2D_1_0_263.swc" -output "$(OutputFile)"</postBuildCommand>
+  <postBuildCommand alwaysRun="True">"$(CompilerPath)\bin\compc.exe" -include-sources "$(ProjectDir)\src" -compiler.include-libraries "$(ProjectDir)\lib\Genome2D_1_0_263.swc" -output "$(OutputFile)"</postBuildCommand>
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />

@@ -7,7 +7,7 @@ package com.genome2d.components.renderables.jointanim
 {
 	import com.genome2d.components.GComponent;
     import __AS3__.vec.Vector;
-	import com.genome2d.components.renderables.JAMemoryImage;
+	import com.genome2d.components.renderables.jointanim.JAMemoryImage;
     import flash.geom.Rectangle;
     import flash.geom.Matrix3D;
     import flash.geom.Matrix;

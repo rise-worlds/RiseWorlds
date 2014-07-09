@@ -3,7 +3,7 @@
 
 //com.flengine.components.renderables.JAMemoryImage
 
-package com.genome2d.components.renderables
+package com.genome2d.components.renderables.jointanim
 {
 	import com.genome2d.textures.GTexture;
     import flash.display.BitmapData;

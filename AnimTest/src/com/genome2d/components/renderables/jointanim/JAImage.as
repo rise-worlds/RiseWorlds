@@ -6,7 +6,7 @@
 package com.genome2d.components.renderables.jointanim
 {
     import __AS3__.vec.Vector;
-    import com.genome2d.components.renderables.JAMemoryImage;
+    import com.genome2d.components.renderables.jointanim.JAMemoryImage;
 
     public class JAImage 
     {

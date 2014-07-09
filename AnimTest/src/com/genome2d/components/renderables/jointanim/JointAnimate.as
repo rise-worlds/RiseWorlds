@@ -12,7 +12,7 @@ package com.genome2d.components.renderables.jointanim
     import flash.utils.getTimer;
     import flash.utils.ByteArray;
     import com.genome2d.textures.GTextureAtlas;
-    import com.genome2d.components.renderables.JAMemoryImage;
+    import com.genome2d.components.renderables.jointanim.JAMemoryImage;
     import com.genome2d.textures.GTexture;
     import flash.utils.Dictionary;
     import flash.geom.*;
