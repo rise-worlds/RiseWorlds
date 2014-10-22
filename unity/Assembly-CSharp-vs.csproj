@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{C3DA89E1-70C6-7D6C-993E-C8F831D35880}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_5;UNITY_4_5;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\ChatManager.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\ChatParticipant.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\ColliderDisplayText.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\HUDRoot.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\LightFlicker.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\LookAtTarget.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\PlayIdleAnimations.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Examples\Scripts\Rotate.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Scripts\HUDText.cs" />
+     <Compile Include="Assets\thirdparty\HUD Text\Scripts\UIFollowTarget.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\LanguageSelection.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButton.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonActivate.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonColor.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonKeyBinding.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonKeys.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonMessage.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonOffset.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonRotation.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIButtonScale.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UICenterOnChild.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIDragCamera.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIDragObject.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIDragPanelContents.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIDraggableCamera.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIDraggablePanel.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIForwardEvents.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIGrid.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIImageButton.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIInputValidator.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIPlayAnimation.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIPlaySound.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIPlayTween.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIPopupList.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UISavedOption.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIScrollBar.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UISlider.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UISoundVolume.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UITable.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIToggle.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIToggledComponents.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIToggledObjects.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Interaction\UIWidgetContainer.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\ActiveAnimation.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\AnimationOrTween.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\BMFont.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\BMGlyph.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\BMSymbol.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\BetterList.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\ByteReader.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\EventDelegate.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\Localization.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\NGUIDebug.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\NGUIMath.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\NGUITools.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\RealTime.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\SpringPanel.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\UIDrawCall.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\UIEventListener.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\UIGeometry.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Internal\UIWidget.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\AnimatedAlpha.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\AnimatedColor.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\SpringPosition.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenAlpha.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenColor.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenFOV.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenHeight.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenOrthoSize.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenPosition.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenRotation.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenScale.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenTransform.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenVolume.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\TweenWidth.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\Tweening\UITweener.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIAnchor.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIAtlas.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UICamera.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIFont.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIInput.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UILabel.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UILocalize.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIOrthoCamera.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIPanel.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIRoot.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UISprite.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UISpriteAnimation.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UISpriteData.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIStretch.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UITextList.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UITexture.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UITooltip.cs" />
+     <Compile Include="Assets\thirdparty\NGUI\Scripts\UI\UIViewport.cs" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
+     <None Include="Assets\Standard Assets\Glass Refraction (Pro Only)\Sources\Shaders\Glass-Stained-BumpDistort.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Multiply Culled.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Background.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Vertex Colored Shaders\Mobile Transparent Vertex Color.shader" />
+     <None Include="Assets\thirdparty\HUD Text\Examples\Models\Orc\Orc Skin.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ShowAlphaChannel.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowConeTap.shader" />
+     <None Include="Assets\thirdparty\TerrainSlicing\Unity4_x_x_users_READ_ME_FIRST.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SunShaftsComposite.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\GUI - Text Shader (SoftClip).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurves.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ScreenSpaceAmbientObscurance.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\NFAA.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Dynamic Font (AlphaClip).shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
+     <None Include="Assets\thirdparty\TerrainSlicing\Instructions\Neighboring_Quick_Start.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\VignetteShader.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+     <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularSmooth.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlur.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Detail.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (AlphaClip) .shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MobileBloom.shader" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowCompose.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\MinMaxReduction.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\SSAA.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\RadialBlur.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (AlphaClip).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ContrastComposite.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset3.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\FisheyeShader.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Apply.shader" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\FX-SimpleWater4.shader" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\frag_ao.cginc" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\GUI - Text Shader (AlphaClip).shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
+     <None Include="Assets\thirdparty\TerrainSlicing\Instructions\Slicing_Quick_Start.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfField34.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Dynamic Font (SoftClip).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MobileBlur.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SSAOShader.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ConvertDepth.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurvesSimple.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderYUV.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowEffectDownsample.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CreaseApply.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
+     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (SoftClip).shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Reflective.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ChromaticAberrationShader.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Particles Additive Culled.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlobalFog.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Dynamic Font.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\thirdparty\HUD Text\ReadMe - 1.8.txt" />
+     <None Include="Assets\thirdparty\NGUI\ReadMe - 3.0.2.txt" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CameraMotionBlurDX11.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlurEffectConeTaps.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CameraMotionBlur.shader" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Sources\Shaders\FX-Water.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\DLAA.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseAndGrainDX11.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableBlur.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Vertex Colored Shaders\Mobile Vertex Colored.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlurClear.shader" />
+     <None Include="Assets\thirdparty\HUD Text\Examples\Atlases\Arimo20.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GrayscaleEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SepiaToneEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\TwirlEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VortexEffect.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Adaptation.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Only.shader" />
+     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />
+     <None Include="Assets\Editor\SplitTerrain\SliceTerrain.txt" />
+     <None Include="Assets\thirdparty\NGUI\1. Which Version To Import.txt" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseAndGrain.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VignettingShader.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA2.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrection3DLut.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectNormals.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\PrepareSunShaftsBlur.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\Blend.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />
+     <None Include="Assets\thirdparty\HUD Text\Examples\Atlases\Large.txt" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\WaterInclude.cginc" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Depth.shader" />
+     <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\FX-Water4.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SimpleClear.shader" />
+     <None Include="Assets\thirdparty\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
+     <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularDisplacement.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA3Console.shader" />
+     <None Include="Assets\thirdparty\HUD Text\Examples\Models\Orc Armor\Orc Armor.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+     <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>D:/GitHub/RiseWorlds/unity/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{518622B2-9050-A153-E465-3E4BD155181A}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
