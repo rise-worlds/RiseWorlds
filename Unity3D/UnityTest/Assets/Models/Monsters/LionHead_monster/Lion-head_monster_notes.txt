@@ -1,0 +1,48 @@
+Fantasy Character Lion-head monster
+
+Low polygonal animated game_ready model of Lion-head monster in FBX file version 20011
+
+This character has 19 animations that cover basic needs for NPC monster  character. 
+
+Here you can see animations preview: http://www.youtube.com/watch?v=4nUALcnkzhY
+
+Animation list:
+
+1) Lion_Idile: 0 – 100 fr.,
+
+2) Lion_sitting_down: 101 – 126 fr.,
+3) Lion_standing_up: 127 – 152 fr.,
+
+4) Lion_looking_around: 153 – 273 fr.,
+5) Lion_tracking: 274 – 449 fr.,
+
+6) Lion_run: 450 – 494 fr.,
+7) Lion_walk: 495 – 555 fr.,
+
+8) Lion_combat_mode: 556 – 676 fr.,
+
+10) Lion_hit_left_hand_A: 688 – 713 fr.,
+11) Lion_hit_left_hand_B: 714 – 749 fr.,
+12) Lion_hit_right_hand_A: 759 – 785 fr.,
+13) Lion_hit_right_hand_B: 796 – 821 fr.,
+
+14) Lion_move_back: 902 – 932 fr.,
+15) Lion_move_front: 933 – 963 fr.,
+16) Lion_move_left: 694 – 994 fr.,
+17) Lion_move_right: 995 – 1025 fr.,
+
+18) Lion_taking_hit: 1026 – 1081 fr.,
+19) Lion_daying: 886 – 1175 fr.,
+
+
+
+Model has 3,494 polygons and 3,300 vertexes.
+
+Textures: diffuse, specular and normals maps. 
+Textures are TIF file format 2048x2048.
+
+If you have any question using this model, pleas send it to me. My mail is mr.necturus@gmail.com
+
+
+monster, character, fantasy, warrior, creature, poly, polygonal, video, game, wow, rpg, mmo, lion, beast, fps, fantasy, animated character, 
+
