@@ -1,0 +1,1 @@
+"C:\Users\Rise\AppData\Roaming\npm\egret.cmd" %*
