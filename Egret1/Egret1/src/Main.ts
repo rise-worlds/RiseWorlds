@@ -1,220 +1,205 @@
-//////////////////////////////////////////////////////////////////////////////////////
-//
-//  Copyright (c) 2014-2015, Egret Technology Inc.
-//  All rights reserved.
-//  Redistribution and use in source and binary forms, with or without
-//  modification, are permitted provided that the following conditions are met:
-//
-//     * Redistributions of source code must retain the above copyright
-//       notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above copyright
-//       notice, this list of conditions and the following disclaimer in the
-//       documentation and/or other materials provided with the distribution.
-//     * Neither the name of the Egret nor the
-//       names of its contributors may be used to endorse or promote products
-//       derived from this software without specific prior written permission.
-//
-//  THIS SOFTWARE IS PROVIDED BY EGRET AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
-//  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-//  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-//  IN NO EVENT SHALL EGRET AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-//  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-//  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;LOSS OF USE, DATA,
-//  OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-//  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-//  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-//////////////////////////////////////////////////////////////////////////////////////
-
+/**
+ * 
+ * 主类
+ * @author 
+ * 
+ */ 
 class Main extends egret.DisplayObjectContainer {
-
-    /**
-     * 加载进度界面
-     * Process interface loading
-     */
-    private loadingView:LoadingUI;
-
+    /** 加载进度界面*/
+    public loadingView:LoadingUI;
+    /** 实例*/ 
+    public static instance: Main;
+    /**游戏场景容器*/
+    private gameLayer:egret.DisplayObjectContainer;
+    /**介绍界面*/
+    private preload: PreLoad;
+    /**主界面*/
+    private welcome: Index;
+    /**资源组名*/
+    private resName: string;
+    /**加载界面*/
+    private loadBar: LoadBar;
+    /**场景堆栈*/
+    private views: any[]=[];
+    /**键：资源组名  值：场景名*/
+    private senceName: any = {"welcomeload":"Index","maps":"World","guanka01load":"Guanka01","guanka02load":"Guanka02","guanka03load":"Guanka03","guanka04load":"Guanka04","guanka05load":"Guanka05","guanka06load":"Guanka06","guanka07load":"Guanka07","guanka08load":"Guanka08","guanka09load":"Guanka09","guanka10load":"Guanka10","guanka11load":"Guanka11","guanka12load":"Guanka12"};
+    /**是否第一次加载Index*/
+    private loadIndexis1st: boolean = true;
+    /**当前挑战关卡索引*/
+    public static curIdx: number;
+    /**当前挑战关卡模式*/
+    public static wujin: boolean = false;
+    /**是否第一次加载通用资源*/
+    public static loadCommis1st: boolean = true;
+    
+    
     public constructor() {
         super();
+        Main.instance = this;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
-
     private onAddToStage(event:egret.Event) {
-        //设置加载进度界面
-        //Config to load process interface
+        //获取浏览器宽度
+        //console.log(document.body.clientWidth);
+        ////设置加载进度界面
         this.loadingView = new LoadingUI();
-        this.stage.addChild(this.loadingView);
-
-        //初始化Resource资源加载库
-        //initiate Resource loading library
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+        this.addChild(this.loadingView);
+        ////RES加载类
+        Loader.getInstance();
+        Loader.instance.addEventListener(LoadEvent.GROUP_COMPLETE,this.loadComp,this);
+        Loader.instance.addEventListener(LoadEvent.GROUP_PROGRESS,this.loadprogress,this);
+        Loader.instance.init();
+        ////移除上一场景
+        this.addEventListener(MainEvent.REMOVE,this.removeLast,this);
+        ////侦听加载界面调用事件
+        this.addEventListener(MainEvent.OPENLOADBAR,this.createLoadBar,this);
+        ////侦听加载完成加载场景事件
+        this.addEventListener(MainEvent.LOADCOMP,this.addSence,this);
     }
-
-    /**
-     * 配置文件加载完成,开始预加载preload资源组。
-     * configuration file loading is completed, start to pre-load the preload resource group
-     */
-    private onConfigComplete(event:RES.ResourceEvent):void {
-        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("preload");
-    }
-
-    /**
-     * preload资源组加载完成
-     * Preload resource group is loaded
-     */
-    private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-            RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-            this.createGameScene();
+    
+    /*
+     * 分组资源加载进度
+     */ 
+    private loadprogress(e:LoadEvent){
+        var str: string = e.groupName;
+        switch(str){
+            case "preload":
+                this.loadingView.setProgress(e.itemsLoaded, e.itemsTotal);
+                break;
+            case "welcomeload":
+                if(this.loadIndexis1st) {
+                    this.preload.setProgress(e.itemsLoaded,e.itemsTotal);
+                    break;
+                }
+            default:
+                this.loadBar.setProgress(e.itemsLoaded, e.itemsTotal);
         }
     }
-
-    /**
-     * 资源组加载出错
-     *  The resource group loading failed
-     */
-    private onItemLoadError(event:RES.ResourceEvent):void {
-        console.warn("Url:" + event.resItem.url + " has failed to load");
-    }
-
-    /**
-     * 资源组加载出错
-     *  The resource group loading failed
-     */
-    private onResourceLoadError(event:RES.ResourceEvent):void {
-        //TODO
-        console.warn("Group:" + event.groupName + " has failed to load");
-        //忽略加载失败的项目
-        //Ignore the loading failed projects
-        this.onResourceLoadComplete(event);
-    }
-
-    /**
-     * preload资源组加载进度
-     * Loading process of preload resource group
-     */
-    private onResourceProgress(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+    
+    /*
+     * 分组资源加载完成
+     */ 
+    private loadComp(e:LoadEvent){
+        var str: string = e.groupName;
+        switch(str){
+            case "preload":
+                this.removeChild(this.loadingView);
+                this.loadingView = null;
+                this.createScene();
+                //读取本地游戏配置和储存的数据
+                StorageSetting.loadConfig();
+                break;
+            case "welcomeload":
+                if(this.loadIndexis1st) {
+                    this.preload.loadComp();
+                    this.loadIndexis1st = false;
+                    break;
+                }
+            default:
+                if(e.groupName == "uiLoad"){
+                    console.log("加载怪物资源");
+                    Loader.instance.load("monsterLoad");
+                }else if(e.groupName == "monsterLoad"){
+                    console.log("加载塔类资源");
+                    Loader.instance.load("towerLoad");
+                }else if(e.groupName == "towerLoad"){
+                    console.log("加载音效资源");
+                    Loader.instance.load("soundLoad");
+                }else if(e.groupName == "soundLoad"){
+                    console.log("加载关卡资源");
+                    Loader.instance.load(GuanKaConfig.guankaData[Main.curIdx]);
+                } else {
+                    this.dispatchEvent(new MainEvent(MainEvent.LOADCOMP,e.groupName));
+                    //展开LoadBar
+                    this.loadBar.hideLoadBar();
+                }
         }
     }
-
-    private textfield:egret.TextField;
-
-    /**
-     * 创建游戏场景
-     * Create a game scene
+    
+    /*
+     * 加载进度条 传递加载资源组名
      */
-    private createGameScene():void {
-        var sky:egret.Bitmap = this.createBitmapByName("bgImage");
-        this.addChild(sky);
-        var stageW:number = this.stage.stageWidth;
-        var stageH:number = this.stage.stageHeight;
-        sky.width = stageW;
-        sky.height = stageH;
-
-        var topMask:egret.Shape = new egret.Shape();
-        topMask.graphics.beginFill(0x000000, 0.5);
-        topMask.graphics.drawRect(0, 0, stageW, stageH);
-        topMask.graphics.endFill();
-        topMask.width = stageW;
-        topMask.height = stageH;
-        this.addChild(topMask);
-
-        var icon:egret.Bitmap = this.createBitmapByName("egretIcon");
-        this.addChild(icon);
-        icon.scaleX = 0.55;
-        icon.scaleY = 0.55;
-        icon.anchorOffsetX = icon.width / 2;
-        icon.anchorOffsetY = icon.height / 2;
-        icon.x = stageW / 2;
-        icon.y = stageH / 2 - 60;
-
-        var colorLabel:egret.TextField = new egret.TextField();
-        colorLabel.textColor = 0xffffff;
-        colorLabel.textAlign = "center";
-        colorLabel.text = "Hello Egret";
-        colorLabel.size = 20;
-        colorLabel.x = stageW - colorLabel.width >> 1;
-        colorLabel.y = (stageH - colorLabel.height >> 1) + 50;
-        this.addChild(colorLabel);
-
-        var textfield:egret.TextField = new egret.TextField();
-        this.addChild(textfield);
-        textfield.alpha = 0;
-        textfield.width = stageW;
-        textfield.textAlign = egret.HorizontalAlign.CENTER;
-        textfield.x = 0;
-        textfield.y = stageH / 2 + 100;
-        this.textfield = textfield;
-
-        //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
-        // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
-        RES.getResAsync("description", this.startAnimation, this)
+    private createLoadBar(e:MainEvent){
+        this.resName = e.resName;
+        this.loadBar = new LoadBar();
+        this.addChild(this.loadBar);
     }
-
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    private createBitmapByName(name:string):egret.Bitmap {
-        var result:egret.Bitmap = new egret.Bitmap();
-        var texture:egret.Texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
+    
+    /*
+    * 移除上一场景
+    */ 
+    private removeLast(e:MainEvent){
+        //加载新资源组
+        Loader.instance.load(this.resName);
+        //移除上一场景
+        this.gameLayer.removeChildAt(0);
+        var view = this.views.shift();
+        view.destroy();
     }
-
+    
+    /*
+     * 根据分组资源创建相应关卡
+     */ 
+    private addSence(e:MainEvent){
+        //反射
+        var objClass = egret.getDefinitionByName(this.senceName[e.resName]);
+        var obj = new objClass();
+        this.gameLayer.addChild(obj);
+        this.views.push(obj);
+    }
+    
     /**
-     * 描述文件加载成功，开始播放动画
-     * Description file loading is successful, start to play the animation
+     * 创建场景界面
      */
-    private startAnimation(result:Array<any>):void {
-        var self:any = this;
-
-        var parser:egret.HtmlTextParser = new egret.HtmlTextParser();
-        var textflowArr:Array<Array<egret.ITextElement>> = [];
-        for (var i:number = 0; i < result.length; i++) {
-            textflowArr.push(parser.parser(result[i]));
+    private createScene():void {
+        //旋转
+        if(egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE){
+            this.isRotation = true;
+            this.rotation = 90;
+            this.x = 480;
         }
-
-        var textfield:egret.TextField = self.textfield;
-        var count:number = -1;
-        var change:Function = function () {
-            count++;
-            if (count >= textflowArr.length) {
-                count = 0;
-            }
-            var lineArr = textflowArr[count];
-
-            self.changeDescription(textfield, lineArr);
-
-            var tw = egret.Tween.get(textfield);
-            tw.to({"alpha": 1}, 200);
-            tw.wait(2000);
-            tw.to({"alpha": 0}, 200);
-            tw.call(change, self);
-        };
-
-        change();
+        //FPS
+        //egret.Profiler.getInstance().run();
+        //游戏场景层，游戏场景相关内容可以放在这里面。
+        this.gameLayer = new egret.DisplayObjectContainer();
+        this.addChild(this.gameLayer);
+        //加载加载界面
+        this.preload = new PreLoad();
+        this.gameLayer.addChild(this.preload);
     }
-
-    /**
-     * 切换描述内容
-     * Switch to described content
-     */
-    private changeDescription(textfield:egret.TextField, textFlow:Array<egret.ITextElement>):void {
-        textfield.textFlow = textFlow;
+    
+    /*
+     * 移除加载页面 加载主界面
+     */ 
+    public init(){
+        //console.log("点击开始按钮后移除preload 加载主界面");
+        this.gameLayer.removeChildAt(0);
+        this.preload = null;
+        this.welcome = new Index();
+        this.gameLayer.addChild(this.welcome);
+        this.views.push(this.welcome);
+    }
+    
+    /*
+    * 判断是否旋转
+    */
+    private isRotation:boolean = false;
+    private onRotation(rotation:number){
+        if(this.isRotation&&(rotation == 90 || rotation == -90)){
+            this.rotation = 0;
+            this.x = 0;
+            this.isRotation = false;
+//            egret.StageDelegate.getInstance().setDesignSize(800, 480);
+            egret.MainContext.instance.stage.stageWidth = 800;
+            egret.MainContext.instance.stage.stageHeight = 480;
+        }else if(!this.isRotation && (rotation == 0)){
+            this.rotation = 90;
+            this.x = 480;
+            this.isRotation = true;
+//            egret.StageDelegate.getInstance().setDesignSize(480, 800);
+            egret.MainContext.instance.stage.stageWidth = 800;
+            egret.MainContext.instance.stage.stageHeight = 480;
+        }
     }
 }
 
