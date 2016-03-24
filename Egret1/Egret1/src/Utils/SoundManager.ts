@@ -14,7 +14,7 @@ class SoundManager {
         var sound_eff: egret.Sound = RES.getRes(name);
         sound_eff.type = egret.Sound.EFFECT;
 //        sound_eff.volume = value;
-        var channel_eff: egret.SoundChannel = sound_eff.play();
+        var channel_eff: egret.SoundChannel = sound_eff.play(0, 1);
         channel_eff.volume = value;
 	}
 	

@@ -28,6 +28,7 @@
 	<script egret="lib" src="libs/modules/game/game.web.js" src-release="libs/modules/game/game.web.min.js"></script>
 	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
 	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
+	<script egret="lib" src="libs/modules/greensock/greensock.js" src-release="libs/modules/greensock/greensock.min.js"></script>
 	<!--modules_files_end-->
 
     <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
@@ -36,8 +37,102 @@
 
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
+	<script egret="game" src="bin-debug/BuildTools/BuildIcon.js"></script>
+	<script egret="game" src="bin-debug/BuildTools/BuildTool.js"></script>
+	<script egret="game" src="bin-debug/BuildTools/BuildWait.js"></script>
+	<script egret="game" src="bin-debug/Config/GameSetting.js"></script>
+	<script egret="game" src="bin-debug/Config/GuanKaConfig.js"></script>
+	<script egret="game" src="bin-debug/Config/HeroConfig.js"></script>
+	<script egret="game" src="bin-debug/Config/StorageSetting.js"></script>
+	<script egret="game" src="bin-debug/Config/TowerLevel.js"></script>
+	<script egret="game" src="bin-debug/Elements.js"></script>
+	<script egret="game" src="bin-debug/VectorElements.js"></script>
+	<script egret="game" src="bin-debug/Enemy/MonsterBase.js"></script>
+	<script egret="game" src="bin-debug/Enemy/Monster01.js"></script>
+	<script egret="game" src="bin-debug/Events/LoadEvent.js"></script>
+	<script egret="game" src="bin-debug/Events/MainEvent.js"></script>
+	<script egret="game" src="bin-debug/Events/SoldEvent.js"></script>
+	<script egret="game" src="bin-debug/Events/ToolEvent.js"></script>
+	<script egret="game" src="bin-debug/Events/TowerEvent.js"></script>
+	<script egret="game" src="bin-debug/FSM/StateMachine.js"></script>
+	<script egret="game" src="bin-debug/Guanka/GuankaBase.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Guanka01.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Guanka02.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Guanka03.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Guanka04.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Guanka05.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Guanka06.js"></script>
+	<script egret="game" src="bin-debug/Guanka/GuanKaUI.js"></script>
+	<script egret="game" src="bin-debug/Guanka/SkillBase.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Skill1.js"></script>
+	<script egret="game" src="bin-debug/Guanka/Skill2.js"></script>
+	<script egret="game" src="bin-debug/Index.js"></script>
+	<script egret="game" src="bin-debug/Loader/LoadBar.js"></script>
+	<script egret="game" src="bin-debug/Loader/Loader.js"></script>
+	<script egret="game" src="bin-debug/Loader/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
+	<script egret="game" src="bin-debug/PreLoad.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ArrowShooterBase.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ArrowShooter01.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ArrowShooter02.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ArrowShooter031.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ArrowShooter032.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/MagicWizardBase.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/MagicWizard010203.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ShieldSoldierBase.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ShieldSoldier01.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ZenYuanBase.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ZenYuan1.js"></script>
+	<script egret="game" src="bin-debug/Soldiers/ZenYuan2.js"></script>
+	<script egret="game" src="bin-debug/Tower/Base.js"></script>
+	<script egret="game" src="bin-debug/Tower/TowerBase.js"></script>
+	<script egret="game" src="bin-debug/Tower/ArrowTowerBase.js"></script>
+	<script egret="game" src="bin-debug/Tower/ArrowTower01.js"></script>
+	<script egret="game" src="bin-debug/Tower/ArrowTower02.js"></script>
+	<script egret="game" src="bin-debug/Tower/ArrowTower03_1.js"></script>
+	<script egret="game" src="bin-debug/Tower/ArrowTower03_2.js"></script>
+	<script egret="game" src="bin-debug/Tower/Base01.js"></script>
+	<script egret="game" src="bin-debug/Tower/Base02.js"></script>
+	<script egret="game" src="bin-debug/Tower/Base03.js"></script>
+	<script egret="game" src="bin-debug/Tower/ExploTowerBase.js"></script>
+	<script egret="game" src="bin-debug/Tower/ExploTower01.js"></script>
+	<script egret="game" src="bin-debug/Tower/ExploTower02.js"></script>
+	<script egret="game" src="bin-debug/Tower/ExploTower03_1.js"></script>
+	<script egret="game" src="bin-debug/Tower/ExploTower03_2.js"></script>
+	<script egret="game" src="bin-debug/Tower/MagicTowerBase.js"></script>
+	<script egret="game" src="bin-debug/Tower/MagicTower01.js"></script>
+	<script egret="game" src="bin-debug/Tower/MagicTower02.js"></script>
+	<script egret="game" src="bin-debug/Tower/MagicTower03_1.js"></script>
+	<script egret="game" src="bin-debug/Tower/MagicTower03_2.js"></script>
+	<script egret="game" src="bin-debug/Tower/ShieldTowerBase.js"></script>
+	<script egret="game" src="bin-debug/Tower/ShieldTower01.js"></script>
+	<script egret="game" src="bin-debug/Tower/ShieldTower02.js"></script>
+	<script egret="game" src="bin-debug/Tower/ShieldTower03_1.js"></script>
+	<script egret="game" src="bin-debug/Tower/ShieldTower03_2.js"></script>
+	<script egret="game" src="bin-debug/Utils/Grid.js"></script>
+	<script egret="game" src="bin-debug/Utils/Group.js"></script>
+	<script egret="game" src="bin-debug/Utils/HitTest.js"></script>
+	<script egret="game" src="bin-debug/Utils/IGroupItem.js"></script>
+	<script egret="game" src="bin-debug/Utils/ILife.js"></script>
+	<script egret="game" src="bin-debug/Utils/LifeBar.js"></script>
+	<script egret="game" src="bin-debug/Utils/NodePoint.js"></script>
+	<script egret="game" src="bin-debug/Utils/ObjectPool.js"></script>
+	<script egret="game" src="bin-debug/Utils/SoundManager.js"></script>
+	<script egret="game" src="bin-debug/Utils/Utils.js"></script>
+	<script egret="game" src="bin-debug/Utils/Vector2D.js"></script>
+	<script egret="game" src="bin-debug/Weapon/ArrowBase.js"></script>
+	<script egret="game" src="bin-debug/Weapon/Arrow01.js"></script>
+	<script egret="game" src="bin-debug/Weapon/Arrow032.js"></script>
+	<script egret="game" src="bin-debug/Weapon/ExploBase.js"></script>
+	<script egret="game" src="bin-debug/Weapon/Explo01.js"></script>
+	<script egret="game" src="bin-debug/Weapon/Explo02.js"></script>
+	<script egret="game" src="bin-debug/Weapon/Explo031.js"></script>
+	<script egret="game" src="bin-debug/Weapon/FireBallBase.js"></script>
+	<script egret="game" src="bin-debug/Weapon/FireBall.js"></script>
+	<script egret="game" src="bin-debug/Weapon/MagicBulletBase.js"></script>
+	<script egret="game" src="bin-debug/Weapon/MagicBullet010203.js"></script>
+	<script egret="game" src="bin-debug/World.js"></script>
 	<!--game_files_end-->
 </head>
 <body>

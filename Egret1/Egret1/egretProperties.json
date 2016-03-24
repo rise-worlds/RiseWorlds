@@ -20,6 +20,10 @@
     },
     {
       "name": "res"
+    },
+    {
+      "name": "greensock",
+      "path": "E:\\GitHub\\RiseWorlds\\Egret1\\greensock"
     }
   ]
 }
