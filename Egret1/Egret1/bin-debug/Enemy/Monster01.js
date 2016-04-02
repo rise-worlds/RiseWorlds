@@ -20,11 +20,11 @@ var Monster01 = (function (_super) {
         var texture = RES.getRes(tietu + "png");
         var mcf = new egret.MovieClipDataFactory(data, texture);
         this.view.movieClipData = mcf.generateMovieClipData(tietu);
-        this.view.anchorOffsetX = 0.5;
+        this.view.anchorOffsetX = 0.5 * this.view.width;
         this.view.x = this.view.width / 2;
         //描点位置
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 0.9;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 0.9 * this.height;
         //血条位置
         this.lifeBar.x = (this.view.width - this.lifeBar.width) / 2;
         this.lifeBar.y = -5;

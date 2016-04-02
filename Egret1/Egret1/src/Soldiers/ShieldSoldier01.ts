@@ -14,8 +14,8 @@ class ShieldSoldier01 extends ShieldSoldierBase{
 	}
     /**添加纹理 初始化数据*/
     private addTexture(){
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
         //获取纹理
         this.view = new egret.MovieClip();
         this.addChild(this.view);
@@ -23,7 +23,7 @@ class ShieldSoldier01 extends ShieldSoldierBase{
         var texture = RES.getRes("ShieldSoilder01png");
         var mcf: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data,texture);
         this.view.movieClipData = mcf.generateMovieClipData("ShieldSoilder01");
-        this.view.anchorOffsetX = 0.5;
+        this.view.anchorOffsetX = 0.5 * this.view.width;
         this.view.x = this.view.width / 2;
         //血条位置
         this.lifeBar.x = 27;

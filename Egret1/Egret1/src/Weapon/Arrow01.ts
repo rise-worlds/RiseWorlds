@@ -11,7 +11,7 @@ class Arrow01 extends ArrowBase {
         //获取纹理
         this.view = new egret.MovieClip();
         this.addChild(this.view);
-        this.anchorOffsetY = 0.5;
+        this.anchorOffsetY = 0.5 * this.width;
         
         var data = RES.getRes("Arrow01json");
         var texture = RES.getRes("Arrow01png");

@@ -107,7 +107,7 @@ class World extends egret.Sprite {
     /**创建选择面板*/
     private showXZ(){
         this.xzmb = new egret.Sprite();
-        this.xzmb.anchorOffsetX = this.xzmb.anchorOffsetY = 0.5;
+        this.xzmb.anchorOffsetX = this.xzmb.anchorOffsetY = 0.5 * this.xzmb.width;
         this.xzmb.x = GameSetting.swid / 2;
         this.xzmb.y = GameSetting.shei / 2;
         this.addChild(this.xzmb);

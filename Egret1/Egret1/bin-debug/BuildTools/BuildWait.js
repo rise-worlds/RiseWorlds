@@ -9,8 +9,8 @@ var BuildWait = (function (_super) {
     function BuildWait(name) {
         _super.call(this);
         this.buildType = { "ArrowTower01": "building1", "ShieldTower01": "building2", "MagicTower01": "building3", "ExploTower01": "building4" };
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
         var res = this.buildType[name];
         this.bm = Utils.createBitmapByName(res);
         this.addChild(this.bm);

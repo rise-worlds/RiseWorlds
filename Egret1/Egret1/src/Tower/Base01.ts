@@ -10,8 +10,8 @@ class Base01 extends Base{
         super();
         this.cacheAsBitmap = true;
         var bm: egret.Bitmap = Utils.createBitmapByName("empty01");
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
         this.addChild(bm);
 	}
 	

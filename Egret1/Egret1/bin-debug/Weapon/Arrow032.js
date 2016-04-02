@@ -11,7 +11,7 @@ var Arrow032 = (function (_super) {
         //获取纹理
         this.view = new egret.MovieClip();
         this.addChild(this.view);
-        this.anchorOffsetY = 0.5;
+        this.anchorOffsetY = 0.5 * this.width;
         var data = RES.getRes("Arrow032json");
         var texture = RES.getRes("Arrow032png");
         var mcf = new egret.MovieClipDataFactory(data, texture);

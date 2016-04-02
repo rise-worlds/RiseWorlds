@@ -25,7 +25,7 @@ var LoadBar = (function (_super) {
         this.bm = Utils.createBitmapByName("loadl");
         this.leftP.addChild(this.bm);
         this.bm = Utils.createBitmapByName("loadbg");
-        this.bm.anchorOffsetX = 1;
+        this.bm.anchorOffsetX = 1 * this.bm.width;
         this.bm.scaleX = -1;
         this.rightP.addChild(this.bm);
         this.bm = Utils.createBitmapByName("loadr");

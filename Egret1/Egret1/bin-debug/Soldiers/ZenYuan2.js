@@ -15,8 +15,8 @@ var ZenYuan2 = (function (_super) {
     var d = __define,c=ZenYuan2,p=c.prototype;
     /**添加纹理 初始化数据*/
     p.addTexture = function () {
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
         //获取纹理
         this.view = new egret.MovieClip();
         this.addChild(this.view);
@@ -24,7 +24,7 @@ var ZenYuan2 = (function (_super) {
         var texture = RES.getRes("ZenYuan2png");
         var mcf = new egret.MovieClipDataFactory(data, texture);
         this.view.movieClipData = mcf.generateMovieClipData("ZenYuan2");
-        this.view.anchorOffsetX = 0.5;
+        this.view.anchorOffsetX = 0.5 * this.view.width;
         this.view.x = this.view.width / 2;
         //血条位置
         this.lifeBar.x = 27;

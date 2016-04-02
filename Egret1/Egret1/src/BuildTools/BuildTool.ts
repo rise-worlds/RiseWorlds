@@ -14,7 +14,7 @@ class BuildTool extends egret.Sprite {
 	public constructor(obj:any,gold:number) {
         super();
         this.cacheAsBitmap = true;
-        this.anchorOffsetX = this.anchorOffsetY = 0.5;
+        this.anchorOffsetX = this.anchorOffsetY = 0.5 * this.width;
         this.scaleX = this.scaleY = 0.5;
         this.alpha = 0;
         //工具圆圈

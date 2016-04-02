@@ -81,7 +81,7 @@ var World = (function (_super) {
     /**创建选择面板*/
     p.showXZ = function () {
         this.xzmb = new egret.Sprite();
-        this.xzmb.anchorOffsetX = this.xzmb.anchorOffsetY = 0.5;
+        this.xzmb.anchorOffsetX = this.xzmb.anchorOffsetY = 0.5 * 100;
         this.xzmb.x = GameSetting.swid / 2;
         this.xzmb.y = GameSetting.shei / 2;
         this.addChild(this.xzmb);

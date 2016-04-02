@@ -10,14 +10,14 @@ class FireBall extends FireBallBase {
         //获取纹理
         this.view = new egret.MovieClip();
         this.addChild(this.view);
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
                 
         var data = RES.getRes("stone1json");
         var texture = RES.getRes("stone1png");
         var mcf: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data,texture);
         this.view.movieClipData = mcf.generateMovieClipData("stone1");
-        this.view.anchorOffsetX = 0.5;
+        this.view.anchorOffsetX = 0.5 * this.view.width;
         this.view.x = this.view.width / 2;
                 
         //设置数据属性

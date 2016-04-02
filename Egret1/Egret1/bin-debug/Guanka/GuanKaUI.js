@@ -117,7 +117,7 @@ var GuanKaUI = (function (_super) {
         sp.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.spTouch1, this);
         //胜利位图
         this.victoryBm = Utils.createBitmapByName("victory");
-        this.victoryBm.anchorOffsetX = this.victoryBm.anchorOffsetY = 0.5;
+        this.victoryBm.anchorOffsetX = this.victoryBm.anchorOffsetY = 0.5 * this.width;
         this.victoryBm.x = GameSetting.swid / 2;
         this.victoryBm.y = 180;
         this.victoryBm.scaleX = this.victoryBm.scaleY = 0.1;
@@ -141,19 +141,19 @@ var GuanKaUI = (function (_super) {
         this.mbBm.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.spTouch2, this);
         //失败位图
         this.loseBm = Utils.createBitmapByName("lose");
-        this.loseBm.anchorOffsetX = this.loseBm.anchorOffsetY = 0.5;
+        this.loseBm.anchorOffsetX = this.loseBm.anchorOffsetY = 0.5 * this.loseBm.width;
         this.loseBm.x = GameSetting.swid / 2;
         this.loseBm.y = -180;
         this.addChild(this.loseBm);
         //重新尝试按钮
         this.tryAgainBm = Utils.createBitmapByName("tryagain");
-        this.tryAgainBm.anchorOffsetX = this.tryAgainBm.anchorOffsetY = 0.5;
+        this.tryAgainBm.anchorOffsetX = this.tryAgainBm.anchorOffsetY = 0.5 * this.tryAgainBm.width;
         this.tryAgainBm.x = GameSetting.swid / 2;
         this.tryAgainBm.y = 550;
         this.addChild(this.tryAgainBm);
         //退出按钮
         this.quitBm = Utils.createBitmapByName("quitgame");
-        this.quitBm.anchorOffsetX = this.quitBm.anchorOffsetY = 0.5;
+        this.quitBm.anchorOffsetX = this.quitBm.anchorOffsetY = 0.5 * this.quitBm.width;
         this.quitBm.x = GameSetting.swid / 2;
         this.quitBm.y = 550;
         this.addChild(this.quitBm);

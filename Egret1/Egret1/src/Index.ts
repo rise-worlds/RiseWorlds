@@ -44,8 +44,8 @@ class Index extends egret.DisplayObjectContainer{
         //logo
         this.logo = new egret.Bitmap();
         this.logo.texture = RES.getRes("wellogo");
-        this.logo.anchorOffsetX = 0.5;
-        this.logo.anchorOffsetY = 1;
+        this.logo.anchorOffsetX = 0.5 * 100;
+        this.logo.anchorOffsetY = 1 * 100;
         this.logo.x = this.stageWidth / 2;
         this.logo.y = -this.logo.height;
         this.addChild(this.logo);
@@ -71,14 +71,14 @@ class Index extends egret.DisplayObjectContainer{
         //liantiao
         this.liantiao = new egret.Bitmap();
         this.liantiao.texture = RES.getRes("liantiao");
-        this.liantiao.anchorOffsetX = 0.5;
-        this.liantiao.anchorOffsetY = 1;
+        this.liantiao.anchorOffsetX = 0.5 * 100;
+        this.liantiao.anchorOffsetY = 1 * 100;
         this.dropsp.addChild(this.liantiao);
         //btn
         this.btn = new egret.Bitmap();
         this.btn.texture = RES.getRes("welbtn");
-        this.btn.anchorOffsetX = 0.5;
-        this.btn.anchorOffsetY = 1;
+        this.btn.anchorOffsetX = 0.5 * 100;
+        this.btn.anchorOffsetY = 1 * 100;
         this.dropsp.addChild(this.btn);
         //move  改成TweenMax
         egret.Tween.get(this.dropsp).to({ y: this.logo.y+110},600,egret.Ease.bounceOut).call(this.addLis,this);

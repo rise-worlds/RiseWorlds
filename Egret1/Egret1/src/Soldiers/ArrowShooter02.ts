@@ -8,7 +8,7 @@ class ArrowShooter02 extends ArrowShooterBase {
     
 	public constructor() {
         super();
-        this.anchorOffsetX = 0.5;
+        this.anchorOffsetX = 0.5 * this.width;
         var data = RES.getRes("ArrowShooter02json");
         var texture = RES.getRes("ArrowShooter02png");
         var mcf: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data,texture);

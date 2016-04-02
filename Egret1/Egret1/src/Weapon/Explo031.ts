@@ -11,16 +11,16 @@ class Explo031 extends ExploBase{
         //获取纹理
         this.view = new egret.MovieClip();
         this.addChild(this.view);
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
                 
         var data = RES.getRes("Explo031json");
         var texture = RES.getRes("Explo031png");
         var mcf: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data,texture);
         this.view.movieClipData = mcf.generateMovieClipData("Explo03_1");
-        this.view.anchorOffsetX = 0.5;
+        this.view.anchorOffsetX = 0.5 * this.view.width;
         this.view.x = this.view.width / 2;
-        this.view.anchorOffsetY = 1;
+        this.view.anchorOffsetY = 1 * this.view.height;
         this.view.y = this.view.height;
                 
         //设置数据属性

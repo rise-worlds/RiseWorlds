@@ -11,8 +11,8 @@ var MagicTower03_2 = (function (_super) {
         this.minRadius = 100;
         this.maxRadius = 140;
         this.ratioY = this.minRadius / this.maxRadius;
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
         this.bm = Utils.createBitmapByName("MagicTower03_2");
         this.addChild(this.bm);
         //创建MagicWizard01

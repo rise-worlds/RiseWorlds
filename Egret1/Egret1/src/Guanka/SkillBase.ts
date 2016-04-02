@@ -35,7 +35,7 @@ class SkillBase extends egret.Sprite {
         this.addChild(this.skillbm);
         //蒙板
         this.mb = Utils.createBitmapByName("mb");
-        this.mb.anchorOffsetY = 1;
+        this.mb.anchorOffsetY = 1 * this.mb.height;
         this.mb.x = 12;
         this.mb.y = 8+38;
         this.addChild(this.mb);

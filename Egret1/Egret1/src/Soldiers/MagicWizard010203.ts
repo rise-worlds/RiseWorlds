@@ -7,7 +7,7 @@
 class MagicWizard010203 extends MagicWizardBase {
     public constructor() {
         super();
-        this.anchorOffsetX = 0.5;
+        this.anchorOffsetX = 0.5 * this.width;
         var data = RES.getRes("MagicWizard010203json");
         var texture = RES.getRes("MagicWizard010203png");
         var mcf: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data,texture);

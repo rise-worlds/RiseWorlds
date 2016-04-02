@@ -8,7 +8,7 @@ var MagicWizard010203 = (function (_super) {
     __extends(MagicWizard010203, _super);
     function MagicWizard010203() {
         _super.call(this);
-        this.anchorOffsetX = 0.5;
+        this.anchorOffsetX = 0.5 * this.width;
         var data = RES.getRes("MagicWizard010203json");
         var texture = RES.getRes("MagicWizard010203png");
         var mcf = new egret.MovieClipDataFactory(data, texture);

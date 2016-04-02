@@ -18,13 +18,14 @@ var Main = (function (_super) {
         * 判断是否旋转
         */
         this.isRotation = false;
+        //this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
         Main.instance = this;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
     var d = __define,c=Main,p=c.prototype;
     p.onAddToStage = function (event) {
         //获取浏览器宽度
-        //console.log(document.body.clientWidth);
+        console.log(document.body.clientWidth);
         ////设置加载进度界面
         this.loadingView = new LoadingUI();
         this.addChild(this.loadingView);

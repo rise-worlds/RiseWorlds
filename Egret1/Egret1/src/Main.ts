@@ -35,12 +35,13 @@ class Main extends egret.DisplayObjectContainer {
     
     public constructor() {
         super();
+        //this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
         Main.instance = this;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
     private onAddToStage(event:egret.Event) {
         //获取浏览器宽度
-        //console.log(document.body.clientWidth);
+        console.log(document.body.clientWidth);
         ////设置加载进度界面
         this.loadingView = new LoadingUI();
         this.addChild(this.loadingView);

@@ -79,7 +79,7 @@ class Guanka01 extends GuankaBase{
             this.guankaUI.setBos(0,this.allBo);
         //锤子
         var bm: egret.Bitmap = Utils.createBitmapByName("cuizi");
-        bm.anchorOffsetY = 1;
+        bm.anchorOffsetY = 1 * bm.height;
         bm.x = 360;
         bm.y = 264;
         this.objLayer.addChild(bm);

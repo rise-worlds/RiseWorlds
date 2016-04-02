@@ -8,7 +8,7 @@ var ArrowShooter02 = (function (_super) {
     __extends(ArrowShooter02, _super);
     function ArrowShooter02() {
         _super.call(this);
-        this.anchorOffsetX = 0.5;
+        this.anchorOffsetX = 0.5 * this.width;
         var data = RES.getRes("ArrowShooter02json");
         var texture = RES.getRes("ArrowShooter02png");
         var mcf = new egret.MovieClipDataFactory(data, texture);

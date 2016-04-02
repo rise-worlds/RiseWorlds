@@ -68,7 +68,7 @@ var Guanka01 = (function (_super) {
             this.guankaUI.setBos(0, this.allBo);
         //锤子
         var bm = Utils.createBitmapByName("cuizi");
-        bm.anchorOffsetY = 1;
+        bm.anchorOffsetY = 1 * bm.height;
         bm.x = 360;
         bm.y = 264;
         this.objLayer.addChild(bm);

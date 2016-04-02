@@ -10,8 +10,8 @@ var Base03 = (function (_super) {
         _super.call(this);
         this.cacheAsBitmap = true;
         var bm = Utils.createBitmapByName("Base03");
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
         this.addChild(bm);
     }
     var d = __define,c=Base03,p=c.prototype;

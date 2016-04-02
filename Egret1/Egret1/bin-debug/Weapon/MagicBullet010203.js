@@ -10,7 +10,7 @@ var MagicBullet010203 = (function (_super) {
         //获取纹理
         this.view = new egret.MovieClip();
         this.addChild(this.view);
-        this.anchorOffsetX = this.anchorOffsetY = 0.5;
+        this.anchorOffsetX = this.anchorOffsetY = 0.5 * this.width;
         var data = RES.getRes("MagicBullet010203json");
         var texture = RES.getRes("MagicBullet010203png");
         var mcf = new egret.MovieClipDataFactory(data, texture);

@@ -14,8 +14,8 @@ class ExploTower02 extends ExploTowerBase {
         this.minRadius = 100;
         this.maxRadius = 140;
         this.ratioY = this.minRadius / this.maxRadius;
-        this.anchorOffsetX = 0.5;
-        this.anchorOffsetY = 1;
+        this.anchorOffsetX = 0.5 * this.width;
+        this.anchorOffsetY = 1 * this.height;
 
         this.view = new egret.MovieClip();
         this.addChild(this.view);
@@ -23,7 +23,7 @@ class ExploTower02 extends ExploTowerBase {
         var texture = RES.getRes("ExploTower02png");
         var mcf: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data,texture);
         this.view.movieClipData = mcf.generateMovieClipData("ExploTower02");
-        this.view.anchorOffsetX = 0.5;
+        this.view.anchorOffsetX = 0.5 * this.view.width;
         this.view.x = this.view.width / 2;
                 
         //初始化数据

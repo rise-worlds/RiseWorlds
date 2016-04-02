@@ -43,7 +43,7 @@ class PreLoad extends egret.DisplayObjectContainer {
         //进度条背景
         this.barbg = new egret.Bitmap();
         this.barbg.texture = RES.getRes("probarbg");
-        this.barbg.anchorOffsetX = 0.5;
+        this.barbg.anchorOffsetX = 0.5 * this.barbg.width;
         this.barbg.x = this.stageWidth / 2;
         this.barbg.y = this.stageHeight - 138;
         this.addChild(this.barbg);
@@ -81,7 +81,7 @@ class PreLoad extends egret.DisplayObjectContainer {
         
         this.btn = new egret.Bitmap();
         this.btn.texture = RES.getRes("0ui_btn");
-        this.btn.anchorOffsetX = 0.5;
+        this.btn.anchorOffsetX = 0.5 * this.btn.width;
         this.btn.x = this.stageWidth / 2;
         this.btn.y = this.stageHeight - 156;
         this.addChild(this.btn);
