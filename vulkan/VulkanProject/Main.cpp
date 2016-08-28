@@ -1,17 +1,16 @@
 #include <Windows.h>
 #include <tchar.h>
-
+#include "VulkanTest.h"
 
 
 HINSTANCE hinst;
 HWND hwndMain;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-void doRender();
+VulkanTest test;
 
 int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	MSG msg;
-	BOOL bRet;
 	WNDCLASS wc;
 
 	if (!hPrevInstance)
@@ -41,6 +40,8 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	ShowWindow(hwndMain, nShowCmd);
 	UpdateWindow(hwndMain);
 
+	test.init();
+
 	while (TRUE)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -50,8 +51,10 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		doRender();
+		test.render();
 	}
+
+	test.shutdown();
 
 	return 0;
 }
@@ -67,9 +70,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 	return DefWindowProc(hWnd, iMsg, wParam, lParam);
-}
-
-void doRender()
-{
-
 }
