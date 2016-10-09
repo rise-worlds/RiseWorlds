@@ -12,6 +12,6 @@
     "go.formatOnSave": true,
     "go.formatTool": "goreturns",
     "go.goroot": "D:\\Soft\\Go",
-    "go.gopath": "D:\\GitHub\\RiseWorlds\\go",
+    "go.gopath": "D:\\Soft\\Go\\GoPath",
     "go.gocodeAutoBuild": false
 }

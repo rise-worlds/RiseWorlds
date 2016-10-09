@@ -543,3 +543,5 @@ $RECYCLE.BIN/
 *.lnk
 
 /.svn
+go/src/debug
+go/src/test.png
