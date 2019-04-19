@@ -1,1 +1,1 @@
-cmd.exe /k ""%VS140COMNTOOLS%VsDevCmd.bat" & powershell" 
+cmd.exe /k ""C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsamd64_x86.bat" & powershell" 
