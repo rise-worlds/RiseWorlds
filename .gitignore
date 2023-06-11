@@ -547,4 +547,4 @@ go/src/debug
 go/src/test.png
 
 # Rust
-Rust/target/
+Rust/**/target/
