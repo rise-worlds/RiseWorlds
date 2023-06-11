@@ -548,3 +548,4 @@ go/src/test.png
 
 # Rust
 Rust/**/target/
+Rust/hello_tokio/foo.txt
